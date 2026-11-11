@@ -1,0 +1,50 @@
+[
+  {
+    "criterion": "Mathematical implementation",
+    "status": "VERIFIED"
+  },
+  {
+    "criterion": "Terrain/illumination appropriateness",
+    "status": "PARTIAL; independent terrain/leaf normals unavailable"
+  },
+  {
+    "criterion": "Fitting populations",
+    "status": "EXPLICIT; field context and sampling bias retained"
+  },
+  {
+    "criterion": "Parameter identifiability",
+    "status": "CONDITIONAL; original-photo SCS+C remains weak"
+  },
+  {
+    "criterion": "Uncertainty",
+    "status": "SPATIAL/FIELLER/BOOTSTRAP; no complete physical error budget"
+  },
+  {
+    "criterion": "Stable correction domain",
+    "status": "NUMERICALLY DEMONSTRATED ON EXPLICIT SUBSET"
+  },
+  {
+    "criterion": "Unsupported locations",
+    "status": "MAPPED; no identity or fill"
+  },
+  {
+    "criterion": "Meaningful held-out improvement",
+    "status": "MIXED; production criterion not met"
+  },
+  {
+    "criterion": "Spectral interpretation",
+    "status": "PARTIAL; SCS+C ten-band support missing"
+  },
+  {
+    "criterion": "Matched BRDF application",
+    "status": "IMPLEMENTED; not scientifically approved"
+  },
+  {
+    "criterion": "Full-frame coverage",
+    "status": "QUANTIFIED AT 10CM"
+  },
+  {
+    "criterion": "NEON preservation",
+    "status": "UNCHANGED SOURCE HASHES AND TARGETED TESTS"
+  }
+]

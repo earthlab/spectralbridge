@@ -602,14 +602,18 @@ def apply_topo_correct(
     # the cube's stored values to physical reflectance before the correction math.
     data_unitless = require_radiometry(cube).to_physical(chunk_array)
 
-    # ``valid_mask`` is spatial, not spectral: a pixel is valid only if the
-    # reflectance tile and illumination geometry are finite at that location.
+    # Spatial support requires usable geometry and at least one observed band.
+    # Band-specific NoData must not erase measurements at other wavelengths.
     if hasattr(cube, "mask_no_data"):
         valid_mask = cube.mask_no_data[ys:ye, xs:xe].astype(bool)
     else:
         valid_mask = np.ones_like(cos_i, dtype=bool)
 
-    valid_mask &= np.isfinite(data_unitless).all(axis=-1)
+    band_valid = np.isfinite(data_unitless) & require_radiometry(cube).valid_stored(
+        chunk_array, nodata=getattr(cube, "no_data", None)
+    )
+    data_unitless[~band_valid] = np.nan
+    valid_mask &= band_valid.any(axis=-1)
     valid_mask &= np.isfinite(cos_i)
 
     corrected_unitless = data_unitless.copy()
@@ -694,7 +698,7 @@ def apply_topo_correct(
     # Convert back to the cube's stored scale and restore the configured no-data value.
     no_data_value = np.float32(getattr(cube, "no_data", np.nan))
     corrected_scaled = require_radiometry(cube).to_stored(corrected_unitless)
-    corrected_scaled = np.where(valid_mask[..., np.newaxis], corrected_scaled, no_data_value)
+    corrected_scaled = np.where(valid_mask[..., np.newaxis] & band_valid, corrected_scaled, no_data_value)
 
     return corrected_scaled.astype(np.float32, copy=False)
 
@@ -1127,6 +1131,22 @@ def fit_and_save_brdf_model(
                           coefficient_standard_errors=np.sqrt(np.maximum(np.diag(covariance),0)).tolist(),
                           reference_leverage=float(ref @ np.linalg.solve(A.T @ A, ref)),
                           reference_outside_kernel_bounds=bool(np.any((ref < A.min(axis=0)) | (ref > A.max(axis=0)))))
+            # Separate the two rejection mechanisms: a failed reference rejects
+            # the whole branch even when every observed-angle prediction is resolved.
+            # This is reporting only; retain the identical acceptance rule above.
+            ref_roundoff = float(8 * np.finfo(np.float32).eps * (np.abs(ref) @ np.abs(beta)))
+            domain_roundoff = 8 * np.finfo(np.float32).eps * (np.abs(domain) @ np.abs(beta))
+            reference_resolved = bool(np.isfinite(reference_prediction) and
+                                      reference_prediction > ref_roundoff + 1.96 * reference_se)
+            application_resolved = (np.isfinite(prediction) &
+                                    (prediction > domain_roundoff + 1.96 * prediction_se))
+            record.update(
+                reference_prediction_resolved=reference_resolved,
+                reference_prediction_lower_margin=float(reference_prediction - ref_roundoff - 1.96 * reference_se),
+                unresolved_observed_geometry_predictions=int(np.count_nonzero(~application_resolved)),
+                rejection_components=([] if reference_resolved else ["REFERENCE_PREDICTION_UNRESOLVED"]) +
+                    ([] if application_resolved.all() else ["APPLICATION_PREDICTIONS_UNRESOLVED"]),
+            )
             if not np.isfinite(beta).all() or not resolved.all():
                 record.update(status="INVALID", reason="Nonpositive or cancellation/uncertainty-dominated model prediction")
                 invalid = True

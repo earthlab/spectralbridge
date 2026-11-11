@@ -11,6 +11,36 @@ requesting large plots; retain the supplied table as the source of truth.
     reconstruct or harmonize those grids. Follow the [Parquet data-model guide](../usage/parquet.md)
     before passing such a table. Pixel counts are not independent plant counts.
 
+## Report one library without a bulk raster run
+
+Start with `python examples/scientific_workflows_offline.py --output-dir lesson_output`
+for a fully runnable invented-data example. It keeps compact library summaries
+under `lesson_output/library_summary/`; no completed raster tree is needed.
+To adapt the existing API to your table:
+
+```python
+from pathlib import Path
+import duckdb
+from spectralbridge import inspect_spectral_library_preflight, run_spectral_library_analysis
+from spectralbridge.bulk import BulkAnalysisPaths
+
+library = Path("my_library.parquet")
+print(inspect_spectral_library_preflight(library)["counts"])
+paths = BulkAnalysisPaths(Path("library_report"))
+paths.database_dir.mkdir(parents=True, exist_ok=True)
+with duckdb.connect(str(paths.database)) as connection:
+    result = run_spectral_library_analysis(
+        connection, paths, spectral_library=library, analysis_run_id="my-library-review",
+        make_summary_plots=False, make_full_spectral_reports=False,
+    )
+print(result["compact_outputs"])
+```
+
+The dictionary gives the exact species, species-band and quantile output paths.
+Your source stays in place. Set `make_summary_plots=True` only when you want
+summary figures; full trace reports are a separate opt-in. These descriptive
+summaries do not independently certify the source's physical calibration.
+
 ## Visualize an existing polygon spectral library
 
 The intentional merged polygon spectral library is different from the removed

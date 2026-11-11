@@ -1,0 +1,45 @@
+{
+  "tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "53",
+    "time": "1.872",
+    "timestamp": "2026-11-06T12:44:42.744766-07:00",
+    "hostname": "UCB-H4K9PV34KC"
+  },
+  "all_source_hashes_unchanged": true,
+  "source_hash_checks": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/ruby-correction-recovery-2026-11-06/ruby_vendor_fraction_x10000_10cm_v1.tif": true,
+    "/private/tmp/spectralbridge-metashape-recovery-20261105/sources/AOP-RUBY-08-14-23/ImageryProcessing/M300/AOP-RUBY-08-14-23-WORKING.files/0/0/elevation/tile-0-0.tif": true,
+    "/private/tmp/spectralbridge-metashape-recovery-20261105/sources/AOP-RUBY-08-14-23/ImageryProcessing/M300/AOP-RUBY-08-14-23-WORKING.files/3/0/elevation/tile-0-0.tif": true,
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg": true,
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-correction-recovery-2026-11-06/observations_enriched.csv": true,
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/metashape-recovery/2026-11-05/tie_observations.csv": true,
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/drone_topography.py": true,
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/drone_original.py": true,
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/topographic.py": true,
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/corrections.py": true
+  },
+  "production_hashes_unchanged": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/corrections.py": true,
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/topographic.py": true,
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py": true
+  },
+  "complete_stages": 11,
+  "all_stages_reused": true,
+  "figures_visually_reviewed": 12,
+  "ruff": "passed",
+  "script_compilation": "passed",
+  "docs_links": "passed",
+  "strict_mkdocs": "passed",
+  "api": {
+    "status": "passed",
+    "checked_count": 394,
+    "errors": []
+  },
+  "full_suite_run": false,
+  "release_performed": false,
+  "corrected_orthomosaic_generated": false
+}

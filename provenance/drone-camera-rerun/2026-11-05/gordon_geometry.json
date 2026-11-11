@@ -1,0 +1,32 @@
+{
+  "signature": "fe909c3062eceacb6d8bc20b93e051f5e50d853de824e0b5552069120d627c45",
+  "site": "Gordon",
+  "scientific_status": "EXPERIMENTAL",
+  "source_footprint_pixels": 5898401,
+  "geometry_eligible_pixels": 5898343,
+  "covered_pixels": 5898343,
+  "unsupported_source_pixels": 58,
+  "candidate_count_quantiles": [
+    2.0,
+    40.0,
+    71.0,
+    112.0,
+    164.0
+  ],
+  "grid_to_true_north_rotation_deg": -0.32078683546965825,
+  "scene_solar_zenith_deg": 35.56862259819274,
+  "central_zenith_quantiles": [
+    0.0010043884394690394,
+    1.386523187160492,
+    2.0851025581359863,
+    8.016124248504639,
+    24.583663940429688
+  ],
+  "elapsed_seconds": 69.38077183399582,
+  "memory_contract": "1024 ground cells x all cameras; at most6 futures/3 workers; memmapped design/maps; one observation per ground cell, not duplicated by camera",
+  "output_sha256": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/gordon/experimental_view_geometry.tif": "3d83f39a12cf7597693494e7122dd8b336b47298590bab6e7211bd1644a8bdfa",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/gordon/geometry.npy": "bae3a1df86e3df77dc25ba874bbca10f505a9b4315a822c17efcd4921e042bdd",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/gordon/center_design.npy": "b3c7981774cebf380ebe14a0cd9d6a4883198c4f05d3d845cacc526091353837"
+  }
+}

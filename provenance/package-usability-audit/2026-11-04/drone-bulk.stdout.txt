@@ -1,0 +1,25 @@
+usage: spectralbridge-drone-production bulk [-h] --work-dir WORK_DIR --years
+                                            YEARS [YEARS ...]
+                                            [--manifest MANIFEST]
+                                            [--keep-inputs] [--allow-partial]
+                                            [--no-landsat-qa]
+                                            [--extraction-workers EXTRACTION_WORKERS]
+                                            [--upload-results]
+                                            source
+
+positional arguments:
+  source                Remote source collection, such as i:/iplant/...
+
+options:
+  -h, --help            show this help message and exit
+  --work-dir WORK_DIR
+  --years YEARS [YEARS ...]
+  --manifest MANIFEST
+  --keep-inputs         Keep staged source H5 files after canonical bulk
+                        readiness passes.
+  --allow-partial       Explicitly permit bulk analysis of the completed
+                        subset.
+  --no-landsat-qa       Disable optional actual-Landsat comparison QA.
+  --extraction-workers EXTRACTION_WORKERS
+  --upload-results      Upload and verify the compact closeout package beneath
+                        the source.

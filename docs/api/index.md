@@ -6,7 +6,7 @@ The reference is generated without importing scientific dependencies. Each defin
 
 Workflow guides explain **how to accomplish a task**; these entries explain **how to call a particular object**. See the [scientific API maturity guide](scientific-analysis.md) before interpreting research outputs.
 
-This revision documents **84 public functions/classes** and **416 advanced functions/classes**. Names that merely look public are not a stability guarantee. Private helpers and CLI/compatibility plumbing are listed separately in the inventory.
+This revision documents **84 public functions/classes** and **428 advanced functions/classes**. Names that merely look public are not a stability guarantee. Private helpers and CLI/compatibility plumbing are listed separately in the inventory.
 
 ## Package exports
 
@@ -136,6 +136,12 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`load_drone_translation_coefficients`](generated/drone_translation_registry.md#spectralbridge.drone_translation_registry.load_drone_translation_coefficients) | Load the packaged or explicitly supplied static production registry. | public |
 | [`get_drone_translation_coefficient`](generated/drone_translation_registry.md#spectralbridge.drone_translation_registry.get_drone_translation_coefficient) | Return one unambiguous production target-band coefficient. | public |
 | [`build_drone_translation_coefficient_registry`](generated/drone_translation_registry.md#spectralbridge.drone_translation_registry.build_drone_translation_coefficient_registry) | Build a static registry from exact compact bulk result artifacts. | public |
+| [`NadirFootprint`](generated/drone_view_geometry.md#spectralbridge.drone_view_geometry.NadirFootprint) | Undistorted rectangular pinhole scenario, not a recovered visibility mask. | advanced |
+| [`camera_rays`](generated/drone_view_geometry.md#spectralbridge.drone_view_geometry.camera_rays) | Return ground-to-sensor zenith and clockwise true-north azimuth radians. | advanced |
+| [`footprint_candidates`](generated/drone_view_geometry.md#spectralbridge.drone_view_geometry.footprint_candidates) | Return rectangular target visibility and normalized centrality scenario. | advanced |
+| [`assign_camera`](generated/drone_view_geometry.md#spectralbridge.drone_view_geometry.assign_camera) | A nearest eligible or B most-central eligible; stable input-order ties. | advanced |
+| [`aggregate_kernels`](generated/drone_view_geometry.md#spectralbridge.drone_view_geometry.aggregate_kernels) | One simulated blended design per ground observation, never duplicated rho. | advanced |
+| [`read_metashape_camera_locations`](generated/drone_view_geometry.md#spectralbridge.drone_view_geometry.read_metashape_camera_locations) | Read an explicit Metashape camera export without relabeling its source. | advanced |
 | [`RemoteError`](generated/remote.md#spectralbridge.remote.RemoteError) | Base class for remote collection failures. | advanced |
 | [`RemoteAuthenticationError`](generated/remote.md#spectralbridge.remote.RemoteAuthenticationError) | The remote client is installed but not configured for access. | advanced |
 | [`RemoteCommandError`](generated/remote.md#spectralbridge.remote.RemoteCommandError) | A remote client command returned a non-zero status. | advanced |
@@ -592,6 +598,12 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`SensorBandIdentity`](generated/sensor_pairs.md#spectralbridge.sensor_pairs.SensorBandIdentity) | Physical identity for one one-based sensor band. | advanced |
 | [`sensor_band_identity`](generated/sensor_pairs.md#spectralbridge.sensor_pairs.sensor_band_identity) | Return packaged physical metadata, or None for a custom sensor. | advanced |
 | [`wavelength_matched_band_pairs`](generated/sensor_pairs.md#spectralbridge.sensor_pairs.wavelength_matched_band_pairs) | Pair shared spectral identities using packaged wavelength definitions. | advanced |
+| [`SCSCPolicy`](generated/topographic.md#spectralbridge.topographic.SCSCPolicy) | Explicit experimental choices; the confidence rule is not field approval. | advanced |
+| [`cluster_covariance`](generated/topographic.md#spectralbridge.topographic.cluster_covariance) | Finite-cluster sandwich covariance, conditional on supplied cluster units. | advanced |
+| [`fieller_interval`](generated/topographic.md#spectralbridge.topographic.fieller_interval) | Bounded Fieller interval for C=intercept/slope; no delta-method pole fix. | advanced |
+| [`fit_conditioned_scs_c`](generated/topographic.md#spectralbridge.topographic.fit_conditioned_scs_c) | Fit physical per-band SCS+C with explicit source and spatial uncertainty. | advanced |
+| [`SCSCResult`](generated/topographic.md#spectralbridge.topographic.SCSCResult) | Documentation gap: see source and audit before direct use. | advanced |
+| [`apply_conditioned_scs_c`](generated/topographic.md#spectralbridge.topographic.apply_conditioned_scs_c) | Apply the unchanged shared SCS+C ratio on its resolved positive domain. | advanced |
 | [`clean_memory`](generated/utils-memory.md#spectralbridge.utils.memory.clean_memory) | Force garbage collection and log memory usage. | advanced |
 | [`get_flight_paths`](generated/utils-naming.md#spectralbridge.utils.naming.get_flight_paths) | Return canonical high-level paths for a flight line. | advanced |
 | [`get_flightline_products`](generated/utils-naming.md#spectralbridge.utils.naming.get_flightline_products) | Return canonical paths for artefacts tied to flight_stem. | advanced |

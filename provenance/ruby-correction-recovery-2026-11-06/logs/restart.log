@@ -1,0 +1,11 @@
+SOURCE VERIFY 500 / 2267
+SOURCE VERIFY 1000 / 2267
+SOURCE VERIFY 1500 / 2267
+SOURCE VERIFY 2000 / 2267
+REUSE verify_sources
+REUSE exact_rays
+REUSE calibration_replacement
+REUSE sample
+REUSE analyze
+REUSE matched
+Experiment complete; consult correction_status.json before any corrected-source export

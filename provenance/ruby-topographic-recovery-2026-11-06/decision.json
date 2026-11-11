@@ -1,0 +1,81 @@
+{
+  "production_readiness": "UNSUPPORTED",
+  "shared_formula_defect_found": false,
+  "experimental_P184_negative_branch_issue": true,
+  "baseline_red_C": -0.17349662133610577,
+  "full_frame_red": [
+    {
+      "candidate": "dtm_sigma0_existing_scsc",
+      "wavelength_nm": 650,
+      "valid": 1993472,
+      "supported": 1664864,
+      "shadow": 317424,
+      "unknown_shadow": 3278,
+      "ci_below_zero": 240,
+      "factor_min": 0.1462834280755963,
+      "factor_max": 6.593463504355276,
+      "negative_branch_or_pole": 13444,
+      "numerical_support_fraction": 0.8351579555669706
+    },
+    {
+      "candidate": "dtm_sigma3_combined_screened_scsc",
+      "wavelength_nm": 650,
+      "valid": 1993472,
+      "supported": 1519938,
+      "shadow": 317424,
+      "unknown_shadow": 3278,
+      "ci_below_zero": 0,
+      "factor_min": 0.6227443037549463,
+      "factor_max": 2.7992374017755086,
+      "negative_branch_or_pole": 0,
+      "numerical_support_fraction": 0.7624576618081418
+    },
+    {
+      "candidate": "dtm_sigma3_combined_screened_c_correction",
+      "wavelength_nm": 650,
+      "valid": 1993472,
+      "supported": 1519938,
+      "shadow": 317424,
+      "unknown_shadow": 3278,
+      "ci_below_zero": 0,
+      "factor_min": 0.8263190872212864,
+      "factor_max": 4.290055759594833,
+      "negative_branch_or_pole": 0,
+      "numerical_support_fraction": 0.7624576618081418
+    },
+    {
+      "candidate": "dtm_sigma3_combined_screened_minnaert",
+      "wavelength_nm": 650,
+      "valid": 1993472,
+      "supported": 1519938,
+      "shadow": 317424,
+      "unknown_shadow": 3278,
+      "ci_below_zero": 0,
+      "factor_min": 0.8301472859189137,
+      "factor_max": 2.510785695566289,
+      "negative_branch_or_pole": 0,
+      "numerical_support_fraction": 0.7624576618081418
+    }
+  ],
+  "matched_status_counts": {
+    "CONDITIONAL_MATCHED_CANDIDATE": 384,
+    "UNSUPPORTED_TOPO": 325,
+    "UNSUPPORTED_BRDF": 11
+  },
+  "class_specific_status_counts": {
+    "UNSUPPORTED_TOPO": 432,
+    "CONDITIONAL_MATCHED_CANDIDATE": 158,
+    "UNSUPPORTED_BRDF": 10
+  },
+  "canopy_scsc_original_fits": 80,
+  "canopy_scsc_supported": 0,
+  "common_support_cases": 328,
+  "common_support_means": {
+    "scsc": 1.0513978875543621,
+    "c_correction": 1.0511881101876799,
+    "minnaert": 1.0319456837948708
+  },
+  "real_corrected_orthomosaic_generated": false,
+  "both_corrections_required": true,
+  "source_products_preserved": true
+}

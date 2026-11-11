@@ -1774,28 +1774,42 @@ def _validate_and_repair_drone_working_h5_solar_geometry(
 
 def _declared_drone_radiometry(record):
     """Allow explicitly unverified encodings at ingestion, never at correction."""
-    calibration = Radiometry.from_record(record)
+    from spectralbridge.drone_radiometry import radiometry_from_source_encoding
+    calibration = (radiometry_from_source_encoding(record) if "input_encoding" in record else Radiometry.from_record(record))
     if calibration.status == "VALID":
         calibration.require_valid()
     return calibration
 
 
-def _read_drone_reflectance_tiff(path):
+def _read_drone_reflectance_tiff(path, *, source_declaration=None):
     """Read declared spectral bands/alpha without guessing unnamed extra bands."""
     import rasterio
     from rasterio.enums import ColorInterp
     with rasterio.open(path) as src:
         alpha = [i for i, role in enumerate(src.colorinterp, 1) if role == ColorInterp.alpha]
         spectral = [i for i in range(1, src.count + 1) if i not in alpha]
+        if source_declaration and "spectral_band_indices" in source_declaration:
+            spectral = source_declaration["spectral_band_indices"]
+            declared_alpha = source_declaration.get("alpha_band_indices", [])
+            if (set(spectral) & set(declared_alpha) or sorted(spectral + declared_alpha) != list(range(1, src.count + 1))):
+                raise ValueError("Verified spectral/alpha layout conflicts with TIFF bands")
+            alpha = declared_alpha
         if not spectral:
             raise ValueError("Drone TIFF has no declared spectral bands")
         data = src.read(spectral).astype(np.float32)
         nodata = src.nodata
+        if source_declaration is not None and "nodata" in source_declaration:
+            declared_nodata = float(source_declaration["nodata"])
+            if nodata is not None and not (nodata == declared_nodata or (np.isnan(nodata) and np.isnan(declared_nodata))):
+                raise ValueError("Typed source NoData conflicts with TIFF metadata")
+            nodata = declared_nodata
         fill = _DRONE_FALLBACK_NODATA if nodata is None else nodata
         # Keep validity temporaries at one spatial plane, not another full cube.
         footprint = np.zeros(data.shape[1:], dtype=bool)
         for index, band in enumerate(spectral):
             valid = (src.read_masks(band) > 0) & np.isfinite(data[index])
+            if nodata is not None:
+                valid &= data[index] != nodata
             data[index][~valid] = fill
             footprint |= valid
         for band in alpha:
@@ -1825,10 +1839,26 @@ def convert_drone_tiff_to_h5(
     radiometry: dict[str, Any] | None = None,
     overwrite: bool = False,
 ) -> Path:
-    """Convert a supported georeferenced multiband reflectance TIFF and aligned ancillary inputs to the drone HDF5 contract."""
+    """Convert a georeferenced reflectance TIFF to the drone HDF5 contract.
+
+    Radiometry accepts an explicit affine record or verified typed source
+    encoding. Embedded declarations, checksum-bound sidecars and exact known
+    source fingerprints are resolved automatically, never inferred by range.
+    Stored pixels remain unchanged; the contract supplies physical units.
+    """
 
     reflectance_tiff_path = Path(reflectance_tiff_path)
     output_h5_path = Path(output_h5_path)
+    import rasterio
+    from spectralbridge.drone_radiometry import resolve_drone_source, validate_source_wavelengths
+    with rasterio.open(reflectance_tiff_path) as source:
+        resolution = resolve_drone_source(reflectance_tiff_path, metadata=source.tags(), explicit=radiometry)
+    if resolution.radiometry is not None:
+        radiometry = resolution.radiometry.record()
+    if resolution.declaration and resolution.declaration.get("wavelengths_nm") is not None:
+        if wavelengths_nm is not None:
+            validate_source_wavelengths(resolution.declaration, wavelengths_nm)
+        wavelengths_nm = resolution.declaration["wavelengths_nm"]
     if output_h5_path.exists() and not overwrite:
         _validate_drone_h5_spatial_metadata(output_h5_path)
         with h5py.File(output_h5_path, "r") as existing:
@@ -1847,7 +1877,7 @@ def convert_drone_tiff_to_h5(
                 raise ValueError("Cached TIFF H5 radiometry differs; rebuild a derived copy from the source TIFF.")
         return output_h5_path
 
-    reflectance_raw, crs_wkt, transform, nodata, source_valid, source_bands, alpha_bands = _read_drone_reflectance_tiff(reflectance_tiff_path)
+    reflectance_raw, crs_wkt, transform, nodata, source_valid, source_bands, alpha_bands = _read_drone_reflectance_tiff(reflectance_tiff_path, source_declaration=resolution.declaration)
     if reflectance_raw.ndim != 3:
         raise ValueError(
             f"Reflectance TIFF must be a multiband raster; received shape {reflectance_raw.shape}."
@@ -1987,6 +2017,9 @@ def convert_drone_tiff_to_h5(
                         quality_mask={"status": "DOCUMENTED", "provenance": "TIFF per-band GDAL masks and declared alpha; finite source samples", "convention": "true means valid"})
         calibration = replace(calibration, encoding=encoding)
         reflectance_ds.attrs["spectralbridge_radiometry"] = json.dumps(calibration.record())
+        reflectance_ds.attrs["spectralbridge_encoding_recognition"] = resolution.recognition
+        if resolution.declaration is not None:
+            reflectance_ds.attrs["spectralbridge_source_encoding"] = json.dumps(resolution.declaration)
 
         wavelength_ds = spectral_group.create_dataset(
             "Wavelength",
@@ -2038,6 +2071,19 @@ def convert_drone_tiff_to_h5(
     return output_h5_path
 
 
+def _resolve_drone_h5_source_encoding(source_path, radiometry):
+    """Inspect authoritative encoding before staging; never alter source metadata."""
+    from spectralbridge.drone_radiometry import resolve_drone_source, validate_source_wavelengths
+    with h5py.File(source_path, "r") as source_h5:
+        dataset = _find_drone_reflectance_dataset(source_h5)
+        resolution = resolve_drone_source(source_path, metadata=dict(dataset.attrs), explicit=radiometry)
+        if resolution.declaration is not None:
+            spectral = dataset.parent.get("Metadata/Spectral_Data/Wavelength")
+            if spectral is not None:
+                validate_source_wavelengths(resolution.declaration, spectral[:])
+    return resolution
+
+
 def _prepare_drone_source_working_h5(
     source_path: str | Path,
     *,
@@ -2062,6 +2108,9 @@ def _prepare_drone_source_working_h5(
     stage_record = working_path.with_suffix(".stage.json")
     if source_type == "h5":
         _validate_drone_h5_spatial_metadata(source_path)
+        resolution = _resolve_drone_h5_source_encoding(source_path, radiometry)
+        if resolution.radiometry is not None:
+            radiometry = resolution.radiometry.record()
         if source_path.resolve() == working_path.resolve():
             raise ValueError(
                 "A derived *__working.h5 file cannot be used as authoritative "
@@ -2071,7 +2120,8 @@ def _prepare_drone_source_working_h5(
             "working_h5",
             inputs=[source_path],
             configuration={
-                "algorithm_version": 2,
+                "algorithm_version": 3,
+                "source_encoding_contract_version": 1,
                 "source_type": "h5",
                 "radiometry": radiometry,
                 "fallback_nodata": float(_DRONE_FALLBACK_NODATA),
@@ -2107,7 +2157,13 @@ def _prepare_drone_source_working_h5(
         if radiometry is not None:
             calibration = _declared_drone_radiometry(radiometry)
             with h5py.File(prepared, "r+") as h:
-                _find_drone_reflectance_dataset(h).attrs["spectralbridge_radiometry"] = json.dumps(calibration.record())
+                dataset = _find_drone_reflectance_dataset(h)
+                if "spectralbridge_radiometry" in dataset.attrs:
+                    dataset.attrs["spectralbridge_previous_radiometry"] = dataset.attrs["spectralbridge_radiometry"]
+                dataset.attrs["spectralbridge_radiometry"] = json.dumps(calibration.record())
+                dataset.attrs["spectralbridge_encoding_recognition"] = resolution.recognition
+                if resolution.declaration is not None:
+                    dataset.attrs["spectralbridge_source_encoding"] = json.dumps(resolution.declaration)
         _ensure_drone_working_h5_solar_aliases(prepared)
         solar_validation = _validate_and_repair_drone_working_h5_solar_geometry(
             prepared,
@@ -2133,12 +2189,18 @@ def _prepare_drone_source_working_h5(
         name: _find_drone_tiff_ancillary(package_dir, name)
         for name in _DRONE_TIFF_ANCILLARY_KEYWORDS
     }
+    from spectralbridge.drone_radiometry import source_registry_identity
     inputs = [source_path, *(path for path in ancillary.values() if path is not None)]
+    sidecar = source_path.with_suffix(source_path.suffix + ".radiometry.json")
+    if sidecar.exists():
+        inputs.append(sidecar)
     signature, signature_payload = _drone_stage_signature(
         "tiff_to_working_h5",
         inputs=inputs,
         configuration={
-            "algorithm_version": 4,
+            "algorithm_version": 5,
+            "source_encoding_contract_version": 1,
+            "source_encoding_registry_identity": source_registry_identity(),
             "wavelengths_nm": (
                 [float(value) for value in tiff_wavelengths_nm]
                 if tiff_wavelengths_nm is not None
@@ -2393,6 +2455,10 @@ def _drone_envi_header(cube: NeonCube) -> dict[str, Any]:
         t = cube.transform  # GDAL order: corner x, dx, shear, corner y, shear, dy
         info[1:7] = ["1", "1", repr(t[0]), repr(t[3]), repr(t[1]), repr(-t[5])]
         header["map info"] = info
+    calibration = getattr(cube, "radiometry", None)
+    if calibration is not None and (calibration.encoding or {}).get("input_encoding") and calibration.status == "VALID":
+        if np.ndim(calibration.scale) == 0 and calibration.offset == 0:
+            header["reflectance scale factor"] = 1.0 / calibration.scale
     return header
 
 
@@ -2416,7 +2482,7 @@ def export_h5_to_envi(
         "h5_to_envi",
         inputs=[h5_path],
         configuration={
-            "algorithm_version": 2,
+            "algorithm_version": 3,
             "brightness_offset": float(brightness_offset),
             "output_semantics": "drone_native_reflectance_envi",
         },
@@ -3598,7 +3664,7 @@ def run_drone_pipeline(
     apply_brightness_adjustment : bool, default=False
         Opt into the established brightness adjustment; does not change the packaged coefficients.
     radiometry : dict[str, Any] | None, default=None
-        Authoritative affine record with scale, offset, status='VALID' and calibration provenance. No calibration is inferred from TIFF identity tags or value ranges. A source H5 may already carry this record; provide different flight calibrations in separate calls.
+        Authoritative affine record or verified typed source encoding. Embedded declarations, checksum-bound sidecars and exact known source fingerprints are recognized automatically; value ranges and identity TIFF scale tags are insufficient. Source H5 records remain immutable; provide different flight calibrations in separate calls.
     overwrite : bool, default=False
         Replace existing requested products; False preserves reusable products or rejects a conflicting destination.
     tiff_wavelengths_nm : Sequence[float] | np.ndarray | None, default=None

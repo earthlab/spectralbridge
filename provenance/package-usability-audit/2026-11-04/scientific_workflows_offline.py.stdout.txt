@@ -1,0 +1,42 @@
+{
+  "data_kind": "invented teaching data, not scientific validation",
+  "pixel_rows": 6,
+  "independent_plants": 2,
+  "atlas_plants": 2,
+  "preflight_counts": {
+    "source_rows": 6,
+    "valid_spectra": 6,
+    "species": 1,
+    "polygons": 2,
+    "flightlines": 1,
+    "sites": 1
+  },
+  "compact_library_outputs": {
+    "species_summary": "/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-science-example-t6pzioel/library_summary/analyses/spectral_library/species_summary.parquet",
+    "species_band_summary": "/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-science-example-t6pzioel/library_summary/analyses/spectral_library/species_band_summary.parquet",
+    "species_quantiles": "/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-science-example-t6pzioel/library_summary/analyses/spectral_library/species_quantiles.parquet",
+    "species_median_spectra": "/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-science-example-t6pzioel/library_summary/analyses/spectral_library/species_median_spectra.parquet",
+    "group_counts": "/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-science-example-t6pzioel/library_summary/analyses/spectral_library/group_counts.parquet",
+    "species_plot_ranges": "/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-science-example-t6pzioel/library_summary/analyses/spectral_library/species_plot_ranges.parquet",
+    "extreme_spectra": "/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/spectralbridge-science-example-t6pzioel/library_summary/analyses/spectral_library/extreme_spectra.parquet"
+  },
+  "OLI_values": [
+    0.19999999999999993,
+    0.19999999999999996,
+    0.2,
+    0.19999999999999998,
+    0.2,
+    0.20000000000000007,
+    0.2
+  ],
+  "response_support": [
+    1.0,
+    0.999926209018318,
+    0.9999999999997524,
+    1.0,
+    1.0000000000000002,
+    0.9999898028481322,
+    0.9931493005559598
+  ],
+  "identity_RMSE": 0.0
+}

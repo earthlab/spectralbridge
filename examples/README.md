@@ -45,3 +45,16 @@ runners reproduce versioned research and can regenerate outputs. Read their
 provenance README and preservation rules before running them; they are not
 installation smoke tests. See [getting started](../docs/getting-started.md) for
 the install → verify → workflow → outputs → QA path.
+
+## A short learning sequence
+
+| Lesson | Command | Result |
+| --- | --- | --- |
+| Inspect a library | `python examples/first_example.py` | Counts and wavelength checks for six invented spectra; temporary input |
+| Keep a small numerical result | `python examples/scientific_workflows_offline.py --output-dir lesson_output` | Teaching Parquet, two-plant atlas and `example_summary.json`; requires a fresh directory |
+| Compare differences, recognition and mixtures | `python examples/spectral_library_methods.py` | Explained numerical metrics; requires the `analytics` extra; no field-abundance claim |
+| Configure real imagery | The NEON/drone runners above with `--check` | JSON schema/options only; rerun without the flag after supplying supported real inputs |
+
+The [workflow map](../docs/vignettes/index.md) links each lesson and producer to
+its primary API and expected output. Use [output interpretation](../docs/pipeline/outputs.md)
+to distinguish execution, correction support and scientific validation.

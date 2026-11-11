@@ -1,0 +1,32 @@
+{
+  "signature": "63e1993f22b0580561ff9f1a2603972ecb3a0ece5159377f9974042fb5072d67",
+  "site": "Goldhill",
+  "scientific_status": "EXPERIMENTAL",
+  "source_footprint_pixels": 6683944,
+  "geometry_eligible_pixels": 6683905,
+  "covered_pixels": 6683905,
+  "unsupported_source_pixels": 39,
+  "candidate_count_quantiles": [
+    4.0,
+    42.0,
+    84.0,
+    141.0,
+    221.0
+  ],
+  "grid_to_true_north_rotation_deg": -0.3184058833629672,
+  "scene_solar_zenith_deg": 27.772295866729547,
+  "central_zenith_quantiles": [
+    0.0011803656816482544,
+    1.239041805267334,
+    2.045715808868408,
+    10.455583572387695,
+    22.25641441345215
+  ],
+  "elapsed_seconds": 82.72659437498078,
+  "memory_contract": "1024 ground cells x all cameras; at most6 futures/3 workers; memmapped design/maps; one observation per ground cell, not duplicated by camera",
+  "output_sha256": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/goldhill/experimental_view_geometry.tif": "d61aa62c79dc1c75fbb3e29411bcd5331d19f5748fee2b7ea3ab1742f3395c0a",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/goldhill/geometry.npy": "e797eb0438b44a15bc22639c8fadece68a11375c0f91060876eea1aa37b2ae6a",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/goldhill/center_design.npy": "8acd0db54fe5eca4bad7575256c550b452834a14b19d832d7502352eec709cba"
+  }
+}

@@ -1,0 +1,5672 @@
+[
+  {
+    "id": "viewing_absolute_sigma0__existing__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__existing__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__existing__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__existing__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__existing__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__geometric_sunlit__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__geometric_sunlit__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__geometric_sunlit__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__geometric_sunlit__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__geometric_sunlit__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__spectral_screened__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__spectral_screened__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__spectral_screened__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__spectral_screened__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__spectral_screened__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__combined_screened__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__combined_screened__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__combined_screened__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__combined_screened__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__combined_screened__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__homogeneous_sunlit__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__homogeneous_sunlit__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__homogeneous_sunlit__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__homogeneous_sunlit__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__homogeneous_sunlit__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__canopy_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__canopy_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__canopy_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__canopy_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "canopy_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__canopy_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "canopy_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__herbaceous_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__herbaceous_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__herbaceous_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__herbaceous_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "herbaceous_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__herbaceous_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "herbaceous_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__exposed_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__exposed_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__exposed_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__exposed_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "exposed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__exposed_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "exposed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__mixed_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__mixed_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__mixed_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__mixed_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "mixed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma0__mixed_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 0,
+    "population": "mixed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__existing__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__existing__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__existing__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__existing__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__existing__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__geometric_sunlit__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__geometric_sunlit__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__geometric_sunlit__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__geometric_sunlit__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__geometric_sunlit__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__spectral_screened__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__spectral_screened__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__spectral_screened__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__spectral_screened__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__spectral_screened__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__combined_screened__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__combined_screened__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__combined_screened__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__combined_screened__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__combined_screened__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__homogeneous_sunlit__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__homogeneous_sunlit__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__homogeneous_sunlit__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__homogeneous_sunlit__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__homogeneous_sunlit__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__canopy_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__canopy_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__canopy_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__canopy_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "canopy_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__canopy_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "canopy_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__herbaceous_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__herbaceous_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__herbaceous_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__herbaceous_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "herbaceous_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__herbaceous_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "herbaceous_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__exposed_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__exposed_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__exposed_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__exposed_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "exposed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__exposed_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "exposed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__mixed_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__mixed_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__mixed_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__mixed_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "mixed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma1__mixed_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 1,
+    "population": "mixed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__existing__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__existing__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__existing__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__existing__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__existing__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__geometric_sunlit__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__geometric_sunlit__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__geometric_sunlit__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__geometric_sunlit__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__geometric_sunlit__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__spectral_screened__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__spectral_screened__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__spectral_screened__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__spectral_screened__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__spectral_screened__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__combined_screened__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__combined_screened__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__combined_screened__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__combined_screened__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__combined_screened__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__homogeneous_sunlit__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__homogeneous_sunlit__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__homogeneous_sunlit__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__homogeneous_sunlit__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__homogeneous_sunlit__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__canopy_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__canopy_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__canopy_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__canopy_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "canopy_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__canopy_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "canopy_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__herbaceous_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__herbaceous_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__herbaceous_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__herbaceous_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "herbaceous_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__herbaceous_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "herbaceous_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__exposed_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__exposed_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__exposed_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__exposed_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "exposed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__exposed_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "exposed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__mixed_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__mixed_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__mixed_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__mixed_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "mixed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma3__mixed_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 3,
+    "population": "mixed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__existing__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__existing__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__existing__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__existing__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__existing__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__geometric_sunlit__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__geometric_sunlit__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__geometric_sunlit__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__geometric_sunlit__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__geometric_sunlit__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__spectral_screened__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__spectral_screened__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__spectral_screened__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__spectral_screened__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__spectral_screened__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__combined_screened__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__combined_screened__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__combined_screened__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__combined_screened__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__combined_screened__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__homogeneous_sunlit__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__homogeneous_sunlit__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__homogeneous_sunlit__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__homogeneous_sunlit__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__homogeneous_sunlit__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__canopy_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__canopy_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__canopy_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__canopy_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "canopy_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__canopy_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "canopy_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__herbaceous_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__herbaceous_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__herbaceous_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__herbaceous_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "herbaceous_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__herbaceous_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "herbaceous_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__exposed_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__exposed_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__exposed_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__exposed_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "exposed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__exposed_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "exposed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__mixed_proxy__scsc__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__mixed_proxy__scsc__balanced__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__mixed_proxy__scsc__huber__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__mixed_proxy__c_correction__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "mixed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "viewing_absolute_sigma10__mixed_proxy__minnaert__ols__650",
+    "surface": "viewing_absolute",
+    "sigma": 10,
+    "population": "mixed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__scsc__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__scsc__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__scsc__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__scsc__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__scsc__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__scsc__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__scsc__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__scsc__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__scsc__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__c_correction__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__c_correction__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__c_correction__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__c_correction__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__c_correction__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__c_correction__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__c_correction__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__c_correction__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__c_correction__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__minnaert__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__minnaert__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__minnaert__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__minnaert__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__minnaert__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__minnaert__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__minnaert__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__minnaert__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__existing__minnaert__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__scsc__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__scsc__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__scsc__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__scsc__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__scsc__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__scsc__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__scsc__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__scsc__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__scsc__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__c_correction__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__c_correction__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__c_correction__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__c_correction__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__c_correction__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__c_correction__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__c_correction__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__c_correction__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__c_correction__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__minnaert__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__minnaert__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__minnaert__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__minnaert__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__minnaert__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__minnaert__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__minnaert__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__minnaert__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__geometric_sunlit__minnaert__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__scsc__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__scsc__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__scsc__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__scsc__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__scsc__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__scsc__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__scsc__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__scsc__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__scsc__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__c_correction__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__c_correction__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__c_correction__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__c_correction__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__c_correction__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__c_correction__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__c_correction__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__c_correction__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__c_correction__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__minnaert__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__minnaert__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__minnaert__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__minnaert__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__minnaert__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__minnaert__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__minnaert__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__minnaert__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__spectral_screened__minnaert__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__scsc__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__scsc__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__scsc__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__scsc__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__scsc__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__scsc__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__scsc__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__scsc__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__scsc__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__c_correction__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__c_correction__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__c_correction__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__c_correction__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__c_correction__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__c_correction__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__c_correction__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__c_correction__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__c_correction__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__minnaert__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__minnaert__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__minnaert__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__minnaert__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__minnaert__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__minnaert__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__minnaert__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__minnaert__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__combined_screened__minnaert__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__scsc__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__scsc__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__scsc__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__scsc__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__scsc__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__scsc__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__scsc__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__scsc__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__scsc__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__c_correction__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__c_correction__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__c_correction__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__c_correction__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__c_correction__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__c_correction__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__c_correction__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__c_correction__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__c_correction__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__minnaert__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__minnaert__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__minnaert__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__minnaert__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__minnaert__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__minnaert__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__minnaert__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__minnaert__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__homogeneous_sunlit__minnaert__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__canopy_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__canopy_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__canopy_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__canopy_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "canopy_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__canopy_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "canopy_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__herbaceous_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__herbaceous_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__herbaceous_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__herbaceous_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "herbaceous_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__herbaceous_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "herbaceous_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__exposed_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__exposed_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__exposed_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__exposed_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "exposed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__exposed_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "exposed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__mixed_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__mixed_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__mixed_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__mixed_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "mixed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma0__mixed_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 0,
+    "population": "mixed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__existing__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__existing__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__existing__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__existing__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__existing__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__geometric_sunlit__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__geometric_sunlit__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__geometric_sunlit__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__geometric_sunlit__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__geometric_sunlit__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__spectral_screened__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__spectral_screened__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__spectral_screened__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__spectral_screened__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__spectral_screened__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__combined_screened__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__combined_screened__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__combined_screened__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__combined_screened__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__combined_screened__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__homogeneous_sunlit__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__homogeneous_sunlit__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__homogeneous_sunlit__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__homogeneous_sunlit__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__homogeneous_sunlit__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__canopy_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__canopy_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__canopy_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__canopy_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "canopy_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__canopy_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "canopy_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__herbaceous_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__herbaceous_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__herbaceous_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__herbaceous_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "herbaceous_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__herbaceous_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "herbaceous_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__exposed_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__exposed_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__exposed_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__exposed_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "exposed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__exposed_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "exposed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__mixed_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__mixed_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__mixed_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__mixed_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "mixed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma1__mixed_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 1,
+    "population": "mixed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__scsc__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__scsc__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__scsc__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__scsc__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__scsc__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__scsc__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__scsc__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__scsc__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__scsc__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__c_correction__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__c_correction__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__c_correction__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__c_correction__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__c_correction__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__c_correction__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__c_correction__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__c_correction__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__c_correction__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__minnaert__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__minnaert__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__minnaert__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__minnaert__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__minnaert__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__minnaert__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__minnaert__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__minnaert__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__existing__minnaert__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__scsc__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__scsc__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__scsc__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__scsc__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__scsc__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__scsc__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__scsc__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__scsc__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__scsc__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__c_correction__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__c_correction__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__c_correction__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__c_correction__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__c_correction__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__c_correction__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__c_correction__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__c_correction__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__c_correction__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__minnaert__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__minnaert__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__minnaert__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__minnaert__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__minnaert__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__minnaert__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__minnaert__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__minnaert__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__geometric_sunlit__minnaert__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__scsc__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__scsc__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__scsc__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__scsc__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__scsc__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__scsc__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__scsc__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__scsc__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__scsc__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__c_correction__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__c_correction__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__c_correction__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__c_correction__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__c_correction__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__c_correction__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__c_correction__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__c_correction__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__c_correction__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__minnaert__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__minnaert__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__minnaert__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__minnaert__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__minnaert__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__minnaert__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__minnaert__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__minnaert__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__spectral_screened__minnaert__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__scsc__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__scsc__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__scsc__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__scsc__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__scsc__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__scsc__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__scsc__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__scsc__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__scsc__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__c_correction__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__c_correction__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__c_correction__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__c_correction__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__c_correction__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__c_correction__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__c_correction__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__c_correction__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__c_correction__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__minnaert__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__minnaert__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__minnaert__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__minnaert__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__minnaert__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__minnaert__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__minnaert__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__minnaert__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__combined_screened__minnaert__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__scsc__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__scsc__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__scsc__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__scsc__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__scsc__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__scsc__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__scsc__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__scsc__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__scsc__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__c_correction__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__c_correction__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__c_correction__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__c_correction__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__c_correction__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__c_correction__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__c_correction__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__c_correction__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__c_correction__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__minnaert__ols__444",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 444
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__minnaert__ols__475",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 475
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__minnaert__ols__531",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 531
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__minnaert__ols__560",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 560
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__minnaert__ols__668",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 668
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__minnaert__ols__705",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 705
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__minnaert__ols__717",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 717
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__minnaert__ols__740",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 740
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__homogeneous_sunlit__minnaert__ols__842",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 842
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__canopy_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__canopy_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__canopy_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__canopy_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "canopy_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__canopy_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "canopy_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__herbaceous_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__herbaceous_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__herbaceous_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__herbaceous_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "herbaceous_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__herbaceous_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "herbaceous_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__exposed_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__exposed_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__exposed_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__exposed_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "exposed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__exposed_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "exposed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__mixed_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__mixed_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__mixed_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__mixed_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "mixed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma3__mixed_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 3,
+    "population": "mixed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__existing__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__existing__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__existing__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "existing",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__existing__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "existing",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__existing__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "existing",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__geometric_sunlit__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__geometric_sunlit__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__geometric_sunlit__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "geometric_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__geometric_sunlit__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "geometric_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__geometric_sunlit__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "geometric_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__spectral_screened__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__spectral_screened__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__spectral_screened__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "spectral_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__spectral_screened__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "spectral_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__spectral_screened__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "spectral_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__combined_screened__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__combined_screened__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__combined_screened__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "combined_screened",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__combined_screened__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "combined_screened",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__combined_screened__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "combined_screened",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__homogeneous_sunlit__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__homogeneous_sunlit__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__homogeneous_sunlit__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "homogeneous_sunlit",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__homogeneous_sunlit__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "homogeneous_sunlit",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__homogeneous_sunlit__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "homogeneous_sunlit",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__canopy_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__canopy_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__canopy_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "canopy_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__canopy_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "canopy_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__canopy_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "canopy_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__herbaceous_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__herbaceous_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__herbaceous_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "herbaceous_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__herbaceous_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "herbaceous_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__herbaceous_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "herbaceous_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__exposed_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__exposed_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__exposed_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "exposed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__exposed_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "exposed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__exposed_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "exposed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__mixed_proxy__scsc__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__mixed_proxy__scsc__balanced__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "balanced",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__mixed_proxy__scsc__huber__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "mixed_proxy",
+    "method": "scsc",
+    "strategy": "huber",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__mixed_proxy__c_correction__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "mixed_proxy",
+    "method": "c_correction",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  },
+  {
+    "id": "ground_dtm_chunk_sigma10__mixed_proxy__minnaert__ols__650",
+    "surface": "ground_dtm_chunk",
+    "sigma": 10,
+    "population": "mixed_proxy",
+    "method": "minnaert",
+    "strategy": "ols",
+    "wavelength_nm": 650
+  }
+]

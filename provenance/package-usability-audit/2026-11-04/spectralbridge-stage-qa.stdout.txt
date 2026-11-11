@@ -1,0 +1,12 @@
+usage: spectralbridge-stage-qa [-h] --flightline-dir FLIGHTLINE_DIR
+                               [--mode {standard,deep}] [--force]
+                               [--topo-fit-mode {scene,tile}]
+
+Build stage and combined QA reports from a flightline directory.
+
+options:
+  -h, --help            show this help message and exit
+  --flightline-dir FLIGHTLINE_DIR
+  --mode {standard,deep}
+  --force
+  --topo-fit-mode {scene,tile}

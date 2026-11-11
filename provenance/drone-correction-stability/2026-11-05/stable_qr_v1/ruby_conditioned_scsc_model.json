@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "policy_version": "scsc-fieller-spatial-v1",
+  "policy": {
+    "minimum_slope_degrees": 5.0,
+    "rho_min": 0.0,
+    "rho_max": 2.0,
+    "confidence_z": 1.96,
+    "min_denominator": 0.001,
+    "minimum_clusters": 4
+  },
+  "source_identity": "fb5557b59da9637cdfd0f7b4d4310a21c49ad0b9c26c4b5a366b8d5bedeae04a",
+  "radiometry": {
+    "scale": 0.0001999969482421875,
+    "offset": 0.0,
+    "status": "HYPOTHETICAL_UNVERIFIED",
+    "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+    "convention": "physical = scale * stored + offset"
+  },
+  "wavelengths_nm": [
+    444.0,
+    475.0,
+    531.0,
+    560.0,
+    650.0,
+    668.0,
+    705.0,
+    717.0,
+    740.0,
+    862.0
+  ],
+  "scientific_validation_status": "EXPERIMENTAL",
+  "fit_provenance": {
+    "site": "Ruby",
+    "source_manifest": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/ruby/source_manifest.json",
+    "fit_mask": "Researcher half-diameter polygons plus20-step Manhattan buffer excluded",
+    "clusters": "20m x20m source-grid blocks; not independent physical replications",
+    "calibration": "Conditional unverified DN/32768",
+    "geometry": "P173 nadir C-center simulated weights; contributor/datum conventions unverified"
+  },
+  "uncertainty_method": "spatial_cluster_sandwich_and_Fieller",
+  "source_pixels": 1993472,
+  "geometry_eligible": 1779367,
+  "fitting_mask_sha256": "1b001fa8ebcba9042cc31175d1d41952eca31a98564209dabed39c4059db1264",
+  "uncertainty_groups_sha256": "f2c96f4d83e4c57b54cf3f62a929e2b9808e033782edae6c0bb4f395928e8612",
+  "sampling_grid_shape": [
+    1035,
+    1960
+  ],
+  "fits": [
+    {
+      "band": 0,
+      "n": 1779367,
+      "status": "VALID",
+      "C": -0.16599333027846797,
+      "C_interval": [
+        -0.2310184844427985,
+        -0.08017612967130189
+      ],
+      "rank": 2,
+      "condition": 12.38854392799786,
+      "slope": 0.03984234928444904,
+      "intercept": -0.006613564243843632,
+      "negative_illumination_slope": false,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          9.826317787810913e-06,
+          -5.824757700614041e-06
+        ],
+        [
+          -5.824757700614041e-06,
+          3.914018859045972e-06
+        ]
+      ],
+      "residual_rmse": 0.022176161810497117,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ]
+    },
+    {
+      "band": 1,
+      "n": 1779367,
+      "status": "VALID",
+      "C": -0.1767024591505176,
+      "C_interval": [
+        -0.23882282201306526,
+        -0.09626675472639032
+      ],
+      "rank": 2,
+      "condition": 12.38854392799786,
+      "slope": 0.04720082739848237,
+      "intercept": -0.008340502275250964,
+      "negative_illumination_slope": false,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          1.237349687262262e-05,
+          -7.384063621548229e-06
+        ],
+        [
+          -7.384063621548229e-06,
+          5.0592009049277015e-06
+        ]
+      ],
+      "residual_rmse": 0.025026510183250042,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ]
+    },
+    {
+      "band": 2,
+      "n": 1779367,
+      "status": "VALID",
+      "C": -0.06585030231565236,
+      "C_interval": [
+        -0.13923357347007895,
+        0.02915435553311385
+      ],
+      "rank": 2,
+      "condition": 12.38854392799786,
+      "slope": 0.05917726203013919,
+      "intercept": -0.0038968405948972417,
+      "negative_illumination_slope": false,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          1.808530742013615e-05,
+          -1.0850283726490784e-05
+        ],
+        [
+          -1.0850283726490784e-05,
+          7.57983124639962e-06
+        ]
+      ],
+      "residual_rmse": 0.03171784284797219,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ]
+    },
+    {
+      "band": 3,
+      "n": 1779367,
+      "status": "VALID",
+      "C": -0.055080488855556824,
+      "C_interval": [
+        -0.1308846725823808,
+        0.043104379133326445
+      ],
+      "rank": 2,
+      "condition": 12.38854392799786,
+      "slope": 0.06709889543887862,
+      "intercept": -0.0036958399624413265,
+      "negative_illumination_slope": false,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          2.3475303556706042e-05,
+          -1.4145143336717493e-05
+        ],
+        [
+          -1.4145143336717493e-05,
+          1.0035107927516035e-05
+        ]
+      ],
+      "residual_rmse": 0.035993778274086945,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ]
+    },
+    {
+      "band": 4,
+      "n": 1779367,
+      "status": "VALID",
+      "C": -0.28386599960509545,
+      "C_interval": [
+        -0.33481076746523125,
+        -0.21812466213364834
+      ],
+      "rank": 2,
+      "condition": 12.38854392799786,
+      "slope": 0.08359648207425041,
+      "intercept": -0.023730198947476536,
+      "negative_illumination_slope": false,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          4.1801285045696324e-05,
+          -2.5015151456292136e-05
+        ],
+        [
+          -2.5015151456292136e-05,
+          1.678614885518502e-05
+        ]
+      ],
+      "residual_rmse": 0.04309437947428034,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ]
+    },
+    {
+      "band": 5,
+      "n": 1779367,
+      "status": "VALID",
+      "C": -0.32129535441843143,
+      "C_interval": [
+        -0.3691627296867459,
+        -0.25988143131576885
+      ],
+      "rank": 2,
+      "condition": 12.38854392799786,
+      "slope": 0.08746575714551576,
+      "intercept": -0.028102341441544935,
+      "negative_illumination_slope": false,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          4.697477541257962e-05,
+          -2.8263071797333185e-05
+        ],
+        [
+          -2.8263071797333185e-05,
+          1.9028494107033017e-05
+        ]
+      ],
+      "residual_rmse": 0.04524547833635197,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ]
+    },
+    {
+      "band": 6,
+      "n": 1779367,
+      "status": "VALID",
+      "C": -0.042833109485437046,
+      "C_interval": [
+        -0.12199463638955467,
+        0.05909943589374563
+      ],
+      "rank": 2,
+      "condition": 12.38854392799786,
+      "slope": 0.09416251699215837,
+      "intercept": -0.004033273399749446,
+      "negative_illumination_slope": false,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          4.430553439559353e-05,
+          -2.7671552425412133e-05
+        ],
+        [
+          -2.7671552425412133e-05,
+          2.0555639726215874e-05
+        ]
+      ],
+      "residual_rmse": 0.048115450939184706,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ]
+    },
+    {
+      "band": 7,
+      "n": 1779367,
+      "status": "VALID",
+      "C": 0.19128065798187915,
+      "C_interval": [
+        0.07611856588320129,
+        0.3406270688142871
+      ],
+      "rank": 2,
+      "condition": 12.38854392799786,
+      "slope": 0.0983422204511768,
+      "intercept": 0.01881096463530011,
+      "negative_illumination_slope": false,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          4.859848248715564e-05,
+          -3.290274975739773e-05
+        ],
+        [
+          -3.290274975739773e-05,
+          2.809713424464135e-05
+        ]
+      ],
+      "residual_rmse": 0.05686989875948988,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ]
+    },
+    {
+      "band": 8,
+      "n": 1779367,
+      "status": "VALID",
+      "C": 0.7726092604735083,
+      "C_interval": [
+        0.5204105886518506,
+        1.1296592282792886
+      ],
+      "rank": 2,
+      "condition": 12.38854392799786,
+      "slope": 0.0920991863407166,
+      "intercept": 0.07115668424891289,
+      "negative_illumination_slope": false,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          7.036729948072689e-05,
+          -5.7700452238265404e-05
+        ],
+        [
+          -5.7700452238265404e-05,
+          6.132489881584129e-05
+        ]
+      ],
+      "residual_rmse": 0.08102444743578496,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ]
+    },
+    {
+      "band": 9,
+      "n": 1779367,
+      "status": "VALID",
+      "C": 1.1278311087473916,
+      "C_interval": [
+        0.7713763647464351,
+        1.666361077285753
+      ],
+      "rank": 2,
+      "condition": 12.38854392799786,
+      "slope": 0.09675336221136459,
+      "intercept": 0.1091214517778813,
+      "negative_illumination_slope": false,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          0.00010542152725329733,
+          -9.33455040759085e-05
+        ],
+        [
+          -9.33455040759085e-05,
+          0.00010288273761458474
+        ]
+      ],
+      "residual_rmse": 0.09415732896159994,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ]
+    }
+  ],
+  "validation_status": "VALID"
+}

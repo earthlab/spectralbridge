@@ -1,0 +1,38 @@
+{
+  "source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/ruby-correction-recovery-2026-11-06/ruby_vendor_fraction_x10000_10cm_v1.tif",
+  "source_sha256": "f8d1edcab4d1abdfb41a38a27fe08846e15460b238c30525140ae63391546625",
+  "project_fingerprint": "57dc9e2b8bcbf2318825c614891d236a50500c3b37e1d68df9afddf3c3ea7638",
+  "shape": [
+    104,
+    196
+  ],
+  "sample": "Every tenth 10cm pixel at its exact center; 1m spacing, not a 1m average",
+  "solar_zenith_deg": 26.054234504699707,
+  "solar_azimuth_deg": 171.3017349243164,
+  "original_photo_solar_zenith_range": [
+    25.842430114746097,
+    26.301219940185547
+  ],
+  "scales_sigma_m": [
+    0,
+    1,
+    3,
+    10
+  ],
+  "shadow_radius_m": 100,
+  "shadow_step_m": 0.5,
+  "ground_accuracy": "UNVERIFIED",
+  "strata": {
+    "1": "elevated high-NDVI canopy proxy",
+    "2": "low-height high-NDVI herbaceous proxy",
+    "3": "low-height low-NDVI exposed-surface proxy",
+    "4": "mixed/other"
+  },
+  "field_polygons": 86,
+  "valid": 19858,
+  "production_hashes": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/corrections.py": "44b2d7e53c4bc77c4d93c3e1f95b252d321d4d9868d55cdaad465e2ada7346b8",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/topographic.py": "618ea9b51119dfe348768cb88e776cb47deba966750032b632991c320b6daa94",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py": "51e9555256397cd88346b41f1e211361d9e2fa1e1b6ae0250d22f4a1582b6a82"
+  }
+}

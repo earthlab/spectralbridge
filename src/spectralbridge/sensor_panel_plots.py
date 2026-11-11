@@ -197,7 +197,8 @@ def _palette_fraction_by_column(
     ]
     sql = f"SELECT {', '.join(terms)} FROM read_parquet('{parquet_path.as_posix()}')"
     try:
-        row = con.sql(sql).fetchone()
+        rows = con.sql(sql).fetchall()
+        row = rows[0] if rows else None
     except Exception:
         return {}
     if row is None:

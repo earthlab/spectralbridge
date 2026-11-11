@@ -1,0 +1,102 @@
+[
+  {
+    "scenario": "baseline",
+    "C": -0.19506407925052505,
+    "C_interval": [
+      -0.2526192640815768,
+      -0.11929128526238139
+    ],
+    "status": "NUMERICALLY_SUPPORTED",
+    "interpretation": "Explicit sensitivity scenario, not measured DEM or clock error"
+  },
+  {
+    "scenario": "east_plus_0.5m",
+    "C": -0.14067004596202498,
+    "C_interval": [
+      -0.215869662397623,
+      -0.036749744395206695
+    ],
+    "status": "NUMERICALLY_SUPPORTED",
+    "interpretation": "Explicit sensitivity scenario, not measured DEM or clock error"
+  },
+  {
+    "scenario": "east_minus_0.5m",
+    "C": -0.14321431482762376,
+    "C_interval": [
+      -0.2211352038829303,
+      -0.03831607597811433
+    ],
+    "status": "NUMERICALLY_SUPPORTED",
+    "interpretation": "Explicit sensitivity scenario, not measured DEM or clock error"
+  },
+  {
+    "scenario": "north_plus_0.5m",
+    "C": -0.16932391032387714,
+    "C_interval": [
+      -0.23314534908233847,
+      -0.08498334662469337
+    ],
+    "status": "NUMERICALLY_SUPPORTED",
+    "interpretation": "Explicit sensitivity scenario, not measured DEM or clock error"
+  },
+  {
+    "scenario": "north_minus_0.5m",
+    "C": -0.14613743852882863,
+    "C_interval": [
+      -0.2183167124949855,
+      -0.049707907185750175
+    ],
+    "status": "NUMERICALLY_SUPPORTED",
+    "interpretation": "Explicit sensitivity scenario, not measured DEM or clock error"
+  },
+  {
+    "scenario": "correlated_elevation_0.1m",
+    "C": -0.19502047367033826,
+    "C_interval": [
+      -0.25192434355471577,
+      -0.11970850414986034
+    ],
+    "status": "NUMERICALLY_SUPPORTED",
+    "interpretation": "Explicit sensitivity scenario, not measured DEM or clock error"
+  },
+  {
+    "scenario": "correlated_elevation_0.5m",
+    "C": -0.10625564897771748,
+    "C_interval": [
+      -0.17551827379797832,
+      -0.014231747248182025
+    ],
+    "status": "NUMERICALLY_SUPPORTED",
+    "interpretation": "Explicit sensitivity scenario, not measured DEM or clock error"
+  },
+  {
+    "scenario": "zenith_plus_0.25deg",
+    "C": -0.19168338823572464,
+    "C_interval": [
+      -0.24918133725768993,
+      -0.11612526893435823
+    ],
+    "status": "NUMERICALLY_SUPPORTED",
+    "interpretation": "Explicit sensitivity scenario, not measured DEM or clock error"
+  },
+  {
+    "scenario": "zenith_minus_0.25deg",
+    "C": -0.19796775928714824,
+    "C_interval": [
+      -0.25561480709539297,
+      -0.1219236426012994
+    ],
+    "status": "NUMERICALLY_SUPPORTED",
+    "interpretation": "Explicit sensitivity scenario, not measured DEM or clock error"
+  },
+  {
+    "scenario": "azimuth_plus_0.25deg",
+    "C": -0.1951025405292287,
+    "C_interval": [
+      -0.25261735692146237,
+      -0.11942835193773564
+    ],
+    "status": "NUMERICALLY_SUPPORTED",
+    "interpretation": "Explicit sensitivity scenario, not measured DEM or clock error"
+  }
+]

@@ -115,8 +115,9 @@ def test_docs_site_core_pages_render_in_browser() -> None:
                 "Common framework. Sensor-specific treatment.", exact=True
             ).is_visible()
             assert page.get_by_role(
-                "link", name="Verify your installation", exact=True
+                "link", name="Run your first example", exact=True
             ).is_visible()
+            assert urljoin(base_url, page.get_by_role("link", name="Run your first example", exact=True).get_attribute("href")) == urljoin(base_url, "getting-started/")
             product_image = page.locator(".sb-product-example img")
             assert product_image.count() == 1
             assert product_image.evaluate("img => img.naturalWidth") > 0

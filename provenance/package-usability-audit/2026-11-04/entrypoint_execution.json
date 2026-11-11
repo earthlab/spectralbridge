@@ -1,0 +1,223 @@
+[
+  {
+    "name": "spectralbridge-download",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-download",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.342
+  },
+  {
+    "name": "spectralbridge-pipeline",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-pipeline",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.267
+  },
+  {
+    "name": "spectralbridge-qa",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-qa",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.246
+  },
+  {
+    "name": "spectralbridge-qa-summary",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-qa-summary",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.382
+  },
+  {
+    "name": "spectralbridge-recover-raw",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-recover-raw",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.285
+  },
+  {
+    "name": "spectralbridge-qa-dashboard",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-qa-dashboard",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 0.845
+  },
+  {
+    "name": "spectralbridge-stage-qa",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-stage-qa",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.285
+  },
+  {
+    "name": "spectralbridge-merge-duckdb",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-merge-duckdb",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 0.94
+  },
+  {
+    "name": "spectralbridge-bulk",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-bulk",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.477
+  },
+  {
+    "name": "spectralbridge-drone-production",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-drone-production",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.38
+  },
+  {
+    "name": "spectralbridge-validate-parquets",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-validate-parquets",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 0.918
+  },
+  {
+    "name": "cscal-download",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/cscal-download",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.21
+  },
+  {
+    "name": "cscal-pipeline",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/cscal-pipeline",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.252
+  },
+  {
+    "name": "cscal-qa",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/cscal-qa",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.239
+  },
+  {
+    "name": "cscal-recover-raw",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/cscal-recover-raw",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.263
+  },
+  {
+    "name": "cscal-qa-dashboard",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/cscal-qa-dashboard",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 0.856
+  },
+  {
+    "name": "csc-merge-duckdb",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/csc-merge-duckdb",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 0.906
+  },
+  {
+    "name": "drone-inventory",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-drone-production",
+      "inventory",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.213
+  },
+  {
+    "name": "drone-campaign",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-drone-production",
+      "campaign",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.17
+  },
+  {
+    "name": "drone-bulk",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/spectralbridge-drone-production",
+      "bulk",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 1.143
+  },
+  {
+    "name": "first_example.py",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/python",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/examples/first_example.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.843
+  },
+  {
+    "name": "scientific_workflows_offline.py",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/python",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/examples/scientific_workflows_offline.py"
+    ],
+    "returncode": 0,
+    "seconds": 2.751
+  },
+  {
+    "name": "run_neon_pipeline.py",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/python",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/examples/run_neon_pipeline.py",
+      "--check"
+    ],
+    "returncode": 0,
+    "seconds": 0.048
+  },
+  {
+    "name": "run_drone_pipeline.py",
+    "command": [
+      "/private/tmp/spectralbridge-usability-20261104/venv/bin/python",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/examples/run_drone_pipeline.py",
+      "--check"
+    ],
+    "returncode": 0,
+    "seconds": 0.041
+  }
+]

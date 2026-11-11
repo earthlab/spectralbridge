@@ -20,6 +20,11 @@ DEFAULT_CONFIG = REPO_ROOT / "examples" / "config" / "drone_pipeline.example.jso
 REQUIRED_KEYS = {"input_h5_dir", "output_dir"}
 ALLOWED_KEYS = {
     "input_h5_dir",
+    "radiometry",
+    "drone_manifest_timezone",
+    "solar_qa_timezone",
+    "raise_on_incomplete",
+    "merge_extractions",
     "polygon_path",
     "output_dir",
     "apply_topo",
@@ -74,6 +79,8 @@ def load_config(path: Path) -> dict[str, Any]:
     """Load and validate the drone example configuration."""
 
     payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("Configuration must be a JSON object")
     if payload.get("schema_version") != 1:
         raise ValueError("Expected schema_version 1")
     config = payload.get("pipeline")
@@ -106,14 +113,18 @@ def describe(config: dict[str, Any]) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
+    parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG, help="JSON configuration file; relative data paths resolve from the repository root.")
     parser.add_argument(
         "--check",
         action="store_true",
         help="Validate and print configuration without reading imagery.",
     )
     args = parser.parse_args(argv)
-    config = load_config(args.config.expanduser().resolve())
+    config_path = args.config.expanduser().resolve()
+    try:
+        config = load_config(config_path)
+    except (OSError, ValueError, TypeError) as exc:
+        parser.error(f"Invalid configuration {config_path}: {exc}. Copy and edit {DEFAULT_CONFIG}.")
     describe(config)
     if args.check:
         print("Configuration is valid; no imagery was read or written.")
@@ -122,11 +133,19 @@ def main(argv: list[str] | None = None) -> int:
     _ensure_importable()
     from spectralbridge import run_drone_pipeline
 
-    result = run_drone_pipeline(**config)
+    from spectralbridge.pipelines.drone import DronePipelineIncompleteError
+
+    try:
+        result = run_drone_pipeline(**config)
+    except DronePipelineIncompleteError as exc:
+        result = exc.results
+        print(str(exc), file=sys.stderr)
     print(f"Processed: {len(result.get('processed', []))}")
     print(f"Failed: {len(result.get('failed', []))}")
+    print(f"Blocked: {len(result.get('blocked', []))}")
+    print(f"Status: {result.get('status', 'unknown')}")
     print(f"QA summary: {result.get('qa_summary_path')}")
-    return 1 if result.get("failed") else 0
+    return 1 if result.get("failed") or result.get("blocked") or result.get("status") == "incomplete" else 0
 
 
 if __name__ == "__main__":

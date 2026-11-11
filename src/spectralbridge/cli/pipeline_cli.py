@@ -12,6 +12,14 @@ from spectralbridge.pipelines.pipeline import go_forth_and_multiply
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Run the cross-sensor calibration pipeline on NEON flight lines.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "First run: supply real site/month/flight IDs and NEON_API_TOKEN.\n"
+            "  spectralbridge-pipeline --base-folder outputs --site-code NIWO --year-month 2023-08 --product-code DP1.30006.001 --flight-lines FLIGHT_ID --engine thread --max-workers 1\n\n"
+            "Outputs: per-flightline ENVI, requested tables and QA under --base-folder.\n"
+            "Resume with the same command to reuse valid stages.\n"
+            "Guide: https://earthlab.github.io/spectralbridge/vignettes/full-pipeline/"
+        ),
     )
     parser.add_argument(
         "--base-folder",

@@ -40,7 +40,16 @@ def _common_campaign_arguments(parser: argparse.ArgumentParser) -> None:
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Inventory, process, and analyze a remote drone campaign."
+        description="Inventory, process, and analyze a remote drone campaign.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "Start with an initialized gocmd login, then inspect supported HDF5 packages:\n"
+            "  spectralbridge-drone-production inventory i:/collection --years 2023\n"
+            "Use campaign to process flights, or bulk for compact collection analysis.\n"
+            "Original TIFF/camera-table preparation is not automatic in this command.\n"
+            "Local TIFF/HDF5: use spectralbridge.run_drone_pipeline or the JSON runner.\n"
+            "Guide: https://earthlab.github.io/spectralbridge/vignettes/drone-production/"
+        ),
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
     inventory = subparsers.add_parser("inventory", help="Inspect without downloading H5s.")

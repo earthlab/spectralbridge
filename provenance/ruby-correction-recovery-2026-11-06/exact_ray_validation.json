@@ -1,0 +1,2050 @@
+[
+  {
+    "target_id": "ruby_grid_0",
+    "camera_key": 4454,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 106.42610904886024,
+      "elevation_residual_m": -3.470631781965494e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455732.2148827402,
+        4432007.995116282,
+        2766.9458337305114
+      ],
+      "pixel_roundtrip_error": 1.0538274089731565e-08,
+      "feature_distance_m": 4.9526337062515084,
+      "view_zenith_deg": 16.83800549205069
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 114.74994156016619,
+      "elevation_residual_m": -9.013092494569719e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455729.81702690705,
+        4432008.228538603,
+        2758.978864632547
+      ],
+      "pixel_roundtrip_error": 1.2697839876909593e-08,
+      "feature_distance_m": 3.3706345931748003,
+      "view_zenith_deg": 16.83802711289272
+    }
+  },
+  {
+    "target_id": "ruby_grid_1",
+    "camera_key": 4484,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 105.92955619418395,
+      "elevation_residual_m": -1.600801624590531e-08,
+      "step_metres": 0.1,
+      "ground_project": [
+        455757.04988671496,
+        4432007.199687966,
+        2762.999881389551
+      ],
+      "pixel_roundtrip_error": 4.627841223392076e-09,
+      "feature_distance_m": 0.35727568541247107,
+      "view_zenith_deg": 8.399093223388114
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 115.22291613447909,
+      "elevation_residual_m": -4.5156411943025887e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455755.7665370314,
+        4432007.638697882,
+        2753.8061961783096
+      ],
+      "pixel_roundtrip_error": 3.424947688853527e-09,
+      "feature_distance_m": 8.935924187617573,
+      "view_zenith_deg": 8.399105400551756
+    }
+  },
+  {
+    "target_id": "ruby_grid_10",
+    "camera_key": 804,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 127.28530254709997,
+      "elevation_residual_m": 6.115669748396613e-08,
+      "step_metres": 0.1,
+      "ground_project": [
+        455784.19347776816,
+        4432021.201046793,
+        2742.139940811321
+      ],
+      "pixel_roundtrip_error": 8.274873119180122e-09,
+      "feature_distance_m": 3.708084504829804,
+      "view_zenith_deg": 16.26740832386981
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 131.061450653622,
+      "elevation_residual_m": -3.555669536581263e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455783.5145270166,
+        4432020.391036257,
+        2738.5149716790766
+      ],
+      "pixel_roundtrip_error": 5.186134482894111e-10,
+      "feature_distance_m": 0.06782497509788034,
+      "view_zenith_deg": 16.2674178308658
+    }
+  },
+  {
+    "target_id": "ruby_grid_11",
+    "camera_key": 3604,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 139.93987029730613,
+      "elevation_residual_m": -2.8438535082386807e-08,
+      "step_metres": 0.1,
+      "ground_project": [
+        455810.7605223217,
+        4432021.352583896,
+        2731.939436238259
+      ],
+      "pixel_roundtrip_error": 2.8267493846977515e-08,
+      "feature_distance_m": 2.321829478325431,
+      "view_zenith_deg": 17.52062061389941
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 141.49126610147724,
+      "elevation_residual_m": 4.461981006897986e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455810.3127754844,
+        4432021.221036883,
+        2730.4600117737427
+      ],
+      "pixel_roundtrip_error": 1.7347074007014773e-08,
+      "feature_distance_m": 0.7705465920631666,
+      "view_zenith_deg": 17.520624803309623
+    }
+  },
+  {
+    "target_id": "ruby_grid_12",
+    "camera_key": 2884,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 144.645476296549,
+      "elevation_residual_m": -5.8557816373649985e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455835.94383227546,
+        4432020.876768741,
+        2727.8779677646235
+      ],
+      "pixel_roundtrip_error": 1.3443184624344883e-08,
+      "feature_distance_m": 0.02218161953021599,
+      "view_zenith_deg": 17.679043715734288
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 144.55015248159955,
+      "elevation_residual_m": -7.983089744811878e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455835.92735606385,
+        4432020.852994888,
+        2727.9687896855175
+      ],
+      "pixel_roundtrip_error": 1.558777181807161e-08,
+      "feature_distance_m": 0.07313513103144903,
+      "view_zenith_deg": 17.67904345547123
+    }
+  },
+  {
+    "target_id": "ruby_grid_13",
+    "camera_key": 564,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 137.69751192245423,
+      "elevation_residual_m": 4.4565240386873484e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455863.01555558614,
+        4432021.223690161,
+        2732.0791518585756
+      ],
+      "pixel_roundtrip_error": 2.5684127715104652e-08,
+      "feature_distance_m": 0.01845028917357676,
+      "view_zenith_deg": 18.28520279649367
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 137.70076034280928,
+      "elevation_residual_m": 1.1887095752172172e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455863.01645737997,
+        4432021.224163271,
+        2732.0760674625635
+      ],
+      "pixel_roundtrip_error": 2.819163493019125e-08,
+      "feature_distance_m": 0.021698452338383856,
+      "view_zenith_deg": 18.285202805704856
+    }
+  },
+  {
+    "target_id": "ruby_grid_14",
+    "camera_key": 4764,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 126.65994158000927,
+      "elevation_residual_m": -2.522938302718103e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455888.942356893,
+        4432020.745727014,
+        2751.3148053791374
+      ],
+      "pixel_roundtrip_error": 4.158837201503164e-08,
+      "feature_distance_m": 0.03179703305327092,
+      "view_zenith_deg": 28.37425120452218
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 136.47532281518534,
+      "elevation_residual_m": -1.7507773009128869e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455893.25150438555,
+        4432022.521751626,
+        2742.678623860702
+      ],
+      "pixel_roundtrip_error": 3.8408517215783415e-08,
+      "feature_distance_m": 9.845392029622307,
+      "view_zenith_deg": 28.374293055627568
+    }
+  },
+  {
+    "target_id": "ruby_grid_15",
+    "camera_key": 314,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 118.056195420739,
+      "elevation_residual_m": -3.4924596548080444e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455915.4201181111,
+        4432019.19664131,
+        2753.984661826864
+      ],
+      "pixel_roundtrip_error": 9.185141287998224e-09,
+      "feature_distance_m": 0.11576149401842792,
+      "view_zenith_deg": 19.134226672328687
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 125.3014015803503,
+      "elevation_residual_m": -5.828496796311811e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455917.7508946139,
+        4432019.641960254,
+        2747.1397300269455
+      ],
+      "pixel_roundtrip_error": 5.533151031294169e-09,
+      "feature_distance_m": 7.360340116215717,
+      "view_zenith_deg": 19.134247970314274
+    }
+  },
+  {
+    "target_id": "ruby_grid_16",
+    "camera_key": 3984,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 116.13695573178605,
+      "elevation_residual_m": -6.303253030637279e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455730.57746817346,
+        4432033.32773428,
+        2759.980360969901
+      ],
+      "pixel_roundtrip_error": 2.644991755621345e-08,
+      "feature_distance_m": 0.3018059013087295,
+      "view_zenith_deg": 24.863821652016085
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 121.92950808146797,
+      "elevation_residual_m": 2.381057129241526e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455731.1378196179,
+        4432030.9595405,
+        2754.7247225679457
+      ],
+      "pixel_roundtrip_error": 1.3096331462796118e-08,
+      "feature_distance_m": 6.093530215655463,
+      "view_zenith_deg": 24.86384357305137
+    }
+  },
+  {
+    "target_id": "ruby_grid_17",
+    "camera_key": 1064,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 120.85628486790772,
+      "elevation_residual_m": -8.403731044381857e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455757.6539202517,
+        4432034.37596437,
+        2755.8719120891765
+      ],
+      "pixel_roundtrip_error": 4.161165690195094e-09,
+      "feature_distance_m": 0.19087633521271694,
+      "view_zenith_deg": 22.62755219007673
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 127.66027410588146,
+      "elevation_residual_m": 1.3728822523262352e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455757.8247395384,
+        4432031.765901071,
+        2749.591658337973
+      ],
+      "pixel_roundtrip_error": 6.5633084155499504e-09,
+      "feature_distance_m": 6.994051831328295,
+      "view_zenith_deg": 22.627575755416217
+    }
+  },
+  {
+    "target_id": "ruby_grid_18",
+    "camera_key": 5074,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 136.59481058110137,
+      "elevation_residual_m": 8.80845618667081e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455784.39540863695,
+        4432033.645732872,
+        2736.9873284418136
+      ],
+      "pixel_roundtrip_error": 5.954621374803828e-09,
+      "feature_distance_m": 0.8178358423031827,
+      "view_zenith_deg": 22.797558670928577
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 137.52114830489964,
+      "elevation_residual_m": -2.2951098799239844e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455784.12019879615,
+        4432033.415763645,
+        2736.133356543258
+      ],
+      "pixel_roundtrip_error": 8.303022710137643e-09,
+      "feature_distance_m": 1.7440616815278647,
+      "view_zenith_deg": 22.79756189480212
+    }
+  },
+  {
+    "target_id": "ruby_grid_19",
+    "camera_key": 5174,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 126.31707148879944,
+      "elevation_residual_m": -5.135007086209953e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455809.8860091652,
+        4432033.250417926,
+        2738.26098308526
+      ],
+      "pixel_roundtrip_error": 2.543524266384495e-09,
+      "feature_distance_m": 0.41378950188103797,
+      "view_zenith_deg": 9.377073268664974
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 133.6281632756214,
+      "elevation_residual_m": 1.2732925824820995e-11,
+      "step_metres": 0.1,
+      "ground_project": [
+        455809.011665268,
+        4432032.442822242,
+        2731.047586333938
+      ],
+      "pixel_roundtrip_error": 2.1899456922842066e-09,
+      "feature_distance_m": 7.724725196558332,
+      "view_zenith_deg": 9.377083969762124
+    }
+  },
+  {
+    "target_id": "ruby_grid_2",
+    "camera_key": 2284,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 120.72859449094076,
+      "elevation_residual_m": 4.501998773775995e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455783.81169345835,
+        4432008.221071697,
+        2748.7660795496777
+      ],
+      "pixel_roundtrip_error": 7.943000189687394e-09,
+      "feature_distance_m": 0.14291558328353762,
+      "view_zenith_deg": 14.21170231783935
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 126.96400560253653,
+      "elevation_residual_m": 8.822098607197404e-11,
+      "step_metres": 0.1,
+      "ground_project": [
+        455783.517970743,
+        4432006.719945733,
+        2742.7215019641444
+      ],
+      "pixel_roundtrip_error": 5.957634867156238e-09,
+      "feature_distance_m": 6.092192305041155,
+      "view_zenith_deg": 14.211716096787692
+    }
+  },
+  {
+    "target_id": "ruby_grid_20",
+    "camera_key": 1414,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 128.44417965418177,
+      "elevation_residual_m": -5.521997081814334e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455837.4139484705,
+        4432033.48773177,
+        2743.401018655859
+      ],
+      "pixel_roundtrip_error": 2.1817745851487615e-09,
+      "feature_distance_m": 0.4777037391622009,
+      "view_zenith_deg": 17.979486001578447
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 139.74859639457082,
+      "elevation_residual_m": 4.852154233958572e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455840.8556846432,
+        4432034.045276292,
+        2732.648630378768
+      ],
+      "pixel_roundtrip_error": 8.259131027359303e-09,
+      "feature_distance_m": 10.825846917063787,
+      "view_zenith_deg": 17.979517294050932
+    }
+  },
+  {
+    "target_id": "ruby_grid_21",
+    "camera_key": 54,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 119.87296935751532,
+      "elevation_residual_m": 6.45741238258779e-11,
+      "step_metres": 0.1,
+      "ground_project": [
+        455861.66452193155,
+        4432033.516932341,
+        2749.907185778022
+      ],
+      "pixel_roundtrip_error": 6.472686495854685e-09,
+      "feature_distance_m": 0.30839848001886977,
+      "view_zenith_deg": 9.41150347921539
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 133.9851768924388,
+      "elevation_residual_m": -1.9031176634598523e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455860.8102857792,
+        4432031.3751771115,
+        2735.984938142821
+      ],
+      "pixel_roundtrip_error": 3.864897975960975e-09,
+      "feature_distance_m": 14.420301756480754,
+      "view_zenith_deg": 9.411524242827419
+    }
+  },
+  {
+    "target_id": "ruby_grid_22",
+    "camera_key": 984,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 118.17707552680879,
+      "elevation_residual_m": -1.2200871424283832e-08,
+      "step_metres": 0.1,
+      "ground_project": [
+        455889.9425104292,
+        4432032.09272255,
+        2752.3953000623733
+      ],
+      "pixel_roundtrip_error": 1.7184026642471872e-08,
+      "feature_distance_m": 0.8098534385442343,
+      "view_zenith_deg": 20.476198490195365
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 126.15337592773982,
+      "elevation_residual_m": 1.837179297581315e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455891.40298458026,
+        4432034.467587637,
+        2744.922962155193
+      ],
+      "pixel_roundtrip_error": 1.6934649086085083e-08,
+      "feature_distance_m": 8.785366132113584,
+      "view_zenith_deg": 20.476223582225103
+    }
+  },
+  {
+    "target_id": "ruby_grid_23",
+    "camera_key": 2174,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 135.01246897219235,
+      "elevation_residual_m": -5.3983058023732156e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455914.3658135037,
+        4432033.584951978,
+        2752.319939015433
+      ],
+      "pixel_roundtrip_error": 1.3590705775415775e-08,
+      "feature_distance_m": 0.8683418603306161,
+      "view_zenith_deg": 30.46999005809304
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 136.24842157184986,
+      "elevation_residual_m": 2.55931809078902e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455914.9427500087,
+        4432033.341419368,
+        2751.254677833058
+      ],
+      "pixel_roundtrip_error": 2.035833095491497e-08,
+      "feature_distance_m": 2.1040381214376325,
+      "view_zenith_deg": 30.469995681136865
+    }
+  },
+  {
+    "target_id": "ruby_grid_24",
+    "camera_key": 1984,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 123.51204923834246,
+      "elevation_residual_m": -4.976755008101463e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455731.08542277664,
+        4432046.840220488,
+        2754.617394225672
+      ],
+      "pixel_roundtrip_error": 4.4303953208061334e-08,
+      "feature_distance_m": 0.5700027493750915,
+      "view_zenith_deg": 22.598317862507223
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 130.56129883462899,
+      "elevation_residual_m": -3.356035449542105e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455729.2683312768,
+        4432048.8462005295,
+        2748.109376021661
+      ],
+      "pixel_roundtrip_error": 3.7128776090051496e-08,
+      "feature_distance_m": 6.478406886191698,
+      "view_zenith_deg": 22.598342204155802
+    }
+  },
+  {
+    "target_id": "ruby_grid_25",
+    "camera_key": 1704,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 119.5906656417697,
+      "elevation_residual_m": 1.952048478415236e-08,
+      "step_metres": 0.1,
+      "ground_project": [
+        455756.94595894084,
+        4432045.860832515,
+        2751.2711018119007
+      ],
+      "pixel_roundtrip_error": 4.590064720380659e-09,
+      "feature_distance_m": 0.7826726910316167,
+      "view_zenith_deg": 12.689470135054654
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 129.59725673607232,
+      "elevation_residual_m": 1.8294485926162452e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455757.8920718435,
+        4432043.878712039,
+        2741.5089227762073
+      ],
+      "pixel_roundtrip_error": 1.1943257950376417e-08,
+      "feature_distance_m": 10.788874304522437,
+      "view_zenith_deg": 12.689489908512746
+    }
+  },
+  {
+    "target_id": "ruby_grid_26",
+    "camera_key": 4164,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 133.98690403665282,
+      "elevation_residual_m": 1.2369127944111824e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455782.63221202797,
+        4432047.5434674565,
+        2741.7096550362185
+      ],
+      "pixel_roundtrip_error": 1.865283020524189e-08,
+      "feature_distance_m": 0.1611854684829521,
+      "view_zenith_deg": 21.587263026739684
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 140.79606679516107,
+      "elevation_residual_m": -1.572516339365393e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455781.84947286895,
+        4432049.921135239,
+        2735.378099036403
+      ],
+      "pixel_roundtrip_error": 1.750383915946527e-08,
+      "feature_distance_m": 6.647234763505388,
+      "view_zenith_deg": 21.587285570239228
+    }
+  },
+  {
+    "target_id": "ruby_grid_27",
+    "camera_key": 4954,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 133.6032366716386,
+      "elevation_residual_m": 5.283709469949827e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455811.78369641263,
+        4432048.084299615,
+        2732.78531263303
+      ],
+      "pixel_roundtrip_error": 6.242416597100576e-09,
+      "feature_distance_m": 0.6935430277400308,
+      "view_zenith_deg": 9.620148007349906
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 133.66599834497657,
+      "elevation_residual_m": 1.4529177860822529e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455811.7734756,
+        4432048.081983204,
+        2732.723433555104
+      ],
+      "pixel_roundtrip_error": 3.14226648987572e-09,
+      "feature_distance_m": 0.6307827612156376,
+      "view_zenith_deg": 9.620148101412642
+    }
+  },
+  {
+    "target_id": "ruby_grid_28",
+    "camera_key": 1624,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 138.37636733348774,
+      "elevation_residual_m": 2.5183908292092383e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455834.8621450937,
+        4432048.615435254,
+        2737.9992017066106
+      ],
+      "pixel_roundtrip_error": 5.93125969345835e-09,
+      "feature_distance_m": 1.6719501304791013,
+      "view_zenith_deg": 25.305879707780406
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 139.04887374588762,
+      "elevation_residual_m": -3.906279744114727e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455834.9070630045,
+        4432048.33173754,
+        2737.391229898669
+      ],
+      "pixel_roundtrip_error": 6.495270951210359e-09,
+      "feature_distance_m": 0.9995427160722931,
+      "view_zenith_deg": 25.30588229540889
+    }
+  },
+  {
+    "target_id": "ruby_grid_29",
+    "camera_key": 4794,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 125.27785969871468,
+      "elevation_residual_m": -1.0944404493784532e-08,
+      "step_metres": 0.1,
+      "ground_project": [
+        455862.00431416224,
+        4432046.125439163,
+        2741.996326809749
+      ],
+      "pixel_roundtrip_error": 2.99219251760068e-09,
+      "feature_distance_m": 0.32559257364599087,
+      "view_zenith_deg": 11.304137726543217
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 125.33869329281583,
+      "elevation_residual_m": 4.688445187639445e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455862.0138470668,
+        4432046.118291687,
+        2741.936673355289
+      ],
+      "pixel_roundtrip_error": 6.171632419849366e-10,
+      "feature_distance_m": 0.2647608605980885,
+      "view_zenith_deg": 11.304137833459356
+    }
+  },
+  {
+    "target_id": "ruby_grid_3",
+    "camera_key": 724,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 153.5096976558615,
+      "elevation_residual_m": 5.95719029661268e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455811.7482374528,
+        4432007.437135331,
+        2732.0914263362065
+      ],
+      "pixel_roundtrip_error": 3.604380606221152e-08,
+      "feature_distance_m": 0.04364551530992518,
+      "view_zenith_deg": 26.16875915637902
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 153.624429941868,
+      "elevation_residual_m": 1.9554136088117957e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455811.79793184425,
+        4432007.44644111,
+        2731.9884542291984
+      ],
+      "pixel_roundtrip_error": 3.433289265106566e-08,
+      "feature_distance_m": 0.07106884683530301,
+      "view_zenith_deg": 26.168759610200258
+    }
+  },
+  {
+    "target_id": "ruby_grid_30",
+    "camera_key": 1994,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 135.0501529566326,
+      "elevation_residual_m": -8.913048077374697e-11,
+      "step_metres": 0.1,
+      "ground_project": [
+        455888.6276408193,
+        4432047.6908216905,
+        2754.622452459298
+      ],
+      "pixel_roundtrip_error": 2.2126385473133175e-08,
+      "feature_distance_m": 0.023513668743514776,
+      "view_zenith_deg": 18.626772065740433
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 139.58163999967306,
+      "elevation_residual_m": -1.3524186215363443e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455887.2096379392,
+        4432047.406637297,
+        2750.328328181058
+      ],
+      "pixel_roundtrip_error": 2.460574590779972e-08,
+      "feature_distance_m": 4.507600571097811,
+      "view_zenith_deg": 18.626785046153678
+    }
+  },
+  {
+    "target_id": "ruby_grid_31",
+    "camera_key": 1994,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 125.20320978501327,
+      "elevation_residual_m": 4.0881786844693124e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455914.7906210764,
+        4432046.1609582165,
+        2758.8401652267203
+      ],
+      "pixel_roundtrip_error": 9.222572400769731e-10,
+      "feature_distance_m": 0.44166420632412856,
+      "view_zenith_deg": 8.712321385800696
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 128.26668980753178,
+      "elevation_residual_m": 1.7280399333685637e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455914.3967671324,
+        4432045.916294132,
+        2755.812033689581
+      ],
+      "pixel_roundtrip_error": 4.776431199079598e-09,
+      "feature_distance_m": 3.5050874629972015,
+      "view_zenith_deg": 8.712325551395857
+    }
+  },
+  {
+    "target_id": "ruby_grid_32",
+    "camera_key": 3894,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 119.29316306677381,
+      "elevation_residual_m": 2.43198883254081e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455730.88731379184,
+        4432059.833487209,
+        2757.5797082157806
+      ],
+      "pixel_roundtrip_error": 2.6119301452306707e-08,
+      "feature_distance_m": 0.004559905185315661,
+      "view_zenith_deg": 23.352587233832732
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 131.6411543185433,
+      "elevation_residual_m": 2.025444700848311e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455728.41095839936,
+        4432055.61612711,
+        2746.2432298017666
+      ],
+      "pixel_roundtrip_error": 1.1778217501015855e-08,
+      "feature_distance_m": 12.35098469395044,
+      "view_zenith_deg": 23.352631252710395
+    }
+  },
+  {
+    "target_id": "ruby_grid_33",
+    "camera_key": 4244,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 127.28816540623174,
+      "elevation_residual_m": 4.791218088939786e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455757.9531208509,
+        4432059.245501352,
+        2743.686611400917
+      ],
+      "pixel_roundtrip_error": 7.776454402139444e-09,
+      "feature_distance_m": 3.288661221102547,
+      "view_zenith_deg": 12.297095443696598
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 133.56066892087782,
+      "elevation_residual_m": 9.868017514236271e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455757.69798153365,
+        4432060.555737816,
+        2737.5580220110714
+      ],
+      "pixel_roundtrip_error": 5.140162365364475e-09,
+      "feature_distance_m": 2.983612973541518,
+      "view_zenith_deg": 12.29710746822276
+    }
+  },
+  {
+    "target_id": "ruby_grid_34",
+    "camera_key": 1664,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 141.258926357952,
+      "elevation_residual_m": 2.2364474716596305e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455783.67937793565,
+        4432057.11603354,
+        2735.9023070242256
+      ],
+      "pixel_roundtrip_error": 3.115252203442085e-08,
+      "feature_distance_m": 0.707190949407306,
+      "view_zenith_deg": 23.78673188623317
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 142.91071877287294,
+      "elevation_residual_m": 3.11365511151962e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455783.3058888018,
+        4432057.667073328,
+        2734.390829301439
+      ],
+      "pixel_roundtrip_error": 3.698417904977344e-08,
+      "feature_distance_m": 0.9443852333554058,
+      "view_zenith_deg": 23.78673787608723
+    }
+  },
+  {
+    "target_id": "ruby_grid_35",
+    "camera_key": 3534,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 131.31364968046145,
+      "elevation_residual_m": 1.6243575373664498e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455809.7936908229,
+        4432060.318145745,
+        2744.3113033575937
+      ],
+      "pixel_roundtrip_error": 1.832326135751973e-08,
+      "feature_distance_m": 0.33394337292002296,
+      "view_zenith_deg": 24.949509688564895
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 142.11101266887385,
+      "elevation_residual_m": -1.6693775251042098e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455810.3846530954,
+        4432055.805809869,
+        2734.5215534716845
+      ],
+      "pixel_roundtrip_error": 1.6312436032333134e-08,
+      "feature_distance_m": 10.461871292681963,
+      "view_zenith_deg": 24.949550686756307
+    }
+  },
+  {
+    "target_id": "ruby_grid_36",
+    "camera_key": 1184,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 131.31076364293185,
+      "elevation_residual_m": -7.821654435247183e-11,
+      "step_metres": 0.1,
+      "ground_project": [
+        455836.48394707264,
+        4432059.320434202,
+        2740.6344977011904
+      ],
+      "pixel_roundtrip_error": 1.1582601384172378e-08,
+      "feature_distance_m": 0.3506104177484392,
+      "view_zenith_deg": 19.858461480341397
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 131.17915733580648,
+      "elevation_residual_m": 2.6871020963881165e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455836.44613011554,
+        4432059.344210652,
+        2740.7582779936492
+      ],
+      "pixel_roundtrip_error": 4.16272285600258e-09,
+      "feature_distance_m": 0.4822045003868007,
+      "view_zenith_deg": 19.85846107916069
+    }
+  },
+  {
+    "target_id": "ruby_grid_37",
+    "camera_key": 4474,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 122.45998462196566,
+      "elevation_residual_m": -2.0304469217080623e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455862.0363911604,
+        4432058.724289907,
+        2749.234245572239
+      ],
+      "pixel_roundtrip_error": 2.094536413592938e-08,
+      "feature_distance_m": 1.7956540282518152,
+      "view_zenith_deg": 20.135117970201062
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 123.70097413579269,
+      "elevation_residual_m": -2.3687789507675916e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455861.96997494105,
+        4432059.14593847,
+        2748.0691010858864
+      ],
+      "pixel_roundtrip_error": 2.3423608791304462e-08,
+      "feature_distance_m": 0.5547832457552004,
+      "view_zenith_deg": 20.135121815364286
+    }
+  },
+  {
+    "target_id": "ruby_grid_38",
+    "camera_key": 1244,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 153.63102901341088,
+      "elevation_residual_m": 2.8985596145503223e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455887.7855005558,
+        4432059.137796214,
+        2759.602430759929
+      ],
+      "pixel_roundtrip_error": 1.0923459945537506e-08,
+      "feature_distance_m": 0.13392393184988127,
+      "view_zenith_deg": 26.61979541062498
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 161.5846554279443,
+      "elevation_residual_m": 6.812115316279233e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455885.52320526814,
+        4432056.387898691,
+        2752.4918938372284
+      ],
+      "pixel_roundtrip_error": 1.5166610305998293e-08,
+      "feature_distance_m": 8.086260172474748,
+      "view_zenith_deg": 26.61982744232758
+    }
+  },
+  {
+    "target_id": "ruby_grid_39",
+    "camera_key": 1214,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 140.3276576470922,
+      "elevation_residual_m": 3.0122464522719383e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455915.0469638265,
+        4432058.505766385,
+        2763.7140112286434
+      ],
+      "pixel_roundtrip_error": 3.954315835566223e-09,
+      "feature_distance_m": 0.8749497322652605,
+      "view_zenith_deg": 20.542870350698685
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 142.32667052841822,
+      "elevation_residual_m": 5.827587301610038e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455914.8143436893,
+        4432057.844592157,
+        2761.84211583063
+      ],
+      "pixel_roundtrip_error": 2.758463231442822e-09,
+      "feature_distance_m": 2.873763347804108,
+      "view_zenith_deg": 20.54287666285332
+    }
+  },
+  {
+    "target_id": "ruby_grid_4",
+    "camera_key": 1004,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 134.28258970668904,
+      "elevation_residual_m": -1.5952537069097161e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455835.8060611737,
+        4432008.083195224,
+        2732.004751233384
+      ],
+      "pixel_roundtrip_error": 1.737153841729532e-09,
+      "feature_distance_m": 1.5710664241839998,
+      "view_zenith_deg": 10.483416904672378
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 138.54261207770264,
+      "elevation_residual_m": 8.431015885435045e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455835.04700229457,
+        4432007.929348896,
+        2727.815838861279
+      ],
+      "pixel_roundtrip_error": 3.730105810731704e-09,
+      "feature_distance_m": 2.6888427222423985,
+      "view_zenith_deg": 10.483423856195463
+    }
+  },
+  {
+    "target_id": "ruby_grid_40",
+    "camera_key": 2454,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 116.64580580123433,
+      "elevation_residual_m": -4.824869392905384e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455730.68545802624,
+        4432072.386334081,
+        2753.606757280417
+      ],
+      "pixel_roundtrip_error": 3.6850074555911374e-09,
+      "feature_distance_m": 0.13520252413907302,
+      "view_zenith_deg": 12.024215639499516
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 129.84455063047926,
+      "elevation_residual_m": 1.6807462088763714e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455728.00123487564,
+        4432072.972205891,
+        2740.697598242201
+      ],
+      "pixel_roundtrip_error": 3.7191573759158525e-09,
+      "feature_distance_m": 13.063080954178835,
+      "view_zenith_deg": 12.024240299212686
+    }
+  },
+  {
+    "target_id": "ruby_grid_41",
+    "camera_key": 5034,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 127.98996009593512,
+      "elevation_residual_m": -3.7707650335505605e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455755.72756358905,
+        4432071.8951827735,
+        2740.256431238726
+      ],
+      "pixel_roundtrip_error": 2.2335422041223042e-09,
+      "feature_distance_m": 0.39414551397666414,
+      "view_zenith_deg": 6.739917536926486
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 132.4716485617717,
+      "elevation_residual_m": 1.406078808940947e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455755.463749435,
+        4432072.3497316465,
+        2735.8057151846588
+      ],
+      "pixel_roundtrip_error": 3.339611493727272e-09,
+      "feature_distance_m": 4.087493246541153,
+      "view_zenith_deg": 6.739922267123073
+    }
+  },
+  {
+    "target_id": "ruby_grid_42",
+    "camera_key": 4404,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 131.5206569553646,
+      "elevation_residual_m": -1.766693458193913e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455783.3440541071,
+        4432075.470441161,
+        2734.593161765486
+      ],
+      "pixel_roundtrip_error": 4.775500784754443e-09,
+      "feature_distance_m": 0.37254935421480057,
+      "view_zenith_deg": 10.556775341522437
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 131.51192229988695,
+      "elevation_residual_m": 2.105480234604329e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455783.34565171413,
+        4432075.470507602,
+        2734.6017485782504
+      ],
+      "pixel_roundtrip_error": 4.334182663684267e-09,
+      "feature_distance_m": 0.38128377555707804,
+      "view_zenith_deg": 10.556775327176135
+    }
+  },
+  {
+    "target_id": "ruby_grid_43",
+    "camera_key": 1624,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 130.51820521497746,
+      "elevation_residual_m": -2.0509105524979532e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455808.9709810635,
+        4432071.9461512,
+        2738.4881264306605
+      ],
+      "pixel_roundtrip_error": 7.26297981212799e-09,
+      "feature_distance_m": 0.585173551596004,
+      "view_zenith_deg": 17.30715000117046
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 130.41737973110958,
+      "elevation_residual_m": -4.824869392905384e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455808.9838426426,
+        4432071.973222017,
+        2738.584386907518
+      ],
+      "pixel_roundtrip_error": 1.3106435444354756e-08,
+      "feature_distance_m": 0.4843552557129632,
+      "view_zenith_deg": 17.30714973142157
+    }
+  },
+  {
+    "target_id": "ruby_grid_44",
+    "camera_key": 3404,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 130.01587826893413,
+      "elevation_residual_m": -1.2128111848141998e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455836.2479698674,
+        4432073.209785146,
+        2745.8328854879364
+      ],
+      "pixel_roundtrip_error": 5.525180612692655e-09,
+      "feature_distance_m": 0.4387128558713945,
+      "view_zenith_deg": 12.923989155086256
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 130.14530099466674,
+      "elevation_residual_m": -2.6725501811597496e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455836.2239751051,
+        4432073.193635888,
+        2745.7067413441837
+      ],
+      "pixel_roundtrip_error": 2.775813785089285e-09,
+      "feature_distance_m": 0.3092953449455615,
+      "view_zenith_deg": 12.923989414972201
+    }
+  },
+  {
+    "target_id": "ruby_grid_45",
+    "camera_key": 1804,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 121.86186102505914,
+      "elevation_residual_m": 1.1503288988023996e-08,
+      "step_metres": 0.1,
+      "ground_project": [
+        455864.227001795,
+        4432071.844542371,
+        2753.386637479998
+      ],
+      "pixel_roundtrip_error": 4.097793897119953e-09,
+      "feature_distance_m": 1.6720494792196223,
+      "view_zenith_deg": 6.508202738571997
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 122.58639255828896,
+      "elevation_residual_m": 5.984475137665868e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455864.1462759025,
+        4432071.829827235,
+        2752.66677509062
+      ],
+      "pixel_roundtrip_error": 5.4963041457268414e-09,
+      "feature_distance_m": 0.94752545298553,
+      "view_zenith_deg": 6.5082034749784485
+    }
+  },
+  {
+    "target_id": "ruby_grid_46",
+    "camera_key": 2384,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 115.74580891694917,
+      "elevation_residual_m": -1.90084392670542e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455887.6629240335,
+        4432073.75515183,
+        2758.554783488624
+      ],
+      "pixel_roundtrip_error": 6.168395704974746e-09,
+      "feature_distance_m": 0.26375245420065696,
+      "view_zenith_deg": 17.58360436434988
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 115.68950279977068,
+      "elevation_residual_m": -1.7944330465979874e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455887.6622951104,
+        4432073.738167321,
+        2758.6084588244557
+      ],
+      "pixel_roundtrip_error": 1.0696217307952023e-08,
+      "feature_distance_m": 0.32005441460668066,
+      "view_zenith_deg": 17.58360421122129
+    }
+  },
+  {
+    "target_id": "ruby_grid_47",
+    "camera_key": 4924,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 130.42172255580073,
+      "elevation_residual_m": -5.218225851422176e-08,
+      "step_metres": 0.1,
+      "ground_project": [
+        455913.4866183188,
+        4432073.033181335,
+        2766.4525193748996
+      ],
+      "pixel_roundtrip_error": 3.359082930027578e-08,
+      "feature_distance_m": 0.9971439699124903,
+      "view_zenith_deg": 32.76881813020017
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 131.19158370561033,
+      "elevation_residual_m": 1.987245923373848e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455913.8151204448,
+        4432072.77738029,
+        2765.805172949098
+      ],
+      "pixel_roundtrip_error": 3.227172770563736e-08,
+      "feature_distance_m": 0.22746532522386695,
+      "view_zenith_deg": 32.76882187206938
+    }
+  },
+  {
+    "target_id": "ruby_grid_48",
+    "camera_key": 3034,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 140.79735824885003,
+      "elevation_residual_m": -2.2541826183442026e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455731.2577145704,
+        4432084.115285976,
+        2741.157157585025
+      ],
+      "pixel_roundtrip_error": 1.9268968119465436e-08,
+      "feature_distance_m": 0.5778984191498965,
+      "view_zenith_deg": 20.671835892984078
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 142.7993728161995,
+      "elevation_residual_m": 9.567884262651205e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455731.30615488853,
+        4432084.819794042,
+        2739.284037420526
+      ],
+      "pixel_roundtrip_error": 1.8872450029893387e-08,
+      "feature_distance_m": 1.4239150662634754,
+      "view_zenith_deg": 20.671842255077042
+    }
+  },
+  {
+    "target_id": "ruby_grid_49",
+    "camera_key": 484,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 146.67753686795123,
+      "elevation_residual_m": -2.4010660126805305e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455757.4794754356,
+        4432086.246985268,
+        2735.939656911418
+      ],
+      "pixel_roundtrip_error": 1.7017937778846504e-08,
+      "feature_distance_m": 0.04030817769379828,
+      "view_zenith_deg": 21.454590546389174
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 146.66605921218476,
+      "elevation_residual_m": 1.8158061720896512e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455757.4771602377,
+        4432086.243487324,
+        2735.950339253992
+      ],
+      "pixel_roundtrip_error": 1.562793308366528e-08,
+      "feature_distance_m": 0.02883175847183317,
+      "view_zenith_deg": 21.454590508679555
+    }
+  },
+  {
+    "target_id": "ruby_grid_5",
+    "camera_key": 424,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 137.99415803625064,
+      "elevation_residual_m": -1.6370904631912708e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455863.222127657,
+        4432007.699759415,
+        2728.251773436554
+      ],
+      "pixel_roundtrip_error": 9.474324722777956e-10,
+      "feature_distance_m": 1.3396189757911947,
+      "view_zenith_deg": 8.212111081509393
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 137.89384782081615,
+      "elevation_residual_m": -5.300989869283512e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455863.21962978336,
+        4432007.713856424,
+        2728.351055076346
+      ],
+      "pixel_roundtrip_error": 8.540405270010328e-09,
+      "feature_distance_m": 1.239310406710382,
+      "view_zenith_deg": 8.212110952558955
+    }
+  },
+  {
+    "target_id": "ruby_grid_50",
+    "camera_key": 354,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 126.77842940549264,
+      "elevation_residual_m": -1.2441887520253658e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455782.89309542463,
+        4432086.770175232,
+        2742.1627357732505
+      ],
+      "pixel_roundtrip_error": 5.759359457895305e-09,
+      "feature_distance_m": 0.6906950142556255,
+      "view_zenith_deg": 17.089719334799103
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 132.992052425143,
+      "elevation_residual_m": 2.9058355721645057e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455781.26005554525,
+        4432085.956505181,
+        2736.2234708210453
+      ],
+      "pixel_roundtrip_error": 3.1139106458038123e-09,
+      "feature_distance_m": 6.903886333616198,
+      "view_zenith_deg": 17.089735721380865
+    }
+  },
+  {
+    "target_id": "ruby_grid_51",
+    "camera_key": 3674,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 124.12999332060198,
+      "elevation_residual_m": 5.011315806768835e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455810.29079654237,
+        4432086.444992428,
+        2742.954305666499
+      ],
+      "pixel_roundtrip_error": 8.569251175482628e-09,
+      "feature_distance_m": 0.07790742022147322,
+      "view_zenith_deg": 10.281227092685612
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 124.09372912660771,
+      "elevation_residual_m": 2.2919266484677792e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455810.28481999604,
+        4432086.442521443,
+        2742.989987586625
+      ],
+      "pixel_roundtrip_error": 1.2345751051259542e-08,
+      "feature_distance_m": 0.11417068396007346,
+      "view_zenith_deg": 10.281227034678576
+    }
+  },
+  {
+    "target_id": "ruby_grid_52",
+    "camera_key": 4,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 117.82332938667925,
+      "elevation_residual_m": -2.3060238163452595e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455837.0842112465,
+        4432085.385203837,
+        2750.5976852783933
+      ],
+      "pixel_roundtrip_error": 3.512588938864362e-09,
+      "feature_distance_m": 3.207496547111109,
+      "view_zenith_deg": 8.165979901895454
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 118.33147119437739,
+      "elevation_residual_m": -1.673470251262188e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455837.05912607734,
+        4432085.317588359,
+        2750.0946956509724
+      ],
+      "pixel_roundtrip_error": 3.0462102479990497e-09,
+      "feature_distance_m": 3.7156300767187984,
+      "view_zenith_deg": 8.165980551259262
+    }
+  },
+  {
+    "target_id": "ruby_grid_53",
+    "camera_key": 894,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 112.08032002660259,
+      "elevation_residual_m": -1.509761204943061e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455861.63970983773,
+        4432085.552067838,
+        2759.4070609025657
+      ],
+      "pixel_roundtrip_error": 1.097887183300809e-08,
+      "feature_distance_m": 0.17007188517724556,
+      "view_zenith_deg": 19.891460213771865
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 114.24868679638875,
+      "elevation_residual_m": 4.2791725718416274e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455862.1816149864,
+        4432086.051822601,
+        2757.3680614316836
+      ],
+      "pixel_roundtrip_error": 6.2818190956842834e-09,
+      "feature_distance_m": 1.998092051370003,
+      "view_zenith_deg": 19.891466841303
+    }
+  },
+  {
+    "target_id": "ruby_grid_54",
+    "camera_key": 1794,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 126.5616234646397,
+      "elevation_residual_m": 4.6202330850064754e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455889.37788278173,
+        4432086.758542126,
+        2763.7336457204074
+      ],
+      "pixel_roundtrip_error": 9.823220487877402e-09,
+      "feature_distance_m": 0.6229302089121342,
+      "view_zenith_deg": 14.383655643461461
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 126.58776468731733,
+      "elevation_residual_m": -4.092726157978177e-11,
+      "step_metres": 0.1,
+      "ground_project": [
+        455889.37281965767,
+        4432086.754484239,
+        2763.708323918283
+      ],
+      "pixel_roundtrip_error": 5.485745626992413e-09,
+      "feature_distance_m": 0.5967902904911893,
+      "view_zenith_deg": 14.383655701761521
+    }
+  },
+  {
+    "target_id": "ruby_grid_55",
+    "camera_key": 294,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 118.37184855033705,
+      "elevation_residual_m": -7.239577826112509e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455915.69309370243,
+        4432085.879343342,
+        2770.463588917628
+      ],
+      "pixel_roundtrip_error": 7.725192577265366e-09,
+      "feature_distance_m": 0.4325461466821138,
+      "view_zenith_deg": 9.701253586365855
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 118.25769449167252,
+      "elevation_residual_m": 1.1450538295321167e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455915.6990729017,
+        4432085.861076408,
+        2770.57611054834
+      ],
+      "pixel_roundtrip_error": 4.735896437685716e-09,
+      "feature_distance_m": 0.3183947162117202,
+      "view_zenith_deg": 9.701253413457072
+    }
+  },
+  {
+    "target_id": "ruby_grid_56",
+    "camera_key": 2754,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 121.27338492206495,
+      "elevation_residual_m": -6.700702215312049e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455733.5876820655,
+        4432097.470577421,
+        2752.0570609234273
+      ],
+      "pixel_roundtrip_error": 3.0419791189296485e-08,
+      "feature_distance_m": 1.5667579565842324,
+      "view_zenith_deg": 20.13816434363288
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 136.08310597421917,
+      "elevation_residual_m": 1.766693458193913e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455728.785340763,
+        4432095.769656305,
+        2738.1527322120965
+      ],
+      "pixel_roundtrip_error": 2.4200043734854017e-08,
+      "feature_distance_m": 13.241549561142374,
+      "view_zenith_deg": 20.138210084423996
+    }
+  },
+  {
+    "target_id": "ruby_grid_57",
+    "camera_key": 654,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 142.06952064410189,
+      "elevation_residual_m": 5.811671144329011e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455756.1020394447,
+        4432099.8679356985,
+        2737.0649552950636
+      ],
+      "pixel_roundtrip_error": 1.002427080474914e-08,
+      "feature_distance_m": 0.0828164338714629,
+      "view_zenith_deg": 19.20709934648331
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 142.2232528280765,
+      "elevation_residual_m": -4.608864401234314e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455756.13225507986,
+        4432099.908442076,
+        2736.919780516997
+      ],
+      "pixel_roundtrip_error": 8.888141893025649e-09,
+      "feature_distance_m": 0.07090235950575104,
+      "view_zenith_deg": 19.207099801215904
+    }
+  },
+  {
+    "target_id": "ruby_grid_58",
+    "camera_key": 224,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 148.92900987334852,
+      "elevation_residual_m": -1.7339516489300877e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455782.56361624633,
+        4432098.410748687,
+        2739.522333210334
+      ],
+      "pixel_roundtrip_error": 4.232122874044017e-08,
+      "feature_distance_m": 0.0968190127119681,
+      "view_zenith_deg": 27.557247219783637
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 148.81955783718956,
+      "elevation_residual_m": 3.3651303965598345e-11,
+      "step_metres": 0.1,
+      "ground_project": [
+        455782.5235404416,
+        4432098.379864422,
+        2739.619367809035
+      ],
+      "pixel_roundtrip_error": 4.403825707903611e-08,
+      "feature_distance_m": 0.20625219458004282,
+      "view_zenith_deg": 27.55724676500842
+    }
+  },
+  {
+    "target_id": "ruby_grid_59",
+    "camera_key": 4894,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 117.5378777537502,
+      "elevation_residual_m": -9.667928679846227e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455809.4406675001,
+        4432099.347207842,
+        2752.544285932556
+      ],
+      "pixel_roundtrip_error": 3.521244563388689e-09,
+      "feature_distance_m": 1.7032844410772725,
+      "view_zenith_deg": 18.46970675119511
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 122.26672677651992,
+      "elevation_residual_m": 4.5838532969355583e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455809.1786996389,
+        4432100.821011399,
+        2748.0590140121058
+      ],
+      "pixel_roundtrip_error": 1.1524148078788466e-08,
+      "feature_distance_m": 3.0251813020446803,
+      "view_zenith_deg": 18.469720235850662
+    }
+  },
+  {
+    "target_id": "ruby_grid_6",
+    "camera_key": 124,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 141.3434292844408,
+      "elevation_residual_m": 8.799361239653081e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455888.0770188794,
+        4432007.843202156,
+        2733.639633739367
+      ],
+      "pixel_roundtrip_error": 4.1630525424682614e-08,
+      "feature_distance_m": 0.08468459206385333,
+      "view_zenith_deg": 24.112558170036927
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 141.35145682332205,
+      "elevation_residual_m": -2.2282620193436742e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455888.0801299901,
+        4432007.8442311315,
+        2733.632306644693
+      ],
+      "pixel_roundtrip_error": 3.879496970770816e-08,
+      "feature_distance_m": 0.07665812853814295,
+      "view_zenith_deg": 24.112558199403704
+    }
+  },
+  {
+    "target_id": "ruby_grid_60",
+    "camera_key": 2514,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 113.09903375245626,
+      "elevation_residual_m": -4.774847184307873e-11,
+      "step_metres": 0.1,
+      "ground_project": [
+        455836.04504582065,
+        4432098.013646978,
+        2752.9439704306424
+      ],
+      "pixel_roundtrip_error": 2.5360656419821227e-08,
+      "feature_distance_m": 0.033972088388592114,
+      "view_zenith_deg": 13.042325749278595
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 113.0120528938943,
+      "elevation_residual_m": 7.968992576934397e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455836.0313141246,
+        4432098.027651179,
+        2753.028707497753
+      ],
+      "pixel_roundtrip_error": 2.6129069706091744e-08,
+      "feature_distance_m": 0.12094937080421979,
+      "view_zenith_deg": 13.042325573033933
+    }
+  },
+  {
+    "target_id": "ruby_grid_61",
+    "camera_key": 4434,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 115.29912887060225,
+      "elevation_residual_m": 2.2150743461679667e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455862.6314234609,
+        4432097.457509193,
+        2760.5732996743172
+      ],
+      "pixel_roundtrip_error": 1.3876941259205328e-09,
+      "feature_distance_m": 0.33174785221727043,
+      "view_zenith_deg": 7.458330255177179
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 115.30243732516762,
+      "elevation_residual_m": -9.75887815002352e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455862.63174226886,
+        4432097.457221974,
+        2760.5700192097574
+      ],
+      "pixel_roundtrip_error": 9.517590669029602e-09,
+      "feature_distance_m": 0.32843944157660204,
+      "view_zenith_deg": 7.4583302592332945
+    }
+  },
+  {
+    "target_id": "ruby_grid_62",
+    "camera_key": 14,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 108.55402658023232,
+      "elevation_residual_m": -6.173650035634637e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455889.1957538625,
+        4432100.543109916,
+        2770.194024378434
+      ],
+      "pixel_roundtrip_error": 4.927769829599444e-09,
+      "feature_distance_m": 5.424095259665163,
+      "view_zenith_deg": 1.2566942921047595
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 109.45830239845817,
+      "elevation_residual_m": 2.039996616076678e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455889.21431797324,
+        4432100.536177573,
+        2769.2899660645053
+      ],
+      "pixel_roundtrip_error": 2.3302853369448847e-09,
+      "feature_distance_m": 6.328370725756791,
+      "view_zenith_deg": 1.256694470078235
+    }
+  },
+  {
+    "target_id": "ruby_grid_63",
+    "camera_key": 1484,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 109.62764594943205,
+      "elevation_residual_m": 1.7903403204400092e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455915.8758196839,
+        4432098.956366304,
+        2775.932734732516
+      ],
+      "pixel_roundtrip_error": 8.237372439955605e-09,
+      "feature_distance_m": 4.762054558290012,
+      "view_zenith_deg": 5.967783452380386
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 109.6253549239248,
+      "elevation_residual_m": 1.9776962290052325e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455915.8755818786,
+        4432098.956376009,
+        2775.935013340786
+      ],
+      "pixel_roundtrip_error": 5.650774904256044e-09,
+      "feature_distance_m": 4.759763553884668,
+      "view_zenith_deg": 5.967783450214138
+    }
+  },
+  {
+    "target_id": "ruby_grid_7",
+    "camera_key": 4824,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 131.2769940506336,
+      "elevation_residual_m": 9.458744898438454e-11,
+      "step_metres": 0.1,
+      "ground_project": [
+        455914.9886840611,
+        4432006.343571364,
+        2743.1556920818985
+      ],
+      "pixel_roundtrip_error": 2.389382908544987e-08,
+      "feature_distance_m": 0.1303750983645378,
+      "view_zenith_deg": 24.71021703186957
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 132.7137558027886,
+      "elevation_residual_m": -6.442860467359424e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455915.5391958226,
+        4432006.582498632,
+        2741.8504893891513
+      ],
+      "pixel_roundtrip_error": 2.450203372875957e-08,
+      "feature_distance_m": 1.5669347067037012,
+      "view_zenith_deg": 24.710222421040612
+    }
+  },
+  {
+    "target_id": "ruby_grid_8",
+    "camera_key": 764,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 103.86871563607941,
+      "elevation_residual_m": 2.5920599000528455e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455731.0280487702,
+        4432020.734496611,
+        2766.691291687079
+      ],
+      "pixel_roundtrip_error": 5.56278347606304e-09,
+      "feature_distance_m": 0.34986191045493015,
+      "view_zenith_deg": 8.623595745505758
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 112.72868337715984,
+      "elevation_residual_m": -6.743903213646263e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455729.79323220433,
+        4432021.22158345,
+        2757.931488541886
+      ],
+      "pixel_roundtrip_error": 3.2467945900773907e-09,
+      "feature_distance_m": 8.509944897972566,
+      "view_zenith_deg": 8.623607663962293
+    }
+  },
+  {
+    "target_id": "ruby_grid_9",
+    "camera_key": 624,
+    "viewing_absolute": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 125.26503193386645,
+      "elevation_residual_m": -1.318767317570746e-10,
+      "step_metres": 0.1,
+      "ground_project": [
+        455758.1632144036,
+        4432020.609877637,
+        2757.492872598581
+      ],
+      "pixel_roundtrip_error": 2.224583259664891e-08,
+      "feature_distance_m": 0.26396152743323775,
+      "view_zenith_deg": 28.850595424680897
+    },
+    "ground_dtm_chunk": {
+      "status": "BRACKETED_DEM_INTERSECTION",
+      "distance_m": 132.9011060849344,
+      "elevation_residual_m": -1.2232703738845885e-09,
+      "step_metres": 0.1,
+      "ground_project": [
+        455760.53743875754,
+        4432017.796066703,
+        2750.804581991397
+      ],
+      "pixel_roundtrip_error": 2.3071382296981234e-08,
+      "feature_distance_m": 7.898599992859232,
+      "view_zenith_deg": 28.850628539680216
+    }
+  }
+]

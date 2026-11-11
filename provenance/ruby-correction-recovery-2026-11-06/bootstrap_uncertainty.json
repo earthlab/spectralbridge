@@ -1,0 +1,262 @@
+[
+  {
+    "wavelength_nm": 444.0,
+    "groups": 16,
+    "clustering": "spatial_group",
+    "successful_replicates": 60,
+    "coefficient_interval": [
+      [
+        1.0,
+        1.5937985716544834,
+        -0.033091709342799536
+      ],
+      [
+        1.0,
+        3.2801964295330457,
+        0.0339249229027102
+      ]
+    ],
+    "reference_interval": [
+      0.8587717166367009,
+      0.896696250475466
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true,
+    "status": "CONDITIONAL_SINGLE_FLIGHT_BOOTSTRAP"
+  },
+  {
+    "wavelength_nm": 475.0,
+    "groups": 16,
+    "clustering": "spatial_group",
+    "successful_replicates": 60,
+    "coefficient_interval": [
+      [
+        1.0,
+        0.6444146274482576,
+        -0.07711359098016597
+      ],
+      [
+        1.0,
+        4.470023833569626,
+        0.08422374731556995
+      ]
+    ],
+    "reference_interval": [
+      0.8541658219997875,
+      0.8906296316201422
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true,
+    "status": "CONDITIONAL_SINGLE_FLIGHT_BOOTSTRAP"
+  },
+  {
+    "wavelength_nm": 531.0,
+    "groups": 16,
+    "clustering": "spatial_group",
+    "successful_replicates": 60,
+    "coefficient_interval": [
+      [
+        1.0,
+        2.3340558818926787,
+        -0.054214460714269545
+      ],
+      [
+        1.0,
+        4.114381330265035,
+        0.015749174753493515
+      ]
+    ],
+    "reference_interval": [
+      0.8599882036285228,
+      0.884369607122719
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true,
+    "status": "CONDITIONAL_SINGLE_FLIGHT_BOOTSTRAP"
+  },
+  {
+    "wavelength_nm": 560.0,
+    "groups": 16,
+    "clustering": "spatial_group",
+    "successful_replicates": 60,
+    "coefficient_interval": [
+      [
+        1.0,
+        1.017115859978299,
+        -0.07016906745591338
+      ],
+      [
+        1.0,
+        3.8492640986287903,
+        0.05698205377120735
+      ]
+    ],
+    "reference_interval": [
+      0.8697142857906099,
+      0.9140562487276019
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true,
+    "status": "CONDITIONAL_SINGLE_FLIGHT_BOOTSTRAP"
+  },
+  {
+    "wavelength_nm": 650.0,
+    "groups": 16,
+    "clustering": "spatial_group",
+    "successful_replicates": 60,
+    "coefficient_interval": [
+      [
+        1.0,
+        0.3484597615131996,
+        -0.042278448294305535
+      ],
+      [
+        1.0,
+        3.51606922984653,
+        0.052744985161872295
+      ]
+    ],
+    "reference_interval": [
+      0.8705492306363495,
+      0.934351361677366
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true,
+    "status": "CONDITIONAL_SINGLE_FLIGHT_BOOTSTRAP"
+  },
+  {
+    "wavelength_nm": 668.0,
+    "groups": 16,
+    "clustering": "spatial_group",
+    "successful_replicates": 60,
+    "coefficient_interval": [
+      [
+        1.0,
+        1.1620814858614106,
+        -0.05008219461743725
+      ],
+      [
+        1.0,
+        4.088513733759966,
+        0.03589958366865397
+      ]
+    ],
+    "reference_interval": [
+      0.8586588148262668,
+      0.9358337897685716
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true,
+    "status": "CONDITIONAL_SINGLE_FLIGHT_BOOTSTRAP"
+  },
+  {
+    "wavelength_nm": 705.0,
+    "groups": 16,
+    "clustering": "spatial_group",
+    "successful_replicates": 60,
+    "coefficient_interval": [
+      [
+        1.0,
+        1.185613073449857,
+        -0.062419740485646184
+      ],
+      [
+        1.0,
+        4.557955163955496,
+        0.028410658555397025
+      ]
+    ],
+    "reference_interval": [
+      0.8490909722012903,
+      0.92950777574378
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true,
+    "status": "CONDITIONAL_SINGLE_FLIGHT_BOOTSTRAP"
+  },
+  {
+    "wavelength_nm": 717.0,
+    "groups": 16,
+    "clustering": "spatial_group",
+    "successful_replicates": 60,
+    "coefficient_interval": [
+      [
+        1.0,
+        1.7176429447256114,
+        -0.05965792880505946
+      ],
+      [
+        1.0,
+        3.791477609745462,
+        0.0377992669865036
+      ]
+    ],
+    "reference_interval": [
+      0.8620857450142787,
+      0.9130193604227353
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true,
+    "status": "CONDITIONAL_SINGLE_FLIGHT_BOOTSTRAP"
+  },
+  {
+    "wavelength_nm": 740.0,
+    "groups": 16,
+    "clustering": "spatial_group",
+    "successful_replicates": 60,
+    "coefficient_interval": [
+      [
+        1.0,
+        0.07739238736601335,
+        -0.05703029851525855
+      ],
+      [
+        1.0,
+        3.811749295085022,
+        0.08575174495136274
+      ]
+    ],
+    "reference_interval": [
+      0.8709982281252264,
+      0.9378867724639454
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true,
+    "status": "CONDITIONAL_SINGLE_FLIGHT_BOOTSTRAP"
+  },
+  {
+    "wavelength_nm": 842.0,
+    "groups": 16,
+    "clustering": "spatial_group",
+    "successful_replicates": 60,
+    "coefficient_interval": [
+      [
+        1.0,
+        -0.04774653478122508,
+        -0.0514101508076058
+      ],
+      [
+        1.0,
+        2.9515334887537965,
+        0.06452909391902187
+      ]
+    ],
+    "reference_interval": [
+      0.8890583864514043,
+      0.9486185581484077
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true,
+    "status": "CONDITIONAL_SINGLE_FLIGHT_BOOTSTRAP"
+  }
+]

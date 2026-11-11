@@ -1,0 +1,282 @@
+[
+  {
+    "wavelength_nm": 444.0,
+    "groups": 19,
+    "clustering": "time_minute_wild",
+    "time_pairs_status": "INSUFFICIENT_SUCCESSFUL_REPLICATES_NOT_A_PASS",
+    "successful_replicates": 120,
+    "method": "Rademacher minute-cluster residual wild bootstrap; full design retained",
+    "independent_calibration_validation": false,
+    "reference_interval": [
+      0.856891705340421,
+      0.9148802082533072
+    ],
+    "coefficient_interval": [
+      [
+        1.0,
+        1.2954970344491,
+        -0.0384034770295345
+      ],
+      [
+        1.0,
+        3.7033549000696144,
+        0.0365717226063343
+      ]
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true
+  },
+  {
+    "wavelength_nm": 475.0,
+    "groups": 19,
+    "clustering": "time_minute_wild",
+    "time_pairs_status": "INSUFFICIENT_SUCCESSFUL_REPLICATES_NOT_A_PASS",
+    "successful_replicates": 120,
+    "method": "Rademacher minute-cluster residual wild bootstrap; full design retained",
+    "independent_calibration_validation": false,
+    "reference_interval": [
+      0.8212439290489507,
+      0.9104277205985005
+    ],
+    "coefficient_interval": [
+      [
+        1.0,
+        2.0627325458927466,
+        -0.09032513019842141
+      ],
+      [
+        1.0,
+        5.103660719229129,
+        0.030829367474130384
+      ]
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true
+  },
+  {
+    "wavelength_nm": 531.0,
+    "groups": 19,
+    "clustering": "time_minute_wild",
+    "time_pairs_status": "INSUFFICIENT_SUCCESSFUL_REPLICATES_NOT_A_PASS",
+    "successful_replicates": 120,
+    "method": "Rademacher minute-cluster residual wild bootstrap; full design retained",
+    "independent_calibration_validation": false,
+    "reference_interval": [
+      0.8469967829288803,
+      0.8881858517214634
+    ],
+    "coefficient_interval": [
+      [
+        1.0,
+        2.427884556407711,
+        -0.06879525404257504
+      ],
+      [
+        1.0,
+        4.442432587976287,
+        0.014500404489389752
+      ]
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true
+  },
+  {
+    "wavelength_nm": 560.0,
+    "groups": 19,
+    "clustering": "time_minute_wild",
+    "time_pairs_status": "INSUFFICIENT_SUCCESSFUL_REPLICATES_NOT_A_PASS",
+    "successful_replicates": 120,
+    "method": "Rademacher minute-cluster residual wild bootstrap; full design retained",
+    "independent_calibration_validation": false,
+    "reference_interval": [
+      0.8661273070559798,
+      0.9136376157662758
+    ],
+    "coefficient_interval": [
+      [
+        1.0,
+        1.8470803901094421,
+        -0.05107937234339727
+      ],
+      [
+        1.0,
+        3.534034434291146,
+        0.017898093897739213
+      ]
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true
+  },
+  {
+    "wavelength_nm": 650.0,
+    "groups": 19,
+    "clustering": "time_minute_wild",
+    "time_pairs_status": "INSUFFICIENT_SUCCESSFUL_REPLICATES_NOT_A_PASS",
+    "successful_replicates": 120,
+    "method": "Rademacher minute-cluster residual wild bootstrap; full design retained",
+    "independent_calibration_validation": false,
+    "reference_interval": [
+      0.8657399937888942,
+      0.9095361788215339
+    ],
+    "coefficient_interval": [
+      [
+        1.0,
+        1.561599986132945,
+        -0.04591197593564317
+      ],
+      [
+        1.0,
+        3.55914872369198,
+        0.030531091988368352
+      ]
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true
+  },
+  {
+    "wavelength_nm": 668.0,
+    "groups": 19,
+    "clustering": "time_minute_wild",
+    "time_pairs_status": "INSUFFICIENT_SUCCESSFUL_REPLICATES_NOT_A_PASS",
+    "successful_replicates": 120,
+    "method": "Rademacher minute-cluster residual wild bootstrap; full design retained",
+    "independent_calibration_validation": false,
+    "reference_interval": [
+      0.8403825012906048,
+      0.9158797337858845
+    ],
+    "coefficient_interval": [
+      [
+        1.0,
+        2.0999888186488738,
+        -0.044814436715853515
+      ],
+      [
+        1.0,
+        4.316028707967244,
+        -0.00015255340137514573
+      ]
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true
+  },
+  {
+    "wavelength_nm": 705.0,
+    "groups": 19,
+    "clustering": "time_minute_wild",
+    "time_pairs_status": "INSUFFICIENT_SUCCESSFUL_REPLICATES_NOT_A_PASS",
+    "successful_replicates": 120,
+    "method": "Rademacher minute-cluster residual wild bootstrap; full design retained",
+    "independent_calibration_validation": false,
+    "reference_interval": [
+      0.8503629005100712,
+      0.9128791170712937
+    ],
+    "coefficient_interval": [
+      [
+        1.0,
+        1.7534946759312073,
+        -0.0616723017184496
+      ],
+      [
+        1.0,
+        4.538528869384081,
+        0.008439516166878012
+      ]
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true
+  },
+  {
+    "wavelength_nm": 717.0,
+    "groups": 19,
+    "clustering": "time_minute_wild",
+    "time_pairs_status": "INSUFFICIENT_SUCCESSFUL_REPLICATES_NOT_A_PASS",
+    "successful_replicates": 120,
+    "method": "Rademacher minute-cluster residual wild bootstrap; full design retained",
+    "independent_calibration_validation": false,
+    "reference_interval": [
+      0.8617460916293858,
+      0.8980873300888159
+    ],
+    "coefficient_interval": [
+      [
+        1.0,
+        1.9551907922664304,
+        -0.04824098509954749
+      ],
+      [
+        1.0,
+        3.726113422817112,
+        0.02900370749697311
+      ]
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true
+  },
+  {
+    "wavelength_nm": 740.0,
+    "groups": 19,
+    "clustering": "time_minute_wild",
+    "time_pairs_status": "INSUFFICIENT_SUCCESSFUL_REPLICATES_NOT_A_PASS",
+    "successful_replicates": 120,
+    "method": "Rademacher minute-cluster residual wild bootstrap; full design retained",
+    "independent_calibration_validation": false,
+    "reference_interval": [
+      0.8725478295838968,
+      0.9271715339804825
+    ],
+    "coefficient_interval": [
+      [
+        1.0,
+        0.7826042579903372,
+        -0.053586117011349466
+      ],
+      [
+        1.0,
+        3.811426162988695,
+        0.05131897263253112
+      ]
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true
+  },
+  {
+    "wavelength_nm": 842.0,
+    "groups": 19,
+    "clustering": "time_minute_wild",
+    "time_pairs_status": "INSUFFICIENT_SUCCESSFUL_REPLICATES_NOT_A_PASS",
+    "successful_replicates": 120,
+    "method": "Rademacher minute-cluster residual wild bootstrap; full design retained",
+    "independent_calibration_validation": false,
+    "reference_interval": [
+      0.8831939331820766,
+      0.9358549664182501
+    ],
+    "coefficient_interval": [
+      [
+        1.0,
+        1.3554330798323704,
+        -0.04281464272281213
+      ],
+      [
+        1.0,
+        2.801619524689087,
+        0.03233127976687983
+      ]
+    ],
+    "nonpositive_lower_application": 0,
+    "reference_joint_support": true,
+    "normalization_supported": true
+  }
+]

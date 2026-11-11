@@ -1,0 +1,512 @@
+[
+  {
+    "wavelength_nm": 444.0,
+    "fold": 0,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 444.0,
+    "fold": 1,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 444.0,
+    "fold": 2,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "NUMERICAL_CANDIDATE_ONLY",
+    "topographic": {
+      "C": -0.2719769081288271,
+      "C_interval": [
+        -0.47664112835780253,
+        1.255781517586056
+      ],
+      "incidence_range": [
+        0.3538154866666667,
+        0.9949372
+      ],
+      "groups": 12
+    },
+    "brdf_beta": [
+      1.0,
+      2.8161130870083775,
+      -0.008655421248269415
+    ],
+    "reference_joint_support": true,
+    "unsupported_topographic_test": 0,
+    "unsupported_brdf_test": 0
+  },
+  {
+    "wavelength_nm": 444.0,
+    "fold": 3,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 475.0,
+    "fold": 0,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 475.0,
+    "fold": 1,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 475.0,
+    "fold": 2,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "NUMERICAL_CANDIDATE_ONLY",
+    "topographic": {
+      "C": -0.28536037549937526,
+      "C_interval": [
+        -0.48460029717232056,
+        1.0585935487014042
+      ],
+      "incidence_range": [
+        0.3538154866666667,
+        0.9949372
+      ],
+      "groups": 12
+    },
+    "brdf_beta": [
+      1.0,
+      3.3131722628347107,
+      0.004904886662522168
+    ],
+    "reference_joint_support": true,
+    "unsupported_topographic_test": 0,
+    "unsupported_brdf_test": 0
+  },
+  {
+    "wavelength_nm": 475.0,
+    "fold": 3,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 531.0,
+    "fold": 0,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 531.0,
+    "fold": 1,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 531.0,
+    "fold": 2,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "NUMERICAL_CANDIDATE_ONLY",
+    "topographic": {
+      "C": -0.20428442591229068,
+      "C_interval": [
+        -0.456644971299286,
+        2.370824832858594
+      ],
+      "incidence_range": [
+        0.3538154866666667,
+        0.9949372
+      ],
+      "groups": 12
+    },
+    "brdf_beta": [
+      1.0,
+      3.774584484402028,
+      -0.03475361555359026
+    ],
+    "reference_joint_support": true,
+    "unsupported_topographic_test": 0,
+    "unsupported_brdf_test": 0
+  },
+  {
+    "wavelength_nm": 531.0,
+    "fold": 3,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 560.0,
+    "fold": 0,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 560.0,
+    "fold": 1,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 560.0,
+    "fold": 2,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "NUMERICAL_CANDIDATE_ONLY",
+    "topographic": {
+      "C": -0.19386914433923014,
+      "C_interval": [
+        -0.45526510397714715,
+        2.6891351898984195
+      ],
+      "incidence_range": [
+        0.3538154866666667,
+        0.9949372
+      ],
+      "groups": 12
+    },
+    "brdf_beta": [
+      1.0,
+      2.705541443405656,
+      -0.021687069838337233
+    ],
+    "reference_joint_support": true,
+    "unsupported_topographic_test": 0,
+    "unsupported_brdf_test": 0
+  },
+  {
+    "wavelength_nm": 560.0,
+    "fold": 3,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 650.0,
+    "fold": 0,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 650.0,
+    "fold": 1,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 650.0,
+    "fold": 2,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "NUMERICAL_CANDIDATE_ONLY",
+    "topographic": {
+      "C": -0.36195349106377317,
+      "C_interval": [
+        -0.5156568086737415,
+        0.4862807919213335
+      ],
+      "incidence_range": [
+        0.3538154866666667,
+        0.9949372
+      ],
+      "groups": 12
+    },
+    "brdf_beta": [
+      1.0,
+      3.0683393495790385,
+      -0.01891271656163102
+    ],
+    "reference_joint_support": true,
+    "unsupported_topographic_test": 0,
+    "unsupported_brdf_test": 0
+  },
+  {
+    "wavelength_nm": 650.0,
+    "fold": 3,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "NUMERICAL_CANDIDATE_ONLY",
+    "topographic": {
+      "C": -0.33403401922685816,
+      "C_interval": [
+        -0.5044738610446086,
+        11.092049887920567
+      ],
+      "incidence_range": [
+        0.4348666642857143,
+        0.9949372
+      ],
+      "groups": 12
+    },
+    "brdf_beta": [
+      1.0,
+      3.2590068980152327,
+      -0.025598140036348725
+    ],
+    "reference_joint_support": true,
+    "unsupported_topographic_test": 7,
+    "unsupported_brdf_test": 0
+  },
+  {
+    "wavelength_nm": 668.0,
+    "fold": 0,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 668.0,
+    "fold": 1,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 668.0,
+    "fold": 2,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "NUMERICAL_CANDIDATE_ONLY",
+    "topographic": {
+      "C": -0.3766948181665744,
+      "C_interval": [
+        -0.5212188660605499,
+        0.39511550965146874
+      ],
+      "incidence_range": [
+        0.3538154866666667,
+        0.9949372
+      ],
+      "groups": 12
+    },
+    "brdf_beta": [
+      1.0,
+      3.27323158364822,
+      -0.017602603254533285
+    ],
+    "reference_joint_support": true,
+    "unsupported_topographic_test": 0,
+    "unsupported_brdf_test": 0
+  },
+  {
+    "wavelength_nm": 668.0,
+    "fold": 3,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "NUMERICAL_CANDIDATE_ONLY",
+    "topographic": {
+      "C": -0.3606750151935657,
+      "C_interval": [
+        -0.5137479163169563,
+        6.017413665100262
+      ],
+      "incidence_range": [
+        0.4348666642857143,
+        0.9949372
+      ],
+      "groups": 12
+    },
+    "brdf_beta": [
+      1.0,
+      3.0567448892923026,
+      -0.01785245158566124
+    ],
+    "reference_joint_support": true,
+    "unsupported_topographic_test": 7,
+    "unsupported_brdf_test": 0
+  },
+  {
+    "wavelength_nm": 705.0,
+    "fold": 0,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 705.0,
+    "fold": 1,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 705.0,
+    "fold": 2,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "NUMERICAL_CANDIDATE_ONLY",
+    "topographic": {
+      "C": -0.21861509919296898,
+      "C_interval": [
+        -0.44996929604426206,
+        1.580347900946904
+      ],
+      "incidence_range": [
+        0.3538154866666667,
+        0.9949372
+      ],
+      "groups": 12
+    },
+    "brdf_beta": [
+      1.0,
+      3.1812151409665836,
+      -0.02491049033298226
+    ],
+    "reference_joint_support": true,
+    "unsupported_topographic_test": 0,
+    "unsupported_brdf_test": 0
+  },
+  {
+    "wavelength_nm": 705.0,
+    "fold": 3,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 717.0,
+    "fold": 0,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 717.0,
+    "fold": 1,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 717.0,
+    "fold": 2,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "NUMERICAL_CANDIDATE_ONLY",
+    "topographic": {
+      "C": -0.05511854992348107,
+      "C_interval": [
+        -0.394524439832692,
+        8.100897627115492
+      ],
+      "incidence_range": [
+        0.3538154866666667,
+        0.9949372
+      ],
+      "groups": 12
+    },
+    "brdf_beta": [
+      1.0,
+      2.712385517116368,
+      -0.009312711357407254
+    ],
+    "reference_joint_support": true,
+    "unsupported_topographic_test": 0,
+    "unsupported_brdf_test": 0
+  },
+  {
+    "wavelength_nm": 717.0,
+    "fold": 3,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 740.0,
+    "fold": 0,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 740.0,
+    "fold": 1,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 740.0,
+    "fold": 2,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 740.0,
+    "fold": 3,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 842.0,
+    "fold": 0,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 842.0,
+    "fold": 1,
+    "train_targets": 44,
+    "test_targets": 16,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 842.0,
+    "fold": 2,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  },
+  {
+    "wavelength_nm": 842.0,
+    "fold": 3,
+    "train_targets": 46,
+    "test_targets": 14,
+    "status": "UNSUPPORTED",
+    "reason": "Unbounded C or insufficient spatial groups"
+  }
+]

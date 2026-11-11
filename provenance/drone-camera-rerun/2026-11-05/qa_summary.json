@@ -1,0 +1,108 @@
+[
+  {
+    "site": "Gordon",
+    "branches": [
+      {
+        "branch": "topographic_only",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "reason": null
+      },
+      {
+        "branch": "brdf_only",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "reason": null
+      },
+      {
+        "branch": "combined",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "reason": null
+      }
+    ],
+    "source_pixels": 5898401,
+    "common_all_bands_available_stage_pixels": 5816845,
+    "common_available_stages": [
+      "raw",
+      "topographic_only",
+      "brdf_only",
+      "combined"
+    ],
+    "researcher_polygon_count": 58,
+    "polygon_memberships": 32930,
+    "source_manifest": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/gordon/source_manifest.json",
+    "grid_validated": true,
+    "figures": [
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-camera-rerun/2026-11-05/figures/gordon_stages.png",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-camera-rerun/2026-11-05/figures/gordon_support.png"
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "branches": [
+      {
+        "branch": "topographic_only",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "reason": null
+      },
+      {
+        "branch": "brdf_only",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "reason": null
+      },
+      {
+        "branch": "combined",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "reason": null
+      }
+    ],
+    "source_pixels": 6683944,
+    "common_all_bands_available_stage_pixels": 6613740,
+    "common_available_stages": [
+      "raw",
+      "topographic_only",
+      "brdf_only",
+      "combined"
+    ],
+    "researcher_polygon_count": 158,
+    "polygon_memberships": 144749,
+    "source_manifest": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/goldhill/source_manifest.json",
+    "grid_validated": true,
+    "figures": [
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-camera-rerun/2026-11-05/figures/goldhill_stages.png",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-camera-rerun/2026-11-05/figures/goldhill_support.png"
+    ]
+  },
+  {
+    "site": "Ruby",
+    "branches": [
+      {
+        "branch": "topographic_only",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "reason": null
+      },
+      {
+        "branch": "brdf_only",
+        "status": "UNSUPPORTED",
+        "reason": "Requested drone correction did not produce a corrected output."
+      },
+      {
+        "branch": "combined",
+        "status": "UNSUPPORTED",
+        "reason": "BRDF INVALID: retained native/topographic-only products; approved downstream processing is blocked."
+      }
+    ],
+    "source_pixels": 1993472,
+    "common_all_bands_available_stage_pixels": 1971882,
+    "common_available_stages": [
+      "raw",
+      "topographic_only"
+    ],
+    "researcher_polygon_count": 86,
+    "polygon_memberships": 22684,
+    "source_manifest": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/ruby/source_manifest.json",
+    "grid_validated": true,
+    "figures": [
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-camera-rerun/2026-11-05/figures/ruby_stages.png",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-camera-rerun/2026-11-05/figures/ruby_support.png"
+    ]
+  }
+]

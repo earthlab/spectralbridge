@@ -20,17 +20,23 @@ agreement with independent sensor observations or field fractional cover.
 The distribution is **`earthlab-spectralbridge`**; the Python import is
 **`spectralbridge`**. Python 3.10–3.12 is the tested release range.
 
-At the 19 October 2026 audit, PyPI did not expose this distribution name.
-Use the source installation below. Repository HEAD identifies `2.3.0rc1`,
-which is a candidate identity rather than a published release. Create a virtual
-environment, then run:
+These commands install the checked-out source and run an offline lesson. Use a
+virtual environment so this installation stays separate from other projects:
 
 ```bash
 git clone https://github.com/earthlab/spectralbridge.git
 cd spectralbridge
+python -m venv .venv
+source .venv/bin/activate
 python -m pip install -e .
 python examples/first_example.py
 ```
+
+On Windows, activate with `.venv\Scripts\activate` in Command Prompt.
+For numerical separability, recognition and mixture examples, install the optional
+analysis dependencies with `python -m pip install -e '.[analytics]'`.
+Source installation does not imply a published release; check the version with
+`python -c "import spectralbridge; print(spectralbridge.__version__)"`.
 
 The tiny example inspects an invented spectral table without downloads or
 credentials. It verifies software use, not scientific accuracy.
@@ -38,12 +44,24 @@ credentials. It verifies software use, not scientific accuracy.
 
 ## Choose a workflow
 
-| Your inputs | Guide |
+| Your goal / inputs | Start here |
 | --- | --- |
-| NEON airborne flightlines | [NEON processing](https://earthlab.github.io/spectralbridge/vignettes/full-pipeline/) |
-| Supported local drone TIFF/HDF5 | [Drone processing](https://earthlab.github.io/spectralbridge/vignettes/drone-processing/) |
-| Completed flightline products | [Bulk analysis](https://earthlab.github.io/spectralbridge/vignettes/bulk-analysis/) |
-| Existing polygon spectral library | [Library preflight and reporting](https://earthlab.github.io/spectralbridge/vignettes/spectral-library/) |
+| Process NEON airborne flightlines | [NEON processing](https://earthlab.github.io/spectralbridge/vignettes/full-pipeline/) |
+| Process supported drone TIFF/HDF5 | [Drone processing](https://earthlab.github.io/spectralbridge/vignettes/drone-processing/) |
+| Translate spectra into target-sensor bands | [Sensor harmonization](https://earthlab.github.io/spectralbridge/vignettes/sensor-harmonization/) |
+| Create a library from imagery and field polygons | [Polygon extraction](https://earthlab.github.io/spectralbridge/vignettes/polygon-extraction/) |
+| Inspect a library or evaluate spectral differences, recognition and mixtures | [Library reporting](https://earthlab.github.io/spectralbridge/vignettes/spectral-library/) and [analysis methods](https://earthlab.github.io/spectralbridge/api/scientific-analysis/) |
+| Analyze many completed flightline products | [Bulk analysis](https://earthlab.github.io/spectralbridge/vignettes/bulk-analysis/) |
+
+The [drone architecture study](provenance/drone-architecture-2026-11-06/REPORT.md)
+compares verified H5 inputs, camera geometry, compact calibration and original
+photographs, with measured benefits and remaining correction limitations.
+
+The [workflow map](https://earthlab.github.io/spectralbridge/vignettes/) lists
+inputs, outputs, entry points and support limits. To keep a small result you can
+inspect, run `python examples/scientific_workflows_offline.py --output-dir lesson_output`.
+It writes an invented teaching table, compact plant summaries and an explained
+JSON result without credentials or downloads.
 
 Review [output contracts](https://earthlab.github.io/spectralbridge/pipeline/outputs/)
 and [QA evidence](https://earthlab.github.io/spectralbridge/validation/evidence-hierarchy/)

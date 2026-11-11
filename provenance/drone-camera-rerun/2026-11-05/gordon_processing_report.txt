@@ -1,0 +1,717 @@
+Agisoft Metashape
+    Processing Report
+    08 November 2023
+Survey Data
+                                                                                >9
+                                                                                9
+                                                                                8
+                                                                                7
+                                                                                6
+                                                                                5
+                                                                                4
+                                                                                3
+                                                                                2
+                                                                                1
+
+
+
+
+                                                                 50 m
+
+                      Fig. 1. Camera locations and image overlap.
+
+
+Number of images:    5,730                 Camera stations:         5,720
+Flying altitude:     117 m                 Tie points:              1,792,410
+Ground resolution:   8.14 cm/pix           Projections:             8,233,933
+Coverage area:       0.0589 km²            Reprojection error:      0.456 pix
+
+
+
+
+Camera Model                 Resolution Focal Length Pixel Size             Precalibrated
+RedEdge-M, Blue-444 (5.5…    1280 x 960   5.5 mm          3.75 x 3.75 μm Yes
+RedEdge-M, Blue (5.5mm)      1280 x 960   5.5 mm          3.75 x 3.75 μm Yes
+RedEdge-M, Green-531 (5.…    1280 x 960   5.5 mm          3.75 x 3.75 μm Yes
+RedEdge-M, Green (5.5mm)     1280 x 960   5.5 mm          3.75 x 3.75 μm Yes
+RedEdge-M, Red-650 (5.5…     1280 x 960   5.5 mm          3.75 x 3.75 μm Yes
+
+                                        Page 2
+Camera Model                Resolution Focal Length Pixel Size     Precalibrated
+RedEdge-M, Red (5.5mm)      1280 x 960   5.5 mm      3.75 x 3.75 μm Yes
+RedEdge-M, Red edge-705 … 1280 x 960     5.5 mm      3.75 x 3.75 μm Yes
+RedEdge-M, Red edge (5.5…   1280 x 960   5.5 mm      3.75 x 3.75 μm Yes
+RedEdge-M, Red edge-740 … 1280 x 960     5.5 mm      3.75 x 3.75 μm Yes
+RedEdge-M, NIR (5.5mm)      1280 x 960   5.5 mm      3.75 x 3.75 μm Yes
+                                Table 1. Cameras.
+
+
+
+
+                                     Page 3
+Camera Calibration
+
+
+
+
+                                                            1 pix
+                     Fig. 2. Image residuals for RedEdge-M, Blue-444 (5.5mm).
+
+
+RedEdge-M, Blue-444 (5.5mm)
+573 images, precalibrated
+
+Type                        Resolution                       Focal Length                      Pixel Size
+Frame                       1280 x 960                       5.5 mm                            3.75 x 3.75 μm
+
+
+             Value          Error     F      Cx     Cy       B1      B2      K1      K2      K3      P1      P2
+
+        F    1452.69        0.078     1.00   0.03   -0.57    -0.01   -0.00   -0.03   0.13    -0.10   0.03    -0.35
+
+        Cx   -10.8829       0.024            1.00   -0.01    0.02    0.07    0.00    -0.00   0.00    0.91    -0.01
+
+        Cy   19.2918        0.022                   1.00     -0.04   0.03    -0.07   0.00    -0.02   -0.01   0.77
+
+        B1   0.217468       0.0047                           1.00    0.00    -0.00   -0.04   0.05    -0.00   0.03
+
+        B2   -0.156262      0.0045                                   1.00    0.00    -0.00   0.00    0.02    -0.01
+
+        K1   -0.0889414     0.00018                                          1.00    -0.96   0.92    0.00    -0.08
+
+        K2   0.120525       0.0013                                                   1.00    -0.99   0.00    0.00
+
+        K3   0.0209114      0.0029                                                           1.00    -0.00   -0.01
+
+        P1   0.000818087    5.3e-06                                                                  1.00    -0.02
+
+        P2   -0.000760928   4.8e-06                                                                          1.00
+
+                        Table 2. Calibration coeﬃcients and correlation matrix.
+
+
+
+
+                                                     Page 4
+Camera Calibration
+
+
+
+
+                                                         1 pix
+                        Fig. 3. Image residuals for RedEdge-M, Blue (5.5mm).
+
+
+RedEdge-M, Blue (5.5mm)
+573 images, precalibrated
+
+Type                        Resolution                      Focal Length                        Pixel Size
+Frame                       1280 x 960                      5.5 mm                              3.75 x 3.75 μm
+
+
+             Value          Error     F      Cx     Cy      B1      B2     K1      K2      K3      P1      P2
+
+        F    1446.02        0.078     1.00   0.04   -0.49   -0.00   0.01   -0.03   0.13    -0.10   0.03    -0.28
+
+        Cx   -12.8625       0.024            1.00   -0.01   0.00    0.08   0.00    -0.00   0.00    0.91    -0.01
+
+        Cy   6.38518        0.021                   1.00    -0.06   0.01   -0.06   0.00    -0.01   -0.01   0.78
+
+        B1   0.14843        0.0047                          1.00    0.00   0.00    -0.04   0.05    -0.02   -0.00
+
+        B2   -0.0143678     0.0045                                  1.00   0.01    -0.01   0.01    0.04    -0.02
+
+        K1   -0.0939837     0.00018                                        1.00    -0.96   0.92    0.00    -0.07
+
+        K2   0.145811       0.0013                                                 1.00    -0.99   0.00    -0.01
+
+        K3   -0.0256963     0.0027                                                         1.00    -0.01   0.00
+
+        P1   0.000159861    5.2e-06                                                                1.00    -0.02
+
+        P2   0.000320268    4.6e-06                                                                        1.00
+
+                        Table 3. Calibration coeﬃcients and correlation matrix.
+
+
+
+
+                                                     Page 5
+Camera Calibration
+
+
+
+
+                                                             1 pix
+                 Fig. 4. Image residuals for RedEdge-M, Green-531 (5.5mm).
+
+
+RedEdge-M, Green-531 (5.5mm)
+573 images, precalibrated
+
+Type                        Resolution                        Focal Length                     Pixel Size
+Frame                       1280 x 960                        5.5 mm                           3.75 x 3.75 μm
+
+
+             Value           Error     F      Cx     Cy       B1      B2     K1      K2      K3      P1      P2
+
+        F    1447.61         0.078     1.00   0.01   -0.54    -0.01   0.02   -0.04   0.13    -0.10   0.00    -0.31
+
+        Cx   5.68166         0.024            1.00   0.01     -0.01   0.07   -0.00   0.00    -0.00   0.91    0.01
+
+        Cy   1.87308         0.022                   1.00     -0.05   0.00   -0.05   -0.00   -0.01   0.02    0.78
+
+        B1   0.0313151       0.0047                           1.00    0.00   0.00    -0.04   0.05    -0.02   0.02
+
+        B2   0.00837043      0.0045                                   1.00   0.00    -0.00   0.00    0.03    -0.02
+
+        K1   -0.0959343      0.00018                                         1.00    -0.96   0.92    -0.01   -0.07
+
+        K2   0.137614        0.0013                                                  1.00    -0.99   0.00    -0.00
+
+        K3   -0.00614667     0.0028                                                          1.00    -0.00   -0.01
+
+        P1   -0.000719091    5.3e-06                                                                 1.00    0.01
+
+        P2   0.000144384     4.7e-06                                                                         1.00
+
+                        Table 4. Calibration coeﬃcients and correlation matrix.
+
+
+
+
+                                                      Page 6
+Camera Calibration
+
+
+
+
+                                                     0.958301 pix
+                       Fig. 5. Image residuals for RedEdge-M, Green (5.5mm).
+
+
+RedEdge-M, Green (5.5mm)
+573 images, precalibrated
+
+Type                        Resolution                       Focal Length                     Pixel Size
+Frame                       1280 x 960                       5.5 mm                           3.75 x 3.75 μm
+
+
+             Value          Error     F      Cx      Cy      B1      B2     K1      K2      K3      P1      P2
+
+        F    1449.67        0.078     1.00   -0.00   -0.48   -0.01   0.02   -0.04   0.14    -0.11   -0.00   -0.29
+
+        Cx   -6.64526       0.024            1.00    0.01    -0.00   0.06   -0.00   -0.00   0.00    0.91    0.00
+
+        Cy   7.03576        0.021                    1.00    -0.05   0.00   -0.06   0.00    -0.01   0.01    0.79
+
+        B1   0.185523       0.0047                           1.00    0.00   0.01    -0.04   0.05    -0.02   0.01
+
+        B2   -0.0638229     0.0045                                   1.00   0.01    -0.00   0.00    0.02    -0.03
+
+        K1   -0.0991779     0.00018                                         1.00    -0.96   0.92    -0.01   -0.06
+
+        K2   0.151982       0.0013                                                  1.00    -0.99   0.01    -0.00
+
+        K3   -0.0317341     0.0028                                                          1.00    -0.01   -0.00
+
+        P1   -0.000387053   5.3e-06                                                                 1.00    0.01
+
+        P2   -0.000513955   4.6e-06                                                                         1.00
+
+                        Table 5. Calibration coeﬃcients and correlation matrix.
+
+
+
+
+                                                      Page 7
+Camera Calibration
+
+
+
+
+                                                     0.965066 pix
+                     Fig. 6. Image residuals for RedEdge-M, Red-650 (5.5mm).
+
+
+RedEdge-M, Red-650 (5.5mm)
+573 images, precalibrated
+
+Type                        Resolution                       Focal Length                     Pixel Size
+Frame                       1280 x 960                       5.5 mm                           3.75 x 3.75 μm
+
+
+             Value          Error     F      Cx      Cy      B1      B2     K1      K2      K3      P1      P2
+
+        F    1451.01        0.078     1.00   -0.02   -0.55   -0.00   0.01   -0.03   0.13    -0.10   -0.01   -0.32
+
+        Cx   -14.0361       0.024            1.00    0.02    -0.01   0.09   0.00    -0.00   0.01    0.91    0.01
+
+        Cy   16.7877        0.021                    1.00    -0.07   0.01   -0.06   0.00    -0.01   0.02    0.77
+
+        B1   0.21704        0.0047                           1.00    0.00   -0.00   -0.03   0.04    -0.03   0.00
+
+        B2   0.10048        0.0045                                   1.00   0.01    -0.01   0.01    0.05    -0.03
+
+        K1   -0.100143      0.00017                                         1.00    -0.96   0.92    -0.01   -0.08
+
+        K2   0.145952       0.0012                                                  1.00    -0.99   0.01    -0.00
+
+        K3   -0.0252386     0.0026                                                          1.00    -0.01   -0.00
+
+        P1   1.19015e-05    5e-06                                                                   1.00    0.02
+
+        P2   0.000291775    4.6e-06                                                                         1.00
+
+                        Table 6. Calibration coeﬃcients and correlation matrix.
+
+
+
+
+                                                      Page 8
+Camera Calibration
+
+
+
+
+                                                            1 pix
+                        Fig. 7. Image residuals for RedEdge-M, Red (5.5mm).
+
+
+RedEdge-M, Red (5.5mm)
+573 images, precalibrated
+
+Type                        Resolution                        Focal Length                      Pixel Size
+Frame                       1280 x 960                        5.5 mm                            3.75 x 3.75 μm
+
+
+             Value          Error     F      Cx      Cy        B1      B2     K1      K2      K3      P1      P2
+
+        F    1449.69        0.078     1.00   -0.00   -0.48     -0.01   0.01   -0.03   0.13    -0.10   0.01    -0.28
+
+        Cx   5.81665        0.023            1.00    0.02      0.03    0.08   -0.00   0.00    -0.00   0.91    0.01
+
+        Cy   9.10531        0.02                     1.00      -0.06   0.04   -0.06   0.00    -0.01   0.01    0.78
+
+        B1   -0.00911562    0.0046                             1.00    0.00   0.00    -0.04   0.05    0.02    -0.01
+
+        B2   0.0871175      0.0045                                     1.00   0.00    0.00    -0.00   0.04    0.01
+
+        K1   -0.101935      0.00017                                           1.00    -0.96   0.92    -0.00   -0.07
+
+        K2   0.154748       0.0012                                                    1.00    -0.99   0.00    -0.01
+
+        K3   -0.0444864     0.0026                                                            1.00    0.00    0.00
+
+        P1   0.000849993    4.9e-06                                                                   1.00    0.01
+
+        P2   -0.000210851   4.3e-06                                                                           1.00
+
+                        Table 7. Calibration coeﬃcients and correlation matrix.
+
+
+
+
+                                                      Page 9
+Camera Calibration
+
+
+
+
+                                                          1 pix
+              Fig. 8. Image residuals for RedEdge-M, Red edge-705 (5.5mm).
+
+
+RedEdge-M, Red edge-705 (5.5mm)
+573 images, precalibrated
+
+Type                       Resolution                        Focal Length                        Pixel Size
+Frame                      1280 x 960                        5.5 mm                              3.75 x 3.75 μm
+
+
+             Value         Error     F      Cx     Cy        B1      B2     K1      K2      K3      P1      P2
+
+        F    1449.45       0.078     1.00   0.03   -0.57     -0.01   0.01   -0.03   0.13    -0.10   0.03    -0.34
+
+        Cx   26.9829       0.024            1.00   -0.01     0.07    0.07   0.00    0.00    -0.00   0.91    -0.01
+
+        Cy   15.4034       0.022                   1.00      -0.05   0.04   -0.06   -0.00   -0.01   -0.01   0.77
+
+        B1   0.356492      0.0047                            1.00    0.00   -0.01   -0.03   0.04    0.06    0.03
+
+        B2   -0.154089     0.0045                                    1.00   0.00    0.00    -0.00   0.02    0.04
+
+        K1   -0.102731     0.00017                                          1.00    -0.96   0.92    0.00    -0.08
+
+        K2   0.151246      0.0012                                                   1.00    -0.99   -0.00   -0.00
+
+        K3   -0.0343259    0.0025                                                           1.00    0.01    -0.01
+
+        P1   0.000526116   5e-06                                                                    1.00    -0.01
+
+        P2   -0.00079124   4.7e-06                                                                          1.00
+
+                       Table 8. Calibration coeﬃcients and correlation matrix.
+
+
+
+
+                                                   Page 10
+Camera Calibration
+
+
+
+
+                                                    0.962004 pix
+                 Fig. 9. Image residuals for RedEdge-M, Red edge (5.5mm).
+
+
+RedEdge-M, Red edge (5.5mm)
+573 images, precalibrated
+
+Type                        Resolution                      Focal Length                        Pixel Size
+Frame                       1280 x 960                      5.5 mm                              3.75 x 3.75 μm
+
+
+             Value          Error     F      Cx     Cy      B1      B2     K1      K2      K3      P1      P2
+
+        F    1452.17        0.078     1.00   0.00   -0.51   -0.02   0.01   -0.01   0.12    -0.09   0.00    -0.31
+
+        Cx   22.2248        0.023            1.00   0.01    0.05    0.07   -0.00   0.00    -0.00   0.90    0.00
+
+        Cy   21.0519        0.02                    1.00    -0.05   0.03   -0.07   0.01    -0.02   0.01    0.77
+
+        B1   0.021119       0.0046                          1.00    0.00   -0.00   -0.03   0.04    0.03    0.00
+
+        B2   -0.0601461     0.0044                                  1.00   -0.00   0.01    -0.01   0.03    0.02
+
+        K1   -0.102034      0.00016                                        1.00    -0.96   0.91    -0.00   -0.08
+
+        K2   0.159526       0.0011                                                 1.00    -0.98   -0.00   -0.00
+
+        K3   -0.0440694     0.0024                                                         1.00    0.00    0.00
+
+        P1   -3.19219e-06   4.9e-06                                                                1.00    0.01
+
+        P2   -0.00119409    4.3e-06                                                                        1.00
+
+                       Table 9. Calibration coeﬃcients and correlation matrix.
+
+
+
+
+                                                    Page 11
+Camera Calibration
+
+
+
+
+                                                    0.841963 pix
+              Fig. 10. Image residuals for RedEdge-M, Red edge-740 (5.5mm).
+
+
+RedEdge-M, Red edge-740 (5.5mm)
+573 images, precalibrated
+
+Type                        Resolution                      Focal Length                     Pixel Size
+Frame                       1280 x 960                      5.5 mm                           3.75 x 3.75 μm
+
+
+             Value          Error     F      Cx     Cy      B1      B2     K1      K2      K3      P1      P2
+
+        F    1448.89        0.078     1.00   0.02   -0.60   -0.01   0.02   -0.00   0.11    -0.08   0.00    -0.36
+
+        Cx   0.29904        0.022            1.00   -0.01   0.01    0.09   -0.00   0.00    0.00    0.90    -0.01
+
+        Cy   27.3198        0.02                    1.00    -0.06   0.00   -0.08   0.00    -0.02   0.00    0.74
+
+        B1   0.0147592      0.0046                          1.00    0.00   -0.01   -0.03   0.04    -0.01   0.03
+
+        B2   -0.0306021     0.0044                                  1.00   0.01    -0.00   0.00    0.04    -0.02
+
+        K1   -0.103095      0.00015                                        1.00    -0.96   0.91    -0.00   -0.10
+
+        K2   0.145462       0.0011                                                 1.00    -0.99   0.00    -0.00
+
+        K3   -0.0246195     0.0024                                                         1.00    -0.00   -0.00
+
+        P1   -0.000505498   4.5e-06                                                                1.00    -0.00
+
+        P2   -0.000529637   4.2e-06                                                                        1.00
+
+                       Table 10. Calibration coeﬃcients and correlation matrix.
+
+
+
+
+                                                    Page 12
+Camera Calibration
+
+
+
+
+                                                     0.78841 pix
+                        Fig. 11. Image residuals for RedEdge-M, NIR (5.5mm).
+
+
+RedEdge-M, NIR (5.5mm)
+573 images, precalibrated
+
+Type                        Resolution                       Focal Length                     Pixel Size
+Frame                       1280 x 960                       5.5 mm                           3.75 x 3.75 μm
+
+
+             Value           Error     F      Cx     Cy      B1      B2     K1      K2      K3      P1      P2
+
+        F    1454.05         0.078     1.00   0.03   -0.51   0.00    0.01   -0.00   0.11    -0.08   0.02    -0.29
+
+        Cx   -6.62753        0.022            1.00   -0.02   0.01    0.10   0.00    -0.00   0.00    0.90    -0.01
+
+        Cy   10.571          0.019                   1.00    -0.07   0.01   -0.07   0.00    -0.01   -0.01   0.75
+
+        B1   0.230651        0.0046                          1.00    0.00   0.00    -0.03   0.04    -0.01   -0.01
+
+        B2   -0.112777       0.0044                                  1.00   0.01    -0.00   0.00    0.06    -0.01
+
+        K1   -0.104329       0.00015                                        1.00    -0.96   0.91    -0.00   -0.08
+
+        K2   0.147456        0.0011                                                 1.00    -0.99   0.00    -0.01
+
+        K3   -0.0309606      0.0024                                                         1.00    -0.00   0.00
+
+        P1   -0.000153573    4.4e-06                                                                1.00    -0.02
+
+        P2   0.000453777     3.9e-06                                                                        1.00
+
+                       Table 11. Calibration coeﬃcients and correlation matrix.
+
+
+
+
+                                                     Page 13
+Camera Locations
+                                                                               20 m
+                                                                               16 m
+                                                                               12 m
+                                                                               8m
+                                                                               4m
+                                                                               0m
+                                                                               -4 m
+                                                                               -8 m
+                                                                               -12 m
+                                                                               -16 m
+                                                                               -20 m
+
+
+                                                                                 x7
+
+
+
+
+                                                                    50 m
+
+                     Fig. 12. Camera locations and error estimates.
+  Z error is represented by ellipse color. X,Y errors are represented by ellipse shape.
+                Estimated camera locations are marked with a black dot.
+
+
+        X error (m) Y error (m) Z error (m) XY error (m) Total error (m)
+        0.440943     0.905681      17.4674        1.00732       17.4964
+                       Table 12. Average camera location error.
+                         X - Easting, Y - Northing, Z - Altitude.
+
+
+
+
+                                        Page 14
+Ground Control Points
+                                                                                 1.6 cm
+                                                                                 1.28 cm
+                                                                                 0.96 cm
+                                                                                 0.64 cm
+                                                                                 0.32 cm
+                                                                                 0 cm
+                                                                                 -0.32 cm
+                                                                                 -0.64 cm
+                                                                                 -0.96 cm
+                                                                                 -1.28 cm
+                                                        AOP-GORDON-1
+                                                                                 -1.6 cm
+                           AOP-GORDON-4
+
+                                                                                 x 300
+
+                                        AOP-GORDON-3
+
+
+
+                                  AOP-GORDON-5
+                                                              AOP-GORDON-2
+
+
+
+
+       Control points         Check points
+                                                                    50 m
+
+                       Fig. 13. GCP locations and error estimates.
+  Z error is represented by ellipse color. X,Y errors are represented by ellipse shape.
+               Estimated GCP locations are marked with a dot or crossing.
+
+
+   Count X error (cm) Y error (cm) Z error (cm) XY error (cm) Total (cm)
+   3          0.428433     1.98591            1.07347     2.0316             2.29777
+                            Table 13. Control points RMSE.
+                         X - Easting, Y - Northing, Z - Altitude.
+
+
+
+
+                                             Page 15
+Label          X error (cm) Y error (cm) Z error (cm) Total (cm) Image (pix)
+AOP-GORDON-1
+AOP-GORDON-2 0.522731        0.818383        0.203558          0.992187   1.167 (423)
+AOP-GORDON-3
+AOP-GORDON-4 -0.513227       2.70372         -1.04804          2.9448     0.670 (783)
+AOP-GORDON-5 0.118384        -1.96258        -1.52224          2.48655    0.711 (611)
+Total          0.428433      1.98591         1.07347           2.29777    0.825
+                          Table 14. Control points.
+                    X - Easting, Y - Northing, Z - Altitude.
+
+
+
+
+                                   Page 16
+Digital Elevation Model
+                                                                     2.69 km
+
+
+
+
+                                                                     2.65 km
+
+
+
+
+                                                              50 m
+
+                 Fig. 14. Reconstructed digital elevation model.
+
+
+Resolution:      37 cm/pix
+Point density:   7.3 points/m²
+
+
+
+
+                                    Page 17
+Processing Parameters
+
+General
+  Cameras                                5730
+  Aligned cameras                        5720
+  Markers                                5
+  Shapes
+      Polygon                            1
+  Coordinate system                      NAD83 / UTM zone 13N (EPSG::26913)
+  Rotation angles                        Yaw, Pitch, Roll
+Point Cloud
+  Points                                 1,792,410 of 2,148,283
+  RMS reprojection error                 0.151816 (0.455506 pix)
+  Max reprojection error                 0.573723 (16.1159 pix)
+  Mean key point size                    2.73637 pix
+  Point colors                           1 bands, uint16
+  Key points                             No
+  Average tie point multiplicity         11.3994
+  Alignment parameters
+      Accuracy                           High
+      Generic preselection               Yes
+      Reference preselection             Source
+      Key point limit                    10,000
+      Key point limit per Mpx            1,000
+      Tie point limit                    10,000
+      Filter points by mask              No
+      Mask tie points                    No
+      Exclude stationary tie points      Yes
+      Guided image matching              No
+      Adaptive camera model ﬁtting       Yes
+      Matching time                      20 minutes 49 seconds
+      Matching memory usage              5.95 GB
+      Alignment time                     1 hours 6 minutes
+      Alignment memory usage             3.31 GB
+  Optimization parameters
+      Parameters                         f, b1, b2, cx, cy, k1-k3, p1, p2
+      Adaptive camera model ﬁtting       No
+      Optimization time                  3 minutes 48 seconds
+  Date created                           2023:09:13 20:12:47
+  Software version                       1.8.3.14331
+  File size                              419.54 MB
+Depth Maps
+  Count                                  572
+  Depth maps generation parameters
+      Quality                            Medium
+      Filtering mode                     Aggressive
+      Max neighbors                      16
+      Processing time                    4 minutes 31 seconds
+      Memory usage                       1.27 GB
+  Date created                           2023:11:08 21:51:31
+  Software version                       1.8.3.14331
+  File size                              83.96 MB
+Dense Point Cloud
+
+                                      Page 18
+  Points                                 1,292,457
+  Point colors                           10 bands, uint16
+  Depth maps generation parameters
+     Quality                             Medium
+     Filtering mode                      Aggressive
+     Max neighbors                       16
+     Processing time                     4 minutes 31 seconds
+     Memory usage                        1.27 GB
+  Dense cloud generation parameters
+     Processing time                     6 minutes 54 seconds
+       Memory usage                      2.04 GB
+   Date created                          2023:11:08 21:58:26
+   Software version                      1.8.3.14331
+   File size                             45.39 MB
+DEM
+   Size                                  798 x 565
+   Coordinate system                     NAD83 / UTM zone 13N (EPSG::26913)
+   Reconstruction parameters
+       Source data                       Tie points
+       Interpolation                     Extrapolated
+       Processing time                   9 seconds
+       Memory usage                      0B
+   Date created                          2023:09:15 19:38:03
+   Software version                      1.8.3.14331
+   File size                             1.57 MB
+Orthomosaic
+   Size                                  3,660 x 2,591
+   Coordinate system                     NAD83 / UTM zone 13N (EPSG::26913)
+   Colors                                10 bands, uint16
+   Reconstruction parameters
+       Blending mode                     Mosaic
+       Surface                           DEM
+       Enable hole ﬁlling                Yes
+       Enable ghosting ﬁlter             No
+       Processing time                   24 minutes 50 seconds
+       Memory usage                      734.11 MB
+   Date created                          2023:09:15 20:00:26
+   Software version                      1.8.3.14331
+   File size                             18.69 GB
+System
+   Software name                         Agisoft Metashape Professional
+   Software version                      1.8.3 build 14331
+   OS                                    Linux 64 bit
+   RAM                                   125.55 GB
+   CPU                                   Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz
+   GPU(s)                                Tesla K80
+                                         Tesla K80
+                                         Tesla K80
+                                         Tesla K80
+
+
+
+
+                                      Page 19
+

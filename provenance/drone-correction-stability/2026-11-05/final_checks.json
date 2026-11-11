@@ -1,0 +1,51 @@
+{
+  "task": "P182",
+  "baseline_freshly_reproduced": true,
+  "three_sites_freshly_rerun": true,
+  "accepted_experimental_products": 7,
+  "ruby_unsupported_branches": [
+    "brdf_only",
+    "combined"
+  ],
+  "reference_only_rejection_verified": true,
+  "finite_native_values_exactly_unchanged": 395908190,
+  "missing_positions_and_grid_unchanged": true,
+  "regression_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "225",
+    "time": "66.216",
+    "timestamp": "2026-11-05T10:10:48.804104-07:00",
+    "hostname": "UCB-H4K9PV34KC"
+  },
+  "additional_api_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "13",
+    "time": "4.116",
+    "timestamp": "2026-11-05T10:22:40.733071-07:00",
+    "hostname": "UCB-H4K9PV34KC"
+  },
+  "real_neon_exact_stored_values": 7200000,
+  "geometry_reused_from_hashed_baseline": true,
+  "correction_restart_all_sites_reused": true,
+  "baseline_restart_all_sites_reused": true,
+  "approved_drone_library_gate_rejects_all": true,
+  "ruff_src_tests": true,
+  "strict_mkdocs": true,
+  "docs_links": true,
+  "api_freshness": true,
+  "ai_transparency_freshness": true,
+  "pdf_pages_visually_reviewed": 20,
+  "large_gains_resolved": false,
+  "ruby_brdf_scientifically_supported": false,
+  "physical_calibration_verified": false,
+  "full_release_suite_rerun": false,
+  "production_upload": false,
+  "release_tag_or_publication": false,
+  "remaining_release_queue": "P179 plus explicit scientific limitations in report"
+}

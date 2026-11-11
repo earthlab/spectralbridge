@@ -1,0 +1,68 @@
+[
+  {
+    "site": "Ruby",
+    "n": 18198,
+    "rank": 3,
+    "condition": 2848.9156942407167,
+    "status": "INVALID",
+    "model": "Raw 650nm, observed primary camera only; effective blended geometry not recovered",
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "volume_range": [
+      -0.035310572753609604,
+      -0.01604409430989684
+    ],
+    "geometry_range": [
+      -1.2454640468481595,
+      -0.6238813772899485
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.027046794232720474,
+      4.263766074901467,
+      -0.13467752984538736
+    ],
+    "reference": -0.03382064305977647,
+    "reference_se": 0.029505149045388677,
+    "reference_z": -1.146262403479106,
+    "unsupported_predictions": 18198,
+    "spatial_groups": 60,
+    "rmse": 0.046304843945029435
+  },
+  {
+    "site": "Goldhill",
+    "n": 61279,
+    "rank": 3,
+    "condition": 85.74841753700446,
+    "status": "INVALID",
+    "model": "Raw 650nm, observed primary camera only; effective blended geometry not recovered",
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "volume_range": [
+      -0.12270919479949327,
+      0.09384102488012347
+    ],
+    "geometry_range": [
+      -1.7936448008520742,
+      5.620069801034381
+    ],
+    "reference_outside_bounds": false,
+    "beta": [
+      0.06483129754857264,
+      0.5379643750077705,
+      -0.005876519240603571
+    ],
+    "reference": 0.04603567854700542,
+    "reference_se": 0.0020347741680217138,
+    "reference_z": 22.62446578617768,
+    "unsupported_predictions": 32,
+    "spatial_groups": 187,
+    "rmse": 0.042569132848779306
+  }
+]

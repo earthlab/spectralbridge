@@ -1,0 +1,152 @@
+{
+  "site": "Goldhill",
+  "signature": "90d2be80714e25363e970aa35d6dcaec853dadb463f7e527ddd9fc3df42781b7",
+  "scientific_status": "EXPERIMENTAL_NOT_PRODUCTION_APPROVED",
+  "branches": [
+    {
+      "site": "Goldhill",
+      "branch": "topographic_only",
+      "status": "EXECUTED_EXPERIMENTAL",
+      "audit": {
+        "requested_topo": true,
+        "requested_brdf": false,
+        "topo_applied": true,
+        "brdf_applied": false,
+        "topo_fallback_due_to_nodata": false,
+        "brdf_fallback_due_to_nodata": false,
+        "brightness_applied": false,
+        "cloud_mask_applied": false,
+        "reused_existing_corrected": false,
+        "correction_status_source": "live_run",
+        "ndvi_brdf_bins_enabled": false,
+        "scientific_validation_status": "EXPERIMENTAL",
+        "experimental_configuration": {
+          "topographic_model_sha256": "30304557adeae6e02e7be5df06f8d4b254fa84b78b9494dca9dbfca021eb097e"
+        },
+        "radiometry": {
+          "scale": 0.0001999969482421875,
+          "offset": 0.0,
+          "status": "HYPOTHETICAL_UNVERIFIED",
+          "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+          "convention": "physical = scale * stored + offset"
+        },
+        "brdf_status": "NOT_REQUESTED",
+        "topo_ready": true,
+        "brdf_ready": false
+      },
+      "image": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/topographic_only/AOP_GOLDHILL_20230814__topographic_only_EXPERIMENTAL.img",
+      "header": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/topographic_only/AOP_GOLDHILL_20230814__topographic_only_EXPERIMENTAL.hdr",
+      "elapsed_seconds": 1.4020732499775477,
+      "geotiff": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/topographic_only/AOP_GOLDHILL_20230814__topographic_only_EXPERIMENTAL.tif"
+    },
+    {
+      "site": "Goldhill",
+      "branch": "brdf_only",
+      "status": "EXECUTED_EXPERIMENTAL",
+      "audit": {
+        "requested_topo": false,
+        "requested_brdf": true,
+        "topo_applied": false,
+        "brdf_applied": true,
+        "topo_fallback_due_to_nodata": false,
+        "brdf_fallback_due_to_nodata": false,
+        "brightness_applied": false,
+        "cloud_mask_applied": false,
+        "reused_existing_corrected": false,
+        "correction_status_source": "live_run",
+        "ndvi_brdf_bins_enabled": false,
+        "scientific_validation_status": "EXPERIMENTAL",
+        "experimental_configuration": {
+          "fitting_mask_sha256": "57fd2819739d71816671c4f6d2f89f651b546013fb852b12480c49ee6f2b6866",
+          "uncertainty_groups_sha256": "744e3a26830adcbc49579ca02b18fbe4c487d26e84d023412909354cf0592de9",
+          "fitting_provenance": {
+            "strategy": "Exclude evaluation polygons and2mManhattanbuffer",
+            "source_camera_sha256": "3cc4505e80353b50bb04b530e369e168d258724047f2903a7262c5ca9d4ce53d",
+            "geometry": "Center-weighted candidate ray kernels, not recovered contributors",
+            "calibration": "HYPOTHETICAL_UNVERIFIED DN/32768",
+            "uncertainty": "20m spatial clusters"
+          }
+        },
+        "radiometry": {
+          "scale": 0.0001999969482421875,
+          "offset": 0.0,
+          "status": "HYPOTHETICAL_UNVERIFIED",
+          "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+          "convention": "physical = scale * stored + offset"
+        },
+        "brdf_status": "VALID",
+        "topo_ready": false,
+        "brdf_ready": true
+      },
+      "image": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/brdf_only/AOP_GOLDHILL_20230814__brdf_only_EXPERIMENTAL.img",
+      "header": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/brdf_only/AOP_GOLDHILL_20230814__brdf_only_EXPERIMENTAL.hdr",
+      "elapsed_seconds": 13.484464709006716,
+      "geotiff": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/brdf_only/AOP_GOLDHILL_20230814__brdf_only_EXPERIMENTAL.tif"
+    },
+    {
+      "site": "Goldhill",
+      "branch": "combined",
+      "status": "EXECUTED_EXPERIMENTAL",
+      "audit": {
+        "requested_topo": true,
+        "requested_brdf": true,
+        "topo_applied": true,
+        "brdf_applied": true,
+        "topo_fallback_due_to_nodata": false,
+        "brdf_fallback_due_to_nodata": false,
+        "brightness_applied": false,
+        "cloud_mask_applied": false,
+        "reused_existing_corrected": false,
+        "correction_status_source": "live_run",
+        "ndvi_brdf_bins_enabled": false,
+        "scientific_validation_status": "EXPERIMENTAL",
+        "experimental_configuration": {
+          "topographic_model_sha256": "30304557adeae6e02e7be5df06f8d4b254fa84b78b9494dca9dbfca021eb097e",
+          "fitting_mask_sha256": "57fd2819739d71816671c4f6d2f89f651b546013fb852b12480c49ee6f2b6866",
+          "uncertainty_groups_sha256": "744e3a26830adcbc49579ca02b18fbe4c487d26e84d023412909354cf0592de9",
+          "fitting_provenance": {
+            "strategy": "Exclude evaluation polygons and2mManhattanbuffer",
+            "source_camera_sha256": "3cc4505e80353b50bb04b530e369e168d258724047f2903a7262c5ca9d4ce53d",
+            "geometry": "Center-weighted candidate ray kernels, not recovered contributors",
+            "calibration": "HYPOTHETICAL_UNVERIFIED DN/32768",
+            "uncertainty": "20m spatial clusters"
+          }
+        },
+        "radiometry": {
+          "scale": 0.0001999969482421875,
+          "offset": 0.0,
+          "status": "HYPOTHETICAL_UNVERIFIED",
+          "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+          "convention": "physical = scale * stored + offset"
+        },
+        "brdf_status": "VALID",
+        "topo_ready": true,
+        "brdf_ready": true
+      },
+      "image": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/combined/AOP_GOLDHILL_20230814__combined_EXPERIMENTAL.img",
+      "header": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/combined/AOP_GOLDHILL_20230814__combined_EXPERIMENTAL.hdr",
+      "elapsed_seconds": 15.320642375038005,
+      "geotiff": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/combined/AOP_GOLDHILL_20230814__combined_EXPERIMENTAL.tif"
+    }
+  ],
+  "production_gate_preserved": true,
+  "output_sha256": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/AOP_GOLDHILL_20230814__experimental_candidate.img": "06b54ce17fe9cd409240d44273e32e400d8b1e7dcbd80ea63682c061778f7f66",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/AOP_GOLDHILL_20230814__experimental_candidate.hdr": "7a47526f62d9b97f1068a766fda2c96a2d24209187f46f630d50449b74b26614",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/conditioned_scsc_model.json": "3b790a2440cd067a0fe9032c4e1e8e74264d266338a7a3fd3c40381ff8a242a1",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/training_mask.npy": "0e1fa97af35fd6e2ad9f99db3b57361bda53130bb65081d3e27ad561aaa12a75",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/spatial_groups.npy": "2cefbc30b7c9e21bead618d5ae7f3385553ab4818d449e12c3cce38581e513af",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/topographic_only/AOP_GOLDHILL_20230814__topographic_only_EXPERIMENTAL.img": "e965c586920751091eb5ec4c4e5158c552a91f42e00f445adc9e111fcee8b75d",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/topographic_only/AOP_GOLDHILL_20230814__topographic_only_EXPERIMENTAL.hdr": "0f96543a3017548889a5d1d89a5d1e2666ff61f4036a75c8db7bb96e5d876061",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/topographic_only/AOP_GOLDHILL_20230814__topographic_only_EXPERIMENTAL.tif": "e3b4a7778e7d26965e80a0bbac911eb8cf280a07940419b259d8e5d37af0548f",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/brdf_only/AOP_GOLDHILL_20230814__brdf_only_EXPERIMENTAL.img": "793c3403c3c62f0fc4f23359e9daea222a70d5dc4c0c0418c134f88ce7d4c74a",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/brdf_only/AOP_GOLDHILL_20230814__brdf_only_EXPERIMENTAL.hdr": "f94d70a00927aa067cadd28d968f0b130616e8dd92d256cf1fc3bd1abd22d532",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/brdf_only/AOP_GOLDHILL_20230814__brdf_only_EXPERIMENTAL.tif": "6add79b34c9835763f156dd40b0875216a9794fd2edfe1ad4daa69f01e84ef3b",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/brdf_only/brdf_only_brdf_model.json": "c889b13e2e96ba80a808671d9e11914554149dd833bf0f83f27be280f56ab1ab",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/combined/AOP_GOLDHILL_20230814__combined_EXPERIMENTAL.img": "a6ac5089d9d21ac546f23d54ebed19497e229d8253273b0a4d2eea3f26298845",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/combined/AOP_GOLDHILL_20230814__combined_EXPERIMENTAL.hdr": "a46809fab1cd3cb32dfb37e4ab25033e28130678522b52e13e67e9621629abc8",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/combined/AOP_GOLDHILL_20230814__combined_EXPERIMENTAL.tif": "64c30ec0ee06ddb4396fd8cd1af90986344bf92fa5d44c39b873e006c65dc8f0",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/combined/combined_brdf_model.json": "29d4167ae485fa89d30ca9d10b0b5cf7cb36f0511ab1039a3c97a7b7bdcd1b99",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/goldhill/topographic_status.tif": "820b88d8b4432ba23dfec1b51fe7836a3eebb8f7cbdd9e458e702a2caffad8ab"
+  }
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "site": "Gordon",
+    "positions": 572,
+    "max_orthogonal_error": 1.0695966334850482e-09,
+    "determinant_quantiles": [
+      0.9999999986242922,
+      0.999999999975578,
+      1.000000001240293
+    ],
+    "third_column_z": [
+      0.919619116,
+      0.9940683100000001,
+      0.999384796
+    ],
+    "orientation_status": "Valid rotation matrices; camera/world direction and image-axis binding not independently verified"
+  },
+  {
+    "site": "Goldhill",
+    "positions": 565,
+    "max_orthogonal_error": 1.1512630848642402e-09,
+    "determinant_quantiles": [
+      0.9999999987736105,
+      0.9999999999995577,
+      1.0000000012119954
+    ],
+    "third_column_z": [
+      0.910195778,
+      0.996616704,
+      0.999911184
+    ],
+    "orientation_status": "Valid rotation matrices; camera/world direction and image-axis binding not independently verified"
+  },
+  {
+    "site": "Ruby",
+    "positions": 507,
+    "max_orthogonal_error": 1.17617293682315e-09,
+    "determinant_quantiles": [
+      0.9999999987076392,
+      0.9999999999938874,
+      1.0000000013049972
+    ],
+    "third_column_z": [
+      0.868722729,
+      0.994157923,
+      0.999962437
+    ],
+    "orientation_status": "Valid rotation matrices; camera/world direction and image-axis binding not independently verified"
+  }
+]

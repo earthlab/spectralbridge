@@ -1,0 +1,37 @@
+usage: spectralbridge-merge-duckdb [-h] --data-root DATA_ROOT
+                                   [--flightline-glob FLIGHTLINE_GLOB]
+                                   [--out-name OUT_NAME]
+                                   [--original-glob ORIGINAL_GLOB]
+                                   [--corrected-glob CORRECTED_GLOB]
+                                   [--resampled-glob RESAMPLED_GLOB]
+                                   [--write-feather] [--no-qa]
+                                   [--merge-memory-limit MERGE_MEMORY_LIMIT]
+                                   [--merge-threads MERGE_THREADS]
+                                   [--merge-row-group-size MERGE_ROW_GROUP_SIZE]
+                                   [--merge-temp-directory MERGE_TEMP_DIRECTORY]
+
+Merge original/corrected/resampled Parquet tables with DuckDB.
+
+options:
+  -h, --help            show this help message and exit
+  --data-root DATA_ROOT
+  --flightline-glob FLIGHTLINE_GLOB
+  --out-name OUT_NAME   Override output parquet name (default:
+                        <prefix>_merged_pixel_extraction.parquet)
+  --original-glob ORIGINAL_GLOB
+  --corrected-glob CORRECTED_GLOB
+  --resampled-glob RESAMPLED_GLOB
+  --write-feather
+  --no-qa               Do not render QA panel after merge
+  --merge-memory-limit MERGE_MEMORY_LIMIT
+                        DuckDB memory limit for the merge (float GiB, 'auto',
+                        or a DuckDB-compatible value). Defaults to 6.0 GiB
+                        when omitted.
+  --merge-threads MERGE_THREADS
+                        Number of DuckDB threads to use during the merge
+                        (defaults to 4).
+  --merge-row-group-size MERGE_ROW_GROUP_SIZE
+                        Row group size for the merged Parquet (defaults to
+                        50,000).
+  --merge-temp-directory MERGE_TEMP_DIRECTORY
+                        Custom DuckDB temp directory for the merge stage.

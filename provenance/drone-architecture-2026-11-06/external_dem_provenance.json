@@ -1,0 +1,15 @@
+{
+  "url": "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer/exportImage?bbox=455625,4431900,456025,4432200&bboxSR=26913&size=40,30&imageSR=26913&format=tiff&pixelType=F32&noData=-999999&f=image&interpolation=RSP_BilinearInterpolation",
+  "retrieved": "2026-11-06",
+  "bytes": 66716,
+  "sha256": "9a4540d66658ad214b5d05b7f1c3940a7028a3a1a3f4558da29ba7991e9ebcbb",
+  "source": "USGS 3DEP Bare Earth DEM Dynamic Service, data published as of 26 October 2026 per service metadata",
+  "sampling": "Requested 10m, mixed-resolution dynamic source; not a certified uniform-vintage 10m source tile",
+  "vertical_datum_comparison": "Not independently reconciled; no fitted vertical offset applied",
+  "vertical_difference_quantiles": [
+    9.570123066063843,
+    14.309486075376299,
+    22.913714615649496
+  ],
+  "scope": "One Ruby crop only; comparison does not establish standard DEM sufficiency for most datasets"
+}

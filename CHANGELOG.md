@@ -2,6 +2,18 @@
 
 ### Added
 
+- Verified drone source-encoding recognition at production TIFF/H5 ingestion,
+  checksum-bound legacy sidecars and curated source fingerprints; preserve the
+  affine reflectance contract and verified source wavelengths without guessing
+  from numeric ranges. Includes a real Ruby TIFF/H5/ENVI/Parquet regression and
+  drone calibration documentation.
+
+- Researcher onboarding and six-task workflow map, persistent offline lesson
+  outputs, clearer JSON-runner errors/calibration options and primary CLI help.
+- Preserve scalar scientific metadata through sensor resampling and observed
+  topographic bands beside band-specific NoData; retain existing equations and
+  acceptance gates. Updated DuckDB relation diagnostics for current installations.
+
 - Opt-in experimental nadir-camera viewing geometry with explicit true-north
   conventions, footprint-constrained assignment and simulated kernel mixtures.
   Native Goldhill sensitivity products retain unverified calibration/contributor

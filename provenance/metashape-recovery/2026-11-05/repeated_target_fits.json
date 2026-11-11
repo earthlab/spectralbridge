@@ -1,0 +1,5711 @@
+[
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_0",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 12,
+    "rank": 3,
+    "condition": 61.78011984058416,
+    "view_zenith_range": [
+      5.729767423405658,
+      32.9088253971428
+    ],
+    "relative_azimuth_range": [
+      235.7851212652075,
+      317.82933579411
+    ],
+    "volume_range": [
+      -0.08501863385988351,
+      0.008640184260901296
+    ],
+    "geometry_range": [
+      -1.152511744709399,
+      1.8946044519770493
+    ],
+    "reference_outside_bounds": false,
+    "beta": [
+      0.04496276925291924,
+      0.08035814957860192,
+      0.0010729783829931249
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.7622361347982431,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.040204403012673175,
+    "reference_se": 0.0007577708996700841,
+    "reference_z": 53.05614537345949,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0017119205411251276,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0027466365497949403
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_0",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 12,
+    "rank": 3,
+    "condition": 61.78011984058416,
+    "view_zenith_range": [
+      5.729767423405658,
+      32.9088253971428
+    ],
+    "relative_azimuth_range": [
+      235.7851212652075,
+      317.82933579411
+    ],
+    "volume_range": [
+      -0.08501863385988351,
+      0.008640184260901296
+    ],
+    "geometry_range": [
+      -1.152511744709399,
+      1.8946044519770493
+    ],
+    "reference_outside_bounds": false,
+    "beta": [
+      0.04496276925291924,
+      0.08035814957860192,
+      0.0010729783829931249
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.7622361347982431,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.040204403012673175,
+    "reference_se": 0.0007577708996700841,
+    "reference_z": 53.05614537345949,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0017119205411251276,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0027466365497949403
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_0",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 10,
+    "rank": 3,
+    "condition": 116.34433656620888,
+    "view_zenith_range": [
+      5.729767423405658,
+      25.17937123613359
+    ],
+    "relative_azimuth_range": [
+      237.1640014651873,
+      317.82933579411
+    ],
+    "volume_range": [
+      -0.05639599022152253,
+      0.008640184260901296
+    ],
+    "geometry_range": [
+      -1.152511744709399,
+      1.634708820430308
+    ],
+    "reference_outside_bounds": false,
+    "beta": [
+      0.04463532573141302,
+      0.04444626129431098,
+      0.0030015818861334306
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4545312634331356,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.03959534808164738,
+    "reference_se": 0.000666511508758503,
+    "reference_z": 59.40684828593703,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0012518010518992738,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0016958518724568869
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_1",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 9,
+    "rank": 3,
+    "condition": 161.89773200640357,
+    "view_zenith_range": [
+      3.3345562940041056,
+      21.428821716467407
+    ],
+    "relative_azimuth_range": [
+      0.03447195895097366,
+      306.38700158149925
+    ],
+    "volume_range": [
+      -0.02637483104988092,
+      0.02134293669618259
+    ],
+    "geometry_range": [
+      -0.8183638425162207,
+      1.643092092448458
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.155280446398016,
+      0.8985094689111108,
+      -0.0142604209423349
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.5026594132273987,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.1283333992277009,
+    "reference_se": 0.009434412912112977,
+    "reference_z": 13.602690535510888,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.007944570292123601,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.014491413144173603
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_1",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 9,
+    "rank": 3,
+    "condition": 161.89773200640357,
+    "view_zenith_range": [
+      3.3345562940041056,
+      21.428821716467407
+    ],
+    "relative_azimuth_range": [
+      0.03447195895097366,
+      306.38700158149925
+    ],
+    "volume_range": [
+      -0.02637483104988092,
+      0.02134293669618259
+    ],
+    "geometry_range": [
+      -0.8183638425162207,
+      1.643092092448458
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.155280446398016,
+      0.8985094689111108,
+      -0.0142604209423349
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.5026594132273987,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.1283333992277009,
+    "reference_se": 0.009434412912112977,
+    "reference_z": 13.602690535510888,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.007944570292123601,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.014491413144173603
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_1",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 8,
+    "rank": 3,
+    "condition": 153.76199215504428,
+    "view_zenith_range": [
+      3.3345562940041056,
+      21.428821716467407
+    ],
+    "relative_azimuth_range": [
+      0.03447195895097366,
+      306.38700158149925
+    ],
+    "volume_range": [
+      -0.02637483104988092,
+      0.02134293669618259
+    ],
+    "geometry_range": [
+      -0.8183638425162207,
+      1.643092092448458
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.15330373972922046,
+      0.8297845969990486,
+      -0.013535789460265188
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4345993156393782,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.1287839232061177,
+    "reference_se": 0.009213821718185394,
+    "reference_z": 13.977253646218902,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.007559299571386898,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.015032378123306852
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_10",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 12,
+    "rank": 3,
+    "condition": 216.78695373352713,
+    "view_zenith_range": [
+      13.166530387925851,
+      24.379652856663085
+    ],
+    "relative_azimuth_range": [
+      53.57878329906595,
+      110.36869106321944
+    ],
+    "volume_range": [
+      -0.058220467544428556,
+      0.024213819683165605
+    ],
+    "geometry_range": [
+      -0.49965963424398163,
+      1.8093878764779485
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.018086126065806618,
+      0.13908926821574938,
+      -0.007397793359549619
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.5011121395080634,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.01910500325015082,
+    "reference_se": 0.0023997388636558385,
+    "reference_z": 7.961284262840853,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0013237401857698688,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0017916076908805945
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_10",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 12,
+    "rank": 3,
+    "condition": 216.78695373352713,
+    "view_zenith_range": [
+      13.166530387925851,
+      24.379652856663085
+    ],
+    "relative_azimuth_range": [
+      53.57878329906595,
+      110.36869106321944
+    ],
+    "volume_range": [
+      -0.058220467544428556,
+      0.024213819683165605
+    ],
+    "geometry_range": [
+      -0.49965963424398163,
+      1.8093878764779485
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.018086126065806618,
+      0.13908926821574938,
+      -0.007397793359549619
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.5011121395080634,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.01910500325015082,
+    "reference_se": 0.0023997388636558385,
+    "reference_z": 7.961284262840853,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0013237401857698688,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0017916076908805945
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_10",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 11,
+    "rank": 3,
+    "condition": 218.8430655757498,
+    "view_zenith_range": [
+      13.166530387925851,
+      24.379652856663085
+    ],
+    "relative_azimuth_range": [
+      53.57878329906595,
+      98.329392482076
+    ],
+    "volume_range": [
+      -0.04535965966376598,
+      0.024213819683165605
+    ],
+    "geometry_range": [
+      0.0027607996431049386,
+      1.8093878764779485
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.018076584303408447,
+      0.14071720655579867,
+      -0.00739144604846256
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4875465865636603,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.019014453619867852,
+    "reference_se": 0.0025081633269547466,
+    "reference_z": 7.5810268874930085,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0013810450868795075,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0019328897340412775
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_11",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 6,
+    "rank": 3,
+    "condition": 288.1157234850762,
+    "view_zenith_range": [
+      21.537544574696188,
+      28.62389456738068
+    ],
+    "relative_azimuth_range": [
+      87.07636404539707,
+      101.9923708374713
+    ],
+    "volume_range": [
+      -0.053287200938567536,
+      -0.030244603606679354
+    ],
+    "geometry_range": [
+      0.009859742382649639,
+      0.8791057456816751
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.004845694618009722,
+      -0.010295431842529389,
+      -0.0004931201579386704
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6275749573518147,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.005810984178760732,
+    "reference_se": 0.0006564951433163126,
+    "reference_z": 8.851526531340815,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00012002902055924896,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0002855694757234699
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_11",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 6,
+    "rank": 3,
+    "condition": 288.1157234850762,
+    "view_zenith_range": [
+      21.537544574696188,
+      28.62389456738068
+    ],
+    "relative_azimuth_range": [
+      87.07636404539707,
+      101.9923708374713
+    ],
+    "volume_range": [
+      -0.053287200938567536,
+      -0.030244603606679354
+    ],
+    "geometry_range": [
+      0.009859742382649639,
+      0.8791057456816751
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.004845694618009722,
+      -0.010295431842529389,
+      -0.0004931201579386704
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6275749573518147,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.005810984178760732,
+    "reference_se": 0.0006564951433163126,
+    "reference_z": 8.851526531340815,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00012002902055924896,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0002855694757234699
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_11",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 5,
+    "rank": 3,
+    "condition": 299.60308674631506,
+    "view_zenith_range": [
+      21.537544574696188,
+      28.62389456738068
+    ],
+    "relative_azimuth_range": [
+      87.07636404539707,
+      95.24192737591824
+    ],
+    "volume_range": [
+      -0.042692698326253664,
+      -0.030244603606679354
+    ],
+    "geometry_range": [
+      0.20122276095498837,
+      0.8791057456816751
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.004424021970143575,
+      -0.02419807252087312,
+      -0.0006082538445666498
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4516931210319653,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.006142048539754392,
+    "reference_se": 0.0001348571406091264,
+    "reference_z": 45.54485221925825,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 2.3904622631783557e-05,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 6.499622819909204e-05
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_2",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 6,
+    "rank": 3,
+    "condition": 539.296333934777,
+    "view_zenith_range": [
+      18.06122658107179,
+      23.17088019123182
+    ],
+    "relative_azimuth_range": [
+      33.36860291696871,
+      57.408722992693384
+    ],
+    "volume_range": [
+      0.01982406866934694,
+      0.05020551093140757
+    ],
+    "geometry_range": [
+      1.4080415629573508,
+      2.2620575450446614
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.06222629422624624,
+      0.3129838439899909,
+      -0.0052099533470432524
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.9004963909508091,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05308217316757157,
+    "reference_se": 0.009335074671691831,
+    "reference_z": 5.686314789590353,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0012305795536943576,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0030438055621454293
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_2",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 6,
+    "rank": 3,
+    "condition": 539.296333934777,
+    "view_zenith_range": [
+      18.06122658107179,
+      23.17088019123182
+    ],
+    "relative_azimuth_range": [
+      33.36860291696871,
+      57.408722992693384
+    ],
+    "volume_range": [
+      0.01982406866934694,
+      0.05020551093140757
+    ],
+    "geometry_range": [
+      1.4080415629573508,
+      2.2620575450446614
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.06222629422624624,
+      0.3129838439899909,
+      -0.0052099533470432524
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.9004963909508091,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05308217316757157,
+    "reference_se": 0.009335074671691831,
+    "reference_z": 5.686314789590353,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0012305795536943576,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0030438055621454293
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_2",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 4,
+    "rank": 3,
+    "condition": 703.317545148491,
+    "view_zenith_range": [
+      18.06122658107179,
+      23.17088019123182
+    ],
+    "relative_azimuth_range": [
+      33.36860291696871,
+      51.886907254118825
+    ],
+    "volume_range": [
+      0.02026842932807904,
+      0.05020551093140757
+    ],
+    "geometry_range": [
+      1.4080415629573508,
+      2.2620575450446614
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.06705500694761622,
+      0.5636060077096877,
+      -0.01293700915404132
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.268346936110206,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.054143900534282766,
+    "reference_se": 0.007820330800912271,
+    "reference_z": 6.923479570450738,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0007787926676050754,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": null
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_3",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 12,
+    "rank": 3,
+    "condition": 215.4197696532518,
+    "view_zenith_range": [
+      10.85904424880224,
+      25.67596946289666
+    ],
+    "relative_azimuth_range": [
+      4.382273058093915,
+      66.00194677704775
+    ],
+    "volume_range": [
+      0.00216565928031609,
+      0.07896433259291913
+    ],
+    "geometry_range": [
+      0.5853780367476813,
+      4.303900781696991
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.06281686340678676,
+      0.1475416363811485,
+      0.005294889269685833
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6141406572289829,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05075541520051853,
+    "reference_se": 0.0033932265871801214,
+    "reference_z": 14.95786205149886,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.002909040919102184,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.005215778486262597
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_3",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 12,
+    "rank": 3,
+    "condition": 215.4197696532518,
+    "view_zenith_range": [
+      10.85904424880224,
+      25.67596946289666
+    ],
+    "relative_azimuth_range": [
+      4.382273058093915,
+      66.00194677704775
+    ],
+    "volume_range": [
+      0.00216565928031609,
+      0.07896433259291913
+    ],
+    "geometry_range": [
+      0.5853780367476813,
+      4.303900781696991
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.06281686340678676,
+      0.1475416363811485,
+      0.005294889269685833
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6141406572289829,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05075541520051853,
+    "reference_se": 0.0033932265871801214,
+    "reference_z": 14.95786205149886,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.002909040919102184,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.005215778486262597
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_3",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 11,
+    "rank": 3,
+    "condition": 220.09379014108114,
+    "view_zenith_range": [
+      10.85904424880224,
+      25.67596946289666
+    ],
+    "relative_azimuth_range": [
+      4.382273058093915,
+      66.00194677704775
+    ],
+    "volume_range": [
+      0.00216565928031609,
+      0.07896433259291913
+    ],
+    "geometry_range": [
+      0.5853780367476813,
+      4.303900781696991
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.06255047491544719,
+      0.13611480576349086,
+      0.005589486842879335
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.457934229279327,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.050718486783231424,
+    "reference_se": 0.003467212150085156,
+    "reference_z": 14.628030990830993,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.003014724512876602,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.005481853115661158
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_4",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 10,
+    "rank": 3,
+    "condition": 99.16288860085822,
+    "view_zenith_range": [
+      2.746515625511721,
+      15.476125206865332
+    ],
+    "relative_azimuth_range": [
+      227.85826442867176,
+      294.81291901961686
+    ],
+    "volume_range": [
+      -0.06877440677165314,
+      -0.02046689762422016
+    ],
+    "geometry_range": [
+      -1.2207823731053797,
+      -0.03218009883140649
+    ],
+    "reference_outside_bounds": false,
+    "beta": [
+      0.0460928608750532,
+      0.24110556816417805,
+      -0.002814344372412247
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 7.505896715550104,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.0378496144755527,
+    "reference_se": 0.0005747265505357981,
+    "reference_z": 65.85673559063312,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0009665225320853924,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0014919996526883766
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_4",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 0,
+    "status": "UNSUPPORTED",
+    "reason": "Fewer than four registered observations"
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_4",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 0,
+    "status": "UNSUPPORTED",
+    "reason": "Fewer than four registered observations"
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_5",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 7,
+    "rank": 3,
+    "condition": 267.975251709208,
+    "view_zenith_range": [
+      9.65170327726118,
+      19.004146374703613
+    ],
+    "relative_azimuth_range": [
+      192.13592055528053,
+      247.72262162177324
+    ],
+    "volume_range": [
+      -0.10135281514153249,
+      -0.046296407903702375
+    ],
+    "geometry_range": [
+      -1.696885771524076,
+      -0.8837757221124845
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.05923681046158412,
+      0.23362158702999472,
+      -0.009128034748233631
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.528222816433495,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05765048500431881,
+    "reference_se": 0.00041513409794989933,
+    "reference_z": 138.87195797459256,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0005857158811456515,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0009442952433117138
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_5",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 7,
+    "rank": 3,
+    "condition": 267.975251709208,
+    "view_zenith_range": [
+      9.65170327726118,
+      19.004146374703613
+    ],
+    "relative_azimuth_range": [
+      192.13592055528053,
+      247.72262162177324
+    ],
+    "volume_range": [
+      -0.10135281514153249,
+      -0.046296407903702375
+    ],
+    "geometry_range": [
+      -1.696885771524076,
+      -0.8837757221124845
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.05923681046158412,
+      0.23362158702999472,
+      -0.009128034748233631
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.528222816433495,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05765048500431881,
+    "reference_se": 0.00041513409794989933,
+    "reference_z": 138.87195797459256,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0005857158811456515,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0009442952433117138
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_5",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 6,
+    "rank": 3,
+    "condition": 257.8094879323441,
+    "view_zenith_range": [
+      11.305634819416404,
+      19.004146374703613
+    ],
+    "relative_azimuth_range": [
+      192.13592055528053,
+      216.83136676326632
+    ],
+    "volume_range": [
+      -0.10135281514153249,
+      -0.07082526720337812
+    ],
+    "geometry_range": [
+      -1.696885771524076,
+      -1.3854642785360594
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.06061558754693501,
+      0.233509409774433,
+      -0.008244757409072675
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.3327449667205597,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.058151129427155425,
+    "reference_se": 0.0023194103913071473,
+    "reference_z": 25.071513711026906,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0006242018036751657,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0015239706647179958
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_6",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 7,
+    "rank": 3,
+    "condition": 261.5624629209704,
+    "view_zenith_range": [
+      8.813423084511976,
+      15.654926074446664
+    ],
+    "relative_azimuth_range": [
+      177.0371996514955,
+      234.63517401250013
+    ],
+    "volume_range": [
+      -0.0849103802736566,
+      -0.051380192920908785
+    ],
+    "geometry_range": [
+      -1.7066492191055005,
+      -1.1455220895914204
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.08434552917994018,
+      0.10406853538817913,
+      -0.0027708704777522366
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.2378013878940438,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.08234360537792192,
+    "reference_se": 0.0017452367743598695,
+    "reference_z": 47.18191055086179,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0012157603860448896,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.002541905612451361
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_6",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 7,
+    "rank": 3,
+    "condition": 261.5624629209704,
+    "view_zenith_range": [
+      8.813423084511976,
+      15.654926074446664
+    ],
+    "relative_azimuth_range": [
+      177.0371996514955,
+      234.63517401250013
+    ],
+    "volume_range": [
+      -0.0849103802736566,
+      -0.051380192920908785
+    ],
+    "geometry_range": [
+      -1.7066492191055005,
+      -1.1455220895914204
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.08434552917994018,
+      0.10406853538817913,
+      -0.0027708704777522366
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.2378013878940438,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.08234360537792192,
+    "reference_se": 0.0017452367743598695,
+    "reference_z": 47.18191055086179,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0012157603860448896,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.002541905612451361
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_6",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 7,
+    "rank": 3,
+    "condition": 261.5624629209704,
+    "view_zenith_range": [
+      8.813423084511976,
+      15.654926074446664
+    ],
+    "relative_azimuth_range": [
+      177.0371996514955,
+      234.63517401250013
+    ],
+    "volume_range": [
+      -0.0849103802736566,
+      -0.051380192920908785
+    ],
+    "geometry_range": [
+      -1.7066492191055005,
+      -1.1455220895914204
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.08434552917994018,
+      0.10406853538817913,
+      -0.0027708704777522366
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.2378013878940438,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.08234360537792192,
+    "reference_se": 0.0017452367743598695,
+    "reference_z": 47.18191055086179,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0012157603860448896,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.002541905612451361
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_7",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 12,
+    "rank": 3,
+    "condition": 350.12452290301513,
+    "view_zenith_range": [
+      0.9708054314634964,
+      20.18092740318505
+    ],
+    "relative_azimuth_range": [
+      9.152379587568191,
+      359.46866597451697
+    ],
+    "volume_range": [
+      -0.05147568091411303,
+      0.06593049343307544
+    ],
+    "geometry_range": [
+      -1.4866970569363935,
+      2.6253962695650754
+    ],
+    "reference_outside_bounds": false,
+    "beta": [
+      0.07910527466984303,
+      0.20990981573459533,
+      0.002429531230215314
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4133664822857352,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.0670488531978385,
+    "reference_se": 0.0029002017823119485,
+    "reference_z": 23.118685605519932,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.001860113900330685,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.003436347154149671
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_7",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 12,
+    "rank": 3,
+    "condition": 350.12452290301513,
+    "view_zenith_range": [
+      0.9708054314634964,
+      20.18092740318505
+    ],
+    "relative_azimuth_range": [
+      9.152379587568191,
+      359.46866597451697
+    ],
+    "volume_range": [
+      -0.05147568091411303,
+      0.06593049343307544
+    ],
+    "geometry_range": [
+      -1.4866970569363935,
+      2.6253962695650754
+    ],
+    "reference_outside_bounds": false,
+    "beta": [
+      0.07910527466984303,
+      0.20990981573459533,
+      0.002429531230215314
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4133664822857352,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.0670488531978385,
+    "reference_se": 0.0029002017823119485,
+    "reference_z": 23.118685605519932,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.001860113900330685,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.003436347154149671
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_7",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 12,
+    "rank": 3,
+    "condition": 350.12452290301513,
+    "view_zenith_range": [
+      0.9708054314634964,
+      20.18092740318505
+    ],
+    "relative_azimuth_range": [
+      9.152379587568191,
+      359.46866597451697
+    ],
+    "volume_range": [
+      -0.05147568091411303,
+      0.06593049343307544
+    ],
+    "geometry_range": [
+      -1.4866970569363935,
+      2.6253962695650754
+    ],
+    "reference_outside_bounds": false,
+    "beta": [
+      0.07910527466984303,
+      0.20990981573459533,
+      0.002429531230215314
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4133664822857352,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.0670488531978385,
+    "reference_se": 0.0029002017823119485,
+    "reference_z": 23.118685605519932,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.001860113900330685,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.003436347154149671
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_8",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 10,
+    "rank": 3,
+    "condition": 158.58479619514296,
+    "view_zenith_range": [
+      0.5726282883090011,
+      17.002652631401737
+    ],
+    "relative_azimuth_range": [
+      150.60527046513016,
+      326.1515561115806
+    ],
+    "volume_range": [
+      -0.09284636253634038,
+      -0.027364766272879537
+    ],
+    "geometry_range": [
+      -1.644118827182374,
+      -0.9273717471700336
+    ],
+    "reference_outside_bounds": false,
+    "beta": [
+      0.06037364200863594,
+      0.0976820056963519,
+      0.002463452948167476
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4157384387509451,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05343029399626817,
+    "reference_se": 0.0010854758713966324,
+    "reference_z": 49.2229218577856,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.001221406743809573,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0019340741915923108
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_8",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 10,
+    "rank": 3,
+    "condition": 158.58479619514296,
+    "view_zenith_range": [
+      0.5726282883090011,
+      17.002652631401737
+    ],
+    "relative_azimuth_range": [
+      150.60527046513016,
+      326.1515561115806
+    ],
+    "volume_range": [
+      -0.09284636253634038,
+      -0.027364766272879537
+    ],
+    "geometry_range": [
+      -1.644118827182374,
+      -0.9273717471700336
+    ],
+    "reference_outside_bounds": false,
+    "beta": [
+      0.06037364200863594,
+      0.0976820056963519,
+      0.002463452948167476
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4157384387509451,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05343029399626817,
+    "reference_se": 0.0010854758713966324,
+    "reference_z": 49.2229218577856,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.001221406743809573,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0019340741915923108
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_8",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 10,
+    "rank": 3,
+    "condition": 158.58479619514296,
+    "view_zenith_range": [
+      0.5726282883090011,
+      17.002652631401737
+    ],
+    "relative_azimuth_range": [
+      150.60527046513016,
+      326.1515561115806
+    ],
+    "volume_range": [
+      -0.09284636253634038,
+      -0.027364766272879537
+    ],
+    "geometry_range": [
+      -1.644118827182374,
+      -0.9273717471700336
+    ],
+    "reference_outside_bounds": false,
+    "beta": [
+      0.06037364200863594,
+      0.0976820056963519,
+      0.002463452948167476
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4157384387509451,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05343029399626817,
+    "reference_se": 0.0010854758713966324,
+    "reference_z": 49.2229218577856,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.001221406743809573,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0019340741915923108
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_9",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 8,
+    "rank": 3,
+    "condition": 229.4374734765844,
+    "view_zenith_range": [
+      13.76169062116483,
+      22.547973926528577
+    ],
+    "relative_azimuth_range": [
+      170.4112863216615,
+      205.0538768419193
+    ],
+    "volume_range": [
+      -0.1136909799257032,
+      -0.08746486417455135
+    ],
+    "geometry_range": [
+      -1.7553869437795495,
+      -1.5755567396912658
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.05374797045825794,
+      0.14621119963750565,
+      0.00200012659962795
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 1.3213680841719797,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.04504230145174093,
+    "reference_se": 0.004095103712270546,
+    "reference_z": 10.999062445421451,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.000604186788377407,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0012504627412857987
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_9",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 7,
+    "rank": 3,
+    "condition": 236.82744261072682,
+    "view_zenith_range": [
+      13.76169062116483,
+      22.547973926528577
+    ],
+    "relative_azimuth_range": [
+      170.4112863216615,
+      205.0538768419193
+    ],
+    "volume_range": [
+      -0.1136909799257032,
+      -0.08746486417455135
+    ],
+    "geometry_range": [
+      -1.7553869437795495,
+      -1.5755567396912658
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.0484304826763293,
+      0.12244572799997809,
+      0.00039918804392185343
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.5506551299778792,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.0424156849959235,
+    "reference_se": 0.0027102706229522903,
+    "reference_z": 15.6499814582059,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0004365020763978509,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0010434211254980875
+  },
+  {
+    "site": "Goldhill",
+    "target_id": "goldhill_9",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 5,
+    "rank": 3,
+    "condition": 230.53824943321285,
+    "view_zenith_range": [
+      13.76169062116483,
+      21.905893515311146
+    ],
+    "relative_azimuth_range": [
+      170.4112863216615,
+      198.2896158476565
+    ],
+    "volume_range": [
+      -0.1130258581055874,
+      -0.08746486417455135
+    ],
+    "geometry_range": [
+      -1.7553869437795495,
+      -1.669276406019688
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.06896503279552109,
+      0.13392865291052525,
+      0.011622838524645253
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4510380580469296,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05119995438900919,
+    "reference_se": 0.002506557008327066,
+    "reference_z": 20.426407306483416,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0001829905619918491,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0011249937979151009
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_0",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 10,
+    "rank": 3,
+    "condition": 271.2419195213417,
+    "view_zenith_range": [
+      6.897607621534585,
+      27.278957640792797
+    ],
+    "relative_azimuth_range": [
+      6.177831919943145,
+      357.52989159647234
+    ],
+    "volume_range": [
+      0.005457432485147851,
+      0.07408074382782726
+    ],
+    "geometry_range": [
+      0.2451474020339992,
+      3.593973043962701
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.04488612014290554,
+      -0.3753483269516494,
+      0.007652800492086923
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.7781542430102351,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05444755583771269,
+    "reference_se": 0.00660869828544775,
+    "reference_z": 8.238771613708762,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.004792054246604575,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.006294583621225026
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_0",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 10,
+    "rank": 3,
+    "condition": 271.2419195213417,
+    "view_zenith_range": [
+      6.897607621534585,
+      27.278957640792797
+    ],
+    "relative_azimuth_range": [
+      6.177831919943145,
+      357.52989159647234
+    ],
+    "volume_range": [
+      0.005457432485147851,
+      0.07408074382782726
+    ],
+    "geometry_range": [
+      0.2451474020339992,
+      3.593973043962701
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.04488612014290554,
+      -0.3753483269516494,
+      0.007652800492086923
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.7781542430102351,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05444755583771269,
+    "reference_se": 0.00660869828544775,
+    "reference_z": 8.238771613708762,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.004792054246604575,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.006294583621225026
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_0",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 6,
+    "rank": 3,
+    "condition": 311.2006938021365,
+    "view_zenith_range": [
+      6.897607621534585,
+      24.143367034258723
+    ],
+    "relative_azimuth_range": [
+      6.177831919943145,
+      355.2621258967868
+    ],
+    "volume_range": [
+      0.005457432485147851,
+      0.07408074382782726
+    ],
+    "geometry_range": [
+      0.2451474020339992,
+      2.668818357867557
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.0434512662117519,
+      -0.41296832419955964,
+      0.011084888345604301
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.3343797283684663,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.051305943490993995,
+    "reference_se": 0.0031797525070051576,
+    "reference_z": 16.1352002641603,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0013186775388551039,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0026942894850422367
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 444.0,
+    "selection": "all_tracked",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.00921684945635043,
+      0.07190746151263777,
+      -0.0029426175959288603
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.008861644903632832,
+    "reference_se": 0.0006155272937431133,
+    "reference_z": 14.396835028620497,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00015262334175979885,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0003457009946126428
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 444.0,
+    "selection": "reprojection_le_1px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.00921684945635043,
+      0.07190746151263777,
+      -0.0029426175959288603
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.008861644903632832,
+    "reference_se": 0.0006155272937431133,
+    "reference_z": 14.396835028620497,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00015262334175979885,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0003457009946126428
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 444.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.00921684945635043,
+      0.07190746151263777,
+      -0.0029426175959288603
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.008861644903632832,
+    "reference_se": 0.0006155272937431133,
+    "reference_z": 14.396835028620497,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00015262334175979885,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0003457009946126428
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 475.0,
+    "selection": "all_tracked",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.009654365768707155,
+      0.06185823000568009,
+      -0.0028561068465467474
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.009673528622272783,
+    "reference_se": 0.0009465932683805156,
+    "reference_z": 10.219308488029704,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0002487035153869356,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0005015439004134809
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 475.0,
+    "selection": "reprojection_le_1px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.009654365768707155,
+      0.06185823000568009,
+      -0.0028561068465467474
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.009673528622272783,
+    "reference_se": 0.0009465932683805156,
+    "reference_z": 10.219308488029704,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0002487035153869356,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0005015439004134809
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 475.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.009654365768707155,
+      0.06185823000568009,
+      -0.0028561068465467474
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.009673528622272783,
+    "reference_se": 0.0009465932683805156,
+    "reference_z": 10.219308488029704,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0002487035153869356,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0005015439004134809
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 531.0,
+    "selection": "all_tracked",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.018086100384148932,
+      0.15644177345291183,
+      -0.005495315205485772
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.016406678300711335,
+    "reference_se": 0.002775014074951643,
+    "reference_z": 5.912286517320542,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0007937054713347862,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0013397072428232893
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 531.0,
+    "selection": "reprojection_le_1px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.018086100384148932,
+      0.15644177345291183,
+      -0.005495315205485772
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.016406678300711335,
+    "reference_se": 0.002775014074951643,
+    "reference_z": 5.912286517320542,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0007937054713347862,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0013397072428232893
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 531.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.018086100384148932,
+      0.15644177345291183,
+      -0.005495315205485772
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.016406678300711335,
+    "reference_se": 0.002775014074951643,
+    "reference_z": 5.912286517320542,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0007937054713347862,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0013397072428232893
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 560.0,
+    "selection": "all_tracked",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.019912562671539576,
+      0.1696993811680869,
+      -0.006652942006706618
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.01878274658812285,
+    "reference_se": 0.0009171600801235228,
+    "reference_z": 20.479245657522725,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00030553609662061453,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0005165469361278769
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 560.0,
+    "selection": "reprojection_le_1px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.019912562671539576,
+      0.1696993811680869,
+      -0.006652942006706618
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.01878274658812285,
+    "reference_se": 0.0009171600801235228,
+    "reference_z": 20.479245657522725,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00030553609662061453,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0005165469361278769
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 560.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.019912562671539576,
+      0.1696993811680869,
+      -0.006652942006706618
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.01878274658812285,
+    "reference_se": 0.0009171600801235228,
+    "reference_z": 20.479245657522725,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00030553609662061453,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0005165469361278769
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.01498814508698657,
+      0.1321915385770639,
+      -0.005091660196877313
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.014017232991467262,
+    "reference_se": 0.0011350195310617566,
+    "reference_z": 12.349772499821928,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00030668606797621225,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0005991532097478607
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.01498814508698657,
+      0.1321915385770639,
+      -0.005091660196877313
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.014017232991467262,
+    "reference_se": 0.0011350195310617566,
+    "reference_z": 12.349772499821928,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00030668606797621225,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0005991532097478607
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.01498814508698657,
+      0.1321915385770639,
+      -0.005091660196877313
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.014017232991467262,
+    "reference_se": 0.0011350195310617566,
+    "reference_z": 12.349772499821928,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00030668606797621225,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0005991532097478607
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 668.0,
+    "selection": "all_tracked",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.012243890020718396,
+      0.08878102223920406,
+      -0.0037266933796367458
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.011898905505447616,
+    "reference_se": 0.0012438165194762654,
+    "reference_z": 9.566447558083482,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00038384254810607405,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0006581547704331084
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 668.0,
+    "selection": "reprojection_le_1px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.012243890020718396,
+      0.08878102223920406,
+      -0.0037266933796367458
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.011898905505447616,
+    "reference_se": 0.0012438165194762654,
+    "reference_z": 9.566447558083482,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00038384254810607405,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0006581547704331084
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 668.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.012243890020718396,
+      0.08878102223920406,
+      -0.0037266933796367458
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.011898905505447616,
+    "reference_se": 0.0012438165194762654,
+    "reference_z": 9.566447558083482,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00038384254810607405,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0006581547704331084
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 705.0,
+    "selection": "all_tracked",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.03313276419096415,
+      0.28697241154316566,
+      -0.012008255390851054
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.03197988226825268,
+    "reference_se": 0.0028266520556257577,
+    "reference_z": 11.313696075399363,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0006860702023175657,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0012523545867556241
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 705.0,
+    "selection": "reprojection_le_1px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.03313276419096415,
+      0.28697241154316566,
+      -0.012008255390851054
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.03197988226825268,
+    "reference_se": 0.0028266520556257577,
+    "reference_z": 11.313696075399363,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0006860702023175657,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0012523545867556241
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 705.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.03313276419096415,
+      0.28697241154316566,
+      -0.012008255390851054
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.03197988226825268,
+    "reference_se": 0.0028266520556257577,
+    "reference_z": 11.313696075399363,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0006860702023175657,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0012523545867556241
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 717.0,
+    "selection": "all_tracked",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.05713111305186693,
+      0.493094630873967,
+      -0.020984978504887192
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.055501770860854935,
+    "reference_se": 0.002895340160275683,
+    "reference_z": 19.169343769117017,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0008000963299604072,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0012900379890546571
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 717.0,
+    "selection": "reprojection_le_1px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.05713111305186693,
+      0.493094630873967,
+      -0.020984978504887192
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.055501770860854935,
+    "reference_se": 0.002895340160275683,
+    "reference_z": 19.169343769117017,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0008000963299604072,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0012900379890546571
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 717.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.05713111305186693,
+      0.493094630873967,
+      -0.020984978504887192
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.055501770860854935,
+    "reference_se": 0.002895340160275683,
+    "reference_z": 19.169343769117017,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0008000963299604072,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0012900379890546571
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 740.0,
+    "selection": "all_tracked",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.09189711972165769,
+      0.6583459305988083,
+      -0.02919932311468242
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.09090336209438621,
+    "reference_se": 0.006342974361302681,
+    "reference_z": 14.331346292201793,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.002104306436665217,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.00315204567360622
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 740.0,
+    "selection": "reprojection_le_1px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.09189711972165769,
+      0.6583459305988083,
+      -0.02919932311468242
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.09090336209438621,
+    "reference_se": 0.006342974361302681,
+    "reference_z": 14.331346292201793,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.002104306436665217,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.00315204567360622
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 740.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.09189711972165769,
+      0.6583459305988083,
+      -0.02919932311468242
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.09090336209438621,
+    "reference_se": 0.006342974361302681,
+    "reference_z": 14.331346292201793,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.002104306436665217,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.00315204567360622
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 842.0,
+    "selection": "all_tracked",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.12085624150014382,
+      0.6320243542759243,
+      -0.028269322114168275
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.12013964379222516,
+    "reference_se": 0.006470138480078767,
+    "reference_z": 18.56832649905858,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0018681679741850555,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0034863003101087125
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 842.0,
+    "selection": "reprojection_le_1px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.12085624150014382,
+      0.6320243542759243,
+      -0.028269322114168275
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.12013964379222516,
+    "reference_se": 0.006470138480078767,
+    "reference_z": 18.56832649905858,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0018681679741850555,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0034863003101087125
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_1",
+    "wavelength_nm": 842.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 8,
+    "rank": 3,
+    "condition": 230.9281710157051,
+    "view_zenith_range": [
+      20.601334811999333,
+      28.65934809041292
+    ],
+    "relative_azimuth_range": [
+      59.811684375508065,
+      118.44445320209633
+    ],
+    "volume_range": [
+      -0.07021855862139259,
+      0.020051311857356313
+    ],
+    "geometry_range": [
+      -0.6846157857486157,
+      1.7631482366404008
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.12085624150014382,
+      0.6320243542759243,
+      -0.028269322114168275
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.340375596027955,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.12013964379222516,
+    "reference_se": 0.006470138480078767,
+    "reference_z": 18.56832649905858,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0018681679741850555,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0034863003101087125
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_10",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 12,
+    "rank": 3,
+    "condition": 219.63706346264786,
+    "view_zenith_range": [
+      7.795004508218399,
+      22.06259004057967
+    ],
+    "relative_azimuth_range": [
+      268.71205795084165,
+      344.5156499818354
+    ],
+    "volume_range": [
+      -0.02923506587600888,
+      0.05755208060192318
+    ],
+    "geometry_range": [
+      -0.43393565163670655,
+      2.1922954933659513
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.10664360136865449,
+      0.22377892480633843,
+      0.0014119492545508106
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.3581959545215938,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.09496869637762656,
+    "reference_se": 0.0010805781282528498,
+    "reference_z": 87.88693190669909,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.001948696444682926,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.002897589992450647
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_10",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 12,
+    "rank": 3,
+    "condition": 219.63706346264786,
+    "view_zenith_range": [
+      7.795004508218399,
+      22.06259004057967
+    ],
+    "relative_azimuth_range": [
+      268.71205795084165,
+      344.5156499818354
+    ],
+    "volume_range": [
+      -0.02923506587600888,
+      0.05755208060192318
+    ],
+    "geometry_range": [
+      -0.43393565163670655,
+      2.1922954933659513
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.10664360136865449,
+      0.22377892480633843,
+      0.0014119492545508106
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.3581959545215938,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.09496869637762656,
+    "reference_se": 0.0010805781282528498,
+    "reference_z": 87.88693190669909,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.001948696444682926,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.002897589992450647
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_10",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 12,
+    "rank": 3,
+    "condition": 219.63706346264786,
+    "view_zenith_range": [
+      7.795004508218399,
+      22.06259004057967
+    ],
+    "relative_azimuth_range": [
+      268.71205795084165,
+      344.5156499818354
+    ],
+    "volume_range": [
+      -0.02923506587600888,
+      0.05755208060192318
+    ],
+    "geometry_range": [
+      -0.43393565163670655,
+      2.1922954933659513
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.10664360136865449,
+      0.22377892480633843,
+      0.0014119492545508106
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.3581959545215938,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.09496869637762656,
+    "reference_se": 0.0010805781282528498,
+    "reference_z": 87.88693190669909,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.001948696444682926,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.002897589992450647
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_11",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 7,
+    "rank": 3,
+    "condition": 211.88859841598182,
+    "view_zenith_range": [
+      17.937199518188695,
+      25.17633451076026
+    ],
+    "relative_azimuth_range": [
+      218.39240588193627,
+      241.41490898271297
+    ],
+    "volume_range": [
+      -0.0935491433518898,
+      -0.06461250200080093
+    ],
+    "geometry_range": [
+      -1.3218264522524619,
+      -0.7694024181857899
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      -0.005917123554350688,
+      -0.13687306042085381,
+      -0.01012510754176442
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.3860578943485962,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "INVALID",
+    "reference": 0.010485260374504464,
+    "reference_se": 0.005570228820813245,
+    "reference_z": 1.8823751612009418,
+    "unresolved": 7,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.002385596055993578,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0042010550596498835
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_11",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 7,
+    "rank": 3,
+    "condition": 211.88859841598182,
+    "view_zenith_range": [
+      17.937199518188695,
+      25.17633451076026
+    ],
+    "relative_azimuth_range": [
+      218.39240588193627,
+      241.41490898271297
+    ],
+    "volume_range": [
+      -0.0935491433518898,
+      -0.06461250200080093
+    ],
+    "geometry_range": [
+      -1.3218264522524619,
+      -0.7694024181857899
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      -0.005917123554350688,
+      -0.13687306042085381,
+      -0.01012510754176442
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.3860578943485962,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "INVALID",
+    "reference": 0.010485260374504464,
+    "reference_se": 0.005570228820813245,
+    "reference_z": 1.8823751612009418,
+    "unresolved": 7,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.002385596055993578,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0042010550596498835
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_11",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 7,
+    "rank": 3,
+    "condition": 211.88859841598182,
+    "view_zenith_range": [
+      17.937199518188695,
+      25.17633451076026
+    ],
+    "relative_azimuth_range": [
+      218.39240588193627,
+      241.41490898271297
+    ],
+    "volume_range": [
+      -0.0935491433518898,
+      -0.06461250200080093
+    ],
+    "geometry_range": [
+      -1.3218264522524619,
+      -0.7694024181857899
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      -0.005917123554350688,
+      -0.13687306042085381,
+      -0.01012510754176442
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.3860578943485962,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "INVALID",
+    "reference": 0.010485260374504464,
+    "reference_se": 0.005570228820813245,
+    "reference_z": 1.8823751612009418,
+    "unresolved": 7,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.002385596055993578,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0042010550596498835
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_2",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 7,
+    "rank": 3,
+    "condition": 263.24452024090436,
+    "view_zenith_range": [
+      12.04734412380584,
+      18.189552201238453
+    ],
+    "relative_azimuth_range": [
+      205.7723876877445,
+      250.39990574981394
+    ],
+    "volume_range": [
+      -0.07709464172918035,
+      -0.05190696826096031
+    ],
+    "geometry_range": [
+      -1.5417805593267355,
+      -0.5414268353999867
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.07430369498783501,
+      -0.24122136008992193,
+      0.0066022597053540235
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.3486188848145879,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.07876433650715232,
+    "reference_se": 0.005829955962663754,
+    "reference_z": 13.510279839431972,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.003299294496576126,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.00585731343941137
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_2",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 7,
+    "rank": 3,
+    "condition": 263.24452024090436,
+    "view_zenith_range": [
+      12.04734412380584,
+      18.189552201238453
+    ],
+    "relative_azimuth_range": [
+      205.7723876877445,
+      250.39990574981394
+    ],
+    "volume_range": [
+      -0.07709464172918035,
+      -0.05190696826096031
+    ],
+    "geometry_range": [
+      -1.5417805593267355,
+      -0.5414268353999867
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.07430369498783501,
+      -0.24122136008992193,
+      0.0066022597053540235
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.3486188848145879,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.07876433650715232,
+    "reference_se": 0.005829955962663754,
+    "reference_z": 13.510279839431972,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.003299294496576126,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.00585731343941137
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_2",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 7,
+    "rank": 3,
+    "condition": 263.24452024090436,
+    "view_zenith_range": [
+      12.04734412380584,
+      18.189552201238453
+    ],
+    "relative_azimuth_range": [
+      205.7723876877445,
+      250.39990574981394
+    ],
+    "volume_range": [
+      -0.07709464172918035,
+      -0.05190696826096031
+    ],
+    "geometry_range": [
+      -1.5417805593267355,
+      -0.5414268353999867
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.07430369498783501,
+      -0.24122136008992193,
+      0.0066022597053540235
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.3486188848145879,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.07876433650715232,
+    "reference_se": 0.005829955962663754,
+    "reference_z": 13.510279839431972,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.003299294496576126,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.00585731343941137
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_3",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 7,
+    "rank": 3,
+    "condition": 162.9195701888607,
+    "view_zenith_range": [
+      6.177720067542225,
+      19.706665598168296
+    ],
+    "relative_azimuth_range": [
+      214.6853118583881,
+      238.96200878121167
+    ],
+    "volume_range": [
+      -0.07746113245170294,
+      -0.043023527519110205
+    ],
+    "geometry_range": [
+      -1.4198524108755852,
+      -0.8305335258469522
+    ],
+    "reference_outside_bounds": false,
+    "beta": [
+      0.018870371614525077,
+      0.06852934553986281,
+      -0.0004264517718349423
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.596177771367128,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.016153928493402536,
+    "reference_se": 0.001884611695332336,
+    "reference_z": 8.57148904117032,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0014091100293952689,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.00254361899690995
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_3",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 7,
+    "rank": 3,
+    "condition": 162.9195701888607,
+    "view_zenith_range": [
+      6.177720067542225,
+      19.706665598168296
+    ],
+    "relative_azimuth_range": [
+      214.6853118583881,
+      238.96200878121167
+    ],
+    "volume_range": [
+      -0.07746113245170294,
+      -0.043023527519110205
+    ],
+    "geometry_range": [
+      -1.4198524108755852,
+      -0.8305335258469522
+    ],
+    "reference_outside_bounds": false,
+    "beta": [
+      0.018870371614525077,
+      0.06852934553986281,
+      -0.0004264517718349423
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.596177771367128,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.016153928493402536,
+    "reference_se": 0.001884611695332336,
+    "reference_z": 8.57148904117032,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0014091100293952689,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.00254361899690995
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_3",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 3,
+    "status": "UNSUPPORTED",
+    "reason": "Fewer than four registered observations"
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_4",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 9,
+    "rank": 3,
+    "condition": 195.9515360457717,
+    "view_zenith_range": [
+      18.927483589296173,
+      26.594151328225127
+    ],
+    "relative_azimuth_range": [
+      243.0417499522068,
+      285.63576636635537
+    ],
+    "volume_range": [
+      -0.07280854641359946,
+      -0.007709649753389836
+    ],
+    "geometry_range": [
+      -0.5659875786761539,
+      1.0355473354335332
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.017286423399213317,
+      0.03252419906368919,
+      0.0018976845948987275
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.8517722498050183,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.01389711301496073,
+    "reference_se": 0.001665468462428663,
+    "reference_z": 8.344266690403321,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0006909859077238943,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.001126200691045823
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_4",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 9,
+    "rank": 3,
+    "condition": 195.9515360457717,
+    "view_zenith_range": [
+      18.927483589296173,
+      26.594151328225127
+    ],
+    "relative_azimuth_range": [
+      243.0417499522068,
+      285.63576636635537
+    ],
+    "volume_range": [
+      -0.07280854641359946,
+      -0.007709649753389836
+    ],
+    "geometry_range": [
+      -0.5659875786761539,
+      1.0355473354335332
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.017286423399213317,
+      0.03252419906368919,
+      0.0018976845948987275
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.8517722498050183,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.01389711301496073,
+    "reference_se": 0.001665468462428663,
+    "reference_z": 8.344266690403321,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0006909859077238943,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.001126200691045823
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_4",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 3,
+    "status": "UNSUPPORTED",
+    "reason": "Fewer than four registered observations"
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 444.0,
+    "selection": "all_tracked",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.018376238203658725,
+      -0.05863360388979021,
+      0.003389872014258962
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.017675422283094988,
+    "reference_se": 0.00029180870491532637,
+    "reference_z": 60.57194999794072,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00012207674930467648,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.00029198294115115683
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 444.0,
+    "selection": "reprojection_le_1px",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.018376238203658725,
+      -0.05863360388979021,
+      0.003389872014258962
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.017675422283094988,
+    "reference_se": 0.00029180870491532637,
+    "reference_z": 60.57194999794072,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.00012207674930467648,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.00029198294115115683
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 444.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 5,
+    "rank": 3,
+    "condition": 256.1533722677839,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      259.7175066682924,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.03302083061610295,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -0.7675006911775413,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.018418775676890656,
+      -0.06597680759374738,
+      0.0038752787028442284
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4329089076392158,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.017569327295443693,
+    "reference_se": 0.0001926428720930497,
+    "reference_z": 91.20154358453199,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 7.282985354983329e-05,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0002054282681626015
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 475.0,
+    "selection": "all_tracked",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.022867895499478194,
+      -0.008357867059472933,
+      0.0023181269259838536
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.020933077322327426,
+    "reference_se": 0.0006002820425037535,
+    "reference_z": 34.8720698607214,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0002977621888358938,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.000536858982299739
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 475.0,
+    "selection": "reprojection_le_1px",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.022867895499478194,
+      -0.008357867059472933,
+      0.0023181269259838536
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.020933077322327426,
+    "reference_se": 0.0006002820425037535,
+    "reference_z": 34.8720698607214,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0002977621888358938,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.000536858982299739
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 475.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 5,
+    "rank": 3,
+    "condition": 256.1533722677839,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      259.7175066682924,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.03302083061610295,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -0.7675006911775413,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.022830963821316844,
+      -0.0019823864476086438,
+      0.0018966894912200226
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4329089076392158,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.021025190596595137,
+    "reference_se": 0.0008220549428966925,
+    "reference_z": 25.576381211830228,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0003113080421988828,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0007851544097682491
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 531.0,
+    "selection": "all_tracked",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.04801678479940903,
+      0.1922214485432587,
+      -0.000442626468551489
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.0396437454508679,
+    "reference_se": 0.000873677216424847,
+    "reference_z": 45.37573454541151,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.000640958578439509,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0011932515501104184
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 531.0,
+    "selection": "reprojection_le_1px",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.04801678479940903,
+      0.1922214485432587,
+      -0.000442626468551489
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.0396437454508679,
+    "reference_se": 0.000873677216424847,
+    "reference_z": 45.37573454541151,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.000640958578439509,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0011932515501104184
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 531.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 5,
+    "rank": 3,
+    "condition": 256.1533722677839,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      259.7175066682924,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.03302083061610295,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -0.7675006911775413,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.047914763590073184,
+      0.20983327325585002,
+      -0.001606818265256616
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4329089076392158,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.03989820200698807,
+    "reference_se": 0.0011456396205716665,
+    "reference_z": 34.826136675579654,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0006485641306403787,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0016345951009172333
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 560.0,
+    "selection": "all_tracked",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.05923934538812589,
+      0.18730063529301927,
+      5.9252901378115825e-05
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05059010515398241,
+    "reference_se": 0.002467004547911313,
+    "reference_z": 20.50669310553743,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0009922173409876807,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0021063539359271145
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 560.0,
+    "selection": "reprojection_le_1px",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.05923934538812589,
+      0.18730063529301927,
+      5.9252901378115825e-05
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05059010515398241,
+    "reference_se": 0.002467004547911313,
+    "reference_z": 20.50669310553743,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0009922173409876807,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0021063539359271145
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 560.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 5,
+    "rank": 3,
+    "condition": 256.1533722677839,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      259.7175066682924,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.03302083061610295,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -0.7675006911775413,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.059174729493356365,
+      0.198455215989883,
+      -0.0006780966665907425
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4329089076392158,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.05075126711393865,
+    "reference_se": 0.002740834376819909,
+    "reference_z": 18.516721602428056,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0010734842678069287,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0031403155145347666
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.0483961990557,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.03298576393305601,
+      -0.18946376449496777,
+      0.010145455259136045
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.03152950150278418,
+    "reference_se": 0.000566182208017262,
+    "reference_z": 55.68790586549638,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0003684420462652887,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0007304851937413349
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.0483961990557,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.03298576393305601,
+      -0.18946376449496777,
+      0.010145455259136045
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.03152950150278418,
+    "reference_se": 0.000566182208017262,
+    "reference_z": 55.68790586549638,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0003684420462652887,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0007304851937413349
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 5,
+    "rank": 3,
+    "condition": 256.153372267784,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      259.7175066682924,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.03302083061610295,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -0.7675006911775413,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.03299780658707565,
+      -0.19154267644915887,
+      0.010282877262967916
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4329089076392158,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.03149946527513754,
+    "reference_se": 0.0005869496068171005,
+    "reference_z": 53.66638789648785,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0004023571067072167,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0011797977766376331
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 668.0,
+    "selection": "all_tracked",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.028529183666075004,
+      -0.1737076051386722,
+      0.008953089106574186
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.027542677937137737,
+    "reference_se": 0.0008465426361142732,
+    "reference_z": 32.535488187059016,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0005744930676472585,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0012664244553676608
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 668.0,
+    "selection": "reprojection_le_1px",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.028529183666075004,
+      -0.1737076051386722,
+      0.008953089106574186
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.027542677937137737,
+    "reference_se": 0.0008465426361142732,
+    "reference_z": 32.535488187059016,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0005744930676472585,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0012664244553676608
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 668.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 5,
+    "rank": 3,
+    "condition": 256.1533722677839,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      259.7175066682924,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.03302083061610295,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -0.7675006911775413,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.028713741830109014,
+      -0.205567706145164,
+      0.011059132565401062
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4329089076392158,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.02708236154675483,
+    "reference_se": 0.0005699252790873903,
+    "reference_z": 47.519144246630475,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0003990686611402567,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0011205133607645182
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 705.0,
+    "selection": "all_tracked",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.09503541888990169,
+      0.48061615521505857,
+      -0.0055766920738417975
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.07857007849139759,
+    "reference_se": 0.00265508278473172,
+    "reference_z": 29.592327193419926,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0015089486109214022,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0029249607997705205
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 705.0,
+    "selection": "reprojection_le_1px",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.09503541888990169,
+      0.48061615521505857,
+      -0.0055766920738417975
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.07857007849139759,
+    "reference_se": 0.00265508278473172,
+    "reference_z": 29.592327193419926,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0015089486109214022,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0029249607997705205
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 705.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 5,
+    "rank": 3,
+    "condition": 256.1533722677839,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      259.7175066682924,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.03302083061610295,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -0.7675006911775413,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.09476302505605089,
+      0.5276392446863636,
+      -0.008685052275671748
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4329089076392158,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.07924947052488991,
+    "reference_se": 0.0034145006409514104,
+    "reference_z": 23.2096809631314,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.001488787558062195,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.004545692147268836
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 717.0,
+    "selection": "all_tracked",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.16289828587396948,
+      1.3698275531398982,
+      -0.024448460059756875
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.12452367375814974,
+    "reference_se": 0.0038422809533296583,
+    "reference_z": 32.40878927665077,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0014464367400678596,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.003090400311402992
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 717.0,
+    "selection": "reprojection_le_1px",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.16289828587396948,
+      1.3698275531398982,
+      -0.024448460059756875
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.12452367375814974,
+    "reference_se": 0.0038422809533296583,
+    "reference_z": 32.40878927665077,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0014464367400678596,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.003090400311402992
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 717.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 5,
+    "rank": 3,
+    "condition": 256.1533722677839,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      259.7175066682924,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.03302083061610295,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -0.7675006911775413,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.163141123773949,
+      1.3279066765314524,
+      -0.02167737066642662
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4329089076392158,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.12391799876050398,
+    "reference_se": 0.003880933455530479,
+    "reference_z": 31.929946797700456,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0014493645454638862,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.003761944717668631
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 740.0,
+    "selection": "all_tracked",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.27801306180378477,
+      1.734767068199767,
+      -0.021461006728760244
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.21991412941209348,
+    "reference_se": 0.002799318616531532,
+    "reference_z": 78.55987814798156,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0019419606138558658,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.00431462811987657
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 740.0,
+    "selection": "reprojection_le_1px",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.27801306180378477,
+      1.734767068199767,
+      -0.021461006728760244
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.21991412941209348,
+    "reference_se": 0.002799318616531532,
+    "reference_z": 78.55987814798156,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0019419606138558658,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.00431462811987657
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 740.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 5,
+    "rank": 3,
+    "condition": 256.1533722677839,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      259.7175066682924,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.03302083061610295,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -0.7675006911775413,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.2787132582973903,
+      1.6138928108759145,
+      -0.013470873900066105
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4329089076392158,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.21816773187838132,
+    "reference_se": 0.0015623583385135813,
+    "reference_z": 139.64000863332342,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.001056925166734199,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0028768450367719386
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 842.0,
+    "selection": "all_tracked",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.34728463499728546,
+      1.9190165417972411,
+      -0.02934353645717701
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.2886181774701021,
+    "reference_se": 0.005693103395656479,
+    "reference_z": 50.696106747385215,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0030123578712595053,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.007122777656325262
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 842.0,
+    "selection": "reprojection_le_1px",
+    "n": 6,
+    "rank": 3,
+    "condition": 283.04839619905584,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      246.17257549323418,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.0335838297522546,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -1.0794445392306447,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.34728463499728546,
+      1.9190165417972411,
+      -0.02934353645717701
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6741731433444756,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.2886181774701021,
+    "reference_se": 0.005693103395656479,
+    "reference_z": 50.696106747385215,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0030123578712595053,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.007122777656325262
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_5",
+    "wavelength_nm": 842.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 5,
+    "rank": 3,
+    "condition": 256.1533722677839,
+    "view_zenith_range": [
+      3.601283289244685,
+      8.125147663393905
+    ],
+    "relative_azimuth_range": [
+      259.7175066682924,
+      326.53299415269436
+    ],
+    "volume_range": [
+      -0.03302083061610295,
+      -0.0064414236047970475
+    ],
+    "geometry_range": [
+      -0.7675006911775413,
+      -0.00012629638466088444
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.3484329155880563,
+      1.7207899512953322,
+      -0.01624019399736886
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4329089076392158,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.2857541894181119,
+    "reference_se": 0.0024049687749725388,
+    "reference_z": 118.81825343922597,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0013125141819515572,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.004043279069420315
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_6",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 7,
+    "rank": 3,
+    "condition": 400.8788296348806,
+    "view_zenith_range": [
+      23.38872875212292,
+      28.592362461718977
+    ],
+    "relative_azimuth_range": [
+      51.524049317964796,
+      84.63081374098724
+    ],
+    "volume_range": [
+      -0.02551682495756724,
+      0.03962398734941186
+    ],
+    "geometry_range": [
+      0.8942545069140428,
+      2.281604342011147
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.041022247311302294,
+      0.2668054356097799,
+      -0.01029541009309077
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.7655658803580127,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.03908141854372128,
+    "reference_se": 0.004159325753069414,
+    "reference_z": 9.396094671084796,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0005766829629458029,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0010573741302561707
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_6",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 7,
+    "rank": 3,
+    "condition": 400.8788296348806,
+    "view_zenith_range": [
+      23.38872875212292,
+      28.592362461718977
+    ],
+    "relative_azimuth_range": [
+      51.524049317964796,
+      84.63081374098724
+    ],
+    "volume_range": [
+      -0.02551682495756724,
+      0.03962398734941186
+    ],
+    "geometry_range": [
+      0.8942545069140428,
+      2.281604342011147
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.041022247311302294,
+      0.2668054356097799,
+      -0.01029541009309077
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.7655658803580127,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.03908141854372128,
+    "reference_se": 0.004159325753069414,
+    "reference_z": 9.396094671084796,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0005766829629458029,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0010573741302561707
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_6",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 5,
+    "rank": 3,
+    "condition": 514.2215772753174,
+    "view_zenith_range": [
+      24.853660444563417,
+      28.592362461718977
+    ],
+    "relative_azimuth_range": [
+      51.524049317964796,
+      84.63081374098724
+    ],
+    "volume_range": [
+      -0.02551682495756724,
+      0.03962398734941186
+    ],
+    "geometry_range": [
+      0.8942545069140428,
+      2.281604342011147
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.03571643473076682,
+      0.1871442993594274,
+      -0.006672026345706104
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.4246722026191095,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.033805643626965615,
+    "reference_se": 0.005117370142438173,
+    "reference_z": 6.6060579332764275,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0004749623436474706,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.001574732287022863
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_7",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 8,
+    "rank": 3,
+    "condition": 227.62651741936983,
+    "view_zenith_range": [
+      10.781806578784332,
+      22.77779400986858
+    ],
+    "relative_azimuth_range": [
+      26.824134377080156,
+      72.50508887978037
+    ],
+    "volume_range": [
+      -0.009355035094129827,
+      0.037578285162167435
+    ],
+    "geometry_range": [
+      0.1536447291256704,
+      1.9455251888568275
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.04096884504976329,
+      0.4316042521648591,
+      -0.010021120369186167
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6208747661671453,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.03119571830887579,
+    "reference_se": 0.002713620322527385,
+    "reference_z": 11.495977550691775,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0012897754255053453,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0023334397722096145
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_7",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 8,
+    "rank": 3,
+    "condition": 227.62651741936983,
+    "view_zenith_range": [
+      10.781806578784332,
+      22.77779400986858
+    ],
+    "relative_azimuth_range": [
+      26.824134377080156,
+      72.50508887978037
+    ],
+    "volume_range": [
+      -0.009355035094129827,
+      0.037578285162167435
+    ],
+    "geometry_range": [
+      0.1536447291256704,
+      1.9455251888568275
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.04096884504976329,
+      0.4316042521648591,
+      -0.010021120369186167
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.6208747661671453,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.03119571830887579,
+    "reference_se": 0.002713620322527385,
+    "reference_z": 11.495977550691775,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0012897754255053453,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0023334397722096145
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_7",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 7,
+    "rank": 3,
+    "condition": 234.30522006276888,
+    "view_zenith_range": [
+      10.781806578784332,
+      22.77779400986858
+    ],
+    "relative_azimuth_range": [
+      26.824134377080156,
+      72.50508887978037
+    ],
+    "volume_range": [
+      -0.009355035094129827,
+      0.037578285162167435
+    ],
+    "geometry_range": [
+      0.1536447291256704,
+      1.9455251888568275
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.04077412248097396,
+      0.4101439025174826,
+      -0.009425050509103878
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.3019637042082867,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.03138914107681483,
+    "reference_se": 0.002952522052113391,
+    "reference_z": 10.631297759265419,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.0013393862456336795,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.0027879171660059317
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_8",
+    "wavelength_nm": 650.0,
+    "selection": "all_tracked",
+    "n": 7,
+    "rank": 3,
+    "condition": 267.0273194159952,
+    "view_zenith_range": [
+      13.742014574249756,
+      18.961509037467792
+    ],
+    "relative_azimuth_range": [
+      269.69444375166813,
+      325.55471686102754
+    ],
+    "volume_range": [
+      -0.03175590205133605,
+      0.04166157062352527
+    ],
+    "geometry_range": [
+      0.11636524737663301,
+      1.8214561841649166
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.05296495465351562,
+      0.3645717371574173,
+      -0.0113619022128101
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 1.2447245806548275,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.04760685696260303,
+    "reference_se": 0.005851304457084225,
+    "reference_z": 8.13611004379801,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.002580478427586069,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.00469741427728426
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_8",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_1px",
+    "n": 6,
+    "rank": 3,
+    "condition": 252.57874878630793,
+    "view_zenith_range": [
+      13.742014574249756,
+      18.961509037467792
+    ],
+    "relative_azimuth_range": [
+      269.69444375166813,
+      325.55471686102754
+    ],
+    "volume_range": [
+      -0.03175590205133605,
+      0.04166157062352527
+    ],
+    "geometry_range": [
+      0.11636524737663301,
+      1.8214561841649166
+    ],
+    "reference_outside_bounds": true,
+    "beta": [
+      0.051015214024536244,
+      0.3092108834074816,
+      -0.009377537314715806
+    ],
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "registration_max_px": 0.8346529440934894,
+    "radiometry": "Vendor project calibration; independent accuracy pending",
+    "status": "NUMERICALLY_SUPPORTED",
+    "reference": 0.04621171256451358,
+    "reference_se": 0.0044095482465373835,
+    "reference_z": 10.479919933022963,
+    "unresolved": 0,
+    "uncertainty": "Individual exposure clusters; shared calibration/time errors not independent",
+    "rmse": 0.002526716252190697,
+    "temporal_minute_groups": 1,
+    "temporal_prediction_status": "INSUFFICIENT_INDEPENDENT_TIME_GROUPS",
+    "leave_one_exposure_out_rmse": 0.004888625373311515
+  },
+  {
+    "site": "Ruby",
+    "target_id": "ruby_8",
+    "wavelength_nm": 650.0,
+    "selection": "reprojection_le_0.5px",
+    "n": 2,
+    "status": "UNSUPPORTED",
+    "reason": "Fewer than four registered observations"
+  }
+]

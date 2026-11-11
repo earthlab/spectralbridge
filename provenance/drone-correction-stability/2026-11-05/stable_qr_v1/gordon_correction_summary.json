@@ -1,0 +1,152 @@
+{
+  "site": "Gordon",
+  "signature": "279ba074ec1f6e0e990d3324bd1c8ccfd3a8c9fbd869c66577d5fb252be08eb8",
+  "scientific_status": "EXPERIMENTAL_NOT_PRODUCTION_APPROVED",
+  "branches": [
+    {
+      "site": "Gordon",
+      "branch": "topographic_only",
+      "status": "EXECUTED_EXPERIMENTAL",
+      "audit": {
+        "requested_topo": true,
+        "requested_brdf": false,
+        "topo_applied": true,
+        "brdf_applied": false,
+        "topo_fallback_due_to_nodata": false,
+        "brdf_fallback_due_to_nodata": false,
+        "brightness_applied": false,
+        "cloud_mask_applied": false,
+        "reused_existing_corrected": false,
+        "correction_status_source": "live_run",
+        "ndvi_brdf_bins_enabled": false,
+        "scientific_validation_status": "EXPERIMENTAL",
+        "experimental_configuration": {
+          "topographic_model_sha256": "002eaf7ccb66535e91b595a3de5c9e7ff8cf5822501294d88e14b81ed56e8eb2"
+        },
+        "radiometry": {
+          "scale": 0.0001999969482421875,
+          "offset": 0.0,
+          "status": "HYPOTHETICAL_UNVERIFIED",
+          "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+          "convention": "physical = scale * stored + offset"
+        },
+        "brdf_status": "NOT_REQUESTED",
+        "topo_ready": true,
+        "brdf_ready": false
+      },
+      "image": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/topographic_only/AOP_GORDON_20230814__topographic_only_EXPERIMENTAL.img",
+      "header": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/topographic_only/AOP_GORDON_20230814__topographic_only_EXPERIMENTAL.hdr",
+      "elapsed_seconds": 1.088709125004243,
+      "geotiff": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/topographic_only/AOP_GORDON_20230814__topographic_only_EXPERIMENTAL.tif"
+    },
+    {
+      "site": "Gordon",
+      "branch": "brdf_only",
+      "status": "EXECUTED_EXPERIMENTAL",
+      "audit": {
+        "requested_topo": false,
+        "requested_brdf": true,
+        "topo_applied": false,
+        "brdf_applied": true,
+        "topo_fallback_due_to_nodata": false,
+        "brdf_fallback_due_to_nodata": false,
+        "brightness_applied": false,
+        "cloud_mask_applied": false,
+        "reused_existing_corrected": false,
+        "correction_status_source": "live_run",
+        "ndvi_brdf_bins_enabled": false,
+        "scientific_validation_status": "EXPERIMENTAL",
+        "experimental_configuration": {
+          "fitting_mask_sha256": "158535758a82c84c23789e05f23022b2c200ec419d6d15655d37415ff5f046f8",
+          "uncertainty_groups_sha256": "64f53a166e3758b34bbeeea452ee2c7823a98290fafbffd926acf2ac9b7d7a26",
+          "fitting_provenance": {
+            "strategy": "Exclude evaluation polygons and2mManhattanbuffer",
+            "source_camera_sha256": "f1401bbf800abe8945b74f134cfcf45f8b0f26ffb6e35ec19b8d87afb19f8bb8",
+            "geometry": "Center-weighted candidate ray kernels, not recovered contributors",
+            "calibration": "HYPOTHETICAL_UNVERIFIED DN/32768",
+            "uncertainty": "20m spatial clusters"
+          }
+        },
+        "radiometry": {
+          "scale": 0.0001999969482421875,
+          "offset": 0.0,
+          "status": "HYPOTHETICAL_UNVERIFIED",
+          "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+          "convention": "physical = scale * stored + offset"
+        },
+        "brdf_status": "VALID",
+        "topo_ready": false,
+        "brdf_ready": true
+      },
+      "image": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/brdf_only/AOP_GORDON_20230814__brdf_only_EXPERIMENTAL.img",
+      "header": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/brdf_only/AOP_GORDON_20230814__brdf_only_EXPERIMENTAL.hdr",
+      "elapsed_seconds": 12.45668179198401,
+      "geotiff": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/brdf_only/AOP_GORDON_20230814__brdf_only_EXPERIMENTAL.tif"
+    },
+    {
+      "site": "Gordon",
+      "branch": "combined",
+      "status": "EXECUTED_EXPERIMENTAL",
+      "audit": {
+        "requested_topo": true,
+        "requested_brdf": true,
+        "topo_applied": true,
+        "brdf_applied": true,
+        "topo_fallback_due_to_nodata": false,
+        "brdf_fallback_due_to_nodata": false,
+        "brightness_applied": false,
+        "cloud_mask_applied": false,
+        "reused_existing_corrected": false,
+        "correction_status_source": "live_run",
+        "ndvi_brdf_bins_enabled": false,
+        "scientific_validation_status": "EXPERIMENTAL",
+        "experimental_configuration": {
+          "topographic_model_sha256": "002eaf7ccb66535e91b595a3de5c9e7ff8cf5822501294d88e14b81ed56e8eb2",
+          "fitting_mask_sha256": "158535758a82c84c23789e05f23022b2c200ec419d6d15655d37415ff5f046f8",
+          "uncertainty_groups_sha256": "64f53a166e3758b34bbeeea452ee2c7823a98290fafbffd926acf2ac9b7d7a26",
+          "fitting_provenance": {
+            "strategy": "Exclude evaluation polygons and2mManhattanbuffer",
+            "source_camera_sha256": "f1401bbf800abe8945b74f134cfcf45f8b0f26ffb6e35ec19b8d87afb19f8bb8",
+            "geometry": "Center-weighted candidate ray kernels, not recovered contributors",
+            "calibration": "HYPOTHETICAL_UNVERIFIED DN/32768",
+            "uncertainty": "20m spatial clusters"
+          }
+        },
+        "radiometry": {
+          "scale": 0.0001999969482421875,
+          "offset": 0.0,
+          "status": "HYPOTHETICAL_UNVERIFIED",
+          "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+          "convention": "physical = scale * stored + offset"
+        },
+        "brdf_status": "VALID",
+        "topo_ready": true,
+        "brdf_ready": true
+      },
+      "image": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/combined/AOP_GORDON_20230814__combined_EXPERIMENTAL.img",
+      "header": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/combined/AOP_GORDON_20230814__combined_EXPERIMENTAL.hdr",
+      "elapsed_seconds": 14.145368792000227,
+      "geotiff": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/combined/AOP_GORDON_20230814__combined_EXPERIMENTAL.tif"
+    }
+  ],
+  "production_gate_preserved": true,
+  "output_sha256": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/AOP_GORDON_20230814__experimental_candidate.img": "b1c0bcc3b67bdc59e4073dda622c538d642bb038b3f15238e6589b9c0de13bca",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/AOP_GORDON_20230814__experimental_candidate.hdr": "042530303f3e8b20eefcda66aa089ab30e8c2df1161bd2922a0805f1808ece9b",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/conditioned_scsc_model.json": "9602577cc3aca8d6fdb81cfeb3d5263b6a6d0f6250a0d5abb1bbac21b4afa1f4",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/training_mask.npy": "7d4ee38517cb4f9007780261ea5733c57ddc83b2b1cee22547fedca03d3b3c37",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/spatial_groups.npy": "f6e29f3ad602ac0229b1588d8f9ce135cbd0ece93b5ca2dc22d8c4fe7ca31ff0",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/topographic_only/AOP_GORDON_20230814__topographic_only_EXPERIMENTAL.img": "a3c327c324504a437ceffdfa9be5d31a15499a64f6e9f2fa710e3bc5ae732b31",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/topographic_only/AOP_GORDON_20230814__topographic_only_EXPERIMENTAL.hdr": "f2df2ae57b867af78cf0a6968b786729a9da277243c6585b7d16c2518a5199e2",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/topographic_only/AOP_GORDON_20230814__topographic_only_EXPERIMENTAL.tif": "086985f82665670f6716fc9fa9bf72691b9e347e1f1b959ff33923dc79911834",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/brdf_only/AOP_GORDON_20230814__brdf_only_EXPERIMENTAL.img": "00953eb9475825745f060c54d9ac9f88e312d483d845edaba5b2b7e9ce128a5c",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/brdf_only/AOP_GORDON_20230814__brdf_only_EXPERIMENTAL.hdr": "3f1c1f1a9e033f29f85a15ab54a6e576c3fd8468b736e033412ec4a70c6fcf69",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/brdf_only/AOP_GORDON_20230814__brdf_only_EXPERIMENTAL.tif": "45af256aed8b9d174d6a9c0a7f41e47356e9c4141041b515017ccb63dc24e2e3",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/brdf_only/brdf_only_brdf_model.json": "4e078cbc59dfac9f9044ca7d69855bbf3d4de97f3d18620451ce4117b6e8e0bd",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/combined/AOP_GORDON_20230814__combined_EXPERIMENTAL.img": "d0c6acc8f008697c928d4d0346e6a75441c7a0569b953af2a1d9331edc1cd63f",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/combined/AOP_GORDON_20230814__combined_EXPERIMENTAL.hdr": "d09feefdbbc89c64ba79ddc3671fbc9d7fff297d9b0b92ff493e1040d4fdc4b8",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/combined/AOP_GORDON_20230814__combined_EXPERIMENTAL.tif": "c6055fedb6d6a099a07f925fff082d8dd22b52e18ef64e7a1ee9b160ecdb9153",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/combined/combined_brdf_model.json": "9c7acdfba1147644061cc22b025c04b067997111ac18c61adca27f6239ac69d4",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/topographic_status.tif": "8631da5b6175cb8168c0dc74f524392b1d94e34e52534c99c4b251d8bc90959a"
+  }
+}

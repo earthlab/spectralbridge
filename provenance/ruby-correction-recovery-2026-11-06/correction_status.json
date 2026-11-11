@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "UNSUPPORTED_FOR_FULL_CORRECTED_ORTHOMOSAIC",
+  "radiometric_encoding": "VERIFIED_VENDOR_PROJECT_ENCODING;INDEPENDENT_ACCURACY_PENDING",
+  "both_corrections_required": true,
+  "source_images_exported": false,
+  "orthomosaic_regenerated": false,
+  "blockers": [
+    "Independent reflectance/ground registration not established",
+    "Full-frame original-photo terrain/shadow/BRDF support not validated",
+    "Shared calibration/flight dependence remains in held-out evidence",
+    "Licensed Metashape build/export unavailable"
+  ],
+  "numerical_summary": "See matched_models.json, bootstrap_uncertainty.json and combined_heldout_validation.csv"
+}

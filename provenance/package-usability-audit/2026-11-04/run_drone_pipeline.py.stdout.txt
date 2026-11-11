@@ -1,0 +1,8 @@
+SpectralBridge drone pipeline configuration
+  input: /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/data/drone_h5
+  output: /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/outputs/drone_demo
+  polygon extraction: disabled
+  topo / BRDF: True / True
+  spectral branch: corrected MicaSense -> optional affine translation (False)
+  Landsat comparison QA: False
+Configuration is valid; no imagery was read or written.

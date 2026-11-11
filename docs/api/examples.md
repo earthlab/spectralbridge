@@ -42,8 +42,8 @@ See the [function glossary](index.md) to select the entry point for your task.
 The [calibrated no-BRDF template](../concepts/correction-eligibility.md#example-for-an-independently-calibrated-mosaic)
 uses only current parameters. Both correction flags default to true, so set
 choices explicitly. Missing calibration blocks physical corrections; unsupported
-requested BRDF is not silently skipped. The shared `Radiometry` record is scalar,
-not a bandwise normalization adapter. No new per-stage preflight or inverse-DN
+requested BRDF is not silently skipped. The shared `Radiometry` record supports declared scalar or per-band affine
+coefficients; it does not infer calibration by scene normalization. No new per-stage preflight or inverse-DN
 ingest API has been implemented. See the
 [actual drone signature](generated/pipelines-drone.md) and
 [model diagnostics](generated/corrections.md).

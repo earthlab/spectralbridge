@@ -1,0 +1,72 @@
+[
+  {
+    "criterion": "Original-image encoding",
+    "status": "VERIFIED_PROJECT_ENCODING",
+    "evidence": "Independent physical accuracy pending"
+  },
+  {
+    "criterion": "Actual reconstructed camera geometry",
+    "status": "VERIFIED",
+    "evidence": "Adjusted band-specific poses/calibration"
+  },
+  {
+    "criterion": "Ground registration",
+    "status": "PARTIAL",
+    "evidence": "Internal feature/ray checks; independent accuracy unverified"
+  },
+  {
+    "criterion": "Topographic support",
+    "status": "FAILED",
+    "evidence": "Unbounded original-target C and dense red denominator instability"
+  },
+  {
+    "criterion": "BRDF angular information",
+    "status": "SUPPORTED_CANDIDATE",
+    "evidence": "Target-aware original-photo model; mixed held-out errors"
+  },
+  {
+    "criterion": "Normalization reference",
+    "status": "CONDITIONALLY_SUPPORTED",
+    "evidence": "Joint kernel support and conditional bootstrap; no independent calibration"
+  },
+  {
+    "criterion": "Matched application",
+    "status": "IMPLEMENTED_EXPERIMENTALLY",
+    "evidence": "Train-only topo then BRDF; not all folds supported"
+  },
+  {
+    "criterion": "No hidden extrapolation",
+    "status": "EXPLICITLY_REPORTED",
+    "evidence": "Unsupported cases are retained, not identity-filled"
+  },
+  {
+    "criterion": "No unexplained extreme artifacts",
+    "status": "UNRESOLVED",
+    "evidence": "Topographic tails remain; no full corrected raster"
+  },
+  {
+    "criterion": "Spectral relationships",
+    "status": "PARTIAL",
+    "evidence": "All-band inputs and candidate diagnostics; no accepted corrected product"
+  },
+  {
+    "criterion": "Held-out improvement",
+    "status": "MIXED",
+    "evidence": "Median improved; average degradation and failures remain"
+  },
+  {
+    "criterion": "Corrected orthomosaic alignment",
+    "status": "NOT_TESTED",
+    "evidence": "No corrected orthomosaic regenerated"
+  },
+  {
+    "criterion": "Reproducibility",
+    "status": "VERIFIED_EXPERIMENT",
+    "evidence": "Source checksums, checkpoint reuse and scripts"
+  },
+  {
+    "criterion": "NEON stable",
+    "status": "VERIFIED_TARGETED",
+    "evidence": "Unchanged source hashes and targeted equivalence tests"
+  }
+]

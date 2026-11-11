@@ -1,0 +1,68 @@
+[
+  {
+    "site": "Ruby",
+    "estimated_camera_vs_previous_csv_n": 507,
+    "estimated_position_delta_m_quantiles": [
+      4.8160618753444496e-06,
+      0.00023053568529791791,
+      0.0004946700269491016,
+      0.0005012689279681812
+    ],
+    "tiepoint_reprojection_n": 827,
+    "tiepoint_pixel_error_quantiles": [
+      0.008727013432079869,
+      0.27898980241367854,
+      0.7112371251643034,
+      1.5480886068743387,
+      3.046204258700074
+    ],
+    "tiepoint_scope": "Internal bundle observations, not independent held-out accuracy",
+    "dem_ray_intersection_n": 12,
+    "dem_ray_vs_sampled_target_m_quantiles": [
+      0.23511187041865092,
+      0.2520624628859851,
+      2.799207602994901,
+      3.1066111790497497
+    ],
+    "reference_location_example": [
+      455714.29101903585,
+      4432116.02663774,
+      2853.363043294589
+    ],
+    "markers": 5,
+    "project_optimize_sigma0": "0.135830129937187"
+  },
+  {
+    "site": "Goldhill",
+    "estimated_camera_vs_previous_csv_n": 565,
+    "estimated_position_delta_m_quantiles": [
+      18.277625104545812,
+      19.371484083571847,
+      20.502151721872114,
+      20.597454186589307
+    ],
+    "tiepoint_reprojection_n": 661,
+    "tiepoint_pixel_error_quantiles": [
+      0.004617074052713838,
+      0.28197320542767496,
+      0.7814917424589857,
+      1.5380617252471482,
+      4.798883947237609
+    ],
+    "tiepoint_scope": "Internal bundle observations, not independent held-out accuracy",
+    "dem_ray_intersection_n": 12,
+    "dem_ray_vs_sampled_target_m_quantiles": [
+      0.23858364550137243,
+      0.24221677571726447,
+      0.3466298079916997,
+      0.35649229381335573
+    ],
+    "reference_location_example": [
+      457896.1104356105,
+      4432787.8417350175,
+      2835.9920433044076
+    ],
+    "markers": 6,
+    "project_optimize_sigma0": "0.127737577959051"
+  }
+]

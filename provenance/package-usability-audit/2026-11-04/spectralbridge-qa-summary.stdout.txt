@@ -1,0 +1,16 @@
+usage: spectralbridge-qa-summary [-h] [--output-pdf OUTPUT_PDF]
+                                 [--pattern PATTERN]
+                                 base_dir
+
+Build a multi-page PDF summary for drone QA PNGs.
+
+positional arguments:
+  base_dir              Base drone output directory to search recursively for
+                        *__qa.png files.
+
+options:
+  -h, --help            show this help message and exit
+  --output-pdf OUTPUT_PDF
+                        Optional PDF output path. Defaults to
+                        <base_dir>/qa_summary.pdf.
+  --pattern PATTERN     Recursive filename pattern used to find QA PNGs.

@@ -1,0 +1,492 @@
+[
+  {
+    "wavelength_nm": 444.0,
+    "reference": "unchanged_45deg_nadir",
+    "angles": {
+      "solar_zenith": 45,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.8828737883550899
+  },
+  {
+    "wavelength_nm": 444.0,
+    "reference": "diagnostic_actual_sun_nadir",
+    "angles": {
+      "solar_zenith": 26.005395889282227,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.025800786007871168,
+      -1.0
+    ],
+    "joint_support": false,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9359262943173874
+  },
+  {
+    "wavelength_nm": 444.0,
+    "reference": "diagnostic_observed_medoid",
+    "angles": {
+      "solar_zenith": 26.163253784179688,
+      "view_zenith": 16.909094805442237,
+      "relative_azimuth": 274.2579211825844
+    },
+    "reference_design": [
+      1.0,
+      -0.025414211248668,
+      0.2100833107004698
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9319180727245349
+  },
+  {
+    "wavelength_nm": 475.0,
+    "reference": "unchanged_45deg_nadir",
+    "angles": {
+      "solar_zenith": 45,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.8631361743236914
+  },
+  {
+    "wavelength_nm": 475.0,
+    "reference": "diagnostic_actual_sun_nadir",
+    "angles": {
+      "solar_zenith": 26.00448989868164,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.02579948129258658,
+      -1.0
+    ],
+    "joint_support": false,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.934791553619598
+  },
+  {
+    "wavelength_nm": 475.0,
+    "reference": "diagnostic_observed_medoid",
+    "angles": {
+      "solar_zenith": 25.924116134643555,
+      "view_zenith": 13.897127284207,
+      "relative_azimuth": 271.4396680442805
+    },
+    "reference_design": [
+      1.0,
+      -0.0276265070427558,
+      -0.0939227582430892
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9038591871793137
+  },
+  {
+    "wavelength_nm": 531.0,
+    "reference": "unchanged_45deg_nadir",
+    "angles": {
+      "solar_zenith": 45,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.868743256949178
+  },
+  {
+    "wavelength_nm": 531.0,
+    "reference": "diagnostic_actual_sun_nadir",
+    "angles": {
+      "solar_zenith": 26.00448989868164,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.02579948129258658,
+      -1.0
+    ],
+    "joint_support": false,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9371786711391826
+  },
+  {
+    "wavelength_nm": 531.0,
+    "reference": "diagnostic_observed_medoid",
+    "angles": {
+      "solar_zenith": 25.924116134643555,
+      "view_zenith": 13.897127284207,
+      "relative_azimuth": 271.4396680442805
+    },
+    "reference_design": [
+      1.0,
+      -0.0276265070427558,
+      -0.0939227582430892
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.908128436401348
+  },
+  {
+    "wavelength_nm": 560.0,
+    "reference": "unchanged_45deg_nadir",
+    "angles": {
+      "solar_zenith": 45,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.8894070583704863
+  },
+  {
+    "wavelength_nm": 560.0,
+    "reference": "diagnostic_actual_sun_nadir",
+    "angles": {
+      "solar_zenith": 26.00448989868164,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.02579948129258658,
+      -1.0
+    ],
+    "joint_support": false,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9480671192336851
+  },
+  {
+    "wavelength_nm": 560.0,
+    "reference": "diagnostic_observed_medoid",
+    "angles": {
+      "solar_zenith": 25.924116134643555,
+      "view_zenith": 13.897127284207,
+      "relative_azimuth": 271.4396680442805
+    },
+    "reference_design": [
+      1.0,
+      -0.0276265070427558,
+      -0.0939227582430892
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9214312859718309
+  },
+  {
+    "wavelength_nm": 650.0,
+    "reference": "unchanged_45deg_nadir",
+    "angles": {
+      "solar_zenith": 45,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.8899224490411152
+  },
+  {
+    "wavelength_nm": 650.0,
+    "reference": "diagnostic_actual_sun_nadir",
+    "angles": {
+      "solar_zenith": 26.005395889282227,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.025800786007871168,
+      -1.0
+    ],
+    "joint_support": false,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9412396860465483
+  },
+  {
+    "wavelength_nm": 650.0,
+    "reference": "diagnostic_observed_medoid",
+    "angles": {
+      "solar_zenith": 26.163253784179688,
+      "view_zenith": 16.909094805442237,
+      "relative_azimuth": 274.2579211825844
+    },
+    "reference_design": [
+      1.0,
+      -0.025414211248668,
+      0.2100833107004698
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9334689602624445
+  },
+  {
+    "wavelength_nm": 668.0,
+    "reference": "unchanged_45deg_nadir",
+    "angles": {
+      "solar_zenith": 45,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.8776064690673502
+  },
+  {
+    "wavelength_nm": 668.0,
+    "reference": "diagnostic_actual_sun_nadir",
+    "angles": {
+      "solar_zenith": 26.0026798248291,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.025796874591071273,
+      -1.0
+    ],
+    "joint_support": false,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9409064574847612
+  },
+  {
+    "wavelength_nm": 668.0,
+    "reference": "diagnostic_observed_medoid",
+    "angles": {
+      "solar_zenith": 25.924116134643555,
+      "view_zenith": 13.897127284207,
+      "relative_azimuth": 271.4396680442805
+    },
+    "reference_design": [
+      1.0,
+      -0.0276265070427558,
+      -0.0939227582430892
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9149394388355896
+  },
+  {
+    "wavelength_nm": 705.0,
+    "reference": "unchanged_45deg_nadir",
+    "angles": {
+      "solar_zenith": 45,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.8798766003280059
+  },
+  {
+    "wavelength_nm": 705.0,
+    "reference": "diagnostic_actual_sun_nadir",
+    "angles": {
+      "solar_zenith": 26.005395889282227,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.025800786007871168,
+      -1.0
+    ],
+    "joint_support": false,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9441309594942898
+  },
+  {
+    "wavelength_nm": 705.0,
+    "reference": "diagnostic_observed_medoid",
+    "angles": {
+      "solar_zenith": 26.163253784179688,
+      "view_zenith": 16.909094805442237,
+      "relative_azimuth": 274.2579211825844
+    },
+    "reference_design": [
+      1.0,
+      -0.025414211248668,
+      0.2100833107004698
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9129769411476392
+  },
+  {
+    "wavelength_nm": 717.0,
+    "reference": "unchanged_45deg_nadir",
+    "angles": {
+      "solar_zenith": 45,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.8792101665151146
+  },
+  {
+    "wavelength_nm": 717.0,
+    "reference": "diagnostic_actual_sun_nadir",
+    "angles": {
+      "solar_zenith": 26.00448989868164,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.02579948129258658,
+      -1.0
+    ],
+    "joint_support": false,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9372642078957876
+  },
+  {
+    "wavelength_nm": 717.0,
+    "reference": "diagnostic_observed_medoid",
+    "angles": {
+      "solar_zenith": 25.924116134643555,
+      "view_zenith": 13.897127284207,
+      "relative_azimuth": 271.4396680442805
+    },
+    "reference_design": [
+      1.0,
+      -0.0276265070427558,
+      -0.0939227582430892
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9211779518277301
+  },
+  {
+    "wavelength_nm": 740.0,
+    "reference": "unchanged_45deg_nadir",
+    "angles": {
+      "solar_zenith": 45,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9000010856059414
+  },
+  {
+    "wavelength_nm": 740.0,
+    "reference": "diagnostic_actual_sun_nadir",
+    "angles": {
+      "solar_zenith": 26.005395889282227,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.025800786007871168,
+      -1.0
+    ],
+    "joint_support": false,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9442173223050208
+  },
+  {
+    "wavelength_nm": 740.0,
+    "reference": "diagnostic_observed_medoid",
+    "angles": {
+      "solar_zenith": 26.163253784179688,
+      "view_zenith": 16.909094805442237,
+      "relative_azimuth": 274.2579211825844
+    },
+    "reference_design": [
+      1.0,
+      -0.025414211248668,
+      0.2100833107004698
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9437577854974983
+  },
+  {
+    "wavelength_nm": 842.0,
+    "reference": "unchanged_45deg_nadir",
+    "angles": {
+      "solar_zenith": 45,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9090490912752028
+  },
+  {
+    "wavelength_nm": 842.0,
+    "reference": "diagnostic_actual_sun_nadir",
+    "angles": {
+      "solar_zenith": 26.00448989868164,
+      "view_zenith": 0
+    },
+    "reference_design": [
+      1.0,
+      -0.02579948129258658,
+      -1.0
+    ],
+    "joint_support": false,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.95146406276237
+  },
+  {
+    "wavelength_nm": 842.0,
+    "reference": "diagnostic_observed_medoid",
+    "angles": {
+      "solar_zenith": 25.924116134643555,
+      "view_zenith": 13.897127284207,
+      "relative_azimuth": 271.4396680442805
+    },
+    "reference_design": [
+      1.0,
+      -0.0276265070427558,
+      -0.0939227582430892
+    ],
+    "joint_support": true,
+    "production_reference_changed": false,
+    "shared_shape_prediction": 0.9421580451352245
+  }
+]

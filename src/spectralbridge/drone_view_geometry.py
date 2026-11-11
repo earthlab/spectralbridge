@@ -150,3 +150,103 @@ def aggregate_kernels(volume, geometry, eligible, *, centrality=None):
             np.nan,
         )
     return np.stack([np.ones_like(kv), kv, kg], axis=-1)
+
+
+def read_metashape_camera_locations(
+    path, *, crs_override=None, crs_override_provenance=None
+):
+    """Read an explicit Metashape camera export without relabeling its source.
+
+    Parameters
+    ----------
+    path : str or Path
+        CSV containing a ``CRS,<EPSG>`` preamble, a declared camera-row count,
+        and ``# PhotoID,X,Y,Z,Omega,Phi,Kappa,r11,...,r33`` column names. Photo
+        rows may share a position; they must have unique identifiers.
+    crs_override : str or int, optional
+        Explicit interpretation of the numeric XY columns, never a coordinate
+        transformation or source edit. A different CRS requires evidence below.
+    crs_override_provenance : str, optional
+        Nonempty independent source/reason for an override, retained verbatim.
+
+    Returns
+    -------
+    tuple
+        Photo DataFrame and metadata with source hash, declared/adopted CRS,
+        counts and rotation checks. Coordinates require a projected metre CRS.
+        Orthogonal matrices do not establish their camera/world convention.
+        Physical radiometry, timestamps, vertical datum and actual orthomosaic
+        contributors are not certified by reading this file.
+    """
+    import csv
+    import hashlib
+    from pathlib import Path
+    import re
+
+    import pandas as pd
+    from pyproj import CRS
+
+    path = Path(path)
+    with path.open(newline="", encoding="utf-8-sig") as source:
+        rows = list(csv.reader(source))
+    if len(rows) < 4 or len(rows[0]) < 2 or rows[0][0].strip() != "CRS":
+        raise ValueError("Expected Metashape CRS preamble before camera columns")
+    declared = CRS.from_user_input(rows[0][1].strip())
+    count = re.fullmatch(r"#\s*Cameras\s*\((\d+)\)", rows[1][0].strip())
+    if count is None or rows[2][0].strip() != "# PhotoID":
+        raise ValueError("Expected camera count followed by # PhotoID header")
+    photos = pd.read_csv(path, skiprows=2, skipinitialspace=True, encoding="utf-8-sig")
+    photos.columns = photos.columns.str.lstrip("#").str.strip()
+    required = ["PhotoID", "X", "Y", "Z", "Omega", "Phi", "Kappa"] + [
+        f"r{i}{j}" for i in range(1, 4) for j in range(1, 4)
+    ]
+    missing = sorted(set(required) - set(photos.columns))
+    if missing:
+        raise ValueError("Camera table missing columns: " + ", ".join(missing))
+    if len(photos) != int(count[1]) or photos.empty:
+        raise ValueError("Camera row count differs from declared count or is empty")
+    if photos.PhotoID.isna().any():
+        raise ValueError("Camera identifiers cannot be missing")
+    photos["PhotoID"] = photos.PhotoID.astype(str).str.strip()
+    if photos.PhotoID.eq("").any() or photos.PhotoID.duplicated().any():
+        raise ValueError("Camera identifiers must be nonempty and unique")
+    for name in required[1:]:
+        photos[name] = pd.to_numeric(photos[name], errors="coerce")
+    if not np.isfinite(photos[required[1:]].to_numpy()).all():
+        raise ValueError("Camera positions, angles and rotations must all be finite")
+    rotations = photos[required[7:]].to_numpy().reshape(-1, 3, 3)
+    orthogonality = np.max(
+        np.abs(rotations @ rotations.transpose(0, 2, 1) - np.eye(3))
+    )
+    determinants = np.linalg.det(rotations)
+    # Text exports round individual matrix elements; tolerate serialization only.
+    if orthogonality > 1e-6 or not np.allclose(determinants, 1, atol=1e-6, rtol=0):
+        raise ValueError("Camera rotations are not proper orthogonal matrices")
+    adopted = CRS.from_user_input(crs_override) if crs_override is not None else declared
+    overridden = adopted != declared
+    if overridden and (
+        not isinstance(crs_override_provenance, str)
+        or not crs_override_provenance.strip()
+    ):
+        raise ValueError("CRS override requires explicit independent evidence/provenance")
+    if not adopted.is_projected or any(
+        axis.unit_name.lower() not in {"metre", "meter"} for axis in adopted.axis_info[:2]
+    ):
+        raise ValueError("Camera coordinates require a projected metre CRS")
+    metadata = dict(
+        path=str(path),
+        source_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
+        declared_crs=declared.to_string(),
+        adopted_crs=adopted.to_string(),
+        crs_overridden=overridden,
+        crs_override_provenance=crs_override_provenance if overridden else None,
+        photo_rows=len(photos),
+        distinct_positions=len(photos[["X", "Y", "Z"]].drop_duplicates()),
+        maximum_rotation_orthogonality_error=float(orthogonality),
+        rotation_determinant_range=[float(determinants.min()), float(determinants.max())],
+        orientation_convention="UNVERIFIED",
+        vertical_datum="UNVERIFIED",
+        timestamps="NOT_PRESENT_IN_THIS_CONTRACT",
+        actual_contributors="UNVERIFIED",
+    )
+    return photos, metadata

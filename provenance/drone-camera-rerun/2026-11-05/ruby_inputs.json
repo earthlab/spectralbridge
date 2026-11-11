@@ -1,0 +1,113 @@
+{
+  "site": "Ruby",
+  "flight_stem": "AOP_Ruby_20230814",
+  "source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED.tif",
+  "prepared": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/prepared/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED__processing_10cm_10k.tif",
+  "terrain": "/private/tmp/photogrammetry-metadata-20261102/ruby_aligned_dem.tif",
+  "terrain_ancillary": {
+    "slope": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/inputs/terrain/AOP-Ruby-08-14-23-ExportPackage/aligned_slope.tif",
+    "aspect": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/inputs/terrain/AOP-Ruby-08-14-23-ExportPackage/aligned_aspect.tif"
+  },
+  "camera": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/inputs/camera/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-8-14-2023-camera-locations.csv",
+  "camera_metadata": {
+    "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/inputs/camera/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-8-14-2023-camera-locations.csv",
+    "source_sha256": "40964dcc5167b033babfa5e24b38b6be60ddf79dd19944c07ed68b4760ef1f15",
+    "declared_crs": "EPSG:26913",
+    "adopted_crs": "EPSG:26913",
+    "crs_overridden": false,
+    "crs_override_provenance": null,
+    "photo_rows": 5070,
+    "distinct_positions": 507,
+    "maximum_rotation_orthogonality_error": 1.5541240516725452e-09,
+    "rotation_determinant_range": [
+      0.9999999985587804,
+      1.0000000013982802
+    ],
+    "orientation_convention": "UNVERIFIED",
+    "vertical_datum": "UNVERIFIED",
+    "timestamps": "NOT_PRESENT_IN_THIS_CONTRACT",
+    "actual_contributors": "UNVERIFIED"
+  },
+  "camera_poses": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/ruby/camera_poses_with_photo_times.csv",
+  "camera_positions": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/ruby/camera_positions.csv",
+  "camera_position_count": 507,
+  "positions_inside_processing_bounds": 338,
+  "positions_with_positive_height_inside": 337,
+  "camera_height_above_surface_min_max": [
+    107.8155425468749,
+    137.4668345312498
+  ],
+  "shape": [
+    1035,
+    1960
+  ],
+  "transform": [
+    0.1,
+    0.0,
+    455725.0,
+    0.0,
+    -0.1,
+    4432104.75,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "crs": "EPSG:26913",
+  "photo_clock_start": "2023-08-15 18:43:19",
+  "photo_clock_end": "2023-08-15 19:02:52",
+  "timestamp_join": "All camera IDs uniquely matched to original SD1/SD2 photo metadata. Clock zone remains unverified; UTC is an explicit scenario, not independent clock certification.",
+  "solar_arrays": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/ruby/photo_midpoint_solar.npy",
+  "solar_datetime": "2023-08-15 18:53:05.500000",
+  "solar_policy": "Existing NOAA helper at matched-photo midpoint, explicit unverified UTC interpretation; Ruby manifest date16Aug not adopted because matched photo tags show15Aug",
+  "original_package_clipped": true,
+  "wavelengths_nm": [
+    444.0,
+    475.0,
+    531.0,
+    560.0,
+    650.0,
+    668.0,
+    705.0,
+    717.0,
+    740.0,
+    862.0
+  ],
+  "preparation_radiometry": "Original DN*10000/65535, zero offset; no min/max adjustment; physical calibration UNVERIFIED",
+  "experimental_physical_interpretation": "Same prior P172/P175 DN/32768 hypothesis; stored10K multiplier65535/(10000*32768); never production VALID",
+  "intrinsics": {
+    "width_px": 1280,
+    "height_px": 960,
+    "focal_mm": 5.5,
+    "pixel_um": 3.75,
+    "source": "This site processing report Table1 pages2-3; undistorted nadir footprint assumption"
+  },
+  "pose_convention": "Rotation matrices retained/checked but convention unverified; established nadir/flight-heading scenario, not recovered contributors",
+  "solar_h5": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5",
+  "polygon_index": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__polygon_index.parquet",
+  "polygons": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg",
+  "polygon_definition": "Established half-diameter researcher polygons; exclude evaluation pixels plus20-step Manhattan buffer from fitting",
+  "software_version": "2.3.0rc1",
+  "git_commit": "bb3da46bea0a4295ca3152a9f607ed17140575f1",
+  "correction_policy": "Existing conditioned SCS+C policy, source-only training and20m uncertainty clusters; C-center simulated individual-ray kernels; no fit-cap or coefficient tuning",
+  "input_sha256": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED.tif": "308031cabe41ce25185d70057bfc328796727c45e00d53eb04dac7c2ba0a401c",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/prepared/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED__processing_10cm_10k.tif": "9b677b34e28294eef824487c7e01eb0d91adce5c3cdf59a487a51d6c7d64ed73",
+    "/private/tmp/photogrammetry-metadata-20261102/ruby_aligned_dem.tif": "c8dd3412812f3ac8b7b0b49595e2063a4baa5df5e421e0c33ee821697e090f66",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/inputs/camera/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-8-14-2023-camera-locations.csv": "40964dcc5167b033babfa5e24b38b6be60ddf79dd19944c07ed68b4760ef1f15",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/ruby/camera_poses_with_photo_times.csv": "98a10974f665de3c7b8ca58c10b70b0755d592553a43c4d6d90f390f089862a3",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/ruby/camera_positions.csv": "8a8348fbbd734453f38b05ce515d133e90255d7ab539e166503284a3e0ebf110",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/Datasets/niwot_aop_polygons_2023_12_8_23_analysis_ready_half_diam.gpkg": "d9fe2108538179b7cde107123e965b3d0075dcb65ec488fd03b8480b34dc6ebb",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/inputs/terrain/AOP-Ruby-08-14-23-ExportPackage/aligned_slope.tif": "b6b9273a49625b53370598596fff980b15c3d47968abcd206660685a6603b82f",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/inputs/terrain/AOP-Ruby-08-14-23-ExportPackage/aligned_aspect.tif": "83c1e7696adbbcc24afd9024d1a382807f97b066f37f238f74637e24c694fbed",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD1_image_metadata.csv": "f98aa39ee98e88be12d162f9889889029a500d1cd67ebe18c791b883590806d4",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/inputs/AOP-Ruby-08-14-23-ExportPackage/Metadata/SD2_image_metadata.csv": "d9c4c34ca216450ae50a7439f507117dca8684aa41e6ea8b8531ff86d7a12b38",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5": "31f8f827735a98590f4d074c451f5ee638651c44d36b4510148e8b5e4833285f",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/ruby/photo_midpoint_solar.npy": "af1c7490849f23f00be5fa6b9a8f05d415f948b0bd071e15902acd478cb93b3d"
+  },
+  "implementation_sha256": {
+    "src/spectralbridge/drone_view_geometry.py": "bb16d584958be6c0493575090e1a81a8d57dbcc8b7b1bd7a148d4b4ab3e301ef",
+    "src/spectralbridge/corrections.py": "f2ba5c8229d1b94a8f176097ad3e6a1e834238f0fd1df9f26e4c0f8d2b74b8e6",
+    "src/spectralbridge/topographic.py": "96f06189c47d500f8c05444846c1b3e730ded5900f2bdd84786640a4f6c67186",
+    "src/spectralbridge/pipelines/drone.py": "51e9555256397cd88346b41f1e211361d9e2fa1e1b6ae0250d22f4a1582b6a82"
+  }
+}

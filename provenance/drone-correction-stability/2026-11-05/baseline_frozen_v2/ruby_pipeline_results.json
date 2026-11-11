@@ -1,0 +1,123 @@
+[
+  {
+    "site": "Ruby",
+    "branch": "topographic_only",
+    "status": "EXECUTED_EXPERIMENTAL",
+    "audit": {
+      "requested_topo": true,
+      "requested_brdf": false,
+      "topo_applied": true,
+      "brdf_applied": false,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "scientific_validation_status": "EXPERIMENTAL",
+      "experimental_configuration": {
+        "topographic_model_sha256": "2ee4a841e3837c3a78a989c63d08bde1f04a805f9d048e60f0fc12c0abebbacd"
+      },
+      "radiometry": {
+        "scale": 0.0001999969482421875,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset"
+      },
+      "brdf_status": "NOT_REQUESTED",
+      "topo_ready": true,
+      "brdf_ready": false
+    },
+    "image": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/ruby/topographic_only/AOP_Ruby_20230814__topographic_only_EXPERIMENTAL.img",
+    "header": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/ruby/topographic_only/AOP_Ruby_20230814__topographic_only_EXPERIMENTAL.hdr",
+    "elapsed_seconds": 0.4255998330190778,
+    "geotiff": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/baseline_frozen_v2/ruby/topographic_only/AOP_Ruby_20230814__topographic_only_EXPERIMENTAL.tif"
+  },
+  {
+    "site": "Ruby",
+    "branch": "brdf_only",
+    "status": "UNSUPPORTED",
+    "reason": "Requested drone correction did not produce a corrected output.",
+    "audit": {
+      "requested_topo": false,
+      "requested_brdf": true,
+      "topo_applied": false,
+      "brdf_applied": false,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "scientific_validation_status": "EXPERIMENTAL",
+      "experimental_configuration": {
+        "fitting_mask_sha256": "1b001fa8ebcba9042cc31175d1d41952eca31a98564209dabed39c4059db1264",
+        "uncertainty_groups_sha256": "0cc1eab8a0d6f3d19e826239da1ad920191bb028430f1fc56316df8e61a75168",
+        "fitting_provenance": {
+          "strategy": "Exclude evaluation polygons and2mManhattanbuffer",
+          "source_camera_sha256": "40964dcc5167b033babfa5e24b38b6be60ddf79dd19944c07ed68b4760ef1f15",
+          "geometry": "Center-weighted candidate ray kernels, not recovered contributors",
+          "calibration": "HYPOTHETICAL_UNVERIFIED DN/32768",
+          "uncertainty": "20m spatial clusters"
+        }
+      },
+      "radiometry": {
+        "scale": 0.0001999969482421875,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset"
+      },
+      "brdf_status": "INVALID",
+      "topo_ready": false,
+      "brdf_ready": true
+    },
+    "elapsed_seconds": 3.305183374963235
+  },
+  {
+    "site": "Ruby",
+    "branch": "combined",
+    "status": "UNSUPPORTED",
+    "reason": "BRDF INVALID: retained native/topographic-only products; approved downstream processing is blocked.",
+    "audit": {
+      "requested_topo": true,
+      "requested_brdf": true,
+      "topo_applied": true,
+      "brdf_applied": false,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "scientific_validation_status": "EXPERIMENTAL",
+      "experimental_configuration": {
+        "topographic_model_sha256": "2ee4a841e3837c3a78a989c63d08bde1f04a805f9d048e60f0fc12c0abebbacd",
+        "fitting_mask_sha256": "1b001fa8ebcba9042cc31175d1d41952eca31a98564209dabed39c4059db1264",
+        "uncertainty_groups_sha256": "0cc1eab8a0d6f3d19e826239da1ad920191bb028430f1fc56316df8e61a75168",
+        "fitting_provenance": {
+          "strategy": "Exclude evaluation polygons and2mManhattanbuffer",
+          "source_camera_sha256": "40964dcc5167b033babfa5e24b38b6be60ddf79dd19944c07ed68b4760ef1f15",
+          "geometry": "Center-weighted candidate ray kernels, not recovered contributors",
+          "calibration": "HYPOTHETICAL_UNVERIFIED DN/32768",
+          "uncertainty": "20m spatial clusters"
+        }
+      },
+      "radiometry": {
+        "scale": 0.0001999969482421875,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset"
+      },
+      "brdf_status": "INVALID",
+      "topo_ready": true,
+      "brdf_ready": true
+    },
+    "elapsed_seconds": 3.6595509580220096
+  }
+]

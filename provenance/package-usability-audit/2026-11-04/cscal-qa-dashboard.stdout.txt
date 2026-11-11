@@ -1,0 +1,14 @@
+usage: cscal-qa-dashboard [-h] --base-folder BASE_FOLDER
+                          [--out-parquet OUT_PARQUET] [--out-png OUT_PNG]
+
+Aggregate and summarize QA metrics across flightlines.
+
+options:
+  -h, --help            show this help message and exit
+  --base-folder BASE_FOLDER
+                        Root folder containing per-flightline outputs
+  --out-parquet OUT_PARQUET
+                        Path to combined output parquet file (defaults inside
+                        base folder)
+  --out-png OUT_PNG     Path to dashboard plot PNG (defaults inside base
+                        folder)

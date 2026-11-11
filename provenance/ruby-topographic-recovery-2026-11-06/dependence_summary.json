@@ -1,0 +1,53 @@
+{
+  "adjacent_1m_red_correlation": 0.6657096647773192,
+  "spatial_uncertainty_blocks": 60,
+  "spatial_folds": 4,
+  "original_flight_calibration_sets": 1,
+  "strata": [
+    {
+      "stratum": 1,
+      "n": 9733,
+      "spatial_blocks": 60,
+      "incidence_range": [
+        -0.14888827502727509,
+        0.8685219883918762,
+        0.9999265670776367
+      ],
+      "red_incidence_correlation": 0.11944755372412262
+    },
+    {
+      "stratum": 2,
+      "n": 5366,
+      "spatial_blocks": 59,
+      "incidence_range": [
+        0.07665464282035828,
+        0.875710666179657,
+        0.9999286532402039
+      ],
+      "red_incidence_correlation": 0.3381144087573396
+    },
+    {
+      "stratum": 3,
+      "n": 1143,
+      "spatial_blocks": 40,
+      "incidence_range": [
+        0.44736605882644653,
+        0.9300125241279602,
+        0.999953031539917
+      ],
+      "red_incidence_correlation": 0.08631284245498491
+    },
+    {
+      "stratum": 4,
+      "n": 3616,
+      "spatial_blocks": 58,
+      "incidence_range": [
+        0.032221853733062744,
+        0.9264132976531982,
+        0.9999575614929199
+      ],
+      "red_incidence_correlation": 0.20989266203915793
+    }
+  ],
+  "effective_independent_observations": "Not identifiable from neighbour count; block covariance is conditional on supplied blocks"
+}

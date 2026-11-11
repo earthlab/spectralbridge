@@ -203,6 +203,8 @@ def _patch_basic_drone_runtime(monkeypatch) -> None:
                         bands=tuple(replace(b, slope=1., intercept=0., x_mean=None, coefficient_set_version=None) for b in p.bands))
                 for p in load_drone_translation_plans(*args, **kwargs)]
     monkeypatch.setattr("spectralbridge.pipelines.drone.load_drone_translation_plans", plans)
+    from spectralbridge.drone_radiometry import DroneSourceResolution
+    monkeypatch.setattr("spectralbridge.pipelines.drone._resolve_drone_h5_source_encoding", lambda path, record: DroneSourceResolution(None, None, "TEST_ORCHESTRATION_DOUBLE"))
     # These orchestration doubles use literal b"fake-h5" rather than spatial files.
     # Real metadata validation is covered by test_drone_spatial_integrity.
     monkeypatch.setattr("spectralbridge.pipelines.drone._validate_drone_h5_spatial_metadata", lambda path: None)
@@ -2777,6 +2779,8 @@ def test_run_drone_pipeline_prepares_working_copy_before_neoncube(
     tmp_path: Path, monkeypatch
 ) -> None:
     monkeypatch.setattr("spectralbridge.pipelines.drone._validate_drone_h5_spatial_metadata", lambda path: None)
+    from spectralbridge.drone_radiometry import DroneSourceResolution
+    monkeypatch.setattr("spectralbridge.pipelines.drone._resolve_drone_h5_source_encoding", lambda path, record: DroneSourceResolution(None, None, "TEST_ORCHESTRATION_DOUBLE"))
     h5_path = (
         tmp_path
         / "input"

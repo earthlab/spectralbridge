@@ -1,0 +1,71 @@
+{
+  "fixture_sha256": "18ab0f1443fda51ad92e4ee5e54dbc26dd1c96c39427bd505f1d5fe588c4bd86",
+  "original_source_sha256": "308031cabe41ce25185d70057bfc328796727c45e00d53eb04dac7c2ba0a401c",
+  "original_window": [
+    1100,
+    500,
+    8,
+    8
+  ],
+  "physical_encoding": "DN/32768; no raw sensor calibration applied here",
+  "independent_physical_accuracy": "UNVERIFIED",
+  "pixel_0_0_DN": [
+    674,
+    762,
+    1352,
+    1657,
+    1119,
+    979,
+    2315,
+    3353,
+    5323,
+    6358
+  ],
+  "pixel_0_0_reflectance": [
+    0.02056884765625,
+    0.02325439453125,
+    0.041259765625,
+    0.050567626953125,
+    0.034149169921875,
+    0.029876708984375,
+    0.070648193359375,
+    0.102325439453125,
+    0.162445068359375,
+    0.19403076171875
+  ],
+  "declaration": {
+    "schema_version": 1,
+    "input_encoding": "metashape_micasense_reflectance_uint16_v1",
+    "verification_status": "VERIFIED_ENCODING",
+    "processing_state": "calibrated_reflectance",
+    "provenance": "Golden 8x8 Ruby crop of checksum-verified original; P183 WORKING mosaic and calibration binding",
+    "independent_physical_accuracy": "UNVERIFIED",
+    "wavelengths_nm": [
+      444,
+      475,
+      531,
+      560,
+      650,
+      668,
+      705,
+      717,
+      740,
+      842
+    ],
+    "spectral_band_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "alpha_band_indices": [
+      11
+    ]
+  }
+}

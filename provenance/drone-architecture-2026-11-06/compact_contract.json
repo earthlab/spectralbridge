@@ -1,0 +1,11 @@
+{
+  "schema": "spectralbridge_compact_drone_calibration_research_v1",
+  "packet_sha256": "17480040c73ea7edb26b33de58c42d7e88f997934b96b2e39d9984ccdce2531c",
+  "kernel_recipe": "spectralbridge.drone_original.ross_li_design; RossThick/LiDenseR shared implementation; angles in degrees converted inside helper",
+  "helper_sha256": "74ddd0d3b90b1cbff2446ba6d9a58d1972abf33a583e8e76ffaa609af9d1fee8",
+  "reference": "solar zenith 45 degrees; view nadir; relative azimuth 0",
+  "processing_state": "vendor_calibrated_pre_topo_pre_BRDF",
+  "contexts": 1,
+  "independent_accuracy": "UNVERIFIED",
+  "source": "P184 actual repeated observations, not synthetic new truth"
+}

@@ -1,0 +1,40 @@
+{
+  "source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/validation-input/NEON_D10_R10C_DP1_L002-1_20210915_directional_reflectance.h5",
+  "source_sha256": "7ad8032cbfca6879b38bf854640031b6fb2547f792e93bc9e915b3633345a8ff",
+  "window": [
+    350,
+    470,
+    1000,
+    4000
+  ],
+  "bands": [
+    12,
+    19,
+    30,
+    36,
+    54,
+    57,
+    65,
+    67,
+    72,
+    96
+  ],
+  "results": [
+    {
+      "topographic": false,
+      "status": "VALID",
+      "stored_values_exact": 3600000,
+      "source_immutable": true,
+      "serialized_exact": true,
+      "approved_neon_header": true
+    },
+    {
+      "topographic": true,
+      "status": "VALID",
+      "stored_values_exact": 3600000,
+      "source_immutable": true,
+      "serialized_exact": true,
+      "approved_neon_header": true
+    }
+  ]
+}

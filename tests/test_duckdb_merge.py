@@ -307,7 +307,7 @@ def test_merge_includes_undarkened_resampled(tmp_path: Path) -> None:
         rel = con.from_parquet(str(out))
         columns = set(rel.columns)
 
-        assert rel.count("*").fetchone()[0] == 1
+        assert rel.count("*").fetchall()[0][0] == 1
         assert f"{base_stage}_b001_wl0500nm" in columns
         assert f"{undarkened_stage}_b001_wl0500nm" in columns
 

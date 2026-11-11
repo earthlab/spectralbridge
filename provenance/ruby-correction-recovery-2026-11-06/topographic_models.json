@@ -1,0 +1,1123 @@
+[
+  {
+    "wavelength_nm": 444.0,
+    "surface": "viewing_absolute",
+    "stratum": "all",
+    "targets": 52,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.025634297000817374,
+    "C_interval": [
+      -0.10272500715919042,
+      0.2397663695005398
+    ],
+    "slope": 0.04775415904241912,
+    "intercept": 0.0012241442959176404,
+    "condition": 4.439465843703694,
+    "spatial_groups": 16,
+    "unsupported_application": 49,
+    "factor_quantiles": [
+      -2367.129594322615,
+      -7.91489340393568,
+      0.903565901037377,
+      7.142857434708868,
+      4532.528933966634
+    ]
+  },
+  {
+    "wavelength_nm": 444.0,
+    "surface": "viewing_absolute",
+    "stratum": "high_NDVI_proxy",
+    "targets": 39,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.3931187759805134,
+    "C_interval": [
+      0.03653472940504086,
+      2.0964972943354336
+    ],
+    "slope": 0.018233833757663933,
+    "intercept": 0.007168062408245011,
+    "condition": 4.312933287639351,
+    "spatial_groups": 16,
+    "unsupported_application": 33,
+    "factor_quantiles": [
+      0.6066520741300375,
+      0.6350303125061304,
+      0.9751137603448763,
+      3.0092185659034514,
+      3.0397658769854528
+    ]
+  },
+  {
+    "wavelength_nm": 444.0,
+    "surface": "viewing_absolute",
+    "stratum": "low_NDVI_proxy",
+    "targets": 13,
+    "status": "UNSUPPORTED",
+    "C": 0.6372595674486774,
+    "C_interval": null,
+    "slope": 0.045898665816315035,
+    "intercept": 0.029249363924576315,
+    "condition": 7.5185146669596365,
+    "spatial_groups": 8
+  },
+  {
+    "wavelength_nm": 444.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "all",
+    "targets": 57,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": -0.2088822904884037,
+    "C_interval": [
+      -0.4592147479989154,
+      3.5086679138783166
+    ],
+    "slope": 0.04737976837920937,
+    "intercept": -0.009896794541859296,
+    "condition": 9.301063776741952,
+    "spatial_groups": 16,
+    "unsupported_application": 18,
+    "factor_quantiles": [
+      0.5452743651731318,
+      0.5521500911229281,
+      0.9628876769422473,
+      2.1125226448194434,
+      2.928074734999653
+    ]
+  },
+  {
+    "wavelength_nm": 444.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "high_NDVI_proxy",
+    "targets": 43,
+    "status": "UNSUPPORTED",
+    "C": -10.682387005189655,
+    "C_interval": null,
+    "slope": -0.0016074969860982102,
+    "intercept": 0.017171904915177057,
+    "condition": 8.842350602032523,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 444.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "low_NDVI_proxy",
+    "targets": 14,
+    "status": "UNSUPPORTED",
+    "C": -0.28853180199869694,
+    "C_interval": null,
+    "slope": 0.10313372363237308,
+    "intercept": -0.0297573591264842,
+    "condition": 15.775109881706818,
+    "spatial_groups": 9
+  },
+  {
+    "wavelength_nm": 475.0,
+    "surface": "viewing_absolute",
+    "stratum": "all",
+    "targets": 52,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.024294481029404694,
+    "C_interval": [
+      -0.10757888747282433,
+      0.2426073506666477
+    ],
+    "slope": 0.056651356643403455,
+    "intercept": 0.0013763153092632048,
+    "condition": 4.439404892642671,
+    "spatial_groups": 16,
+    "unsupported_application": 48,
+    "factor_quantiles": [
+      -316.58238862549365,
+      -255.17819778104908,
+      0.8919850898366948,
+      7.439645921552105,
+      7.7217959046748
+    ]
+  },
+  {
+    "wavelength_nm": 475.0,
+    "surface": "viewing_absolute",
+    "stratum": "high_NDVI_proxy",
+    "targets": 39,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.3898674887272394,
+    "C_interval": [
+      0.03535702951302271,
+      2.0047520190688894
+    ],
+    "slope": 0.021391420105454053,
+    "intercept": 0.00833981923682275,
+    "condition": 4.3127963122474355,
+    "spatial_groups": 16,
+    "unsupported_application": 32,
+    "factor_quantiles": [
+      0.6054527737709287,
+      0.6338667058222289,
+      0.975664315853257,
+      3.066570531548274,
+      3.0809215068249785
+    ]
+  },
+  {
+    "wavelength_nm": 475.0,
+    "surface": "viewing_absolute",
+    "stratum": "low_NDVI_proxy",
+    "targets": 13,
+    "status": "UNSUPPORTED",
+    "C": 0.7159475008903443,
+    "C_interval": null,
+    "slope": 0.05197379474121878,
+    "intercept": 0.037210508456763304,
+    "condition": 7.518905199232146,
+    "spatial_groups": 8
+  },
+  {
+    "wavelength_nm": 475.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "all",
+    "targets": 57,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": -0.22511686966430844,
+    "C_interval": [
+      -0.4680376514893843,
+      2.9303931364338216
+    ],
+    "slope": 0.057544195675033695,
+    "intercept": -0.012954169197714022,
+    "condition": 9.30100077652721,
+    "spatial_groups": 16,
+    "unsupported_application": 18,
+    "factor_quantiles": [
+      0.5325516435496941,
+      0.534849787736282,
+      0.9620154093779232,
+      2.197491573178604,
+      3.1713818588142164
+    ]
+  },
+  {
+    "wavelength_nm": 475.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "high_NDVI_proxy",
+    "targets": 43,
+    "status": "UNSUPPORTED",
+    "C": 28.651625387721353,
+    "C_interval": null,
+    "slope": 0.0006322495601861935,
+    "intercept": 0.018114977550006402,
+    "condition": 8.84212420451585,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 475.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "low_NDVI_proxy",
+    "targets": 14,
+    "status": "UNSUPPORTED",
+    "C": -0.21795267214468125,
+    "C_interval": null,
+    "slope": 0.11002494961814883,
+    "intercept": -0.023980231771859466,
+    "condition": 15.776480874865866,
+    "spatial_groups": 9
+  },
+  {
+    "wavelength_nm": 531.0,
+    "surface": "viewing_absolute",
+    "stratum": "all",
+    "targets": 52,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.09115518886681334,
+    "C_interval": [
+      -0.0746924418809764,
+      0.3850533541445449
+    ],
+    "slope": 0.06859047340532771,
+    "intercept": 0.006252377557726786,
+    "condition": 4.439519859499588,
+    "spatial_groups": 16,
+    "unsupported_application": 49,
+    "factor_quantiles": [
+      -14.047275185200023,
+      -12.775472913284165,
+      0.92532723410044,
+      20.7767836331845,
+      21.658404510753417
+    ]
+  },
+  {
+    "wavelength_nm": 531.0,
+    "surface": "viewing_absolute",
+    "stratum": "high_NDVI_proxy",
+    "targets": 39,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.4459917193155906,
+    "C_interval": [
+      0.030726227534701146,
+      3.039949573031921
+    ],
+    "slope": 0.03136571439231307,
+    "intercept": 0.01398884888938947,
+    "condition": 4.3129762784931005,
+    "spatial_groups": 16,
+    "unsupported_application": 33,
+    "factor_quantiles": [
+      0.6251803087900919,
+      0.6529206132382998,
+      0.9764397721470699,
+      2.5331471930302825,
+      2.54337490445881
+    ]
+  },
+  {
+    "wavelength_nm": 531.0,
+    "surface": "viewing_absolute",
+    "stratum": "low_NDVI_proxy",
+    "targets": 13,
+    "status": "UNSUPPORTED",
+    "C": 0.529048781985768,
+    "C_interval": null,
+    "slope": 0.07065047334603601,
+    "intercept": 0.037377546870438316,
+    "condition": 7.5185146669596365,
+    "spatial_groups": 8
+  },
+  {
+    "wavelength_nm": 531.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "all",
+    "targets": 57,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": -0.09707854344789835,
+    "C_interval": [
+      -0.42624440914769157,
+      77.78735209883104
+    ],
+    "slope": 0.06295231323390742,
+    "intercept": -0.006111318875423587,
+    "condition": 9.30097758365946,
+    "spatial_groups": 16,
+    "unsupported_application": 3,
+    "factor_quantiles": [
+      0.6170537435543347,
+      0.6200167430182388,
+      0.967907650008488,
+      1.7473819797984722,
+      2.088278495333984
+    ]
+  },
+  {
+    "wavelength_nm": 531.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "high_NDVI_proxy",
+    "targets": 43,
+    "status": "UNSUPPORTED",
+    "C": 114.61636727689579,
+    "C_interval": null,
+    "slope": 0.00024890429535882403,
+    "intercept": 0.02852850613364392,
+    "condition": 8.842277299865263,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 531.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "low_NDVI_proxy",
+    "targets": 14,
+    "status": "UNSUPPORTED",
+    "C": -0.23333442028767218,
+    "C_interval": null,
+    "slope": 0.13405917215154023,
+    "intercept": -0.031280619218224885,
+    "condition": 15.775109881706818,
+    "spatial_groups": 9
+  },
+  {
+    "wavelength_nm": 560.0,
+    "surface": "viewing_absolute",
+    "stratum": "all",
+    "targets": 52,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.0940988764753853,
+    "C_interval": [
+      -0.07655616569239711,
+      0.4146543858710996
+    ],
+    "slope": 0.0776886329140541,
+    "intercept": 0.007310413072121129,
+    "condition": 4.439404892642671,
+    "spatial_groups": 16,
+    "unsupported_application": 47,
+    "factor_quantiles": [
+      -15.872008455590375,
+      -14.573505821730658,
+      0.9255182497131876,
+      6.721381369908229,
+      18.941640098771284
+    ]
+  },
+  {
+    "wavelength_nm": 560.0,
+    "surface": "viewing_absolute",
+    "stratum": "high_NDVI_proxy",
+    "targets": 39,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.4509752457217201,
+    "C_interval": [
+      0.025075222758488926,
+      3.579767614237686
+    ],
+    "slope": 0.03604070661876502,
+    "intercept": 0.016253466523381978,
+    "condition": 4.3127963122474355,
+    "spatial_groups": 16,
+    "unsupported_application": 31,
+    "factor_quantiles": [
+      0.6268370598109128,
+      0.6545157497167149,
+      0.9766236562083787,
+      2.502453853053236,
+      2.508767636345189
+    ]
+  },
+  {
+    "wavelength_nm": 560.0,
+    "surface": "viewing_absolute",
+    "stratum": "low_NDVI_proxy",
+    "targets": 13,
+    "status": "UNSUPPORTED",
+    "C": 0.43499249134889817,
+    "C_interval": null,
+    "slope": 0.08526246162293372,
+    "intercept": 0.037088530599899756,
+    "condition": 7.518905199232146,
+    "spatial_groups": 8
+  },
+  {
+    "wavelength_nm": 560.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "all",
+    "targets": 57,
+    "status": "UNSUPPORTED",
+    "C": -0.08294871434981914,
+    "C_interval": null,
+    "slope": 0.07044310586976349,
+    "intercept": -0.00584316506670508,
+    "condition": 9.300961983772737,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 560.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "high_NDVI_proxy",
+    "targets": 43,
+    "status": "UNSUPPORTED",
+    "C": 16.046894719076615,
+    "C_interval": null,
+    "slope": 0.0019874755809585146,
+    "intercept": 0.031892811404376914,
+    "condition": 8.842085164439323,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 560.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "low_NDVI_proxy",
+    "targets": 14,
+    "status": "UNSUPPORTED",
+    "C": -0.21157211300525341,
+    "C_interval": null,
+    "slope": 0.1454874620353113,
+    "intercept": -0.030781089758582396,
+    "condition": 15.776480874865866,
+    "spatial_groups": 9
+  },
+  {
+    "wavelength_nm": 650.0,
+    "surface": "viewing_absolute",
+    "stratum": "all",
+    "targets": 52,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": -0.046210054243272874,
+    "C_interval": [
+      -0.15905061462610012,
+      0.14247023426900762
+    ],
+    "slope": 0.09369896315520555,
+    "intercept": -0.004329834169940475,
+    "condition": 4.439465843703694,
+    "spatial_groups": 16,
+    "unsupported_application": 68,
+    "factor_quantiles": [
+      -20.160198255417892,
+      -11.959536704586297,
+      0.8328137462400854,
+      43.46492980252008,
+      48.6925570544547
+    ]
+  },
+  {
+    "wavelength_nm": 650.0,
+    "surface": "viewing_absolute",
+    "stratum": "high_NDVI_proxy",
+    "targets": 39,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.40301433393271185,
+    "C_interval": [
+      0.021825312918994352,
+      2.5929802588135282
+    ],
+    "slope": 0.026797983090221262,
+    "intercept": 0.010799971305845597,
+    "condition": 4.312933287639351,
+    "spatial_groups": 16,
+    "unsupported_application": 33,
+    "factor_quantiles": [
+      0.6102578312713958,
+      0.6385179730961548,
+      0.9753856840537781,
+      2.8970722669364406,
+      2.9239537485236142
+    ]
+  },
+  {
+    "wavelength_nm": 650.0,
+    "surface": "viewing_absolute",
+    "stratum": "low_NDVI_proxy",
+    "targets": 13,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.25204731696096866,
+    "C_interval": [
+      -0.23868600601720427,
+      49.02826474897087
+    ],
+    "slope": 0.11976235237712031,
+    "intercept": 0.03018577958958726,
+    "condition": 7.5185146669596365,
+    "spatial_groups": 8,
+    "unsupported_application": 88,
+    "factor_quantiles": [
+      0.5468905766456768,
+      0.576824341091819,
+      0.9704615807816636,
+      14.342314136995137,
+      15.378670515288464
+    ]
+  },
+  {
+    "wavelength_nm": 650.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "all",
+    "targets": 57,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": -0.33308737674582817,
+    "C_interval": [
+      -0.5110797794759961,
+      1.0259976962820943
+    ],
+    "slope": 0.10304905544430454,
+    "intercept": -0.0343243395540788,
+    "condition": 9.301063776741952,
+    "spatial_groups": 16,
+    "unsupported_application": 40,
+    "factor_quantiles": [
+      0.4256842388879622,
+      0.4346048538884542,
+      0.9550818788231372,
+      3.4821698231359886,
+      14.50844825106102
+    ]
+  },
+  {
+    "wavelength_nm": 650.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "high_NDVI_proxy",
+    "targets": 43,
+    "status": "UNSUPPORTED",
+    "C": 3.7204095420023875,
+    "C_interval": null,
+    "slope": 0.005194728446379082,
+    "intercept": 0.019326517280019974,
+    "condition": 8.842350602032523,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 650.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "low_NDVI_proxy",
+    "targets": 14,
+    "status": "UNSUPPORTED",
+    "C": -0.3017411060971898,
+    "C_interval": null,
+    "slope": 0.20070483254682334,
+    "intercept": -0.06056089817172973,
+    "condition": 15.775109881706818,
+    "spatial_groups": 9
+  },
+  {
+    "wavelength_nm": 668.0,
+    "surface": "viewing_absolute",
+    "stratum": "all",
+    "targets": 52,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": -0.06273702273525968,
+    "C_interval": [
+      -0.1674817486556431,
+      0.10298943646622605
+    ],
+    "slope": 0.095081035293186,
+    "intercept": -0.005965101072880638,
+    "condition": 4.43972025046928,
+    "spatial_groups": 16,
+    "unsupported_application": 66,
+    "factor_quantiles": [
+      -42.559151836290106,
+      -41.74666614105179,
+      0.8133868908471924,
+      6.823491626770282,
+      6.8352283207710585
+    ]
+  },
+  {
+    "wavelength_nm": 668.0,
+    "surface": "viewing_absolute",
+    "stratum": "high_NDVI_proxy",
+    "targets": 39,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.37883442375509313,
+    "C_interval": [
+      0.024366115587919266,
+      2.1628666671353254
+    ],
+    "slope": 0.025137548531096746,
+    "intercept": 0.009522968712393724,
+    "condition": 4.312661169902435,
+    "spatial_groups": 16,
+    "unsupported_application": 31,
+    "factor_quantiles": [
+      0.601327870609873,
+      0.6290152703748217,
+      0.9761457423054181,
+      3.2262531147475193,
+      3.2338710001602493
+    ]
+  },
+  {
+    "wavelength_nm": 668.0,
+    "surface": "viewing_absolute",
+    "stratum": "low_NDVI_proxy",
+    "targets": 13,
+    "status": "UNSUPPORTED",
+    "C": 0.3065570034456617,
+    "C_interval": null,
+    "slope": 0.11652769325918186,
+    "intercept": 0.03572238046397003,
+    "condition": 7.520331239174965,
+    "spatial_groups": 8
+  },
+  {
+    "wavelength_nm": 668.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "all",
+    "targets": 57,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": -0.3541571158534343,
+    "C_interval": [
+      -0.5190806736817196,
+      0.7781155840618862
+    ],
+    "slope": 0.1063078735149053,
+    "intercept": -0.037649689876550554,
+    "condition": 9.302198128608829,
+    "spatial_groups": 16,
+    "unsupported_application": 38,
+    "factor_quantiles": [
+      -951.6475159038158,
+      -21.06032571110967,
+      0.9516771555299746,
+      4.076795270898934,
+      4.140601318138124
+    ]
+  },
+  {
+    "wavelength_nm": 668.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "high_NDVI_proxy",
+    "targets": 43,
+    "status": "UNSUPPORTED",
+    "C": 5.0731290845725745,
+    "C_interval": null,
+    "slope": 0.0036553851041295337,
+    "intercept": 0.018544240487072886,
+    "condition": 8.842477374223042,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 668.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "low_NDVI_proxy",
+    "targets": 14,
+    "status": "UNSUPPORTED",
+    "C": -0.30435042016186487,
+    "C_interval": null,
+    "slope": 0.20641762900737215,
+    "intercept": -0.06282329211720966,
+    "condition": 15.781683652595111,
+    "spatial_groups": 9
+  },
+  {
+    "wavelength_nm": 705.0,
+    "surface": "viewing_absolute",
+    "stratum": "all",
+    "targets": 52,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.07678951705046103,
+    "C_interval": [
+      -0.0751058188875532,
+      0.33586394135702674
+    ],
+    "slope": 0.11060262469519003,
+    "intercept": 0.008493122134857036,
+    "condition": 4.439781948608842,
+    "spatial_groups": 16,
+    "unsupported_application": 47,
+    "factor_quantiles": [
+      -8.849003174308166,
+      -8.297858468087618,
+      0.9258354829725223,
+      72.37239961461928,
+      77.03057565074073
+    ]
+  },
+  {
+    "wavelength_nm": 705.0,
+    "surface": "viewing_absolute",
+    "stratum": "high_NDVI_proxy",
+    "targets": 39,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.4034609350056032,
+    "C_interval": [
+      0.023260457745103612,
+      2.595622293902635
+    ],
+    "slope": 0.05305663833280984,
+    "intercept": 0.021406280910009585,
+    "condition": 4.312799477936344,
+    "spatial_groups": 16,
+    "unsupported_application": 31,
+    "factor_quantiles": [
+      0.6104189630576417,
+      0.6386712920569846,
+      0.9753977345791206,
+      2.9047615684918315,
+      2.919036066475883
+    ]
+  },
+  {
+    "wavelength_nm": 705.0,
+    "surface": "viewing_absolute",
+    "stratum": "low_NDVI_proxy",
+    "targets": 13,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.303431594238983,
+    "C_interval": [
+      -0.1960505718101678,
+      9.465064527950847
+    ],
+    "slope": 0.1313180536410389,
+    "intercept": 0.03984604636866072,
+    "condition": 7.519940045698729,
+    "spatial_groups": 8,
+    "unsupported_application": 73,
+    "factor_quantiles": [
+      0.5706505488089497,
+      0.6000544432638096,
+      0.9723445814467093,
+      5.4141570265538554,
+      5.4886077014324615
+    ]
+  },
+  {
+    "wavelength_nm": 705.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "all",
+    "targets": 57,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": -0.13043930532252962,
+    "C_interval": [
+      -0.42133417574018506,
+      4.7668684360397515
+    ],
+    "slope": 0.10430101998273661,
+    "intercept": -0.013604952590979442,
+    "condition": 9.302134691715683,
+    "spatial_groups": 16,
+    "unsupported_application": 3,
+    "factor_quantiles": [
+      0.5981250134341018,
+      0.6006674738733379,
+      0.9665579959204053,
+      1.8285249528230427,
+      2.2508458302034016
+    ]
+  },
+  {
+    "wavelength_nm": 705.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "high_NDVI_proxy",
+    "targets": 43,
+    "status": "UNSUPPORTED",
+    "C": 4.6683525689518985,
+    "C_interval": null,
+    "slope": 0.00852484479392131,
+    "intercept": 0.03979698109361877,
+    "condition": 8.842513520946369,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 705.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "low_NDVI_proxy",
+    "targets": 14,
+    "status": "UNSUPPORTED",
+    "C": -0.29700327223016915,
+    "C_interval": null,
+    "slope": 0.22938466183068365,
+    "intercept": -0.06812799516312383,
+    "condition": 15.780309642893737,
+    "spatial_groups": 9
+  },
+  {
+    "wavelength_nm": 717.0,
+    "surface": "viewing_absolute",
+    "stratum": "all",
+    "targets": 52,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.18611914738770927,
+    "C_interval": [
+      -0.021969563619141427,
+      0.5940130598563356
+    ],
+    "slope": 0.12438350784613991,
+    "intercept": 0.023150152429416006,
+    "condition": 4.439777111897994,
+    "spatial_groups": 16,
+    "unsupported_application": 31,
+    "factor_quantiles": [
+      -149.18766235099403,
+      -50.22424105964518,
+      0.95518927757691,
+      8.505442596836781,
+      260.9674356695625
+    ]
+  },
+  {
+    "wavelength_nm": 717.0,
+    "surface": "viewing_absolute",
+    "stratum": "high_NDVI_proxy",
+    "targets": 39,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.42627413547753384,
+    "C_interval": [
+      0.04264116861225635,
+      2.168225758799775
+    ],
+    "slope": 0.07890065384082104,
+    "intercept": 0.03363330800460815,
+    "condition": 4.312746231248088,
+    "spatial_groups": 16,
+    "unsupported_application": 31,
+    "factor_quantiles": [
+      0.6184784115550036,
+      0.6461753099851437,
+      0.9764724438806925,
+      2.692556062900803,
+      2.6974222433772375
+    ]
+  },
+  {
+    "wavelength_nm": 717.0,
+    "surface": "viewing_absolute",
+    "stratum": "low_NDVI_proxy",
+    "targets": 13,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.29546497315713205,
+    "C_interval": [
+      -0.20408570902460602,
+      8.827454697238368
+    ],
+    "slope": 0.14581913996312038,
+    "intercept": 0.043084448274999444,
+    "condition": 7.519940045698729,
+    "spatial_groups": 8,
+    "unsupported_application": 77,
+    "factor_quantiles": [
+      0.5671313628369703,
+      0.5963244567670856,
+      0.9732724414414138,
+      5.9924156931612576,
+      6.024418106486468
+    ]
+  },
+  {
+    "wavelength_nm": 717.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "all",
+    "targets": 57,
+    "status": "UNSUPPORTED",
+    "C": 0.13136365691807955,
+    "C_interval": null,
+    "slope": 0.09841070529881982,
+    "intercept": 0.0129275901279404,
+    "condition": 9.301905157621306,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 717.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "high_NDVI_proxy",
+    "targets": 43,
+    "status": "UNSUPPORTED",
+    "C": 5.1902552103958675,
+    "C_interval": null,
+    "slope": 0.011896776420403255,
+    "intercept": 0.06174730580291269,
+    "condition": 8.84219384550774,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 717.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "low_NDVI_proxy",
+    "targets": 14,
+    "status": "UNSUPPORTED",
+    "C": -0.23861048255876827,
+    "C_interval": null,
+    "slope": 0.23046259109562542,
+    "intercept": -0.05499079007307127,
+    "condition": 15.780309642893737,
+    "spatial_groups": 9
+  },
+  {
+    "wavelength_nm": 740.0,
+    "surface": "viewing_absolute",
+    "stratum": "all",
+    "targets": 52,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.41773842006274875,
+    "C_interval": [
+      0.08203842903642494,
+      1.2972069489209905
+    ],
+    "slope": 0.13736871153734587,
+    "intercept": 0.05738418852366635,
+    "condition": 4.439554515793334,
+    "spatial_groups": 16,
+    "unsupported_application": 33,
+    "factor_quantiles": [
+      0.6155022754648156,
+      0.6435854118852976,
+      0.9757165649111036,
+      2.753361895885989,
+      2.774077263640941
+    ]
+  },
+  {
+    "wavelength_nm": 740.0,
+    "surface": "viewing_absolute",
+    "stratum": "high_NDVI_proxy",
+    "targets": 39,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.4726669287677134,
+    "C_interval": [
+      0.07803962207152507,
+      1.923717498261203
+    ],
+    "slope": 0.12710335106982265,
+    "intercept": 0.06007755058625753,
+    "condition": 4.313012005510012,
+    "spatial_groups": 16,
+    "unsupported_application": 33,
+    "factor_quantiles": [
+      0.6338810762229465,
+      0.6612994971283146,
+      0.9770841614628348,
+      2.363184277079245,
+      2.3746049152266955
+    ]
+  },
+  {
+    "wavelength_nm": 740.0,
+    "surface": "viewing_absolute",
+    "stratum": "low_NDVI_proxy",
+    "targets": 13,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.37923810720107126,
+    "C_interval": [
+      -0.135326851636664,
+      8.236761323206558
+    ],
+    "slope": 0.14814930133631052,
+    "intercept": 0.05618386062194354,
+    "condition": 7.5185146669596365,
+    "spatial_groups": 8,
+    "unsupported_application": 64,
+    "factor_quantiles": [
+      0.6014802694270195,
+      0.6300227499987027,
+      0.9746564352748448,
+      3.1938918872725783,
+      3.227879823355813
+    ]
+  },
+  {
+    "wavelength_nm": 740.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "all",
+    "targets": 57,
+    "status": "UNSUPPORTED",
+    "C": 1.068243048680622,
+    "C_interval": null,
+    "slope": 0.07058151820655229,
+    "intercept": 0.07539821618947425,
+    "condition": 9.301064624043407,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 740.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "high_NDVI_proxy",
+    "targets": 43,
+    "status": "UNSUPPORTED",
+    "C": 11.915573675540443,
+    "C_interval": null,
+    "slope": 0.009482000789601753,
+    "intercept": 0.11298347900003235,
+    "condition": 8.842359011971036,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 740.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "low_NDVI_proxy",
+    "targets": 14,
+    "status": "UNSUPPORTED",
+    "C": -0.27045982121514744,
+    "C_interval": null,
+    "slope": 0.2649495079732404,
+    "intercept": -0.07165819655748389,
+    "condition": 15.775109881706818,
+    "spatial_groups": 9
+  },
+  {
+    "wavelength_nm": 842.0,
+    "surface": "viewing_absolute",
+    "stratum": "all",
+    "targets": 52,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.5629749975597542,
+    "C_interval": [
+      0.17509526257903305,
+      1.6357744508913192
+    ],
+    "slope": 0.15269668382399482,
+    "intercept": 0.08596441520319605,
+    "condition": 4.439404156995492,
+    "spatial_groups": 16,
+    "unsupported_application": 31,
+    "factor_quantiles": [
+      0.6605568465554817,
+      0.6868819794000429,
+      0.979069266566065,
+      2.000748141326337,
+      2.003210737146701
+    ]
+  },
+  {
+    "wavelength_nm": 842.0,
+    "surface": "viewing_absolute",
+    "stratum": "high_NDVI_proxy",
+    "targets": 39,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.5467286721248734,
+    "C_interval": [
+      0.14491949120128828,
+      1.86658871642412
+    ],
+    "slope": 0.15604830348098817,
+    "intercept": 0.08531608174949992,
+    "condition": 4.31279498728405,
+    "spatial_groups": 16,
+    "unsupported_application": 31,
+    "factor_quantiles": [
+      0.6560484511664787,
+      0.6825682014715602,
+      0.9787919128250242,
+      2.0517686581844536,
+      2.0544634635117065
+    ]
+  },
+  {
+    "wavelength_nm": 842.0,
+    "surface": "viewing_absolute",
+    "stratum": "low_NDVI_proxy",
+    "targets": 13,
+    "status": "UNSUPPORTED_APPLICATION",
+    "C": 0.5366803775627194,
+    "C_interval": [
+      -0.06559955225199839,
+      10.263264845003238
+    ],
+    "slope": 0.15338904132956935,
+    "intercept": 0.08232088861473684,
+    "condition": 7.518905199232146,
+    "spatial_groups": 8,
+    "unsupported_application": 47,
+    "factor_quantiles": [
+      0.6531996402517781,
+      0.6798401304636211,
+      0.9786164818944645,
+      2.086013416890434,
+      2.0888696254084183
+    ]
+  },
+  {
+    "wavelength_nm": 842.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "all",
+    "targets": 57,
+    "status": "UNSUPPORTED",
+    "C": 1.4373185878977055,
+    "C_interval": null,
+    "slope": 0.07522074618651318,
+    "intercept": 0.10811617668941084,
+    "condition": 9.30096153510208,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 842.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "high_NDVI_proxy",
+    "targets": 43,
+    "status": "UNSUPPORTED",
+    "C": 6.961424773607332,
+    "C_interval": null,
+    "slope": 0.020597309564426527,
+    "intercept": 0.14338662107145808,
+    "condition": 8.842085972543966,
+    "spatial_groups": 16
+  },
+  {
+    "wavelength_nm": 842.0,
+    "surface": "ground_dtm_chunk",
+    "stratum": "low_NDVI_proxy",
+    "targets": 14,
+    "status": "UNSUPPORTED",
+    "C": -0.2530154664905906,
+    "C_interval": null,
+    "slope": 0.3035629310617998,
+    "intercept": -0.07680611661185227,
+    "condition": 15.776480874865866,
+    "spatial_groups": 9
+  }
+]

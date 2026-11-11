@@ -1,0 +1,57 @@
+{
+  "results": [
+    {
+      "wavelength_nm": 444.0,
+      "observations": 311,
+      "maximum_coefficient_difference": 3.5659576624880174e-08
+    },
+    {
+      "wavelength_nm": 475.0,
+      "observations": 304,
+      "maximum_coefficient_difference": 5.080416531910714e-09
+    },
+    {
+      "wavelength_nm": 531.0,
+      "observations": 306,
+      "maximum_coefficient_difference": 1.7548614072993018e-07
+    },
+    {
+      "wavelength_nm": 560.0,
+      "observations": 303,
+      "maximum_coefficient_difference": 2.0212675844177852e-07
+    },
+    {
+      "wavelength_nm": 650.0,
+      "observations": 311,
+      "maximum_coefficient_difference": 2.999917110280137e-07
+    },
+    {
+      "wavelength_nm": 668.0,
+      "observations": 298,
+      "maximum_coefficient_difference": 6.433157322405236e-07
+    },
+    {
+      "wavelength_nm": 705.0,
+      "observations": 305,
+      "maximum_coefficient_difference": 2.809136461223716e-07
+    },
+    {
+      "wavelength_nm": 717.0,
+      "observations": 300,
+      "maximum_coefficient_difference": 1.1535091237746542e-07
+    },
+    {
+      "wavelength_nm": 740.0,
+      "observations": 310,
+      "maximum_coefficient_difference": 2.821889877324679e-07
+    },
+    {
+      "wavelength_nm": 842.0,
+      "observations": 302,
+      "maximum_coefficient_difference": 4.1508528436651204e-07
+    }
+  ],
+  "read_and_ten_band_fit_seconds": 0.39838324999436736,
+  "maximum_coefficient_difference": 6.433157322405236e-07,
+  "scope": "Same observations and model as P184; equivalence does not validate physical calibration or a new mosaic"
+}

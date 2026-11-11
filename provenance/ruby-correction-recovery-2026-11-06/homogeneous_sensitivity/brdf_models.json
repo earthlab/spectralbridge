@@ -1,0 +1,832 @@
+[
+  {
+    "wavelength_nm": 444.0,
+    "observations": 44,
+    "targets": 10,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.263851165771484
+    ],
+    "model": "additive_target_effects",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 61.01207054346841,
+    "residual_rmse": 0.0038792995585500978,
+    "coefficients": [
+      0.20690139746101466,
+      -0.0027571810155210407
+    ],
+    "spatial_covariance": [
+      [
+        0.0009345800703832548,
+        -5.3610554315905314e-05
+      ],
+      [
+        -5.3610554315905314e-05,
+        7.614371338119387e-06
+      ]
+    ]
+  },
+  {
+    "wavelength_nm": 444.0,
+    "observations": 44,
+    "targets": 10,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.263851165771484
+    ],
+    "model": "multiplicative_target_amplitudes",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 65.00680075912732,
+    "residual_rmse": 0.003952448954523996,
+    "coefficients": [
+      1.0,
+      2.7288781382769027,
+      -0.03751926881714796
+    ],
+    "reference_shape": 0.912367378094583,
+    "nonpositive_application_predictions": 0,
+    "factor_quantiles": [
+      0.862119595764942,
+      0.8655663508009918,
+      0.9568003435644503,
+      1.0777358635531304,
+      1.0807613096674564
+    ]
+  },
+  {
+    "wavelength_nm": 444.0,
+    "observations": 44,
+    "targets": 10,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.263851165771484
+    ],
+    "model": "joint_within_target_illumination_design",
+    "rank": 3,
+    "condition": 557.2809933350713,
+    "within_incidence_sd": 0.0012723362944317225,
+    "status": "DIAGNOSTIC_ONLY_TARGET_INTERCEPTS_DO_NOT_IDENTIFY_SCSC_C"
+  },
+  {
+    "wavelength_nm": 475.0,
+    "observations": 33,
+    "targets": 8,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.263851165771484
+    ],
+    "model": "additive_target_effects",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 51.37964781129928,
+    "residual_rmse": 0.005852257550291927,
+    "coefficients": [
+      0.3775832764843794,
+      -0.005745894522480932
+    ],
+    "spatial_covariance": [
+      [
+        0.00948603465648396,
+        -0.00022403504437636348
+      ],
+      [
+        -0.00022403504437636348,
+        6.788664294361557e-06
+      ]
+    ]
+  },
+  {
+    "wavelength_nm": 475.0,
+    "observations": 33,
+    "targets": 8,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.263851165771484
+    ],
+    "model": "multiplicative_target_amplitudes",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 51.32092137240129,
+    "residual_rmse": 0.005834654089769983,
+    "coefficients": [
+      1.0,
+      4.203648023446649,
+      -0.07089186579441342
+    ],
+    "reference_shape": 0.8781040345288101,
+    "nonpositive_application_predictions": 0,
+    "factor_quantiles": [
+      0.844223255649303,
+      0.8493821135062565,
+      0.9468278618596829,
+      1.1441089446859907,
+      1.150916012718303
+    ]
+  },
+  {
+    "wavelength_nm": 475.0,
+    "observations": 33,
+    "targets": 8,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.263851165771484
+    ],
+    "model": "joint_within_target_illumination_design",
+    "rank": 3,
+    "condition": 453.5574884766124,
+    "within_incidence_sd": 0.0014001590967021582,
+    "status": "DIAGNOSTIC_ONLY_TARGET_INTERCEPTS_DO_NOT_IDENTIFY_SCSC_C"
+  },
+  {
+    "wavelength_nm": 531.0,
+    "observations": 59,
+    "targets": 12,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.267032623291016
+    ],
+    "model": "additive_target_effects",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 59.68407409261319,
+    "residual_rmse": 0.005133324205595446,
+    "coefficients": [
+      0.33334893175037816,
+      -0.002803348230261358
+    ],
+    "spatial_covariance": [
+      [
+        0.013424685952267087,
+        -0.00029736471118258217
+      ],
+      [
+        -0.00029736471118258217,
+        7.942229495012544e-06
+      ]
+    ]
+  },
+  {
+    "wavelength_nm": 531.0,
+    "observations": 59,
+    "targets": 12,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.267032623291016
+    ],
+    "model": "multiplicative_target_amplitudes",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 57.91528073749271,
+    "residual_rmse": 0.005015202331954143,
+    "coefficients": [
+      1.0,
+      3.433948683860803,
+      -0.0370325861792236
+    ],
+    "reference_shape": 0.8795447290260237,
+    "nonpositive_application_predictions": 0,
+    "factor_quantiles": [
+      0.7915324378756126,
+      0.7983532375186224,
+      0.9149231157486946,
+      1.0952983888945793,
+      1.097211141848889
+    ]
+  },
+  {
+    "wavelength_nm": 531.0,
+    "observations": 59,
+    "targets": 12,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.267032623291016
+    ],
+    "model": "joint_within_target_illumination_design",
+    "rank": 3,
+    "condition": 499.45153221889757,
+    "within_incidence_sd": 0.0013741028889344097,
+    "status": "DIAGNOSTIC_ONLY_TARGET_INTERCEPTS_DO_NOT_IDENTIFY_SCSC_C"
+  },
+  {
+    "wavelength_nm": 560.0,
+    "observations": 57,
+    "targets": 12,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.267032623291016
+    ],
+    "model": "additive_target_effects",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 61.47867081708856,
+    "residual_rmse": 0.0067661542979270085,
+    "coefficients": [
+      0.3276807194596367,
+      -0.00445611847803164
+    ],
+    "spatial_covariance": [
+      [
+        0.009164929484679162,
+        -0.0003029584075896707
+      ],
+      [
+        -0.0003029584075896707,
+        1.6051483749135414e-05
+      ]
+    ]
+  },
+  {
+    "wavelength_nm": 560.0,
+    "observations": 57,
+    "targets": 12,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.267032623291016
+    ],
+    "model": "multiplicative_target_amplitudes",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 61.278470705148244,
+    "residual_rmse": 0.0069196723677195275,
+    "coefficients": [
+      1.0,
+      2.465335299578286,
+      -0.035152824009678674
+    ],
+    "reference_shape": 0.9220875428307522,
+    "nonpositive_application_predictions": 0,
+    "factor_quantiles": [
+      0.881554168758265,
+      0.8850856642779803,
+      0.9502414875401077,
+      1.0689299814785376,
+      1.072790246392175
+    ]
+  },
+  {
+    "wavelength_nm": 560.0,
+    "observations": 57,
+    "targets": 12,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.267032623291016
+    ],
+    "model": "joint_within_target_illumination_design",
+    "rank": 3,
+    "condition": 490.0502867382464,
+    "within_incidence_sd": 0.0013739404654872084,
+    "status": "DIAGNOSTIC_ONLY_TARGET_INTERCEPTS_DO_NOT_IDENTIFY_SCSC_C"
+  },
+  {
+    "wavelength_nm": 650.0,
+    "observations": 42,
+    "targets": 10,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.263851165771484
+    ],
+    "model": "additive_target_effects",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 46.822616243045836,
+    "residual_rmse": 0.004933191431602251,
+    "coefficients": [
+      0.4330954133004277,
+      -0.006844252631906976
+    ],
+    "spatial_covariance": [
+      [
+        0.01487651281039415,
+        -0.0005402207231323444
+      ],
+      [
+        -0.0005402207231323444,
+        2.341705435097859e-05
+      ]
+    ]
+  },
+  {
+    "wavelength_nm": 650.0,
+    "observations": 42,
+    "targets": 10,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.263851165771484
+    ],
+    "model": "multiplicative_target_amplitudes",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 50.08217824213633,
+    "residual_rmse": 0.005427395977428292,
+    "coefficients": [
+      1.0,
+      2.8303582683350834,
+      -0.045746036259471
+    ],
+    "reference_shape": 0.9159400607797273,
+    "nonpositive_application_predictions": 0,
+    "factor_quantiles": [
+      0.854644067257528,
+      0.8602779015495615,
+      0.9490405827656132,
+      1.0858437157659053,
+      1.0904724868303408
+    ]
+  },
+  {
+    "wavelength_nm": 650.0,
+    "observations": 42,
+    "targets": 10,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.263851165771484
+    ],
+    "model": "joint_within_target_illumination_design",
+    "rank": 3,
+    "condition": 455.64235738882945,
+    "within_incidence_sd": 0.0012837901464302838,
+    "status": "DIAGNOSTIC_ONLY_TARGET_INTERCEPTS_DO_NOT_IDENTIFY_SCSC_C"
+  },
+  {
+    "wavelength_nm": 668.0,
+    "observations": 41,
+    "targets": 11,
+    "reference_joint_support": true,
+    "view_range": [
+      4.011318587420219,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.846675872802734,
+      26.263851165771484
+    ],
+    "model": "additive_target_effects",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 53.287431897510956,
+    "residual_rmse": 0.005251973884822717,
+    "coefficients": [
+      0.43719536936599157,
+      -0.00660200509100938
+    ],
+    "spatial_covariance": [
+      [
+        0.03863478939055152,
+        -0.0009109387511946467
+      ],
+      [
+        -0.0009109387511946467,
+        2.7074153116708954e-05
+      ]
+    ]
+  },
+  {
+    "wavelength_nm": 668.0,
+    "observations": 41,
+    "targets": 11,
+    "reference_joint_support": true,
+    "view_range": [
+      4.011318587420219,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.846675872802734,
+      26.263851165771484
+    ],
+    "model": "multiplicative_target_amplitudes",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 57.63572767100976,
+    "residual_rmse": 0.0052833693689823815,
+    "coefficients": [
+      1.0,
+      3.0337878102814053,
+      -0.04530993599640784
+    ],
+    "reference_shape": 0.9061742687849976,
+    "nonpositive_application_predictions": 0,
+    "factor_quantiles": [
+      0.8467570726728606,
+      0.8517771187891099,
+      0.9534687354302174,
+      1.1214140129862014,
+      1.1294900629563391
+    ]
+  },
+  {
+    "wavelength_nm": 668.0,
+    "observations": 41,
+    "targets": 11,
+    "reference_joint_support": true,
+    "view_range": [
+      4.011318587420219,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.846675872802734,
+      26.263851165771484
+    ],
+    "model": "joint_within_target_illumination_design",
+    "rank": 3,
+    "condition": 739.7335600065022,
+    "within_incidence_sd": 0.000780782120719285,
+    "status": "DIAGNOSTIC_ONLY_TARGET_INTERCEPTS_DO_NOT_IDENTIFY_SCSC_C"
+  },
+  {
+    "wavelength_nm": 705.0,
+    "observations": 83,
+    "targets": 17,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.846675872802734,
+      26.2683048248291
+    ],
+    "model": "additive_target_effects",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 63.80778886732333,
+    "residual_rmse": 0.006723157995599859,
+    "coefficients": [
+      0.37662215766310064,
+      -0.00197130042053003
+    ],
+    "spatial_covariance": [
+      [
+        0.04087492467502485,
+        -0.0011638540363148736
+      ],
+      [
+        -0.0011638540363148736,
+        3.439910877236341e-05
+      ]
+    ]
+  },
+  {
+    "wavelength_nm": 705.0,
+    "observations": 83,
+    "targets": 17,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.846675872802734,
+      26.2683048248291
+    ],
+    "model": "multiplicative_target_amplitudes",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 56.47523697841076,
+    "residual_rmse": 0.00683817032240824,
+    "coefficients": [
+      1.0,
+      2.681575972633132,
+      -0.01853158460207853
+    ],
+    "reference_shape": 0.8955490672137615,
+    "nonpositive_application_predictions": 0,
+    "factor_quantiles": [
+      0.7923161416452588,
+      0.7945205958242179,
+      0.9089258745175196,
+      1.1428991475654642,
+      1.1724217677777997
+    ]
+  },
+  {
+    "wavelength_nm": 705.0,
+    "observations": 83,
+    "targets": 17,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.846675872802734,
+      26.2683048248291
+    ],
+    "model": "joint_within_target_illumination_design",
+    "rank": 3,
+    "condition": 778.8473703840348,
+    "within_incidence_sd": 0.0009111959000675822,
+    "status": "DIAGNOSTIC_ONLY_TARGET_INTERCEPTS_DO_NOT_IDENTIFY_SCSC_C"
+  },
+  {
+    "wavelength_nm": 717.0,
+    "observations": 85,
+    "targets": 19,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.846675872802734,
+      26.267032623291016
+    ],
+    "model": "additive_target_effects",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 67.876409095345,
+    "residual_rmse": 0.010261176596648323,
+    "coefficients": [
+      0.4329777580165594,
+      0.0005306126930668513
+    ],
+    "spatial_covariance": [
+      [
+        0.0441018321068128,
+        -0.001410340170630772
+      ],
+      [
+        -0.001410340170630772,
+        5.1053859696982664e-05
+      ]
+    ]
+  },
+  {
+    "wavelength_nm": 717.0,
+    "observations": 85,
+    "targets": 19,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.846675872802734,
+      26.267032623291016
+    ],
+    "model": "multiplicative_target_amplitudes",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 64.90429882948486,
+    "residual_rmse": 0.010356261963632592,
+    "coefficients": [
+      1.0,
+      2.488201101614635,
+      -0.002632799591523299
+    ],
+    "reference_shape": 0.888518846316325,
+    "nonpositive_application_predictions": 0,
+    "factor_quantiles": [
+      0.76220382189234,
+      0.7772269472945946,
+      0.8991284274988207,
+      1.1405616466723463,
+      1.1707113452747258
+    ]
+  },
+  {
+    "wavelength_nm": 717.0,
+    "observations": 85,
+    "targets": 19,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.846675872802734,
+      26.267032623291016
+    ],
+    "model": "joint_within_target_illumination_design",
+    "rank": 3,
+    "condition": 827.4644516463169,
+    "within_incidence_sd": 0.0008673982727055749,
+    "status": "DIAGNOSTIC_ONLY_TARGET_INTERCEPTS_DO_NOT_IDENTIFY_SCSC_C"
+  },
+  {
+    "wavelength_nm": 740.0,
+    "observations": 78,
+    "targets": 17,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      26.168759314165676
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.2683048248291
+    ],
+    "model": "additive_target_effects",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 82.55125628891669,
+    "residual_rmse": 0.013720112566016412,
+    "coefficients": [
+      0.6876084776661177,
+      0.0004812053955595
+    ],
+    "spatial_covariance": [
+      [
+        0.12342654140211148,
+        -0.004307111862870483
+      ],
+      [
+        -0.004307111862870483,
+        0.00015299250998732154
+      ]
+    ]
+  },
+  {
+    "wavelength_nm": 740.0,
+    "observations": 78,
+    "targets": 17,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      26.168759314165676
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.2683048248291
+    ],
+    "model": "multiplicative_target_amplitudes",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 70.00944233779609,
+    "residual_rmse": 0.013822250574837849,
+    "coefficients": [
+      1.0,
+      2.7836422285137417,
+      0.013137271254395956
+    ],
+    "reference_shape": 0.8591992456801252,
+    "nonpositive_application_predictions": 0,
+    "factor_quantiles": [
+      0.6977743029753919,
+      0.7089901287478795,
+      0.8506917200277369,
+      1.1394265701401944,
+      1.169463352097761
+    ]
+  },
+  {
+    "wavelength_nm": 740.0,
+    "observations": 78,
+    "targets": 17,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      26.168759314165676
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.2683048248291
+    ],
+    "model": "joint_within_target_illumination_design",
+    "rank": 3,
+    "condition": 598.5527147561755,
+    "within_incidence_sd": 0.0011826414209232005,
+    "status": "DIAGNOSTIC_ONLY_TARGET_INTERCEPTS_DO_NOT_IDENTIFY_SCSC_C"
+  },
+  {
+    "wavelength_nm": 842.0,
+    "observations": 102,
+    "targets": 22,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.267032623291016
+    ],
+    "model": "additive_target_effects",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 78.93760289031145,
+    "residual_rmse": 0.01968225554272281,
+    "coefficients": [
+      0.5036063920195347,
+      -0.002289479110399669
+    ],
+    "spatial_covariance": [
+      [
+        0.11310784806384235,
+        -0.0027855015918778836
+      ],
+      [
+        -0.0027855015918778836,
+        8.508587898253392e-05
+      ]
+    ]
+  },
+  {
+    "wavelength_nm": 842.0,
+    "observations": 102,
+    "targets": 22,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.267032623291016
+    ],
+    "model": "multiplicative_target_amplitudes",
+    "status": "EXPERIMENTAL_NOT_APPROVED",
+    "condition": 75.88737982830293,
+    "residual_rmse": 0.020092084143153038,
+    "coefficients": [
+      1.0,
+      2.1674718436151617,
+      -0.01690932347669713
+    ],
+    "reference_shape": 0.9175046650159698,
+    "nonpositive_application_predictions": 0,
+    "factor_quantiles": [
+      0.8321207902175011,
+      0.8425590825675233,
+      0.9394779420762931,
+      1.129881194861646,
+      1.1335920848113348
+    ]
+  },
+  {
+    "wavelength_nm": 842.0,
+    "observations": 102,
+    "targets": 22,
+    "reference_joint_support": true,
+    "view_range": [
+      3.452590965049726,
+      27.557247598159982
+    ],
+    "solar_range": [
+      25.842430114746097,
+      26.267032623291016
+    ],
+    "model": "joint_within_target_illumination_design",
+    "rank": 3,
+    "condition": 652.3359278247073,
+    "within_incidence_sd": 0.001083363252232267,
+    "status": "DIAGNOSTIC_ONLY_TARGET_INTERCEPTS_DO_NOT_IDENTIFY_SCSC_C"
+  }
+]

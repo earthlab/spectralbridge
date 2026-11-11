@@ -1,0 +1,240 @@
+[
+  {
+    "topic": "H5/spatial",
+    "path": "provenance/drone-spatial-integrity/2026-10-29/README.md",
+    "sha256": "50fcdf92f1d8fe063af83cc813e2961d712f1c2596e394158c6242dd20949703",
+    "headings": [
+      "# Drone spatial investigation evidence"
+    ],
+    "review_excerpt": "# Drone spatial investigation evidence\n\nSee [the investigation report](../../../docs/dev/drone-spatial-integrity-investigation.md).\n\nThe strongest evidence is the paired production-source audit:\n\n- `production_source_comparison.json` and `production_verified_footprints.*`\n  compare all ten retained bands of the actual Gordon, Goldhill and Ruby TIFF/H5\n  pairs, and independently replay polygon membership from saved output geometry.\n- `ruby_before/` and `legacy_ruby_export_replay.json` reproduce the old export\n  behavior from original Ruby H5. Missing historical later stages remain explicit.\n- `ruby_after/`, `ruby_full_pixel_validation.json`, `ruby_recovery_result.json`\n  and `ruby_restart.json` record the real Ruby recovery, retained-row validation,\n  four translation equations/masks, and unchanged-run reuse.\n- `synthetic/` and tiny `synthetic_inputs/` remain separate asymmetric controls.\n  The synthetic illustration uses pass-through correction and translation +1;\n  real Ruby recovery enables the existing correction and all four existing plans.\n\n`production_metadata_evidence.json` and its figure are the earlier metadata-only\ncomparison; their blue hypothesis is superseded by the authoritative paired\nsource audit. `unassigned_h5/` concerns a separate unidentified local H5, not a\nsubstitute for the three named pairs. `remote_access.json` records successful"
+  },
+  {
+    "topic": "Original radiometric maps",
+    "path": "provenance/drone-scale-confirmation/2026-10-30/README.md",
+    "sha256": "90564efcd26f5e7c5bcc5f866f10aab5b354b74c07f86557845dbc869e5956af",
+    "headings": [
+      "# Drone 10,000 scaling confirmation",
+      "## Conclusion",
+      "## Direct paired-pixel verification",
+      "## Check against the actual 10 cm inputs",
+      "## Physical reflectance: the remaining distinction",
+      "## Export code and provenance search",
+      "## Reproduce"
+    ],
+    "review_excerpt": "# Drone 10,000 scaling confirmation\n\nDate: 2026-10-30. Scope: Gordon, Goldhill and Ruby 2023 export packages. This is a read-only numerical/provenance investigation, following the user's clarification that drone imagery was resampled to 10 cm and rescaled to 10,000. No original, working H5, corrected raster or spectral library was modified.\n\n## Conclusion\n\n**The numerical range rescaling is confirmed. Equivalence to NEON's physical-reflectance scale is not established.** The paired exports follow a band-specific affine normalization matching each original band's observed extrema:\n\n```\nrescaled = 10000 * (original_DN - original_band_min)\n                 / (original_band_max - original_band_min)\n```\n\nAll ten spectral bands of all three originals have maximum 65,535. Their minima differ:\n\n| Flight | Original minima, spectral bands 1\u201310 | Resulting normalization |\n|---|---|---|\n| Gordon | All zero | All spectral bands multiply by `10000/65535`; zero offset. |\n| Goldhill | Bands 1\u20139 zero; band 10 (NIR) **174** | NIR uses `10000*(DN-174)/65361`; other spectral bands use `10000*DN/65535`. |\n| Ruby | Band 1 **4**, band 2 **3**, band 10 (NIR) **297**; others zero | Those three bands receive different offsets and multipliers; NIR uses `10000*(DN-297)/65238`. |\n\nThis is the map obtained by putting each original band's min/max into 0\u201310,000. It does not, on its own, identify which number represents 100% reflectance. In particular, it is not evidence for a single common `physical = stored/10000` convention across all bands. Band-specific offsets can affect spectral shape and ratios; a common multiplicative scaling would not have that effect."
+  },
+  {
+    "topic": "Shared radiometry/BRDF audit",
+    "path": "provenance/radiometry-brdf/2026-10-30/README.md",
+    "sha256": "9c2117ca101d8977afe3e5861c7a36ad7520121de6647db130803805832ff026",
+    "headings": [
+      "# AOP/drone radiometry and BRDF audit",
+      "## Findings and recovery decision",
+      "## Actual production paths: before and after",
+      "## NEON scaling history and October 26 rollback",
+      "## Methodology verification",
+      "## Validation and status semantics",
+      "## Original Goldhill acquisition: what was actually found",
+      "## Scientific figures and evaluation boundary",
+      "## Production impact",
+      "## Reproduction, tests and scaling",
+      "## Follow-up: numerical export scaling traced"
+    ],
+    "review_excerpt": "# AOP/drone radiometry and BRDF audit\n\nDate: 2026-10-30. Starting revision: `ecd0df2` on `main`; implementation is an uncommitted working-tree change alongside the earlier spatial/cloud work. This report describes code and reproducible evidence, not an empirical calibration release.\n\n## Findings and recovery decision\n\nBoth production routes shared a radiometric bug and an inadequate BRDF acceptance rule. NEON's documented storage divisor was being multiplied into its data after the October 26 rollback. Drone TIFF conversion declared a scale of one without establishing physical units. Least squares accepted rank-deficient angular designs and substituted neutral coefficients when fitting was unsupported. A nonpositive-prediction guard then switched abruptly between identity and extreme gains.\n\nThe revised shared boundary uses `physical = scale * stored + offset` with explicit direction, provenance and validity. Both production drivers use the same repaired Ross/Li implementation and validate their fits. Unsupported or invalid models have diagnostics but no usable coefficient arrays. Nodata-only bands are explicitly NOT_APPLICABLE and are preserved without claiming a fit. Library extraction, bulk discovery and raster statistics require the new scientific contract. Historical artifacts are preserved and require review before reuse.\n\n**Goldhill is blocked, not radiometrically recovered.** The real flight was passed through the new fitting and drone correction entry points in a fresh evidence directory. Both report `UNSUPPORTED`; no new corrected Goldhill raster was produced. Its scale and offset remain unknown. Independently of calibration, the sampled mosaic geometry has rank **one** with the repaired kernels: scene solar zenith and nadir viewing leave no independent kernel variation. The historical rank-two result came from the earlier incorrect geometric kernel. Neither rank can identify three coefficients.\n\n## Actual production paths: before and after\n\nThe AOP path is `pipelines/pipeline.py` \u2192 `build_correction_parameters_dict()` / `apply_brdf_topo_core()` \u2192 `NeonCube` / `io/neon.py` \u2192 shared `corrections.py` \u2192 configured convolution \u2192 raster-backed extraction / Parquet and compact bulk analysis. The drone path is `run_drone_pipeline()` \u2192 signed source working copy or `convert_drone_tiff_to_h5()` \u2192 `NeonCube` \u2192 `apply_drone_corrections()` \u2192 shared corrections \u2192 optional wavelength-matched affine translation and extraction. Drone does not enter NEON download or convolution.\n\n| Operation | AOP before this repair | Drone before this repair | Shared repaired behavior / intentional differences |\n|---|---|---|---|\n| Original units/storage | NEON integer-like stored reflectance; source metadata describes divisor | TIFF/H5 numeric values; Goldhill typically hundreds; units unverified | Original arrays remain stored values. No distribution-based calibration. |\n| Scale/offset source | `Scale_Factor`, no offset handling | Converter wrote `Scale_Factor=1`; TIFF identity scales and missing units | Documented NEON divisor; explicit affine calibration record for drone. Offset supported, normally zero for the inspected NEON convention. |\n| H5 interpretation | Raw scale read, default one if missing | Same reader, though H5 schema alone does not prove NEON radiometry | NEON identity and scale metadata establish the NEON convention; renamed/derived/ambiguous inputs need an explicit record. Drone native TIFF identity tags never establish physical units. |\n| Physical conversion | Production multiplied raw scale, bypassing an existing normalization helper | Same multiplication, often by one | Exactly one `s*x+b` on entry to scientific calculations; inverse `(rho-b)/s` for storage-scale corrected rasters. |"
+  },
+  {
+    "topic": "Red artifact",
+    "path": "provenance/brdf-artifact-anatomy/2026-11-03/report.md",
+    "sha256": "f35b30c7bc07fead26bd88b1af0449ee7b3e249f9641ebc9369536e201af606f",
+    "headings": [
+      "# Anatomy of a Red Artifact",
+      "## How Missing Viewing Geometry and an Unsupported BRDF Model Corrupted the Goldhill Drone Orthomosaic",
+      "## Act 1 \u2014 The observation: a boundary created after acquisition",
+      "## Watch the artifact emerge on the same pixels",
+      "## Why the choice of RGB bands changes what we see",
+      "## Follow four real pixels through the correction",
+      "## Act 2 \u2014 The missing viewing information",
+      "## Terrain, illumination and camera direction are different quantities",
+      "## The small, coherent angular gradient at the boundary",
+      "## The angular distributions and uniform RossThick map",
+      "## Act 3 \u2014 Millions of pixels, one effective angular direction",
+      "## The historical fit produced large, cancelling coefficients",
+      "## Act 4 \u2014 The fitted prediction crosses zero",
+      "## One contiguous transect exposes the numerical discontinuity",
+      "## The failure is wavelength dependent",
+      "## A separate instability in topographic correction",
+      "## Act 5 \u2014 The vegetation is unchanged; its spectrum is corrupted",
+      "## The distortion propagates into researcher-assigned PFT signatures",
+      "## Gordon and Ruby: no visible red streak does not mean valid correction",
+      "## Act 6 \u2014 Resolution: direct answers",
+      "## Methods and reproducibility appendix",
+      "### Goldhill saved model and measured application"
+    ],
+    "review_excerpt": "# Anatomy of a Red Artifact\n\n## How Missing Viewing Geometry and an Unsupported BRDF Model Corrupted the Goldhill Drone Orthomosaic\n\n2026-11-03 \u00b7 Read-only scientific reconstruction \u00b7 SpectralBridge P165\n\n## Act 1 \u2014 The observation: a boundary created after acquisition\n\nThe Goldhill red boundary is absent from the source image and appears in the historical BRDF-only replay. Applying the same unchanged BRDF model after topographic correction reproduces the combined artifact. The causal evidence is an exact numerical reconstruction, not a resemblance to a seamline.\n\nAt neighboring 10 cm pixels, the predicted 650 nm response changes from 0 to 0.0078125. The historical guard assigns factor 1 to the first cell; the positive ratio assigns 11,742,750 to the next. A smooth spatial predictor becomes an abrupt output boundary.\n\nThe full replay agrees with the saved Goldhill stages across all 70,832,700 values and their masks. The earlier investigation compared that combined replay directly with production, also with zero mismatches. The production raster is not currently local: this report freshly verifies cached-stage equality and explicitly reuses the earlier production comparison.\n\n![Act 1 \u2014 The observation: a boundary created after acquisition](figure01_observation.png)\n\n*Full scene on the repaired grid. Top: one source-DN-equivalent display scale. Bottom: independent per-stage 2-98% channel stretches reveal structure but cannot compare radiometric magnitude. Cyan box is the common native zoom. Gray is missing stage data; white is outside positive source alpha.*\n\n## Watch the artifact emerge on the same pixels\n\nEach row shows one geographic region and the same researcher-assigned Deciduous polygon. The first three rows are representations of the same source samples: changing the spatial metadata changes where pixels are placed, not their spectral values. No reflected historical export is used as a geographic reference.\n"
+  },
+  {
+    "topic": "Clean source",
+    "path": "provenance/goldhill-clean-source-brdf/2026-11-03/report.md",
+    "sha256": "20e78bf7174eca1e65ce730366c7b638496dc7b826171e235b9386f1ae193d93",
+    "headings": [
+      "# Goldhill BRDF Correction: Resolving the Red-Line Artifact",
+      "## 1. Goldhill BRDF Correction: Resolving the Red-Line Artifact",
+      "## 2. What the repaired source changes",
+      "## 3. One affine physical interface, two different source encodings",
+      "## 4. What the filters actually remove",
+      "## 5. The factorial comparison has honest unsupported branches",
+      "## 6. When does the known red boundary appear?",
+      "## 7. The source repair barely changes the historical boundary jump",
+      "## 8. Why the historical prediction fails",
+      "## 9. The shared Ross-Li mathematics was already repaired",
+      "## 10. A larger population is not an identifiable directional model",
+      "## 11. What can the recovered camera records resolve?",
+      "## 12. External or constrained coefficients need independent evidence",
+      "## 13. What happens to a known polygon spectrum?",
+      "## 14. Does the historical correction improve PFT information?",
+      "## 15. The actual supported NEON control is unchanged",
+      "## 16. The two platforms share mathematics, not missing inputs",
+      "## 17. End-to-end execution is not end-to-end approval",
+      "## 18. Direct decisions: source, filter and artifact attribution",
+      "## 19. Direct decisions: mathematics, data and production readiness",
+      "## 20. Scientific basis and reference boundaries",
+      "## 21. Reproducibility, preservation and computational scope",
+      "## Detailed measured records"
+    ],
+    "review_excerpt": "# Goldhill BRDF Correction: Resolving the Red-Line Artifact\n\nNovember 3, 2026. **Goldhill calibration remains HYPOTHETICAL_UNVERIFIED.**\n\n## 1. Goldhill BRDF Correction: Resolving the Red-Line Artifact\n\nNovember 3, 2026. Underlying causes are quantitatively identified and the shared pathway is hardened. Goldhill still lacks the evidence needed for a scientifically supported BRDF product.\n\n| Question | Measured outcome |\n| --- | --- |\n| Source repair | Correct 10 cm, ten-band, alpha-aware numerical derivative used throughout. Calibration remains HYPOTHETICAL_UNVERIFIED. |\n| Artifact attribution | The raw boundary is ordinary; the historical BRDF model produces the enormous jump on both old and clean sources. |\n| Filtering | Red eligibility rises 14 ->6,678,404 under correct candidate units; stable angular rank remains 1/3. |\n| Implemented reliability | Footprint/quality/NDVI filtering, missing-geometry records, band identity, stable-rank diagnostics, common fit/application prediction checks and versioned model/header acceptance. |\n| Supported control | Real NEON window:10/10 bands supported in BRDF-only and combined branches; corrected values/masks identical before/after. |\n| Goldhill outcome | No C/D/E/F corrected image is fabricated. Calibration and genuine contributor/view information remain prerequisites. |\n\n- BRDF remains requested in the drone workflow. No original source, historical result, official spectral library or production calibration registry was overwritten.\n\n## 2. What the repaired source changes\n\nThe source repair excludes transparent 65535 background before interpolation and removes per-band minimum subtraction. It does not supply angular information."
+  },
+  {
+    "topic": "Pose artifact",
+    "path": "provenance/brdf-artifact-anatomy-part-ii/2026-11-04/report.md",
+    "sha256": "9e3fb1346de317608f937c434a7338f3b04dc3e8887b7974560d2d6144e61272",
+    "headings": [
+      "# Anatomy of a Red Artifact, Part II",
+      "## 1. Anatomy of a Red Artifact, Part II",
+      "## 2. A numerical inverse is not a calibration",
+      "## 3. Ten bands expose the unit mismatch",
+      "## 4. Scaling changes spectral evidence before correction",
+      "## 5. Correct the units before deciding who can enter the fit",
+      "## 6. Millions of observations do not create missing angles",
+      "## 7. Separate the kernel repair from identifiability",
+      "## 8. Positions support rays, not contributor identities",
+      "## 9. 565 positions make a spatially varying angular design possible",
+      "## 10. Four assignments test assumptions rather than recover truth",
+      "## 11. The reconstructed design has rank three, conditionally",
+      "## 12. Kernel blending changes the design itself",
+      "## 13. Hard assignments can introduce their own seams",
+      "## 14. The full scene preserves the same display contract",
+      "## 15. The historical boundary jump collapses in the experiments",
+      "## 16. Check every band, not only the visible streak",
+      "## 17. A fixed aspen polygon keeps its identity",
+      "## 18. Vegetation categories remain descriptive evidence",
+      "## 19. The ecological gains are not decisive",
+      "## 20. What is repaired, and what remains unresolved"
+    ],
+    "review_excerpt": "# Anatomy of a Red Artifact, Part II\n\n## 1. Anatomy of a Red Artifact, Part II\n\nHow We Reconstructed the Goldhill Drone BRDF Correction | November 2026\n\nThe historical red line was a correction artifact. Recovering the numerical encoding and fitting population was necessary, but neither created missing angular information. Camera positions supplied an experimental directional design; it removed the historical pole without establishing physical calibration or true orthomosaic contributors.\n\nThis companion follows five separate questions: what the numbers mean, which pixels entered the fit, whether the model can be estimated, what the corrected image contains, and whether vegetation evidence improves.\n\n![Anatomy of a Red Artifact, Part II](figures/01_opening_rgb.png)\n\nDiagnostic RGB = 650/560/475 nm. All images use black 0, white 0.25 and gamma 0.5, with display saturation only. Candidate units assume DN/32768; calibration remains HYPOTHETICAL_UNVERIFIED. Native crop: rows 573:974, columns 812:1313, 10 cm pixels.\n\n## 2. A numerical inverse is not a calibration\n\nThe historical export removed a band minimum. Its inverse is an affine transformation, not a universal division by 10,000. The 862 nm minimum is 174 DN, so dropping the offset removes about 0.00531 candidate units. The clean source uses S = DN x 10000/65535 with zero offset. Its candidate multiplier is 0.0001999969482421875. Alpha-aware resampling is a separate repair that prevents transparent background entering interpolation.\n\nThe 10 cm inverse-forward round trip has maximum absolute residual 0.000299 stored units. A fresh comparison of the archived original and rescaled 25 cm H5 pair has maximum residual 0.000781 stored units. The H5 pair is the available archived equivalent, not a newly retrieved original TIFF. These errors are small numerical encoding residuals, not estimates of physical reflectance accuracy.\n\n![A numerical inverse is not a calibration](figures/02_encoding.png)\n"
+  },
+  {
+    "topic": "Camera rerun",
+    "path": "DRONE_CAMERA_RERUN_REPORT.md",
+    "sha256": "ba1bbcf6ee150ed31762fdbe37de876452a18c9c4bdb05e36072b2f7615c9b3a",
+    "headings": [
+      "# Gordon, Goldhill and Ruby camera rerun \u2014 5 November 2026",
+      "## Products and evidence",
+      "## Source and geometry decisions",
+      "## Scientific results and limits",
+      "## Verification and reproduction"
+    ],
+    "review_excerpt": "# Gordon, Goldhill and Ruby camera rerun \u2014 5 November 2026\n\nThe three sites were rerun using the newly supplied camera locations. Seven experimental corrected GeoTIFFs and matching ENVI products were produced. Gordon and Goldhill completed all correction branches; Ruby completed topographic correction, while its BRDF branches failed the unchanged prediction-uncertainty checks. This completes the requested conditional rerun, not scientifically approved production processing.\n\n| Site | Topographic only | BRDF only | Combined |\n| --- | --- | --- | --- |\n| Gordon | Experimental output | Experimental output | Experimental output |\n| Goldhill | Experimental output | Experimental output | Experimental output |\n| Ruby | Experimental output | Unsupported | Unsupported |\n\n## Products and evidence\n\nFinal large products are under `archive/local/drone-camera-rerun/2026-11-05/photo_clock_v1/<site>/<branch>/`. Branch names are `topographic_only`, `brdf_only`, and `combined`. The [product catalog](provenance/drone-camera-rerun/2026-11-05/product_catalog.json) lists the seven accepted experimental GeoTIFFs, exact paths and SHA256 hashes. Ruby diagnostic directories can contain invalid or partial ENVI files; these are inspection artifacts, not accepted corrected products. The preliminary geometry run outside `photo_clock_v1` is not the final result.\n\nThe [illustrated PDF](output/pdf/drone-camera-rerun-2026-11-05.pdf) contains stage comparisons, camera coverage, support maps and quantitative results. [Compact evidence and executable scripts](provenance/drone-camera-rerun/2026-11-05/) preserve inputs, geometry, models, metrics and verification. Original rasters, camera CSVs, previous products and the shared field manifest were not overwritten. No production upload, approved library or translation was performed.\n\n## Source and geometry decisions\n\n- Camera tables came from `/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/`, within the Gordon, Goldhill and Ruby ExportPackage folders. Remote checksums and local hashes are recorded in `current_remote_inputs.json`.\n- All 16,440 camera PhotoIDs uniquely matched original photo metadata: Gordon 572 positions/5,720 band records; Goldhill 565/5,650; Ruby 507/5,070. Photos support 15 August 2023 for all three, including Ruby despite the field manifest's 16 August date. Solar geometry used matched-photo midpoint times: Gordon 20:58:39.5, Goldhill 19:53:12.5, Ruby 18:53:05.5. UTC is an explicitly unverified clock scenario, not a newly certified timestamp convention.\n- Goldhill's CSV declares EPSG:5070. Original processing-report and footprint evidence independently support direct EPSG:26913 interpretation. The override and evidence are explicit; the CSV was not modified. Gordon and Ruby declare EPSG:26913.\n- The newly supplied parent folder has 25 cm terrain derivatives. These were rejected for the 10 cm imagery. Six slope/aspect sidecars retrieved from `output/summer-2023-10cm-10k` exactly match earlier verified terrain hashes; aligned DEM identities and all grids were checked."
+  },
+  {
+    "topic": "Stability",
+    "path": "DRONE_CORRECTION_STABILITY_REPORT.md",
+    "sha256": "25d572b433c2f5d0b4acfb63ca451eae7c8313944a8d05408f92756152e313df",
+    "headings": [
+      "# SpectralBridge: Resolving Three-Site BRDF and Topographic Correction Instability",
+      "## Executive summary",
+      "## 1. Exact baseline and preservation",
+      "## 2. Ruby: a supported observed domain and an unsupported reference",
+      "### Model-support controls",
+      "## 3. Coordinate, viewing and solar checks",
+      "## 4. Where the extreme gains originate",
+      "### Why no new C constraint or cap was imposed",
+      "## 5. Combined correction and radiometry",
+      "## 6. Implemented improvements",
+      "## 7. Before-and-after evidence",
+      "## 8. Verification and release implications",
+      "## 9. Reproducibility",
+      "## 10. Scientific context"
+    ],
+    "review_excerpt": "# SpectralBridge: Resolving Three-Site BRDF and Topographic Correction Instability\n\n5 November 2026 \u00b7 Gordon, Goldhill and Ruby \u00b7 RC2 scientific debugging\n\n## Executive summary\n\n**The remaining problems are traced, but all three sites cannot yet be declared reliably corrected.** Ruby fails when the model predicts brightness at the standard normalization geometry, not at the geometries represented by the mosaic. Gordon and Goldhill's largest gains originate mainly in topographic correction near a fitted ratio pole, with additional BRDF amplification near the image edge. These are unresolved scientific risks, not validated surface-reflectance changes.\n\nTwo targeted software improvements were implemented: a numerically stable QR formulation of spatial-cluster covariance and separate diagnostics for reference versus observed-geometry prediction failures. No acceptance criterion, correction equation, reference angle, calibration gate or default fitting method was weakened. No values were clipped and no identity correction replaced a failed model.\n\nThe preserved November 5 baseline was reproduced by fresh execution of its frozen source. All three sites were then rerun using the updated code and the same original imagery, 10 cm fixed-range preparation, camera tables, terrain, geometry and training masks. **All 395,908,190 finite values in the seven accepted experimental GeoTIFFs are exactly unchanged**, with unchanged support and grid metadata. Ruby still rejects BRDF-only and combined processing. The QR change improves numerical formulation; it does not create directional information or remove the tails.\n\n**225 targeted regression tests pass.** Actual NEON BRDF-only and combined corrections remain exactly equal before and after across **7.2 million stored values**, with unchanged masks and accepted ENVI library metadata. The full release suite was not rerun and RC2 release readiness is not established. No release was published or tagged.\n\n| Site | Topographic only | BRDF only | Combined | Largest 650 nm gain in available intended branch |\n| --- | --- | --- | --- | --- |\n| Gordon | Experimental | Experimental | Experimental | 17.17\u00d7 combined |\n| Goldhill | Experimental | Experimental | Experimental | 21.55\u00d7 combined |\n| Ruby | Experimental | Rejected | Rejected | 6.88\u00d7 topographic only |\n\nAll numbers described as conditional fractions use the **unverified DN/32768 hypothesis**. They are not independently calibrated reflectance.\n"
+  },
+  {
+    "topic": "Metashape",
+    "path": "METASHAPE_RECOVERY_REPORT.md",
+    "sha256": "834f0083bca9a3405b356a6f376672c8ec8a03ddb6ad1f564b242ee791280e8e",
+    "headings": [
+      "# Metashape recovery and drone correction investigation",
+      "## Findings and decision",
+      "## Recovery inventory and completeness",
+      "## Geometry and validation",
+      "## Bind imagery to its reconstruction",
+      "## Actual contributions and the historical red boundary",
+      "## Original-image overlap experiment",
+      "## Why Ruby still does not pass",
+      "## Radiometric provenance and storage",
+      "## Extreme gains and correction stability",
+      "## Recommended architecture and roadmap",
+      "## Answers to the ten scientific questions",
+      "## Reproduction, evidence and limitations",
+      "## Figures",
+      "## Official technical references"
+    ],
+    "review_excerpt": "# Metashape recovery and drone correction investigation\n\n6 November 2026 | P183 | Experimental evidence, not production approval\n\n## Findings and decision\n\nEstimated camera orientations, band-specific calibrations, original photo responses and retained primary-source assignments were recovered for Ruby and Goldhill. These are materially better inputs than assumed nadir geometry. They do not yet establish a defensible replacement correction. Both topographic and BRDF corrections remain required, with unsupported results rejected.\n\nThe strongest newly demonstrated defect is Goldhill source identity: its old camera table belongs to NOGCPS-WORKING, whereas its original mosaic belongs to WORKING. The median camera difference is +1.574 m east, -1.750 m north and -19.228 m vertically. The cause of the alignment/datum difference is not independently established. Production correction defaults, previous products and NEON behavior were preserved.\n\n## Recovery inventory and completeness\n\nThe remote inventory contains 11,665 unique objects totalling 96,106,111,162 bytes across 121 collections under /iplant/home/shared/earthlab/Drone_Calibrations. Ruby and Goldhill are present. Gordon was not found in this collection or the established alternate locations searched; its project recovery remains pending a location/upload.\n\nRetrieval was staged: project descriptors, selected reconstruction assets, full-resolution mosaic tiles, absolute DEM assets and selected original photos. The complete 96.1 GB archive was not downloaded. Large cached per-photo orthophotos remain remote. remote_inventory.json records remote availability; retrieval_manifest.json records exact local paths, sizes, remote MD5 verification and SHA256. A referenced camera filename is not evidence that the photo was downloaded.\n\nRuby WORKING has chunks 0 and 3, 5,210 camera-plane records, 5,070 aligned planes and 507 aligned exposures in the primary chunk. Goldhill WORKING has 6,090 records, 5,650 aligned planes and 565 aligned exposures. Goldhill NOGCPS-WORKING contains three chunk variants of the same flight, not three independent flights. All have ten sensors. Reports, tie points, panel metadata and surface/mosaic descriptors are available. Raw photo subsets are physically recovered and checksum verified; the remainder are remotely accessible references.\n\nThe reliable analysis cache is /private/tmp/spectralbridge-metashape-recovery-20261105/sources. Initial OneDrive photo reads timed out; analysis was rerun from the verified cache. Temporary cache persistence is not archival storage: preserve or rehydrate it using the manifest before another run.\n\n## Geometry and validation\n"
+  },
+  {
+    "topic": "Original-photo Ruby",
+    "path": "provenance/ruby-correction-recovery-2026-11-06/REPORT.md",
+    "sha256": "9d44b56f2b1c4c415b08c27530a41d468ee1b7e91a5d8a697821aa8987aeb7e1",
+    "headings": [
+      "# Ruby original-photo correction recovery",
+      "## Outcome",
+      "## Frozen baseline and radiometry",
+      "## Sampling and registration",
+      "## Viewing geometry repair",
+      "## Correction to the prior temporal diagnostic",
+      "## Target-aware BRDF models and normalization",
+      "## Topographic correction and matched processing",
+      "## Source-image export and licensed mosaicking",
+      "## Acceptance and remaining work",
+      "## Reproduction and tests",
+      "## Acceptance checklist",
+      "## Figures",
+      "## Technical references",
+      "## Final answers"
+    ],
+    "review_excerpt": "# Ruby original-photo correction recovery\n\n6 November 2026 | P184 | Experimental pipeline, not production approval\n\n## Outcome\n\nA working, restart-safe experimental pipeline now performs explicit radiometric preparation, adjusted-camera ray checks, spatial-grid repeated-observation extraction, target-aware RossThick/LiDenseR estimation, SCS+C surface comparisons, training-only matched topographic/BRDF fitting and held-out diagnostics. Reusable functions and regression tests were added in `src/spectralbridge/drone_original.py`; no production correction defaults or NEON mathematics were changed.\n\nOriginal photos substantially improve BRDF identifiability. They do **not yet establish an acceptable combined Ruby product**. The ground-DTM red fit still has negative C and unsupported denominator locations; matched original-photo topographic fits retain uncertainty/application failures. No corrected original flight photos or regenerated corrected orthomosaic are claimed. Synthetic export and in-memory replacement controls test the interface separately.\n\n## Frozen baseline and radiometry\n\n`baseline.json` records the complete P183 composite project fingerprint, source identity, original grid, previous model, scale, bands and production source hashes. Ruby WORKING chunk 0 is the export-matching reconstruction. Its absolute DEM is the viewing surface; chunk 3 is a distinct saved DTM candidate with the same chunk transform. Relative canopy-height surfaces are excluded from ray intersections. Independent ground/DTM accuracy remains unverified.\n\nThe new immutable input is `archive/local/ruby-correction-recovery-2026-11-06/ruby_vendor_fraction_x10000_10cm_v1.tif`. It preserves the established 1035 by 1960 processing grid and CRS, contains ten float32 bands, scale 0.0001, zero offset, explicit NaN NoData, mask, units, source checksum and calibration provenance. It uses source wavelengths 444, 475, 531, 560, 650, 668, 705, 717, 740 and **842 nm**. Values above 10000 are preserved. This is calibrated input, not a corrected mosaic.\n\nThe source conversion is vendor-calibrated original DN / 32768. Raw photo sensor values are distinct: Camera.image() applies retained project calibration; Photo.image()/PIL retain raw DN. Black level, exposure and vignetting must not be reapplied to the calibrated export. The old preparation was original DN * 10000/65535, so its physical multiplier is 0.0001999969482421875 rather than 0.0001. Old files remain unchanged. Project settings, panel resubstitution, controlled calibration application and original-mosaic binding support encoding; independent physical reflectance accuracy remains unverified.\n\nPer-band new-input distributions (above-one values are retained, not automatically invalid):\n\n| wavelength_nm | minimum | median | maximum | above_one | nodata |\n| --- | --- | --- | --- | --- | --- |"
+  },
+  {
+    "topic": "Ruby topography",
+    "path": "provenance/ruby-topographic-recovery-2026-11-06/REPORT.md",
+    "sha256": "3812d2fa8ebab0016e7c821a02b5ec8cab546f5a90b60f55eced8a2f211b0d81",
+    "headings": [
+      "# Ruby topographic correction recovery",
+      "## Decision",
+      "## Reproduced baseline and numerical audit",
+      "## What the surfaces actually contain",
+      "## Shadows, heterogeneity and field context",
+      "## Fitting candidates and uncertainty",
+      "## Identifiability and controlled truth",
+      "## Alternatives and topographic-only validation",
+      "## Matched original-photo topographic plus BRDF evaluation",
+      "## Original-photo class-specific follow-up",
+      "## Full-frame partial-domain diagnostics",
+      "## Recommended approach and production decision",
+      "## Reproduction and implementation",
+      "## Figures",
+      "## Primary technical references",
+      "## Final answers"
+    ],
+    "review_excerpt": "# Ruby topographic correction recovery\n\n6 November 2026 | P185 | Experimental, source-preserving investigation\n\n## Decision\n\nRuby's negative C is reproduced. The shared SCS+C formula and angle conventions pass independent mathematical checks. The strongest explanation supported by the controls is confounded fitting information: surface brightness, canopy/shadow and terrain covary, while the repeated photographs add little independent illumination variation. Terrain representation and derivative scale materially change estimates. The observations do not uniquely identify a physical cause or a universally valid correction.\n\nWe implemented a safer, explicit partial-domain experimental workflow and compared SCS+C, C-correction and Minnaert. Ground-DTM smoothing and sunlit/spectral screening yield a numerically stable red domain covering about 76% of valid Ruby pixels without forcing C positive or capping gains. That is useful progress, not a validated production correction. Independent field-label checks and matched original-photo tests retain degradation and multiband support failures. **No corrected Ruby orthomosaic is approved or generated. Both corrections remain required.**\n\n## Reproduced baseline and numerical audit\n\nP184's dense red C = -0.17350, interval approximately [-0.23059, -0.09842], and 109 unsupported sampled locations are preserved. The new audit reproduces C = -0.1734966213, differing by -3.58e-09. Later candidate refits exclude field polygons plus a 2m buffer; their coefficients are deliberately not asserted to be identical to the old population.\n\nSCS+C uses F = (cos(solar zenith) cos(slope) + C) / (cos(i) + C), with C = regression intercept / slope. Angles, metric north-up gradients, downslope clockwise-from-north aspect, solar azimuth and coefficient ordering are checked. An independent surface-normal/sun-vector dot product matches shared incidence to 1.73e-07, consistent with the shared float32 calculation. No shared unit, radians/degrees, sign or coefficient-order defect was demonstrated. Uniform positive reflectance scaling does not fix C; an unsupported additive offset is not introduced.\n\nThe audit did identify an **experimental P184 domain-check defect**: some absolute-distance checks could accept two negative numerator/denominator branches because their ratio was positive. There are 20 such model/observation combinations in its recorded candidates, not that many unique pixels. P185 requires the entire C interval to leave a positive denominator and numerator, matching the production uncertainty-aware path. Old evidence remains unchanged; the audit is in `numerical_audit.json`. The legacy internal ratio's identity behavior is not used as an experimental fallback, and production NEON code is unchanged.\n\nNegative C is not itself rejected. It is acceptable numerically only where the positive-domain, confidence and training-support checks hold. Near-zero, negative, unknown and extrapolated cases remain NaN with explicit support status. Large supported gains remain uncapped and visible for scientific review.\n\n## What the surfaces actually contain\n"
+  }
+]

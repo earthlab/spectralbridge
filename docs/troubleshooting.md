@@ -19,6 +19,27 @@
 </div>
 </section>
 
+## Installation, configuration and result status
+
+If an installed-version check disagrees with your checkout, compare
+`python -m pip show earthlab-spectralbridge` with
+`python -c "import spectralbridge; print(spectralbridge.__version__); print(spectralbridge.__file__)"`.
+Use the same active environment for installation and execution; reinstall the
+checkout with `python -m pip install -e .`. A fresh virtual environment avoids
+mixing candidate versions. Do not change version strings to hide a mismatch.
+
+The JSON example runners report the configuration filename and invalid key or
+format before processing. Copy the matching file from `examples/config/`, retain
+`schema_version: 1`, and put API options under `pipeline`. `--check` validates
+those options; it does not open imagery, test credentials or certify calibration.
+
+For drone failures, inspect the printed QA-summary path and the separate
+`blocked` and `failed` records. Missing physical calibration or unsupported
+requested BRDF is a scientific block; do not turn off a required correction merely
+to obtain a success label. Keep original inputs and use the documented supported
+configuration. See [correction eligibility](concepts/correction-eligibility.md)
+and [outputs to open first](pipeline/outputs.md).
+
 <section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">General failures</p>
 <h2>When the pipeline stops mid-run</h2>

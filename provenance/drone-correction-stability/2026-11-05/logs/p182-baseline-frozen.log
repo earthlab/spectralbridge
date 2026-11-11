@@ -1,0 +1,27 @@
+Gordon conditioned SCS+C fit; 5733669 training pixels
+Gordon SCS+C model VALID [(0, 'VALID'), (1, 'VALID'), (2, 'VALID'), (3, 'VALID'), (4, 'VALID'), (5, 'VALID'), (6, 'VALID'), (7, 'VALID'), (8, 'VALID'), (9, 'VALID')]
+Gordon actual shared drone correction driver: topographic_only
+Gordon topographic_only EXECUTED_EXPERIMENTAL 
+Gordon actual shared drone correction driver: brdf_only
+Gordon brdf_only EXECUTED_EXPERIMENTAL 
+Gordon actual shared drone correction driver: combined
+Gordon combined EXECUTED_EXPERIMENTAL 
+Gordon correction stage complete
+Goldhill conditioned SCS+C fit; 6145543 training pixels
+Goldhill SCS+C model VALID [(0, 'VALID'), (1, 'VALID'), (2, 'VALID'), (3, 'VALID'), (4, 'VALID'), (5, 'VALID'), (6, 'VALID'), (7, 'VALID'), (8, 'VALID'), (9, 'VALID')]
+Goldhill actual shared drone correction driver: topographic_only
+Goldhill topographic_only EXECUTED_EXPERIMENTAL 
+Goldhill actual shared drone correction driver: brdf_only
+Goldhill brdf_only EXECUTED_EXPERIMENTAL 
+Goldhill actual shared drone correction driver: combined
+Goldhill combined EXECUTED_EXPERIMENTAL 
+Goldhill correction stage complete
+Ruby conditioned SCS+C fit; 1815518 training pixels
+Ruby SCS+C model VALID [(0, 'VALID'), (1, 'VALID'), (2, 'VALID'), (3, 'VALID'), (4, 'VALID'), (5, 'VALID'), (6, 'VALID'), (7, 'VALID'), (8, 'VALID'), (9, 'VALID')]
+Ruby actual shared drone correction driver: topographic_only
+Ruby topographic_only EXECUTED_EXPERIMENTAL 
+Ruby actual shared drone correction driver: brdf_only
+Ruby brdf_only UNSUPPORTED Requested drone correction did not produce a corrected output.
+Ruby actual shared drone correction driver: combined
+Ruby combined UNSUPPORTED BRDF INVALID: retained native/topographic-only products; approved downstream processing is blocked.
+Ruby correction stage complete

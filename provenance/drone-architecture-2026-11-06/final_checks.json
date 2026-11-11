@@ -1,0 +1,84 @@
+{
+  "date": "2026-11-06",
+  "tests": {
+    "tests": 184,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 63.348,
+    "scope": "Targeted modules, not the full test suite; Python 3.12"
+  },
+  "ruff": "PASSED focused changed source/tests",
+  "docs_links": "PASSED",
+  "mkdocs_strict": "PASSED",
+  "api_signatures": {
+    "status": "passed",
+    "checked_count": 394,
+    "errors": []
+  },
+  "transparency": "PASSED freshness check",
+  "result_assertions": "PASSED historical immutability/common support/packet identity",
+  "figure_visual_review": "All twelve contact-sheet reviewed; matrix and directed decision diagram inspected after refinement",
+  "wheel": {
+    "path": "/private/tmp/p186-final-dist/earthlab_spectralbridge-2.3.0rc1-py3-none-any.whl",
+    "sha256": "a1749018dce6b54ff9d254f9da5e66644b12d8e18e391f3c06edf9d8a3a506f5",
+    "scope": "Final resolver bytes and five registry entries verified packaged; not release qualification"
+  },
+  "source_recognition": [
+    {
+      "site": "ruby",
+      "bytes": 94638732,
+      "recognition": "VERIFIED_SOURCE_FINGERPRINT",
+      "scale": 3.0517578125e-05,
+      "nir_nm": 842
+    },
+    {
+      "site": "goldhill",
+      "bytes": 307376470,
+      "recognition": "VERIFIED_SOURCE_FINGERPRINT",
+      "scale": 3.0517578125e-05,
+      "nir_nm": 842
+    }
+  ],
+  "hashes": {
+    "provenance/drone-architecture-2026-11-06/verify_results.py": "02c1f1ca3d259add1829c4c56c1408641b4f88ebbaa8997f59d8f2a12808cbd8",
+    "provenance/drone-architecture-2026-11-06/compact_helpers.py": "185e2c4b25c8ca82518385fab690450eabe108e6bc905889ba83917d313b8c70",
+    "provenance/drone-architecture-2026-11-06/compact_study.py": "af576ea8be0718a08d35084966c72da3bc7fdf4dc60fcc1ff865d5aa3fe9669e",
+    "provenance/drone-architecture-2026-11-06/geometry_study.py": "85c6ad470f053fa5bdb589a9b2fed247ea516f4f9da697323d967a9da0ea6e12",
+    "provenance/drone-architecture-2026-11-06/compact_sensitivity.py": "ef061da8ca1180ab32698af51352de7d0d19742f098520dba8f7f558d51b0dd4",
+    "provenance/drone-architecture-2026-11-06/history_inventory.py": "c28fbe535555781a621be79d4935679c97ec374b0976c819a1dd3792dc6e6e04",
+    "provenance/drone-architecture-2026-11-06/external_holdouts.py": "793b08688d9d40dda2db2e8a04f1993aa4c80885c26fa89eab0096ef8815601a",
+    "provenance/drone-architecture-2026-11-06/compact_validation.py": "219138c0471c3f15099d0ed5344d6f013171b4b156ca2b236e413ffc6c340096",
+    "provenance/drone-architecture-2026-11-06/external_dem.py": "30717b507cbb53d3387cf593923030ec908240402a111caff34b05aa1d2ecabc",
+    "provenance/drone-architecture-2026-11-06/compact_lossless.py": "219462a1f7a3902ce584f8ab9207c5fb47c5df2c5e645034e472e2f9790426bd",
+    "provenance/drone-architecture-2026-11-06/polygon_comparison.py": "899a73382fbf6f2d9a53bddcd51f9d0cba1a3d6cfc4c44214f5e96eb3740294e",
+    "provenance/drone-architecture-2026-11-06/build_figures.py": "a263b4761b09c1d5b2649fecdcc6d233e66f27f319615871138f4b10bf88a0d0",
+    "provenance/drone-architecture-2026-11-06/figures/01.png": "2570ad0ed82721f0de7bd6039cb6436841f028cc7d6b67cdcbe7a46b35efad80",
+    "provenance/drone-architecture-2026-11-06/figures/03.png": "95e4d8ac475a8328dac8cea9876a14d6ceca15a18e8b087a19ff58131efaf12f",
+    "provenance/drone-architecture-2026-11-06/figures/02.png": "a2a93eb3560eb9b312dc88e7d03db6a97fda455bcc891a26dd50d243230bc4d1",
+    "provenance/drone-architecture-2026-11-06/figures/06.png": "d7ea2aa8f726334ce5e574073dfd7b9a97f0e80437c6fe0128ef744e5bc66d41",
+    "provenance/drone-architecture-2026-11-06/figures/12.png": "21e8fd320b27a808470e764c622759708688d08185a2ac5345e183349072412e",
+    "provenance/drone-architecture-2026-11-06/figures/07.png": "55afd506821c51c35032dc0a3f5c9e143f079a3d84e35d268b98bfc724f3e4f3",
+    "provenance/drone-architecture-2026-11-06/figures/11.png": "29ad00efd6a0bd88015ba935c3326219e6cb32e611d3d642fecd6a35011f63ef",
+    "provenance/drone-architecture-2026-11-06/figures/05.png": "b1b3ad7a762823dc2dcb091dda70095eb97bce22e4361eb0bc942764f3c1d8cd",
+    "provenance/drone-architecture-2026-11-06/figures/04.png": "98d5d47b1171dced04b6d48169989a2d8593a5f3bad2b33e77d68060f3a37d60",
+    "provenance/drone-architecture-2026-11-06/figures/10.png": "d0809fbfc21fd65639a66f90377af4aeee44ad703a0689136330002019c8ce53",
+    "provenance/drone-architecture-2026-11-06/figures/09.png": "d8a536fa1f0ac407595a6939776dad74c225a4d27ced51b1efb31fa98240056b",
+    "provenance/drone-architecture-2026-11-06/figures/08.png": "d3152fbfe1677c02dba881bb6445bc58f9e6dd7166d95d86d1289ee754ac8715",
+    "src/spectralbridge/drone_radiometry.py": "e78287e29cb8d30243c608f590bc7486bc75ebca0021787266ba23b6f8f30973",
+    "src/spectralbridge/radiometry.py": "eeb72705241f9f0756fe5378a73cdedc951ad60b1141b33c15627768e9212c5c",
+    "src/spectralbridge/pipelines/drone.py": "f6e3e50fc93e1ca6accc0351e82619ba0057d2277f8a79c085f388f8b8ca6ee8",
+    "src/spectralbridge/data/drone_radiometric_sources.json": "547e914323bfbba75f127edf201e8f3cccc71e62c3791576e4953d8c7e6870fa",
+    "tests/test_drone_source_encoding.py": "e0edaf84fb6d337d3761bad36581e47fde57369664ad7b5ca3c4aa736f9b230d",
+    "tests/data/drone_radiometry/ruby_verified.tif": "18ab0f1443fda51ad92e4ee5e54dbc26dd1c96c39427bd505f1d5fe588c4bd86",
+    "tests/data/drone_radiometry/ruby_verified.json": "e6d9f1b4acb2dde32c26267f853e3a375d440e5709d5e26b6ee9ac4d09f887e1",
+    "docs/vignettes/drone-processing.md": "7838c8328dad962242499931f1bac7ee2e49e109f4d4f0eadba562c2c6e580fc"
+  },
+  "limitations": [
+    "No full corrected original-photo mosaic generated",
+    "No independent physical reflectance accuracy established",
+    "One calibration context and one Ruby public DEM crop",
+    "Original temporary legacy H5 files absent; preserved actual audits reused",
+    "Capability dispatcher is a documented roadmap, not implemented API"
+  ]
+}

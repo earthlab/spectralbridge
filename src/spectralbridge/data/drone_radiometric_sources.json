@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 94638732,
+      "sha256": "308031cabe41ce25185d70057bfc328796727c45e00d53eb04dac7c2ba0a401c",
+      "declaration": {
+        "schema_version": 1,
+        "input_encoding": "metashape_micasense_reflectance_uint16_v1",
+        "verification_status": "VERIFIED_ENCODING",
+        "processing_state": "calibrated_reflectance",
+        "provenance": "P183 ruby WORKING project calibration controls and original-mosaic pixel binding; provenance/metashape-recovery/2026-11-05/",
+        "independent_physical_accuracy": "UNVERIFIED",
+        "wavelengths_nm": [
+          444,
+          475,
+          531,
+          560,
+          650,
+          668,
+          705,
+          717,
+          740,
+          842
+        ],
+        "spectral_band_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "alpha_band_indices": [
+          11
+        ]
+      }
+    },
+    {
+      "bytes": 307376470,
+      "sha256": "00df553e63285dde6dad4b02f2ad399bf813b8591dc93e912a007c3cddf9e954",
+      "declaration": {
+        "schema_version": 1,
+        "input_encoding": "metashape_micasense_reflectance_uint16_v1",
+        "verification_status": "VERIFIED_ENCODING",
+        "processing_state": "calibrated_reflectance",
+        "provenance": "P183 goldhill WORKING project calibration controls and original-mosaic pixel binding; provenance/metashape-recovery/2026-11-05/",
+        "independent_physical_accuracy": "UNVERIFIED",
+        "wavelengths_nm": [
+          444,
+          475,
+          531,
+          560,
+          650,
+          668,
+          705,
+          717,
+          740,
+          842
+        ],
+        "spectral_band_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "alpha_band_indices": [
+          11
+        ]
+      }
+    },
+    {
+      "bytes": 203817295,
+      "sha256": "ba951e7cd5ae700bfc2882082af770f88eb24497cc82e38b791adbdb8e4e5538",
+      "declaration": {
+        "schema_version": 1,
+        "input_encoding": "metashape_micasense_65535_to_10000_v1",
+        "verification_status": "VERIFIED_ENCODING",
+        "processing_state": "calibrated_reflectance",
+        "provenance": "P181 fixed full-range preparation of the P183 verified Goldhill original; originalDN*10000/65535, no min/max stretch",
+        "independent_physical_accuracy": "UNVERIFIED",
+        "wavelengths_nm": [
+          444,
+          475,
+          531,
+          560,
+          650,
+          668,
+          705,
+          717,
+          740,
+          842
+        ]
+      }
+    },
+    {
+      "bytes": 62176916,
+      "sha256": "9b677b34e28294eef824487c7e01eb0d91adce5c3cdf59a487a51d6c7d64ed73",
+      "declaration": {
+        "schema_version": 1,
+        "input_encoding": "metashape_micasense_65535_to_10000_v1",
+        "verification_status": "VERIFIED_ENCODING",
+        "processing_state": "calibrated_reflectance",
+        "provenance": "P181 fixed full-range preparation of the P183 verified Ruby original; originalDN*10000/65535, no min/max stretch",
+        "independent_physical_accuracy": "UNVERIFIED",
+        "wavelengths_nm": [
+          444,
+          475,
+          531,
+          560,
+          650,
+          668,
+          705,
+          717,
+          740,
+          842
+        ]
+      }
+    },
+    {
+      "bytes": 62274719,
+      "sha256": "f8d1edcab4d1abdfb41a38a27fe08846e15460b238c30525140ae63391546625",
+      "declaration": {
+        "schema_version": 1,
+        "input_encoding": "reflectance_times_10000",
+        "verification_status": "VERIFIED_ENCODING",
+        "processing_state": "calibrated_reflectance",
+        "provenance": "P184 immutable explicit-scale Ruby product derived from P183 bound vendor-calibrated mosaic; independent accuracy unverified",
+        "independent_physical_accuracy": "UNVERIFIED",
+        "wavelengths_nm": [
+          444,
+          475,
+          531,
+          560,
+          650,
+          668,
+          705,
+          717,
+          740,
+          842
+        ]
+      }
+    }
+  ],
+  "notes": "Exact verified product identities, not general sensor defaults. No Gordon physical encoding promotion."
+}

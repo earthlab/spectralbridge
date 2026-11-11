@@ -1,0 +1,478 @@
+[
+  {
+    "site": "Ruby",
+    "project_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/metashape-recovery/2026-11-05/sources/AOP-RUBY-08-14-23/ImageryProcessing/M300/AOP-RUBY-08-14-23-WORKING.psx",
+    "project_fingerprint": "57dc9e2b8bcbf2318825c614891d236a50500c3b37e1d68df9afddf3c3ea7638",
+    "descriptor_count": 6,
+    "camera_delta_xyz_median": [
+      -2.1609594114124775e-06,
+      1.5681609511375427e-05,
+      4.676394382840954e-08
+    ],
+    "camera_delta_distance_quantiles": [
+      4.8160618753444496e-06,
+      0.00023053568529791791,
+      0.0005012689279681812
+    ],
+    "project_DEM_minus_previous_terrain_quantiles": [
+      -0.136962890625,
+      -0.000537109374999999,
+      3.2774658203125,
+      9.651025390625,
+      15.833740234375
+    ],
+    "surfaces": [
+      {
+        "key": 0,
+        "label": "DEM",
+        "minimum": 2709.330078125,
+        "maximum": 2813.9296875,
+        "meta": {
+          "BuildDem/duration": "60.402479",
+          "BuildDem/flip_x": "false",
+          "BuildDem/flip_y": "false",
+          "BuildDem/flip_z": "false",
+          "BuildDem/interpolation": "1",
+          "BuildDem/max_workgroup_size": "100",
+          "BuildDem/ram_used": "0",
+          "BuildDem/resolution": "0.332737285269211",
+          "BuildDem/source_data": "1",
+          "BuildDem/subdivide_task": "true",
+          "BuildDem/workitem_size_tiles": "10",
+          "BuildDepthMaps/downscale": "4",
+          "BuildDepthMaps/duration": "96.245332",
+          "BuildDepthMaps/filter_mode": "2",
+          "BuildDepthMaps/max_neighbors": "16",
+          "BuildDepthMaps/max_workgroup_size": "100",
+          "BuildDepthMaps/ram_used": "1546637312",
+          "BuildDepthMaps/reuse_depth": "false",
+          "BuildDepthMaps/subdivide_task": "true",
+          "BuildDepthMaps/workitem_size_cameras": "20",
+          "Info/LastSavedDateTime": "2023:10:19 17:18:46",
+          "Info/LastSavedSoftwareVersion": "1.8.3.14331",
+          "Info/OriginalDateTime": "2023:10:19 17:18:46",
+          "Info/OriginalSoftwareVersion": "1.8.3.14331"
+        },
+        "active": false
+      },
+      {
+        "key": 1,
+        "label": "Canopy Height",
+        "minimum": -12.582275390625,
+        "maximum": 37.37939453125,
+        "meta": {
+          "Info/LastSavedDateTime": "2023:10:19 17:40:07",
+          "Info/LastSavedSoftwareVersion": "1.8.3.14331"
+        },
+        "active": true
+      }
+    ],
+    "previous_original_grid": {
+      "transform": [
+        0.1,
+        0.0,
+        455725.0,
+        0.0,
+        -0.1,
+        4432104.75,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds": [
+        455725.0,
+        4432001.25,
+        455921.0,
+        4432104.75
+      ],
+      "resolution": [
+        0.1,
+        0.1
+      ]
+    },
+    "orthomosaic": {
+      "BuildOrthomosaic/blending_mode": "3",
+      "BuildOrthomosaic/cull_faces": "false",
+      "BuildOrthomosaic/duration": "606.276846",
+      "BuildOrthomosaic/fill_holes": "true",
+      "BuildOrthomosaic/flip_x": "false",
+      "BuildOrthomosaic/flip_y": "false",
+      "BuildOrthomosaic/flip_z": "false",
+      "BuildOrthomosaic/ghosting_filter": "false",
+      "BuildOrthomosaic/max_workgroup_size": "100",
+      "BuildOrthomosaic/ram_used": "4200042496",
+      "BuildOrthomosaic/refine_seamlines": "false",
+      "BuildOrthomosaic/resolution": "0",
+      "BuildOrthomosaic/resolution_x": "0.083153000000000005",
+      "BuildOrthomosaic/resolution_y": "0.083153000000000005",
+      "BuildOrthomosaic/subdivide_task": "true",
+      "BuildOrthomosaic/surface_data": "4",
+      "BuildOrthomosaic/workitem_size_cameras": "20",
+      "BuildOrthomosaic/workitem_size_tiles": "10",
+      "Info/LastSavedDateTime": "2023:09:02 22:31:38",
+      "Info/LastSavedSoftwareVersion": "1.8.3.14331",
+      "Info/OriginalDateTime": "2023:09:02 22:30:54",
+      "Info/OriginalSoftwareVersion": "1.8.3.14331"
+    },
+    "markers": [
+      {
+        "label": "46",
+        "reference_enabled": true,
+        "reference_location": [
+          455752.324,
+          4432011.908,
+          2753.63
+        ],
+        "estimated_chunk": [
+          -15.083031955256716,
+          -11.427778323646752,
+          -14.645131223846544
+        ]
+      },
+      {
+        "label": "47",
+        "reference_enabled": true,
+        "reference_location": [
+          455725.209,
+          4432086.903,
+          2741.64
+        ],
+        "estimated_chunk": [
+          -19.010855953445443,
+          -1.1164134243844603,
+          -16.611803526870162
+        ]
+      },
+      {
+        "label": "48",
+        "reference_enabled": true,
+        "reference_location": [
+          455829.957,
+          4432069.572,
+          2741.707
+        ],
+        "estimated_chunk": [
+          -4.4831452458298715,
+          -3.5413156489659245,
+          -17.65534303487481
+        ]
+      },
+      {
+        "label": "49",
+        "reference_enabled": true,
+        "reference_location": [
+          455902.411,
+          4432100.676,
+          2779.249
+        ],
+        "estimated_chunk": [
+          5.956080344745608,
+          1.0717027880605507,
+          -13.559303694491968
+        ]
+      },
+      {
+        "label": "50",
+        "reference_enabled": true,
+        "reference_location": [
+          455909.276,
+          4432007.138,
+          2741.916
+        ],
+        "estimated_chunk": [
+          6.528142919491166,
+          -12.216403313069435,
+          -18.020808332120744
+        ]
+      }
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "project_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/metashape-recovery/2026-11-05/sources/AOP-GOLDHILL-08-14-23/ImageryProcessing/M300/AOP-GOLDHILL-08-14-23-NOGCPS-WORKING.psx",
+    "project_fingerprint": "645f14a31b202bed23e601a86aadcd559ed79c09ff3655ea0982b411cbd2a28c",
+    "descriptor_count": 8,
+    "camera_delta_xyz_median": [
+      8.565257303416729e-07,
+      1.8907710909843445e-05,
+      -1.7530965124024078e-08
+    ],
+    "camera_delta_distance_quantiles": [
+      5.608914126292542e-06,
+      0.00024159612699891825,
+      0.000501731258719579
+    ],
+    "project_DEM_minus_previous_terrain_quantiles": [
+      16.465087890625,
+      18.6860595703125,
+      19.813232421875,
+      26.5782958984375,
+      33.84130859375
+    ],
+    "surfaces": [
+      {
+        "key": 0,
+        "label": "",
+        "minimum": 2699.42919921875,
+        "maximum": 2752.97607421875,
+        "meta": {
+          "BuildDem/duration": "47.488718",
+          "BuildDem/flip_x": "false",
+          "BuildDem/flip_y": "false",
+          "BuildDem/flip_z": "false",
+          "BuildDem/interpolation": "1",
+          "BuildDem/max_workgroup_size": "100",
+          "BuildDem/ram_used": "0",
+          "BuildDem/resolution": "0.337363759921552",
+          "BuildDem/source_data": "1",
+          "BuildDem/subdivide_task": "true",
+          "BuildDem/workitem_size_tiles": "10",
+          "BuildDepthMaps/downscale": "4",
+          "BuildDepthMaps/duration": "78.71643",
+          "BuildDepthMaps/filter_mode": "2",
+          "BuildDepthMaps/max_neighbors": "16",
+          "BuildDepthMaps/max_workgroup_size": "100",
+          "BuildDepthMaps/reuse_depth": "false",
+          "BuildDepthMaps/subdivide_task": "true",
+          "BuildDepthMaps/workitem_size_cameras": "20",
+          "Info/LastSavedDateTime": "2023:09:03 20:37:14",
+          "Info/LastSavedSoftwareVersion": "1.8.3.14331",
+          "Info/OriginalDateTime": "2023:09:03 20:37:14",
+          "Info/OriginalSoftwareVersion": "1.8.3.14331"
+        },
+        "active": true
+      }
+    ],
+    "previous_original_grid": {
+      "transform": [
+        0.09999999999996322,
+        0.0,
+        457624.5,
+        0.0,
+        -0.09999999999991677,
+        4432830.55,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds": [
+        457624.5,
+        4432606.75,
+        457940.9999999999,
+        4432830.55
+      ],
+      "resolution": [
+        0.09999999999996322,
+        0.09999999999991677
+      ]
+    },
+    "orthomosaic": {
+      "BuildOrthomosaic/blending_mode": "3",
+      "BuildOrthomosaic/cull_faces": "false",
+      "BuildOrthomosaic/duration": "578.919464",
+      "BuildOrthomosaic/fill_holes": "true",
+      "BuildOrthomosaic/flip_x": "false",
+      "BuildOrthomosaic/flip_y": "false",
+      "BuildOrthomosaic/flip_z": "false",
+      "BuildOrthomosaic/ghosting_filter": "false",
+      "BuildOrthomosaic/max_workgroup_size": "100",
+      "BuildOrthomosaic/ram_used": "3833618432",
+      "BuildOrthomosaic/refine_seamlines": "false",
+      "BuildOrthomosaic/resolution": "0",
+      "BuildOrthomosaic/resolution_x": "0.084309099999999998",
+      "BuildOrthomosaic/resolution_y": "0.084309099999999998",
+      "BuildOrthomosaic/subdivide_task": "true",
+      "BuildOrthomosaic/surface_data": "4",
+      "BuildOrthomosaic/workitem_size_cameras": "20",
+      "BuildOrthomosaic/workitem_size_tiles": "10",
+      "Info/LastSavedDateTime": "2023:09:03 20:47:27",
+      "Info/LastSavedSoftwareVersion": "1.8.3.14331",
+      "Info/OriginalDateTime": "2023:09:03 20:46:43",
+      "Info/OriginalSoftwareVersion": "1.8.3.14331"
+    },
+    "markers": []
+  },
+  {
+    "site": "Goldhill",
+    "project_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/metashape-recovery/2026-11-05/sources/AOP-GOLDHILL-08-14-23/ImageryProcessing/M300/AOP-GOLDHILL-08-14-23-WORKING.psx",
+    "project_fingerprint": "8fb56e408b88704f55012f1cf7f701f928fbb4589c24e677f7afa17d0f10b683",
+    "descriptor_count": 4,
+    "camera_delta_xyz_median": [
+      1.5738526306231506,
+      -1.7504497896879911,
+      -19.22781196393089
+    ],
+    "camera_delta_distance_quantiles": [
+      18.277625104545812,
+      19.371484083571847,
+      20.597454186589307
+    ],
+    "project_DEM_minus_previous_terrain_quantiles": [
+      -0.2490234375,
+      -0.0300537109375,
+      0.0220947265625,
+      6.201611328125001,
+      13.994873046875
+    ],
+    "surfaces": [
+      {
+        "key": 0,
+        "label": "",
+        "minimum": 2678.527099609375,
+        "maximum": 2734.01123046875,
+        "meta": {
+          "BuildDem/duration": "50.536801",
+          "BuildDem/flip_x": "false",
+          "BuildDem/flip_y": "false",
+          "BuildDem/flip_z": "false",
+          "BuildDem/interpolation": "1",
+          "BuildDem/max_workgroup_size": "100",
+          "BuildDem/ram_used": "0",
+          "BuildDem/resolution": "0.337837733738537",
+          "BuildDem/source_data": "1",
+          "BuildDem/subdivide_task": "true",
+          "BuildDem/workitem_size_tiles": "10",
+          "BuildDepthMaps/downscale": "4",
+          "BuildDepthMaps/duration": "118.911897",
+          "BuildDepthMaps/filter_mode": "2",
+          "BuildDepthMaps/max_neighbors": "16",
+          "BuildDepthMaps/max_workgroup_size": "100",
+          "BuildDepthMaps/ram_used": "1611251712",
+          "BuildDepthMaps/reuse_depth": "false",
+          "BuildDepthMaps/subdivide_task": "true",
+          "BuildDepthMaps/workitem_size_cameras": "20",
+          "Info/LastSavedDateTime": "2023:09:03 00:58:34",
+          "Info/LastSavedSoftwareVersion": "1.8.3.14331",
+          "Info/OriginalDateTime": "2023:09:03 00:58:34",
+          "Info/OriginalSoftwareVersion": "1.8.3.14331"
+        },
+        "active": true
+      }
+    ],
+    "previous_original_grid": {
+      "transform": [
+        0.09999999999996322,
+        0.0,
+        457624.5,
+        0.0,
+        -0.09999999999991677,
+        4432830.55,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds": [
+        457624.5,
+        4432606.75,
+        457940.9999999999,
+        4432830.55
+      ],
+      "resolution": [
+        0.09999999999996322,
+        0.09999999999991677
+      ]
+    },
+    "orthomosaic": {
+      "BuildOrthomosaic/blending_mode": "3",
+      "BuildOrthomosaic/cull_faces": "false",
+      "BuildOrthomosaic/duration": "584.28528",
+      "BuildOrthomosaic/fill_holes": "true",
+      "BuildOrthomosaic/flip_x": "false",
+      "BuildOrthomosaic/flip_y": "false",
+      "BuildOrthomosaic/flip_z": "false",
+      "BuildOrthomosaic/ghosting_filter": "false",
+      "BuildOrthomosaic/max_workgroup_size": "100",
+      "BuildOrthomosaic/ram_used": "4020097024",
+      "BuildOrthomosaic/refine_seamlines": "false",
+      "BuildOrthomosaic/resolution": "0",
+      "BuildOrthomosaic/resolution_x": "0.084427500000000003",
+      "BuildOrthomosaic/resolution_y": "0.084427500000000003",
+      "BuildOrthomosaic/subdivide_task": "true",
+      "BuildOrthomosaic/surface_data": "4",
+      "BuildOrthomosaic/workitem_size_cameras": "20",
+      "BuildOrthomosaic/workitem_size_tiles": "10",
+      "Info/LastSavedDateTime": "2023:09:03 01:11:42",
+      "Info/LastSavedSoftwareVersion": "1.8.3.14331",
+      "Info/OriginalDateTime": "2023:09:03 01:10:55",
+      "Info/OriginalSoftwareVersion": "1.8.3.14331"
+    },
+    "markers": [
+      {
+        "label": "point 1",
+        "reference_enabled": false,
+        "reference_location": null,
+        "estimated_chunk": null
+      },
+      {
+        "label": "52",
+        "reference_enabled": true,
+        "reference_location": [
+          457701.86,
+          4432737.733,
+          2701.421
+        ],
+        "estimated_chunk": [
+          -2.9427742809433743,
+          4.897043198505479,
+          -6.9962876429783885
+        ]
+      },
+      {
+        "label": "53",
+        "reference_enabled": true,
+        "reference_location": [
+          457711.073,
+          4432680.671,
+          2694.621
+        ],
+        "estimated_chunk": [
+          -6.175410766300633,
+          4.295635074015673,
+          -7.393594417974693
+        ]
+      },
+      {
+        "label": "54",
+        "reference_enabled": true,
+        "reference_location": [
+          457780.164,
+          4432727.726,
+          2695.35
+        ],
+        "estimated_chunk": [
+          -3.4367809519587134,
+          0.4198733702709137,
+          -7.079142516934118
+        ]
+      },
+      {
+        "label": "55",
+        "reference_enabled": true,
+        "reference_location": [
+          457865.965,
+          4432686.05,
+          2684.088
+        ],
+        "estimated_chunk": [
+          -5.720493018757617,
+          -4.530787682111198,
+          -7.4551517677115875
+        ]
+      },
+      {
+        "label": "56",
+        "reference_enabled": true,
+        "reference_location": [
+          457858.921,
+          4432755.447,
+          2694.95
+        ],
+        "estimated_chunk": [
+          -1.7883835303126618,
+          -4.027801544855049,
+          -6.810147339301598
+        ]
+      }
+    ]
+  }
+]

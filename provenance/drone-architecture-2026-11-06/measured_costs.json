@@ -1,0 +1,42 @@
+[
+  {
+    "investigation": "ruby-correction-recovery-2026-11-06",
+    "measured_stage_seconds": {
+      "verify_sources": 2.649199207953643,
+      "exact_rays": 2.4640849590068683,
+      "calibration_replacement": 1.308851833047811,
+      "sample": 34.1127792079933,
+      "analyze": 5.053710874984972,
+      "matched": 1.84162791603012
+    },
+    "scope": "Measured completed research stages on this Mac, excludes earlier transfers and manual investigation"
+  },
+  {
+    "investigation": "ruby-topographic-recovery-2026-11-06",
+    "measured_stage_seconds": {
+      "characterize": 4.3429395840503275,
+      "evaluate": 8.80231433303561,
+      "synthetic_audit": 2.722160540986806,
+      "matched_originals": 18.39273633400444,
+      "full_frame": 19.514060832967516,
+      "sensitivity": 2.5395396249950863,
+      "spectral_validation": 2.000686457962729,
+      "field_holdouts": 4.80728462501429,
+      "figures": 3.389928749995306,
+      "class_matched": 8.651490333024412,
+      "report": 0.5343653750023805
+    },
+    "scope": "Measured completed research stages on this Mac, excludes earlier transfers and manual investigation"
+  },
+  {
+    "investigation": "Metashape remote inventory",
+    "bytes": 96106111162,
+    "objects": 11665,
+    "scope": "Ruby+Goldhill only; Gordon new project not located"
+  },
+  {
+    "investigation": "Portable Ruby adjusted geometry",
+    "bytes": 2003728,
+    "scope": "Camera table and sensor/chunk metadata; excludes surfaces/primary assignment archive"
+  }
+]

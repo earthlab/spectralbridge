@@ -1,0 +1,38 @@
+0198215 2026-03-21 drone pipeline
+39ae426 2026-03-21 error fix on drone pipeline push
+8e27ee5 2026-03-21 nsf docs added
+575a507 2026-03-22 Add drone-only H5 nodata preparation
+148cf88 2026-03-22 Fix drone pipeline flight staging
+c005407 2026-03-22 Improve drone pipeline runtime reporting
+cfce393 2026-03-22 Add drone polygon overlay diagnostics
+6e44687 2026-03-22 Fix drone per-flight parquet extraction
+14e1aa2 2026-03-24 get rid of chunking during brdf correction for drone
+98153c7 2026-04-10 clean up drone pipeline, topo chunking
+fb2cbad 2026-04-10 qa plot fixes
+5b71a98 2026-04-10 correction plot fix
+eb061c0 2026-04-10 make ndvi optional
+042323c 2026-04-10 try to fix CI/CD error
+2456cc2 2026-04-10 try again to fix the CI/CD error
+021a385 2026-04-13 qa plot add variance
+cadf1b6 2026-04-13 qa summary as pdf
+f6a79da 2026-04-13 more qa fixes. -9999 deal
+5e88b8c 2026-06-03 add tiff to h5 to drone pipeline
+fc60390 2026-06-09 drone datetime add
+e94977c 2026-06-10 drone datetime
+675afe4 2026-06-10 drone pipeline inputs
+c341424 2026-06-10 drone fixes
+5e4ce84 2026-06-10 manifest add
+c1e5a5b 2026-06-10 droning on
+f7e7ddd 2026-09-04 starting to get ready for publication
+dfb5a45 2026-09-09 hardening for release
+33b3076 2026-09-10 pipeline style matching.
+0ee382b 2026-09-12 hardening for publication
+7ca410f 2026-09-18 drone pipeline tuning
+5ed728c 2026-09-18 Add read-only drone solar geometry consistency QA
+3034440 2026-09-26 drone pipeline fixes
+0699879 2026-09-30 drone run now finds 2023 and 2024
+a00a028 2026-10-19 documentation updates
+577e619 2026-11-02 drone debugging
+bc36950 2026-11-03 more drone debugging
+2444902 2026-11-03 more drone debugging
+bb3da46 2026-11-04 view angle bug fix

@@ -1,0 +1,50 @@
+[
+  {
+    "configuration": "controlled_vertical_reflection",
+    "polygons": 86,
+    "pixel_spectra": 22506,
+    "median_within_polygon_cv": 0.33145152032375336,
+    "median_spectral_angle_to_verified_degrees": 10.075931884119946,
+    "mean_absolute_reflectance_error": 0.04569635909852074,
+    "cover_between_within_scatter_ratio": 0.04468469500057507,
+    "cover_labels": [
+      "Evergreen",
+      "Non-vegetated & dead",
+      "Herbaceous",
+      "Woody shrub"
+    ],
+    "interpretation": "Field-assigned cover labels, not automatically inferred classes; controlled software comparisons only"
+  },
+  {
+    "configuration": "fixed_range_misread_as_divide_10000",
+    "polygons": 86,
+    "pixel_spectra": 22506,
+    "median_within_polygon_cv": 0.4108768701553345,
+    "median_spectral_angle_to_verified_degrees": 1.0763066194610037e-05,
+    "mean_absolute_reflectance_error": 0.03433108340575208,
+    "cover_between_within_scatter_ratio": 0.395635768664171,
+    "cover_labels": [
+      "Evergreen",
+      "Non-vegetated & dead",
+      "Herbaceous",
+      "Woody shrub"
+    ],
+    "interpretation": "Field-assigned cover labels, not automatically inferred classes; controlled software comparisons only"
+  },
+  {
+    "configuration": "verified_calibrated_input",
+    "polygons": 86,
+    "pixel_spectra": 22506,
+    "median_within_polygon_cv": 0.41087697446346283,
+    "median_spectral_angle_to_verified_degrees": 0.0,
+    "mean_absolute_reflectance_error": 0.0,
+    "cover_between_within_scatter_ratio": 0.395635692030347,
+    "cover_labels": [
+      "Evergreen",
+      "Non-vegetated & dead",
+      "Herbaceous",
+      "Woody shrub"
+    ],
+    "interpretation": "Field-assigned cover labels, not automatically inferred classes; controlled software comparisons only"
+  }
+]

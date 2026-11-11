@@ -780,6 +780,9 @@ def _format_envi_value(value: object) -> str:
         return f"{{ {joined} }}"
     if isinstance(value, str):
         stripped = value.strip()
+        # Serialized scientific contracts are scalar strings, including spaces.
+        if stripped.startswith("json:"):
+            return stripped
         if stripped.startswith("{") and stripped.endswith("}"):
             return stripped
         if any(ch.isspace() for ch in stripped):

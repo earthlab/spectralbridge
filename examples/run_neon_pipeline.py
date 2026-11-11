@@ -69,6 +69,8 @@ def load_config(path: Path) -> dict[str, Any]:
     """Load and validate the example configuration schema."""
 
     payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("Configuration must be a JSON object")
     if payload.get("schema_version") != 1:
         raise ValueError("Expected schema_version 1")
     config = payload.get("pipeline")
@@ -104,7 +106,7 @@ def describe(config: dict[str, Any]) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
+    parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG, help="JSON configuration file; relative data paths resolve from the repository root.")
     parser.add_argument(
         "--check",
         action="store_true",
@@ -112,7 +114,10 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
     config_path = args.config.expanduser().resolve()
-    config = load_config(config_path)
+    try:
+        config = load_config(config_path)
+    except (OSError, ValueError, TypeError) as exc:
+        parser.error(f"Invalid configuration {config_path}: {exc}. Copy and edit {DEFAULT_CONFIG}.")
     describe(config)
     if args.check:
         print("Configuration is valid; no network or processing work was performed.")

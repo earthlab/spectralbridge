@@ -5,6 +5,23 @@
 <p class="sb-doc-lead">Outputs on disk are the primary interface of SpectralBridge. Downstream analysis should rely on these files rather than return values from the Python API.</p>
 </section>
 
+## Open these results first
+
+| Workflow | Start here | What to check next |
+| --- | --- | --- |
+| NEON | The flightline QA PNG/JSON, then `*_brdfandtopo_corrected_envi.hdr` | Which corrections ran, wavelengths/units, target-sensor headers and requested extraction outputs |
+| Drone | `drone_qa_summary.json` in the run root and its report | Overall `status`, `blocked`/`failed`, per-flight correction flags and radiometry; then translated/native product paths |
+| Bulk | `catalog/bulk_manifest.json`, then `reports/bulk_results/` when results reporting was requested | Accepted/excluded sources, pooled versus balanced fits, site holdouts and cautions |
+| Existing library | Preflight counts first; compact paths returned in `compact_outputs` after reporting | Labels, independent identities, wavelength support and source provenance |
+
+Keep the existing manifests and QA summaries with the products; there is no
+second run-summary format to maintain. **A file named corrected is not proof that
+a correction ran:** explicitly disabled corrections can produce an identity copy.
+Inspect applied flags and scientific status. A completed execution, a numerically
+supported correction and independent scientific validation answer different questions.
+Translated Landsat-like imagery is not an actual Landsat observation. Optional
+plots or extraction files exist only when requested.
+
 <section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">Local drone processing</p>
 <h2>Drone translation and QA contract</h2>

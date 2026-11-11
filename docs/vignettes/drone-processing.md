@@ -463,3 +463,124 @@ or a supported angular model. NEON instrument geometry is different evidence;
 every NEON flight must still satisfy the shared computational and scientific gates.
 
 Last updated: 2026-11-02
+
+## Using the JSON runner
+
+Copy `examples/config/drone_pipeline.example.json`, edit its input/output paths,
+and run `python examples/run_drone_pipeline.py --config my_drone.json --check`.
+This validates structure/options only; it does not inspect rasters or certify
+calibration. Run again without `--check` to process supported inputs.
+
+The runner accepts the existing API's `radiometry`, `drone_manifest_timezone`
+and `solar_qa_timezone` fields when explicit declarations are needed. A
+radiometry record must contain authoritative physical `scale`, `offset`,
+`status` and `provenance`; do not infer them from a 0–10,000 range. Timezone
+choices must match the source clock convention. These declarations do not
+reconstruct camera contributors or relax correction acceptance.
+
+The console summary separates processed, blocked and failed flights and gives
+the QA JSON path. Scientifically blocked/incomplete runs exit nonzero, including
+when `raise_on_incomplete` is false. Read the audit before using any outputs.
+
+## Read supplied Metashape camera locations
+
+The advanced `spectralbridge.drone_view_geometry.read_metashape_camera_locations()`
+reader accepts the explicit `CRS,<EPSG>`, `# Cameras (N)` and `# PhotoID,...`
+CSV preamble. It validates row counts, unique photo IDs, finite XYZ/angles,
+proper rotation matrices and projected metre units, returning the photo table
+and a source-hashed metadata record. Repeated positions across band photographs
+remain separate records; they are not independent ground observations.
+
+The reader preserves the declared CRS. A different interpretation requires both
+`crs_override` and explicit `crs_override_provenance`; this never transforms or
+edits source coordinates automatically. Compare positions with authoritative
+raster/project metadata before adopting an interpretation. Camera files may lack
+timestamps; an unambiguous PhotoID join to original photo metadata is a separate
+step. Clock zone, vertical datum, matrix convention and actual mosaic contributors
+remain scientific requirements, even after a file passes structural checks.
+
+This reader does not silently activate reconstruction in `run_drone_pipeline`.
+The [three-site camera rerun](https://github.com/earthlab/spectralbridge/blob/main/DRONE_CAMERA_RERUN_REPORT.md)
+records the current explicit experimental route and its supported/rejected outcomes.
+
+## Drone Radiometric Calibration and Scaling
+
+MicaSense raw sensor DN are measurements that require black-level, exposure,
+sensitivity and vignetting calibration to radiance. Panel reflectance and/or
+irradiance information then support reflectance calibration. Those operations
+belong upstream of an already calibrated Metashape orthomosaic; applying them
+again would double calibrate it. See the [sensor calibration model](https://support.micasense.com/hc/en-us/articles/115000351194-Radiometric-Calibration-Model-for-MicaSense-Sensors)
+and [Metashape RedEdge workflow](https://agisoft.freshdesk.com/support/solutions/articles/31000148780-micasense-rededge-mx-processing-workflow-including-reflectance-calibration-in-agisoft-metashape-pro).
+
+SpectralBridge uses one affine boundary:
+
+```text
+physical reflectance = stored value * scale + offset
+```
+
+A range such as 0–10,000 does **not** identify the encoding. The verified recovered
+Ruby/Goldhill calibrated integer orthomosaics encode 100% reflectance as 32,768.
+This is a calibrated export convention, not a rule for raw sensor DN or every
+MicaSense export. Encoding verification does not independently establish absolute
+physical reflectance accuracy.
+
+| Typed input encoding | Physical conversion | Meaning |
+| --- | --- | --- |
+| `raw_micasense_sensor_dn` | Unsupported until calibrated | Raw DN; never divide blindly by 32768 |
+| `metashape_micasense_reflectance_uint16_v1` | `DN / 32768` | Verified calibrated integer export |
+| `metashape_micasense_65535_to_10000_v1` | `S * 65535 / (10000 * 32768)` | Verified fixed-range historical export |
+| `reflectance_fraction` | `S` | Already physical fraction |
+| `reflectance_times_10000` | `S * 0.0001` | Physical fraction multiplied by 10,000 |
+| `explicit_calibrated_affine` | Declared scalar or per-band scale and offset | Other independently documented representation |
+
+For example, calibrated `DN=8192` means reflectance **0.25**. Rescaling that DN
+by `10000/65535` stores about **1250.019**. Dividing that historical value by
+10,000 incorrectly gives about **0.125002**; the correct affine recovers 0.25.
+A newly prepared reflectance-times-10,000 product instead stores **2500**.
+Earlier per-band min/max stretches are a separate representation: recovery needs
+the original per-band affine offsets and scales. The fixed-range preset must not
+be applied to them.
+
+Recognition uses explicit verified metadata, a checksum-bound sidecar, or an exact
+packaged source fingerprint. It never uses filename, model name or numeric range.
+TIFF tags and H5 reflectance-dataset attributes can contain JSON under
+`spectralbridge_source_encoding`. A declaration is also accepted through the
+existing `radiometry=` argument:
+
+```python
+encoding = {
+    "schema_version": 1,
+    "input_encoding": "reflectance_times_10000",
+    "verification_status": "VERIFIED_ENCODING",
+    "processing_state": "calibrated_reflectance",
+    "provenance": "Document the actual calibration and export here",
+    "wavelengths_nm": [444, 475, 531, 560, 650, 668, 705, 717, 740, 842],
+}
+# Only use these wavelengths for a verified matching sensor configuration.
+# convert_drone_tiff_to_h5(path, radiometry=encoding)
+```
+
+A sidecar named `<source filename>.radiometry.json` contains
+`{"source_sha256": "<full SHA-256 of source bytes>", "declaration": encoding}`.
+It is suitable for immutable legacy H5 files: the production working copy receives
+the resolved contract and the source remains unchanged. Contradictory declarations,
+unknown typed encodings, double-calibration requests and conflicting wavelengths
+raise errors. Unrecognized legacy inputs retain unsupported radiometry until a
+validated declaration is supplied; they cannot silently become corrected data.
+The known recovered sensor has NIR **842 nm**; this is source-specific metadata,
+not a global change to unrelated inputs.
+
+TIFF-to-H5 and H5-to-ENVI preserve stored values, affine calibration, source identity,
+spatial transform, band identity and validity information. The ENVI full radiometry
+record is authoritative; a compatible scalar zero-offset divisor is also written
+for legacy readers. Scientific calculations and polygon Parquet extraction convert
+to physical reflectance once. Parquet records `physical_reflectance_v1` and source
+radiometry metadata. Source-encoding changes invalidate relevant restart signatures.
+Finite zeros, negative values and values above one (above 10,000 in the corresponding
+storage representation) are preserved unless explicitly declared NoData or saturation.
+
+To check a product, inspect its encoding provenance and known stored/physical pixel
+pairs, verify 842 nm only where appropriate, and read Parquet reflectance-unit
+metadata. A plausible-looking histogram alone cannot verify calibration. The small
+checksum-protected Ruby fixture in `tests/data/drone_radiometry/` checks the production
+TIFF → H5 → ENVI → polygon Parquet path without accessing a full project or network.

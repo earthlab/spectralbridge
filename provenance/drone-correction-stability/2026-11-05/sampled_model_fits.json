@@ -1,0 +1,1502 @@
+[
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "band_nm": 444,
+    "beta": [
+      0.03435089120420469,
+      0.27431086232902063,
+      -0.005174314653355552
+    ],
+    "rank": 3,
+    "condition": 131.68101819052262,
+    "reference": 0.026944752892411907,
+    "reference_se": 0.0027572657454270726,
+    "reference_z": 9.772272744148728,
+    "groups": 165,
+    "rmse": 0.019556159112062984,
+    "r2": 0.05958526911272366,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "band_nm": 475,
+    "beta": [
+      0.04075988697235064,
+      0.32288044702638174,
+      -0.005928871433371218
+    ],
+    "rank": 3,
+    "condition": 131.68101819052262,
+    "reference": 0.03188080569581662,
+    "reference_se": 0.00325047792723718,
+    "reference_z": 9.808036359414523,
+    "groups": 165,
+    "rmse": 0.022703956614923092,
+    "r2": 0.06346565596337106,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "band_nm": 531,
+    "beta": [
+      0.05916549099913472,
+      0.4696338892307505,
+      -0.010061467077056244
+    ],
+    "rank": 3,
+    "condition": 131.68101819052262,
+    "reference": 0.04768859461459178,
+    "reference_se": 0.0037225352971955094,
+    "reference_z": 12.810783728637713,
+    "groups": 165,
+    "rmse": 0.028135942011793428,
+    "r2": 0.06760589205589562,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "band_nm": 560,
+    "beta": [
+      0.06823829878144777,
+      0.5367428438735097,
+      -0.011511743778232357
+    ],
+    "rank": 3,
+    "condition": 131.68101819052262,
+    "reference": 0.055133926214890855,
+    "reference_se": 0.00418814475022996,
+    "reference_z": 13.164283830415268,
+    "groups": 165,
+    "rmse": 0.03183898802652356,
+    "r2": 0.06873808691092365,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "band_nm": 650,
+    "beta": [
+      0.06366090474693996,
+      0.5340784662690345,
+      -0.009836481918334708
+    ],
+    "rank": 3,
+    "condition": 131.68101819052262,
+    "reference": 0.04900346408579932,
+    "reference_se": 0.005598040522126888,
+    "reference_z": 8.753681559129054,
+    "groups": 165,
+    "rmse": 0.03945612290656222,
+    "r2": 0.057605002983341036,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "band_nm": 668,
+    "beta": [
+      0.0613687121112946,
+      0.5282242146562044,
+      -0.009493249866502
+    ],
+    "rank": 3,
+    "condition": 131.68101819052262,
+    "reference": 0.04663652726072684,
+    "reference_se": 0.005779913639682149,
+    "reference_z": 8.068723888976912,
+    "groups": 165,
+    "rmse": 0.04057511593093376,
+    "r2": 0.05530949906124538,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "band_nm": 705,
+    "beta": [
+      0.10326613675486429,
+      0.8544895347964123,
+      -0.019430371051876894
+    ],
+    "rank": 3,
+    "condition": 131.68101819052262,
+    "reference": 0.08350788322787239,
+    "reference_se": 0.005996004114545116,
+    "reference_z": 13.927255824474644,
+    "groups": 165,
+    "rmse": 0.04427244262468604,
+    "r2": 0.07946140111312272,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "band_nm": 717,
+    "beta": [
+      0.13413360681094091,
+      1.032426487339659,
+      -0.02456653885871742
+    ],
+    "rank": 3,
+    "condition": 131.68101819052262,
+    "reference": 0.11135097125610179,
+    "reference_se": 0.006575148942727562,
+    "reference_z": 16.935125306820833,
+    "groups": 165,
+    "rmse": 0.05203992913242975,
+    "r2": 0.07647508226667998,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "band_nm": 740,
+    "beta": [
+      0.19116098674863893,
+      1.3065582441526968,
+      -0.0341948251210371
+    ],
+    "rank": 3,
+    "condition": 131.68101819052262,
+    "reference": 0.16543439863349724,
+    "reference_se": 0.009295684063583911,
+    "reference_z": 17.79690418713679,
+    "groups": 165,
+    "rmse": 0.07603464274684268,
+    "r2": 0.04712569803782485,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "band_nm": 862,
+    "beta": [
+      0.2384609936404979,
+      1.59396469480045,
+      -0.04392744088479527
+    ],
+    "rank": 3,
+    "condition": 131.68101819052262,
+    "reference": 0.20928597806116717,
+    "reference_se": 0.011378700899979255,
+    "reference_z": 18.392783139378302,
+    "groups": 165,
+    "rmse": 0.0876433765398402,
+    "r2": 0.045985762059130075,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "band_nm": 444,
+    "beta": [
+      0.03074408910813758,
+      0.21582437835151708,
+      -0.0030910669173157923
+    ],
+    "rank": 3,
+    "condition": 131.73775941418162,
+    "reference": 0.023937011936186702,
+    "reference_se": 0.0022207181410625076,
+    "reference_z": 10.778950958960504,
+    "groups": 165,
+    "rmse": 0.017949527592742192,
+    "r2": 0.06102888035370779,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "band_nm": 475,
+    "beta": [
+      0.03651647237044211,
+      0.2544102513662406,
+      -0.003492558526824141
+    ],
+    "rank": 3,
+    "condition": 131.74234799159723,
+    "reference": 0.028341260346767164,
+    "reference_se": 0.002605348407102749,
+    "reference_z": 10.878107614898143,
+    "groups": 165,
+    "rmse": 0.02079833688160442,
+    "r2": 0.06550158555862517,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "band_nm": 531,
+    "beta": [
+      0.05386605442949122,
+      0.3843020791570187,
+      -0.006998630350407108
+    ],
+    "rank": 3,
+    "condition": 131.76678775703897,
+    "reference": 0.0432398113418037,
+    "reference_se": 0.0030151078537983093,
+    "reference_z": 14.341049620275426,
+    "groups": 165,
+    "rmse": 0.02625933573444403,
+    "r2": 0.06756883823572035,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "band_nm": 560,
+    "beta": [
+      0.06234289864014794,
+      0.4416800353293257,
+      -0.008124875052507915
+    ],
+    "rank": 3,
+    "condition": 131.7728672047184,
+    "reference": 0.05021143071400676,
+    "reference_se": 0.003426314392771881,
+    "reference_z": 14.654647810467216,
+    "groups": 165,
+    "rmse": 0.029882774844068725,
+    "r2": 0.06791513666948368,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "band_nm": 650,
+    "beta": [
+      0.05660088927113895,
+      0.42085242584603355,
+      -0.005863796753433572
+    ],
+    "rank": 3,
+    "condition": 131.694280627998,
+    "reference": 0.043163539494421164,
+    "reference_se": 0.004517841495628521,
+    "reference_z": 9.554018115993303,
+    "groups": 165,
+    "rmse": 0.036183099535586384,
+    "r2": 0.05878200326403982,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "band_nm": 668,
+    "beta": [
+      0.054150705295591156,
+      0.41167690090795506,
+      -0.005317378016513153
+    ],
+    "rank": 3,
+    "condition": 131.66481503562403,
+    "reference": 0.040587744980848064,
+    "reference_se": 0.0046631094567816216,
+    "reference_z": 8.704008635658504,
+    "groups": 165,
+    "rmse": 0.03700494398255399,
+    "r2": 0.05762869036670493,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "band_nm": 705,
+    "beta": [
+      0.09513180064225284,
+      0.7257352535615846,
+      -0.014845858839100124
+    ],
+    "rank": 3,
+    "condition": 131.77947363272253,
+    "reference": 0.07669396759593831,
+    "reference_se": 0.004988882875440577,
+    "reference_z": 15.372974172933523,
+    "groups": 165,
+    "rmse": 0.04176696612122917,
+    "r2": 0.07848716418118074,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "band_nm": 717,
+    "beta": [
+      0.12548106606680975,
+      0.89930442919664,
+      -0.0199457453773546
+    ],
+    "rank": 3,
+    "condition": 131.77947363272253,
+    "reference": 0.10418288483914426,
+    "reference_se": 0.0057806919012968515,
+    "reference_z": 18.022563149537802,
+    "groups": 165,
+    "rmse": 0.04955096288197325,
+    "r2": 0.07415870601664587,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "band_nm": 740,
+    "beta": [
+      0.18311372019410072,
+      1.1831854597392524,
+      -0.02990635602560019
+    ],
+    "rank": 3,
+    "condition": 131.77947363272253,
+    "reference": 0.15875678930894294,
+    "reference_se": 0.008784642751194267,
+    "reference_z": 18.072082588373902,
+    "groups": 165,
+    "rmse": 0.07387613712642013,
+    "r2": 0.04472614654636842,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "band_nm": 862,
+    "beta": [
+      0.2304719183897645,
+      1.471688887093839,
+      -0.03965395547858195
+    ],
+    "rank": 3,
+    "condition": 131.77947363272253,
+    "reference": 0.2026312341511324,
+    "reference_se": 0.010893735411261233,
+    "reference_z": 18.60071192308062,
+    "groups": 165,
+    "rmse": 0.08558430966250036,
+    "r2": 0.04378010631655016,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "band_nm": 444,
+    "beta": [
+      0.041526573228232895,
+      0.44665199864482463,
+      -0.009025607257205666
+    ],
+    "rank": 3,
+    "condition": 133.11105758108306,
+    "reference": 0.03006781317664079,
+    "reference_se": 0.002184409935962242,
+    "reference_z": 13.76473009101004,
+    "groups": 186,
+    "rmse": 0.01933815598761837,
+    "r2": 0.1317829454100381,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "band_nm": 475,
+    "beta": [
+      0.04840270216096752,
+      0.5078400603964294,
+      -0.009971244677509157
+    ],
+    "rank": 3,
+    "condition": 133.11105758108306,
+    "reference": 0.03508337081319231,
+    "reference_se": 0.002580593470141567,
+    "reference_z": 13.595078503886818,
+    "groups": 186,
+    "rmse": 0.022308050683173025,
+    "r2": 0.13446313821741063,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "band_nm": 531,
+    "beta": [
+      0.07285955878048282,
+      0.7357862668739027,
+      -0.015181054025549302
+    ],
+    "rank": 3,
+    "condition": 133.11105758108306,
+    "reference": 0.05429596104774145,
+    "reference_se": 0.003082691453496172,
+    "reference_z": 17.61316754103392,
+    "groups": 186,
+    "rmse": 0.028296710254451497,
+    "r2": 0.15607744756824637,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "band_nm": 560,
+    "beta": [
+      0.08071084500020324,
+      0.7689654402371073,
+      -0.015196425094983722
+    ],
+    "rank": 3,
+    "condition": 133.11105758108306,
+    "reference": 0.06064095409664598,
+    "reference_se": 0.0036101557893406296,
+    "reference_z": 16.79732333870324,
+    "groups": 186,
+    "rmse": 0.03218413737322838,
+    "r2": 0.1446876203955697,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "band_nm": 650,
+    "beta": [
+      0.07419472084484724,
+      0.7665831366746905,
+      -0.013801915550883387
+    ],
+    "rank": 3,
+    "condition": 133.11105758108306,
+    "reference": 0.0528395776743577,
+    "reference_se": 0.00499305786225501,
+    "reference_z": 10.582608720359152,
+    "groups": 186,
+    "rmse": 0.041660582566700056,
+    "r2": 0.10483540390695423,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "band_nm": 668,
+    "beta": [
+      0.07135081839376692,
+      0.7547714503403012,
+      -0.013424646037516681
+    ],
+    "rank": 3,
+    "condition": 133.11105758108306,
+    "reference": 0.05016011362153772,
+    "reference_se": 0.005232601930056849,
+    "reference_z": 9.586074823198478,
+    "groups": 186,
+    "rmse": 0.04334550411749194,
+    "r2": 0.09652754089237969,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "band_nm": 705,
+    "beta": [
+      0.12406441875926133,
+      1.232490160757229,
+      -0.026020769468401882
+    ],
+    "rank": 3,
+    "condition": 133.11105758108306,
+    "reference": 0.09356068764548538,
+    "reference_se": 0.004864567939591144,
+    "reference_z": 19.233093012027897,
+    "groups": 186,
+    "rmse": 0.04427414243212814,
+    "r2": 0.16847287211041395,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "band_nm": 717,
+    "beta": [
+      0.16263120027727698,
+      1.5003773460530678,
+      -0.03285295983808093
+    ],
+    "rank": 3,
+    "condition": 133.11105758108306,
+    "reference": 0.1266738094360812,
+    "reference_se": 0.005188057075281951,
+    "reference_z": 24.41642557087654,
+    "groups": 186,
+    "rmse": 0.05052647853968026,
+    "r2": 0.17614102536005438,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "band_nm": 740,
+    "beta": [
+      0.2302983662502384,
+      1.908103667500194,
+      -0.045987657396692215
+    ],
+    "rank": 3,
+    "condition": 133.11105758108306,
+    "reference": 0.18877651622968222,
+    "reference_se": 0.007593918802895992,
+    "reference_z": 24.85890633406444,
+    "groups": 186,
+    "rmse": 0.07319678945325954,
+    "r2": 0.11651969431130416,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "band_nm": 862,
+    "beta": [
+      0.28849468711002674,
+      2.3152637399044074,
+      -0.058770519546640594
+    ],
+    "rank": 3,
+    "condition": 133.11105758108306,
+    "reference": 0.2410825118319741,
+    "reference_se": 0.009674161629087118,
+    "reference_z": 24.920248500615898,
+    "groups": 186,
+    "rmse": 0.08690901461633069,
+    "r2": 0.1072804873809241,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "band_nm": 444,
+    "beta": [
+      0.037177134339948126,
+      0.33158975464324664,
+      -0.007531268635895013
+    ],
+    "rank": 3,
+    "condition": 133.29890676606223,
+    "reference": 0.02950102373975988,
+    "reference_se": 0.0019099197351289037,
+    "reference_z": 15.446211271160465,
+    "groups": 186,
+    "rmse": 0.019169718392883204,
+    "r2": 0.062486339140150116,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "band_nm": 475,
+    "beta": [
+      0.0432963126533044,
+      0.37290240987545886,
+      -0.008220643201163252
+    ],
+    "rank": 3,
+    "condition": 133.3018468923568,
+    "reference": 0.034414894389611234,
+    "reference_se": 0.002256149867180368,
+    "reference_z": 15.253815754988555,
+    "groups": 186,
+    "rmse": 0.022108124631536885,
+    "r2": 0.06342236277150792,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "band_nm": 531,
+    "beta": [
+      0.06619831419697106,
+      0.5610165698764359,
+      -0.013115441160602948
+    ],
+    "rank": 3,
+    "condition": 133.32257226133802,
+    "reference": 0.053584396665485944,
+    "reference_se": 0.002676329004086987,
+    "reference_z": 20.021602943307013,
+    "groups": 186,
+    "rmse": 0.02906487184501273,
+    "r2": 0.07205513179054912,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "band_nm": 560,
+    "beta": [
+      0.07348308591758132,
+      0.5828647095694798,
+      -0.013125499655711467
+    ],
+    "rank": 3,
+    "condition": 133.31749856110642,
+    "reference": 0.05987722684573166,
+    "reference_se": 0.0031709950699471343,
+    "reference_z": 18.88278774483554,
+    "groups": 186,
+    "rmse": 0.03271815853560669,
+    "r2": 0.06728537389058942,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "band_nm": 650,
+    "beta": [
+      0.06563085287253526,
+      0.5457145584900642,
+      -0.01110044851524902
+    ],
+    "rank": 3,
+    "condition": 133.2964731532653,
+    "reference": 0.05170372399915592,
+    "reference_se": 0.004402414403681696,
+    "reference_z": 11.74440188000398,
+    "groups": 186,
+    "rmse": 0.04112044290828976,
+    "r2": 0.04697354722132585,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "band_nm": 668,
+    "beta": [
+      0.06265986942899227,
+      0.5313383299946314,
+      -0.010548907612868048
+    ],
+    "rank": 3,
+    "condition": 133.29900833686523,
+    "reference": 0.04884052267408297,
+    "reference_se": 0.004634265114430181,
+    "reference_z": 10.539000568181411,
+    "groups": 186,
+    "rmse": 0.04225621185570136,
+    "r2": 0.04417727775815117,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "band_nm": 705,
+    "beta": [
+      0.11309349699687175,
+      0.9508313668426911,
+      -0.022844985920269616
+    ],
+    "rank": 3,
+    "condition": 133.31590856596245,
+    "reference": 0.0923314263580593,
+    "reference_se": 0.004201972083705095,
+    "reference_z": 21.973355490892725,
+    "groups": 186,
+    "rmse": 0.045383066804827905,
+    "r2": 0.07882039857227896,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "band_nm": 717,
+    "beta": [
+      0.1505605516377024,
+      1.2028401542324556,
+      -0.029976028785126847
+    ],
+    "rank": 3,
+    "condition": 133.32719339111944,
+    "reference": 0.1253718893258983,
+    "reference_se": 0.004636644362941524,
+    "reference_z": 27.039358534360694,
+    "groups": 186,
+    "rmse": 0.051532244471225355,
+    "r2": 0.08815925462597352,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "band_nm": 740,
+    "beta": [
+      0.2179509819759516,
+      1.619278493875864,
+      -0.04375878444526791
+    ],
+    "rank": 3,
+    "condition": 133.3341747077537,
+    "reference": 0.18744636774746462,
+    "reference_se": 0.007382174579602248,
+    "reference_z": 25.39175492617031,
+    "groups": 186,
+    "rmse": 0.07389674400003077,
+    "r2": 0.06334875622503244,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "band_nm": 862,
+    "beta": [
+      0.2751063204432573,
+      2.006005624049877,
+      -0.056416326728786236
+    ],
+    "rank": 3,
+    "condition": 133.3341747077537,
+    "reference": 0.23952315729798676,
+    "reference_se": 0.009516003923904032,
+    "reference_z": 25.17056100579245,
+    "groups": 186,
+    "rmse": 0.08708220450132835,
+    "r2": 0.06192331711492338,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "band_nm": 444,
+    "beta": [
+      0.002559518794138497,
+      -1.515722722849394,
+      0.06243513362734757
+    ],
+    "rank": 3,
+    "condition": 464.8529090956741,
+    "reference": 0.009638505975254535,
+    "reference_se": 0.005899639890656772,
+    "reference_z": 1.6337447969526047,
+    "groups": 60,
+    "rmse": 0.023648870221684482,
+    "r2": 0.02317324726172476,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "band_nm": 475,
+    "beta": [
+      0.003027686981043084,
+      -1.759921131968836,
+      0.07223161582674828
+    ],
+    "rank": 3,
+    "condition": 464.8529090956741,
+    "reference": 0.011509626698982395,
+    "reference_se": 0.006879462734509205,
+    "reference_z": 1.6730415067512558,
+    "groups": 60,
+    "rmse": 0.02674410261698479,
+    "r2": 0.024233795679440395,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "band_nm": 531,
+    "beta": [
+      0.012878534641931573,
+      -2.073515348973821,
+      0.08644161628924675
+    ],
+    "rank": 3,
+    "condition": 464.8529090956741,
+    "reference": 0.0215325412485433,
+    "reference_se": 0.008197717404390584,
+    "reference_z": 2.626650832951471,
+    "groups": 60,
+    "rmse": 0.03379324467784766,
+    "r2": 0.02178252629834343,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "band_nm": 560,
+    "beta": [
+      0.01523221028273624,
+      -2.360058072273008,
+      0.09864927302485131
+    ],
+    "rank": 3,
+    "condition": 464.8529090956741,
+    "reference": 0.024819991092220536,
+    "reference_se": 0.009315674956364936,
+    "reference_z": 2.664325581182099,
+    "groups": 60,
+    "rmse": 0.03835121617648004,
+    "r2": 0.022025343966194044,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "band_nm": 650,
+    "beta": [
+      -0.006326001986365876,
+      -3.2421524293265134,
+      0.13058244083940146
+    ],
+    "rank": 3,
+    "condition": 464.8529090956741,
+    "reference": 0.011783248770684956,
+    "reference_se": 0.011962498397423778,
+    "reference_z": 0.9850157031764013,
+    "groups": 60,
+    "rmse": 0.04611787086387857,
+    "r2": 0.02667661719038006,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "band_nm": 668,
+    "beta": [
+      -0.01094055418755254,
+      -3.447503974361211,
+      0.13842862625270255
+    ],
+    "rank": 3,
+    "condition": 464.8529090956741,
+    "reference": 0.008740349850936496,
+    "reference_se": 0.012597835311367576,
+    "reference_z": 0.6937977545276923,
+    "groups": 60,
+    "rmse": 0.04836553951055444,
+    "r2": 0.02726878259666843,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "band_nm": 705,
+    "beta": [
+      0.023429127533005183,
+      -3.247069766624107,
+      0.1358183784081188
+    ],
+    "rank": 3,
+    "condition": 464.8529090956741,
+    "reference": 0.036527959791421816,
+    "reference_se": 0.012459319465952313,
+    "reference_z": 2.9317780871774,
+    "groups": 60,
+    "rmse": 0.05092166873332476,
+    "r2": 0.023643464706595174,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "band_nm": 717,
+    "beta": [
+      0.05402851508032941,
+      -3.071148552591775,
+      0.13407072366413578
+    ],
+    "rank": 3,
+    "condition": 464.8529090956741,
+    "reference": 0.060806898107863605,
+    "reference_se": 0.012779531150388506,
+    "reference_z": 4.758147806229577,
+    "groups": 60,
+    "rmse": 0.05921526862524055,
+    "r2": 0.017366347154947892,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "band_nm": 740,
+    "beta": [
+      0.11367525358067765,
+      -2.5016726580461888,
+      0.12369646081571413
+    ],
+    "rank": 3,
+    "condition": 464.8529090956741,
+    "reference": 0.10471057896378554,
+    "reference_se": 0.014168842597691283,
+    "reference_z": 7.390199886958122,
+    "groups": 60,
+    "rmse": 0.08221618653712735,
+    "r2": 0.008683356883150473,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "band_nm": 862,
+    "beta": [
+      0.16025596445278142,
+      -2.336023282479258,
+      0.12507434102512266
+    ],
+    "rank": 3,
+    "condition": 464.8529090956741,
+    "reference": 0.1423163930142608,
+    "reference_se": 0.01590104004168369,
+    "reference_z": 8.950131100933417,
+    "groups": 60,
+    "rmse": 0.09510994438221133,
+    "r2": 0.007407389914245832,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "band_nm": 444,
+    "beta": [
+      0.0065038233483277865,
+      -1.1714571153549922,
+      0.05084344965597445
+    ],
+    "rank": 3,
+    "condition": 465.69043550126736,
+    "reference": 0.00938577492249152,
+    "reference_se": 0.004892539946587666,
+    "reference_z": 1.9183849339927597,
+    "groups": 60,
+    "rmse": 0.0216977139834962,
+    "r2": 0.018482319946430237,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "band_nm": 475,
+    "beta": [
+      0.007617960503702516,
+      -1.3554467637705632,
+      0.05859605061611763
+    ],
+    "rank": 3,
+    "condition": 465.73992129973647,
+    "reference": 0.011185449871375285,
+    "reference_se": 0.005569345007362999,
+    "reference_z": 2.008395934636383,
+    "groups": 60,
+    "rmse": 0.02446246082903363,
+    "r2": 0.01926540560711676,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "band_nm": 531,
+    "beta": [
+      0.020167935895329506,
+      -1.4905859843757974,
+      0.06696441618224329
+    ],
+    "rank": 3,
+    "condition": 465.29805957795725,
+    "reference": 0.021564818670532435,
+    "reference_se": 0.006829669956660696,
+    "reference_z": 3.1575198812500673,
+    "groups": 60,
+    "rmse": 0.03182224462525152,
+    "r2": 0.015262363072898744,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "band_nm": 560,
+    "beta": [
+      0.023301019444418085,
+      -1.7081167026638078,
+      0.07678113097344372
+    ],
+    "rank": 3,
+    "condition": 465.29929625310143,
+    "reference": 0.024857587730843927,
+    "reference_se": 0.007875282290009842,
+    "reference_z": 3.1564059312993673,
+    "groups": 60,
+    "rmse": 0.036120887499071434,
+    "r2": 0.015574726350898072,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "band_nm": 650,
+    "beta": [
+      0.0034819740549755602,
+      -2.444531363290097,
+      0.10413465101790569
+    ],
+    "rank": 3,
+    "condition": 465.8062198825165,
+    "reference": 0.01145849346827986,
+    "reference_se": 0.009737032512403385,
+    "reference_z": 1.1767952354768885,
+    "groups": 60,
+    "rmse": 0.04230561604007759,
+    "r2": 0.020219801985043362,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "band_nm": 668,
+    "beta": [
+      -0.0002915563929639715,
+      -2.5840699465820856,
+      0.10954397268152079
+    ],
+    "rank": 3,
+    "condition": 465.9993260289158,
+    "reference": 0.008675164033383642,
+    "reference_se": 0.010103115519916625,
+    "reference_z": 0.858662262772507,
+    "groups": 60,
+    "rmse": 0.043701506216236814,
+    "r2": 0.020927103808555336,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "band_nm": 705,
+    "beta": [
+      0.034619920425528576,
+      -2.3354435301012786,
+      0.10516396610125181
+    ],
+    "rank": 3,
+    "condition": 465.29929625310143,
+    "reference": 0.03656413528999561,
+    "reference_se": 0.010435499686813308,
+    "reference_z": 3.503822182678941,
+    "groups": 60,
+    "rmse": 0.047680578612445824,
+    "r2": 0.016768978695024694,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "band_nm": 717,
+    "beta": [
+      0.06442139432324935,
+      -2.1824842238638404,
+      0.10405773342652841
+    ],
+    "rank": 3,
+    "condition": 464.69656611645934,
+    "reference": 0.060456817589016276,
+    "reference_se": 0.011389687265699434,
+    "reference_z": 5.308031395303079,
+    "groups": 60,
+    "rmse": 0.05619717128003228,
+    "r2": 0.012516703087607661,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "band_nm": 740,
+    "beta": [
+      0.12170187712601187,
+      -1.7572054197847737,
+      0.09826079064265525
+    ],
+    "rank": 3,
+    "condition": 464.69656611645934,
+    "reference": 0.10403009395470728,
+    "reference_se": 0.014253706973333979,
+    "reference_z": 7.298458860514541,
+    "groups": 60,
+    "rmse": 0.07977026397201166,
+    "r2": 0.006902182171750648,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "band_nm": 862,
+    "beta": [
+      0.16836559267217027,
+      -1.5720533562823418,
+      0.09889284062183124
+    ],
+    "rank": 3,
+    "condition": 464.69656611645934,
+    "reference": 0.1415703100525883,
+    "reference_se": 0.016303609821726538,
+    "reference_z": 8.683372063034083,
+    "groups": 60,
+    "rmse": 0.0926741470582615,
+    "r2": 0.0061769233391187894,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  }
+]

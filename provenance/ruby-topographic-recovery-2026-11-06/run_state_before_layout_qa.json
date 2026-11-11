@@ -1,0 +1,113 @@
+{
+  "characterize": {
+    "signature": "332a2139c1cd6c9887690f8a7a1e241496c45022b2a86f384afd7d48885e6538",
+    "status": "COMPLETE",
+    "seconds": 4.3429395840503275,
+    "outputs": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/baseline.json": "f4b3f80c285c47d76f9ec252f75dd6c045e276036d047bd8df44b5d5a4ba1fcb",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/surface_provenance.json": "d853ca5bb5336f107bdfdf4cbf03ec90c7ab2c411823d076759473d251f4114e",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/field_polygon_context.json": "575f2eef61fb76d6cadf1534227313655829dc01b6f04f1ba868fe59329efd83",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/ruby-topographic-recovery-2026-11-06/common_grid.npz": "6336030d13449e937398c086c56a8aff83dd3baf262a62fa36ff1ed6316e1560"
+    }
+  },
+  "evaluate": {
+    "signature": "d88e1d42cfdeb0ec8d4ae27907066c967a4303210e5d101196864dbb4fbd7e91",
+    "status": "COMPLETE",
+    "seconds": 8.80231433303561,
+    "outputs": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/models.json": "6964a0b5bd7671c987711c63a4705c18c97510298cbe3c698f1a9a15893ab651",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/spatial_holdouts.csv": "39104d5341c307ca68f67b15c29e92fae90598603ea87b5181db9f5117c9b744",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/ruby-topographic-recovery-2026-11-06/candidate_maps.npz": "5a1912a6f50c00c6b8b77615c8df2fb48bb113a9d4bb542c77e3e11b1d515ff2"
+    }
+  },
+  "synthetic_audit": {
+    "signature": "5066695dbd52924ed426c40feb48509b2057214574d5693a488db46c234bff0c",
+    "status": "COMPLETE",
+    "seconds": 2.722160540986806,
+    "outputs": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/synthetic_recovery.csv": "32e151f01a1f2b183018d9373f344b6185adc3aa00ab66e2ae490684837ebc81",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/numerical_audit.json": "39ff7206d618d0ee8b051c0e3a0ce69a1507f9ed3275732db3f1e4a1ebebccf2"
+    }
+  },
+  "matched_originals": {
+    "signature": "5b8cf2c0fde96575fd2fb6c55ffa33283aa57869d59249d0c35d2784c88f44b8",
+    "status": "COMPLETE",
+    "seconds": 18.39273633400444,
+    "outputs": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/matched_models.json": "f2296d1d926a9c99aea8d4b9356793e2f40d74a1a21b278e35cf89c6314503d2",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/matched_holdouts.csv": "8e845524c996977a7542caccb30c8f8de7181eb2c8eee1afbe38213b30313714",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/matched_spectral_stages.csv": "094d672bbc6ea356bb1e351f10d2abd0c97c337063ce53cc835f588f8f9998ed"
+    }
+  },
+  "full_frame": {
+    "signature": "e285dac294159413aea1fe982c98a0c9609becffd4e02591e23307313aed7e8c",
+    "status": "COMPLETE",
+    "seconds": 19.514060832967516,
+    "outputs": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/full_frame_support.csv": "bc44e6177b45537bf73483da33c048375139429ab1c66164144310f74bd39a67",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/full_frame_products.json": "a9ef12efbb3ea3bf5c64eed0df4ecfc123c4e2f5ce7097a42e3806bddb71b82f",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/ruby-topographic-recovery-2026-11-06/dtm_sigma0_existing_scsc__red_support.tif": "7bcdc350da1d4c3d7b84c4ae3ef78dadba93c759d9c88e8b07520e34326a8c53",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/ruby-topographic-recovery-2026-11-06/dtm_sigma3_combined_screened_scsc__red_support.tif": "3c5e2a8e9f41bb4516072d9407dff7e3669425e4250a07090d4a104422a625ad",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/ruby-topographic-recovery-2026-11-06/dtm_sigma3_combined_screened_c_correction__red_support.tif": "4c2e4debc776d6013ddf3fe0d5c0283aa29e0c192f507f56df6f6d8319a7508e",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/ruby-topographic-recovery-2026-11-06/dtm_sigma3_combined_screened_minnaert__red_support.tif": "e4a9b79d514992d40f8b19e288cf4653ba6d510bbc34a4ac8071df3de71839fc"
+    }
+  },
+  "sensitivity": {
+    "signature": "f38136d5eb99496be604c667d35161417993a38c2eac8554ee0ddeae999074fe",
+    "status": "COMPLETE",
+    "seconds": 2.5395396249950863,
+    "outputs": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/input_sensitivity.json": "afd82644b4bdf49fcc8ec1e3e5477ae6b40a5985ebe4a9449f7aa85b188f3076",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/dependence_summary.json": "c3ac07abbbde7bbddb68ed2dcfd336e918ce8404ba06ece97f4b78bdca1be6cf",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/matched_comparisons.csv": "6a2cdaccc8da3b3e36743729729ee60c96fe0d3f46f985a0f1b2d8dbb0d1e8fe",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/matched_common_support.csv": "e08a8e3dea42feccbdd6b250942356c28a749a19c28d5e37e8e0933c3cfca391",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/field_stratum_validation.csv": "08e94f75fc55276a55771d69a79e0ac5e6cdd3cce598cea0915121d48768959f"
+    }
+  },
+  "spectral_validation": {
+    "signature": "2c4955508b76755761ccc230f015f2077820ab90917e9f05107bf2a4efe85126",
+    "status": "COMPLETE",
+    "seconds": 2.000686457962729,
+    "outputs": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/complete_spectral_validation.csv": "1397db04e8adfddcbb7e4da020ac1742ae9b3b74c161705b306b870fec25fc9a",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/class_boundary_control.json": "9684ae69975895b456cd6140c7c1499fffd1fc1ef381e1434b8abb0c0afca775"
+    }
+  },
+  "field_holdouts": {
+    "signature": "323438a4ba6ec812b317ec3ce4c91b7087073bf54aeb642f00f016a2bb0d9b75",
+    "status": "COMPLETE",
+    "seconds": 4.80728462501429,
+    "outputs": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/field_holdout_predictions.csv": "01b649f48b5f24d0f93c76a3b73af72f239772cd1cb0cb943c1a2b048765dee6",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/field_holdout_summary.csv": "815947ba260c1463a183e7b389eeed9d5791e3ecb4ae8d5b77bd98e7a233799d"
+    }
+  },
+  "figures": {
+    "signature": "661e4c6af1bd88762ce106cf1280a62b08d9b5a25cda016f60b97f5d8d2d9e60",
+    "status": "COMPLETE",
+    "seconds": 3.4083511250209995,
+    "outputs": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/figures/01_terrain.png": "af4d3cfeb86086dbf50ed8b85af78b616cf3b20944b06e1aa8d2f17b6be02b5e",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/figures/02_illumination.png": "6fa520258940f623480e3aa223d32d7f2b76627edf063010b7394e9d9ef39693",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/figures/03_negative_C.png": "9faa5e7e8c63f251af2b7f672244993a07bb01023eaa4c7bb57adc505e658981",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/figures/04_heterogeneity.png": "dea14d039455094e8901e41283ba990717b39debebb4c9be28c28b0b825b776f",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/figures/05_shadows.png": "76d310f90060e76bb9f056bb552e2587be11505090fbb10d018e7b2a27deee99",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/figures/06_sensitivity.png": "53dd745914169bbf9c38204411bcd657469c3d13a172833e8f7b4a8619a0faca",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/figures/07_identifiability.png": "6818c19a0332d2870a6aa1c875953757ce3a6124867f18fa104d29aa175f6be7",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/figures/08_alternatives.png": "aa682beaf1d9919093a7e87ab46ca9765ff6bf32f3a0a5b3eb434bc266fc10d2",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/figures/09_holdouts.png": "7c61f9f956885670466763c78464005383d738bb7a2aee0cac5e18222e501023",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/figures/10_combined.png": "6cfd12f45db30a786212da75371d57a9e1f9a6ca3b2c2276d7754adde442b86f",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/figures/11_full_support.png": "5c7dfc4096697af0f3796343bbaff7469ebd964ddf5d3ade00283754a7993623",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/figures/12_workflow.png": "e1413f19f57285805cb06a6ff6933713af9610a51be03e3b954d9c55499ebc20"
+    }
+  },
+  "report": {
+    "signature": "9dcfe06f379b150e84aa665e1d973a481f0b7783423c1152d0d7a2a3089c769f",
+    "status": "COMPLETE",
+    "seconds": 0.49256270902696997,
+    "outputs": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/REPORT.md": "977143db041effd481b6955ed53d3012eb5dbc651ab757c387281b33e717f7aa",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/ruby-topographic-recovery-2026-11-06/decision.json": "f4748fb5cba6702617da9adf9a6187b0ead3b7779e2e8e4c687f1e11674d6c27"
+    }
+  }
+}

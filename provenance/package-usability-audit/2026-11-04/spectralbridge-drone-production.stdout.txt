@@ -1,0 +1,20 @@
+usage: spectralbridge-drone-production [-h] {inventory,campaign,bulk} ...
+
+Inventory, process, and analyze a remote drone campaign.
+
+positional arguments:
+  {inventory,campaign,bulk}
+    inventory           Inspect without downloading H5s.
+    campaign            Stage and process each eligible flight independently.
+    bulk                Run the complete producer, bulk, report, package
+                        workflow.
+
+options:
+  -h, --help            show this help message and exit
+
+Start with an initialized gocmd login, then inspect supported HDF5 packages:
+  spectralbridge-drone-production inventory i:/collection --years 2023
+Use campaign to process flights, or bulk for compact collection analysis.
+Original TIFF/camera-table preparation is not automatic in this command.
+Local TIFF/HDF5: use spectralbridge.run_drone_pipeline or the JSON runner.
+Guide: https://earthlab.github.io/spectralbridge/vignettes/drone-production/

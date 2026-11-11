@@ -1,0 +1,23 @@
+usage: spectralbridge-qa [-h] --base-folder BASE_FOLDER [--out-dir OUT_DIR]
+                         [--quick | --full] [--save-json | --no-save-json]
+                         [--n-sample N_SAMPLE] [--rgb-bands RGB_BANDS]
+
+Generate QA panels and metrics JSON for processed flight lines.
+
+options:
+  -h, --help            show this help message and exit
+  --base-folder BASE_FOLDER
+                        Workspace containing per-flightline subdirectories.
+  --out-dir OUT_DIR     Optional directory for copying QA outputs after
+                        generation.
+  --quick               Use deterministic sampling limited to 25k pixels
+                        (default).
+  --full                Use the configured sample size without subsampling.
+  --save-json, --no-save-json
+                        Write the <prefix>_qa.json metrics file alongside the
+                        PNG.
+  --n-sample N_SAMPLE   Maximum number of pixels to sample when computing
+                        metrics.
+  --rgb-bands RGB_BANDS
+                        Override RGB targets as '660,560,490' or symbolic
+                        'R,G,B'.

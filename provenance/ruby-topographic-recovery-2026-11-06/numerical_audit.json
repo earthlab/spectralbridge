@@ -1,0 +1,200 @@
+{
+  "max_incidence_dot_error": 1.7303126109702305e-07,
+  "red_C": -0.17349662133610577,
+  "red_C_interval": [
+    -0.23058969049349728,
+    -0.09842378252936594
+  ],
+  "P184_red_C": -0.17349661775882688,
+  "C_difference": -3.5772788897769914e-09,
+  "P184_unsupported": 109,
+  "negative_branch_audit": [
+    {
+      "wavelength_nm": 444.0,
+      "surface": "viewing_absolute",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 444.0,
+      "surface": "viewing_absolute",
+      "stratum": "high_NDVI_proxy",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 444.0,
+      "surface": "ground_dtm_chunk",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 475.0,
+      "surface": "viewing_absolute",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 475.0,
+      "surface": "viewing_absolute",
+      "stratum": "high_NDVI_proxy",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 475.0,
+      "surface": "ground_dtm_chunk",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 531.0,
+      "surface": "viewing_absolute",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 531.0,
+      "surface": "viewing_absolute",
+      "stratum": "high_NDVI_proxy",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 531.0,
+      "surface": "ground_dtm_chunk",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 560.0,
+      "surface": "viewing_absolute",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 560.0,
+      "surface": "viewing_absolute",
+      "stratum": "high_NDVI_proxy",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 650.0,
+      "surface": "viewing_absolute",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 650.0,
+      "surface": "viewing_absolute",
+      "stratum": "high_NDVI_proxy",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 650.0,
+      "surface": "viewing_absolute",
+      "stratum": "low_NDVI_proxy",
+      "old_negative_branch_passes": 12
+    },
+    {
+      "wavelength_nm": 650.0,
+      "surface": "ground_dtm_chunk",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 668.0,
+      "surface": "viewing_absolute",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 668.0,
+      "surface": "viewing_absolute",
+      "stratum": "high_NDVI_proxy",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 668.0,
+      "surface": "ground_dtm_chunk",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 705.0,
+      "surface": "viewing_absolute",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 705.0,
+      "surface": "viewing_absolute",
+      "stratum": "high_NDVI_proxy",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 705.0,
+      "surface": "viewing_absolute",
+      "stratum": "low_NDVI_proxy",
+      "old_negative_branch_passes": 4
+    },
+    {
+      "wavelength_nm": 705.0,
+      "surface": "ground_dtm_chunk",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 717.0,
+      "surface": "viewing_absolute",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 717.0,
+      "surface": "viewing_absolute",
+      "stratum": "high_NDVI_proxy",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 717.0,
+      "surface": "viewing_absolute",
+      "stratum": "low_NDVI_proxy",
+      "old_negative_branch_passes": 4
+    },
+    {
+      "wavelength_nm": 740.0,
+      "surface": "viewing_absolute",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 740.0,
+      "surface": "viewing_absolute",
+      "stratum": "high_NDVI_proxy",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 740.0,
+      "surface": "viewing_absolute",
+      "stratum": "low_NDVI_proxy",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 842.0,
+      "surface": "viewing_absolute",
+      "stratum": "all",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 842.0,
+      "surface": "viewing_absolute",
+      "stratum": "high_NDVI_proxy",
+      "old_negative_branch_passes": 0
+    },
+    {
+      "wavelength_nm": 842.0,
+      "surface": "viewing_absolute",
+      "stratum": "low_NDVI_proxy",
+      "old_negative_branch_passes": 0
+    }
+  ],
+  "production_change": false
+}

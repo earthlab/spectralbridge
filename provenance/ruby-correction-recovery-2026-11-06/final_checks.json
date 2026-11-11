@@ -1,0 +1,82 @@
+{
+  "tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "49",
+    "time": "4.013",
+    "timestamp": "2026-11-06T12:05:38.516774-07:00",
+    "hostname": "UCB-H4K9PV34KC"
+  },
+  "source_verification": {
+    "files": 2267,
+    "bytes": 5590183604,
+    "all_sha256_verified": true
+  },
+  "product_validation": {
+    "shape": [
+      1035,
+      1960
+    ],
+    "crs": "EPSG:26913",
+    "transform": [
+      0.1,
+      0.0,
+      455725.0,
+      0.0,
+      -0.1,
+      4432104.75,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "matches_established_processing_grid": true,
+    "scale": [
+      0.0001,
+      0.0001,
+      0.0001,
+      0.0001,
+      0.0001,
+      0.0001,
+      0.0001,
+      0.0001,
+      0.0001,
+      0.0001
+    ],
+    "offset": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mask_valid": 1993472,
+    "independent_geolocation_accuracy": "UNVERIFIED",
+    "production_sources_unchanged": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/corrections.py": true,
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/topographic.py": true,
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py": true
+    }
+  },
+  "restart_reused_all_stages": true,
+  "ruff": "passed",
+  "script_compilation": "passed",
+  "docs_links": "passed",
+  "strict_mkdocs": "passed",
+  "api_reference": {
+    "status": "passed",
+    "checked_count": 394,
+    "errors": []
+  },
+  "figures_visually_reviewed": 11,
+  "licensed_preflight": "Expected unsupported rejection; no project changed",
+  "orthomosaic_regenerated": false,
+  "full_suite_run": false,
+  "new_module_sha256": "74ddd0d3b90b1cbff2446ba6d9a58d1972abf33a583e8e76ffaa609af9d1fee8"
+}

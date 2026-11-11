@@ -1,0 +1,13 @@
+No nodelocked license found
+No license server found
+LoadProject: path = /private/tmp/spectralbridge-metashape-recovery-20261105/sources/AOP-RUBY-08-14-23/ImageryProcessing/M300/AOP-RUBY-08-14-23-WORKING.psx, read_only = on
+loaded project in 0.000774 sec
+/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/.venv/lib/python3.12/site-packages/rasterio/__init__.py:377: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+  dataset = writer(
+VIGNETTING [<Metashape.Metashape.Vignetting object at 0x10ebd75d0>]
+{'status': 'IN_MEMORY_SYNTHETIC_REPLACEMENT_CONTROL', 'data_type': 'F32', 'input_dtype': 'float32', 'maximum_absolute_error': 0.0, 'camera_transform_unchanged': True, 'calibration_unchanged': True, 'project_saved': False, 'licensed_mosaic_run': False}
+PHOTO META {}
+SENSOR META {'Exif/BodySerialNumber': 'RX03-2117021-SC', 'Exif/Make': 'MicaSense', 'Exif/Model': 'RedEdge-M', 'Exif/Software': 'v7.3.2'}
+SENSOR FIELDS ['Axes', 'Cylindrical', 'EquidistantFisheye', 'EquisolidFisheye', 'FilmTransformType', 'Fisheye', 'Frame', 'RPC', 'Reference', 'Spherical', 'Type', 'antenna', 'axes', 'bands', 'black_level', 'calibrateFiducials', 'calibration', 'chunk', 'data_type', 'fiducials', 'film_camera', 'film_transform_type', 'fixed', 'fixed_calibration', 'fixed_location', 'fixed_params', 'fixed_rotation', 'focal_length', 'height', 'key', 'label', 'layer_index', 'location', 'location_covariance', 'makeMaster', 'master', 'meta', 'normalize_sensitivity', 'normalize_to_float', 'photo_params', 'pixel_height', 'pixel_size', 'pixel_width', 'planes', 'reference', 'rolling_shutter', 'rotation', 'rotation_covariance', 'sensitivity', 'type', 'user_calib', 'vignetting', 'width']
+CAM META {'Image/Quality': '0.793124'}
+ratios 1.0 1.0 1.0 1.0 1.0

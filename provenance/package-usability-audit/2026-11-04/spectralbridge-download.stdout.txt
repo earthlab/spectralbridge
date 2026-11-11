@@ -1,0 +1,17 @@
+usage: cscal-download [-h] [--product PRODUCT] --year-month YEAR_MONTH
+                      --flight FLIGHT_LINES [--output OUTPUT]
+                      site
+
+Download NEON flight line HDF5 files into a workspace directory.
+
+positional arguments:
+  site                  NEON site code, e.g., SOAP
+
+options:
+  -h, --help            show this help message and exit
+  --product PRODUCT     NEON product code to download (default: DP1.30006.001)
+  --year-month YEAR_MONTH
+                        Year-month identifier, e.g., 2021-06
+  --flight FLIGHT_LINES
+                        Flight line identifier to download (repeatable)
+  --output OUTPUT       Directory where downloads are stored (default: data)

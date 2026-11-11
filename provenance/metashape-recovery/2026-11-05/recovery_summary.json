@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-06",
+  "remote_objects": 11665,
+  "remote_bytes": 96106111162,
+  "sites": {
+    "Ruby": "project and selected original photos recovered; global BRDF unsupported",
+    "Goldhill": "WORKING export binding verified; old camera table belongs to NOGCPS",
+    "Gordon": "new project not located"
+  },
+  "local_verification": {
+    "objects": 540,
+    "bytes": 5330539570,
+    "all_verified": true,
+    "legacy_manifest_entries_not_rechecked": 259,
+    "files": "See final_checksum_verification.json"
+  },
+  "encoding": {
+    "sites": [
+      "Ruby",
+      "Goldhill"
+    ],
+    "original_mosaic_fraction_scale": 3.0517578125e-05,
+    "previous_10cm_fraction_scale": 0.0001999969482421875,
+    "evidence": "Project calibration controls, panel resubstitution and original mosaic binding",
+    "independent_physical_accuracy": "NOT_ESTABLISHED",
+    "production_status_changed": false
+  },
+  "blend_weights_recovered": false,
+  "primary_assignments_recovered": true,
+  "repeated_dataset": {
+    "targets": 23,
+    "records": 325,
+    "unique_photos": 315,
+    "independent_temporal_uncertainty": "INSUFFICIENT"
+  },
+  "primary_photo_controls": "primary_observations.csv and primary_photo_radiometry.json; 25 unique original photos sampled separately from repeated-target dataset",
+  "report": "METASHAPE_RECOVERY_REPORT.md",
+  "pdf": "output/pdf/metashape-recovery-2026-11-06.pdf"
+}

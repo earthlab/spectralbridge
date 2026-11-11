@@ -55,19 +55,29 @@ def cluster_covariance(design, residual, groups):
     X = np.asarray(design, float)
     e = np.asarray(residual, float)
     labels = np.asarray(groups)
+    if (
+        X.ndim != 2 or e.shape != (len(X),) or labels.shape != (len(X),)
+        or not np.isfinite(X).all() or not np.isfinite(e).all()
+    ):
+        raise ValueError("Finite design/residual and one group per observation required")
     unique, index = np.unique(labels, return_inverse=True)
     if len(unique) <= X.shape[1] or len(X) <= X.shape[1]:
         raise ValueError("Insufficient independent uncertainty groups")
+    # Work in an orthonormal basis. Forming/inverting X.T @ X squares the
+    # condition number and can erase a supported narrow angular direction.
+    Q, R = np.linalg.qr(X, mode="reduced")
+    if np.linalg.matrix_rank(R) != X.shape[1]:
+        raise ValueError("Rank-deficient uncertainty design")
     scores = np.stack(
         [
-            np.bincount(index, weights=X[:, j] * e, minlength=len(unique))
+            np.bincount(index, weights=Q[:, j] * e, minlength=len(unique))
             for j in range(X.shape[1])
         ],
         axis=-1,
     )
-    bread = np.linalg.inv(X.T @ X)
+    influence = np.linalg.solve(R, scores.T)
     correction = len(unique) / (len(unique) - 1) * (len(X) - 1) / (len(X) - X.shape[1])
-    result = correction * (bread @ scores.T @ scores @ bread)
+    result = correction * (influence @ influence.T)
     return (result + result.T) / 2, len(unique)
 
 

@@ -1,0 +1,9 @@
+usage: spectralbridge-recover-raw [-h] --base-folder BASE_FOLDER
+                                  [--brightness-offset BRIGHTNESS_OFFSET]
+
+Backfill raw ENVI for flightlines where corrected exists but raw is missing.
+
+options:
+  -h, --help            show this help message and exit
+  --base-folder BASE_FOLDER
+  --brightness-offset BRIGHTNESS_OFFSET

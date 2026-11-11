@@ -13,8 +13,8 @@ hide:
       <p class="sb-hero__lead">Connect reflectance processing, spectral libraries and sensor comparisons.</p>
       <p class="sb-hero__body">Airborne, drone and satellite observations differ in wavelength coverage, ground footprint, geometry and processing history. SpectralBridge is an open-source Python package for processing, harmonizing and comparing these observations, with explicit assumptions, provenance and QA.</p>
       <div class="sb-button-row">
-        <a class="sb-button sb-button--primary" href="concepts/measurements/">Understand the measurements</a>
-        <a class="sb-button sb-button--secondary" href="getting-started/">Verify your installation</a>
+        <a class="sb-button sb-button--primary" href="getting-started/">Run your first example</a>
+        <a class="sb-button sb-button--secondary" href="vignettes/">Choose a workflow</a>
       </div>
       <p class="sb-hero__body">Install from a source checkout with <code>python -m pip install -e .</code>;
       <a href="getting-started/">follow the setup instructions</a>.

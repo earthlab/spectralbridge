@@ -58,3 +58,11 @@ validation. See [Choosing corrections](../concepts/correction-eligibility.md)
 and the [shared methods](../brdf_topo_algorithm.md).
 
 Last updated: 2026-11-02
+
+## Partially missing spectral bands
+
+A missing wavelength does not invalidate an observed wavelength at the same
+pixel. Topographic correction retains per-band NoData and uses finite samples
+for each band's existing fit. Pixels still need valid source footprint and
+illumination geometry. Fully observed inputs use the same correction equations
+and fitting behavior; no missing band is filled or assigned a fitted result.

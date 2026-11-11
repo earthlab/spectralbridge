@@ -1,0 +1,147 @@
+{
+  "baseline": {
+    "collected": 951,
+    "passed": 929,
+    "failures": 13,
+    "errors": 0,
+    "skipped": 9,
+    "failure_details": [
+      {
+        "test": "tests.test_aop_drone_equivalence.test_nodata_only_band_is_preserved_without_a_claimed_fit",
+        "reason": "spectralbridge.pipelines.drone.DroneCorrectionUnavailableError: Requested drone correction was attempted but reverted because it collapsed valid reflectance to no-data."
+      },
+      {
+        "test": "tests.test_api_reference.test_reference_is_current_and_has_no_duplicate_or_private_entries",
+        "reason": "AssertionError: PosixPath('docs/api/inventory.json')\nassert '{\\n  \"export...rts\": []\\n}\\n' == '{\\n  \"export...rts\": []\\n}\\n'\n  \n  Skipping 99956 identical leading characters in diff, use -v to show\n    \n  -         \"BRDF_VALIDATION_POLICY\": \"spectralbridge.corrections.BRDF_VALIDATION_POLICY\",\n            \"EnviWriter\": \"spectralbridge.envi_writer.EnviWriter\",\n            \"HYTOOLS_BRDF_KERNEL_CONFIG\": \"spectralbridge.corrections.HYTOOLS_BRDF_KERNEL_CONFIG\",\n            \"Literal\": \"typing.Literal\",...\n  \n  ...Full output truncated (57640 lines hidden), use '-vv' to show"
+      },
+      {
+        "test": "tests.test_drone_production.test_bulk_readiness_uses_actual_bulk_discovery",
+        "reason": "AssertionError: assert False is True\n +  where False = BulkReadinessValidation(path='/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-147/test_...translation_pair', 'missing_required_product'), error='expected exactly one accepted, translation-eligible flightline').bulk_ready"
+      },
+      {
+        "test": "tests.test_drone_spatial_integrity.test_old_tiff_checkpoint_rebuilt_and_new_checkpoint_reused",
+        "reason": "assert 4 == 3"
+      },
+      {
+        "test": "tests.test_example_entrypoints.test_release_candidate_smoke_checks_current_installation",
+        "reason": "AssertionError: Traceback (most recent call last):\n    File \"/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/examples/release_candidate_smoke.py\", line 109, in <module>\n      raise SystemExit(main())\n                       ^^^^^^\n    File \"/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/examples/release_candidate_smoke.py\", line 104, in main\n      print(json.dumps(validate_installation(args.expected_version), indent=2))\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    File \"/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/examples/release_candidate_smoke.py\", line 63, in validate_installation\n      raise RuntimeError(\n  RuntimeError: Expected distribution version 2.3.0rc1, found 2.3.0rc2\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/.venv/bin/p...alidate_installation\\n    raise RuntimeError(\\nRuntimeError: Expected distribution version 2.3.0rc1, found 2.3.0rc2\\n').returncode"
+      },
+      {
+        "test": "tests.test_example_entrypoints.test_vignettes_mirror_active_research_notebook_workflows",
+        "reason": "assert 'pprint(results[' in '%%bash\\n# Install GoCommands (Linux x86_64)\\nGOCMD_VER=$(curl -L -s https://raw.githubusercontent.com/cyverse/gocomma...True.\")\\n\\nimport pandas as pd\\n\\ndf = pd.read_parquet(\"drone_outputs/drone_pipeline/drone_merged.parquet\")\\ndf.head()'"
+      },
+      {
+        "test": "tests.test_fraction_grid_calibration.test_calibration_collapses_equivalent_fractions_without_equal_weighting",
+        "reason": "ImportError: cannot import name 'folds' from 'common' (/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-clean-source-brdf/2026-11-03/common.py)"
+      },
+      {
+        "test": "tests.test_polygons.test_extract_polygon_parquet_from_envi_stabilizes_null_only_metadata_chunks",
+        "reason": "FileNotFoundError: /private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-147/test_extract_polygon_parquet_f0/dummy.hdr"
+      },
+      {
+        "test": "tests.test_qa.test_qa_metrics_smoke.test_render_panel_writes_png_and_json",
+        "reason": "ValueError: Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Historical header lacks explicit calibration)."
+      },
+      {
+        "test": "tests.test_qa.test_qa_metrics_smoke.test_metrics_arrays_are_serialisable",
+        "reason": "ValueError: Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Historical header lacks explicit calibration)."
+      },
+      {
+        "test": "tests.test_qa.test_qa_metrics_smoke.test_aop_qa_uses_header_scale_and_excludes_nodata",
+        "reason": "ValueError: Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Historical header lacks explicit calibration)."
+      },
+      {
+        "test": "tests.test_qa.test_qa_metrics_smoke.test_aop_qa_png_shows_raw_corrected_and_diagnostics",
+        "reason": "ValueError: Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Historical header lacks explicit calibration)."
+      },
+      {
+        "test": "tests.test_validation_campaign.test_offline_validation_smoke_exercises_every_module",
+        "reason": "AssertionError: assert {'failed': 4,...0, 'total': 8} == {'failed': 0,...0, 'total': 8}\n  \n  Omitting 2 identical items, use -vv to show\n  Differing items:\n  {'failed': 4} != {'failed': 0}\n  {'passed': 4} != {'passed': 8}\n  Use -v to get more diff"
+      }
+    ]
+  },
+  "final_source_suite": {
+    "collected": 955,
+    "passed": 935,
+    "failures": 9,
+    "errors": 0,
+    "skipped": 11,
+    "failure_details": [
+      {
+        "test": "tests.test_drone_production.test_bulk_readiness_uses_actual_bulk_discovery",
+        "reason": "AssertionError: assert False is True\n +  where False = BulkReadinessValidation(path='/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-160/test_...translation_pair', 'missing_required_product'), error='expected exactly one accepted, translation-eligible flightline').bulk_ready"
+      },
+      {
+        "test": "tests.test_drone_spatial_integrity.test_old_tiff_checkpoint_rebuilt_and_new_checkpoint_reused",
+        "reason": "assert 4 == 3"
+      },
+      {
+        "test": "tests.test_fraction_grid_calibration.test_calibration_collapses_equivalent_fractions_without_equal_weighting",
+        "reason": "ImportError: cannot import name 'folds' from 'common' (/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-clean-source-brdf/2026-11-03/common.py)"
+      },
+      {
+        "test": "tests.test_polygons.test_extract_polygon_parquet_from_envi_stabilizes_null_only_metadata_chunks",
+        "reason": "FileNotFoundError: /private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-160/test_extract_polygon_parquet_f0/dummy.hdr"
+      },
+      {
+        "test": "tests.test_qa.test_qa_metrics_smoke.test_render_panel_writes_png_and_json",
+        "reason": "ValueError: Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Historical header lacks explicit calibration)."
+      },
+      {
+        "test": "tests.test_qa.test_qa_metrics_smoke.test_metrics_arrays_are_serialisable",
+        "reason": "ValueError: Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Historical header lacks explicit calibration)."
+      },
+      {
+        "test": "tests.test_qa.test_qa_metrics_smoke.test_aop_qa_uses_header_scale_and_excludes_nodata",
+        "reason": "ValueError: Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Historical header lacks explicit calibration)."
+      },
+      {
+        "test": "tests.test_qa.test_qa_metrics_smoke.test_aop_qa_png_shows_raw_corrected_and_diagnostics",
+        "reason": "ValueError: Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Historical header lacks explicit calibration)."
+      },
+      {
+        "test": "tests.test_validation_campaign.test_offline_validation_smoke_exercises_every_module",
+        "reason": "AssertionError: assert {'total': 8, ... 'skipped': 0} == {'total': 8, ... 'skipped': 0}\n  \n  Omitting 2 identical items, use -vv to show\n  Differing items:\n  {'passed': 4} != {'passed': 8}\n  {'failed': 4} != {'failed': 0}\n  Use -v to get more diff"
+      }
+    ]
+  },
+  "final_focused": {
+    "collected": 48,
+    "passed": 48,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "failure_details": []
+  },
+  "additional_targeted": {
+    "collected": 92,
+    "passed": 92,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "failure_details": []
+  },
+  "browser": {
+    "collected": 2,
+    "passed": 2,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "failure_details": []
+  },
+  "entrypoint_runs": 24,
+  "entrypoint_failures": 0,
+  "primary_console_scripts": 11,
+  "legacy_aliases": 6,
+  "remote_subcommand_help_pages": 3,
+  "strict_mkdocs": "PASS",
+  "rendered_api_signatures": 393,
+  "docs_links": "PASS",
+  "ruff": "PASS",
+  "standard_pip_install": "PASS; clean Python 3.12 venv; editable source",
+  "pip_dependency_check": "No broken requirements found",
+  "installed_workflow_smoke": "PASS; non-editable temporary installation; network blocked; tiny synthetic inputs",
+  "release_status": "NOT_READY: broad regression gate remains red; actual checkout still 2.3.0rc1",
+  "camera_tables": "Five discovered and checksum-verified; Goldhill declared CRS discrepancy retained; no source overwritten",
+  "all_final_failures_observed_in_baseline": true
+}

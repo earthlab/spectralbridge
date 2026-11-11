@@ -21,7 +21,7 @@ def test_parquet_guide_queries_wide_columns_without_losing_negative_values(tmp_p
         exec(compile(block, str(guide), "exec"), namespace)
     result = namespace["relation"].aggregate(
         f'count(*) AS pixels, avg({namespace["quoted_band"]}) AS mean_reflectance'
-    ).fetchone()
+    ).fetchall()[0]
     assert result == (3, 1.0)
     pq.write_table(pa.table({"different_grid_b001_wl0385nm": [1.0]}),
                    "flight_merged_pixel_extraction.parquet")

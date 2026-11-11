@@ -1,0 +1,8 @@
+/private/tmp/spectralbridge-usability-20261104/venv/lib/python3.12/site-packages/spectralbridge/bulk/analyses/spectral_library.py:665: UserWarning: Arrow output on a DB-API result makes an extra copy of the rows, use con.sql(query).to_arrow_table() instead.
+  rows = con.execute(query, [schema.source.as_posix()]).to_arrow_table().to_pylist()
+/private/tmp/spectralbridge-usability-20261104/venv/lib/python3.12/site-packages/spectralbridge/bulk/analyses/spectral_library.py:759: UserWarning: Arrow output on a DB-API result makes an extra copy of the rows, use con.sql(query).to_arrow_table() instead.
+  records = con.execute(query, [schema.source.as_posix()]).to_arrow_table().to_pylist()
+/private/tmp/spectralbridge-usability-20261104/venv/lib/python3.12/site-packages/spectralbridge/bulk/analyses/spectral_library.py:982: UserWarning: Arrow output on a DB-API result makes an extra copy of the rows, use con.sql(query).to_arrow_table() instead.
+  ).to_arrow_table().to_pylist()
+/private/tmp/spectralbridge-usability-20261104/venv/lib/python3.12/site-packages/spectralbridge/bulk/analyses/spectral_library.py:1129: UserWarning: Arrow output on a DB-API result makes an extra copy of the rows, use con.sql(query).to_arrow_table() instead.
+  ).to_arrow_table().to_pylist()

@@ -1,0 +1,2948 @@
+[
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "equal_spatial_group_weight",
+    "reference": 0.04904389836621037,
+    "beta": [
+      0.06278625384903248,
+      0.5034806204008083,
+      -0.00934828777511339
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "soft_l1",
+    "reference": 0.03824403356893574,
+    "beta": [
+      0.05075016428403666,
+      0.41915611118071966,
+      -0.006717219381180185
+    ],
+    "rmse": 0.040444408838434656
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "nonnegative_all_coefficients_NOT_physical_requirement",
+    "reference": 0.04164428216143067,
+    "beta": [
+      0.055326393520087926,
+      0.29833200566564066,
+      3.783500695804107e-21
+    ],
+    "rmse": 0.03949956948461521
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "standardized_ridge_0.001",
+    "reference": 0.048613180170954895,
+    "rmse": 0.03945625154785355
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "standardized_ridge_0.01",
+    "reference": 0.04601712035030765,
+    "rmse": 0.03946370560488686
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "standardized_ridge_0.1",
+    "reference": 0.04025798712751841,
+    "rmse": 0.03952683240390009
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_linear_nuisance",
+    "beta": [
+      0.0392333390609597,
+      0.23206557441925113,
+      -0.007075930618090757,
+      -0.006867741100643144,
+      0.03327540204207752
+    ],
+    "reference_at_center": 0.048870101841119715,
+    "rmse": 0.03898298305331767
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "mean_kernel_reference_DIAGNOSTIC",
+    "beta": [
+      0.06366090474693996,
+      0.5340784662690345,
+      -0.009836481918334708
+    ],
+    "rank": 3,
+    "condition": 131.68101819052262,
+    "reference": 0.04421997053497746,
+    "reference_se": 0.0015756986428870272,
+    "reference_z": 28.063723183740723,
+    "groups": 165,
+    "rmse": 0.03945612290656222,
+    "r2": 0.057605002983341036,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.03722839914654706,
+      -0.04492989562182947
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 0,
+    "test_n": 11136,
+    "test_rmse": 0.032042885212136475
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 0,
+    "test_n": 11136,
+    "test_rmse": 0.033024442107563355
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 0,
+    "test_n": 11136,
+    "test_rmse": 0.03218300927094112
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 0,
+    "test_n": 11136,
+    "test_rmse": 0.03218540375918954
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 1,
+    "test_n": 11983,
+    "test_rmse": 0.03795690947514099
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 1,
+    "test_n": 11983,
+    "test_rmse": 0.039000481576214455
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 1,
+    "test_n": 11983,
+    "test_rmse": 0.038027417041694274
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 1,
+    "test_n": 11983,
+    "test_rmse": 0.038070257664690424
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 2,
+    "test_n": 11977,
+    "test_rmse": 0.03889218083732602
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 2,
+    "test_n": 11977,
+    "test_rmse": 0.03946222642069639
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 2,
+    "test_n": 11977,
+    "test_rmse": 0.038794125153810755
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 2,
+    "test_n": 11977,
+    "test_rmse": 0.03867398120803273
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 3,
+    "test_n": 11759,
+    "test_rmse": 0.04564340347321126
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 3,
+    "test_n": 11759,
+    "test_rmse": 0.04646349457315539
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 3,
+    "test_n": 11759,
+    "test_rmse": 0.045572433466839854
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 3,
+    "test_n": 11759,
+    "test_rmse": 0.045521008092855614
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 4,
+    "test_n": 10530,
+    "test_rmse": 0.04222250554343724
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 4,
+    "test_n": 10530,
+    "test_rmse": 0.04357874644298503
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 4,
+    "test_n": 10530,
+    "test_rmse": 0.04218899588490826
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 4,
+    "test_n": 10530,
+    "test_rmse": 0.04222460480790209
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "raw_NDVI_-1_0.3",
+    "n": 5698,
+    "beta": [
+      0.1598544709817302,
+      0.8385293712720755,
+      -0.02654773256386475
+    ],
+    "rank": 3,
+    "condition": 173.20666896814618,
+    "reference": 0.14794554446320426,
+    "reference_se": 0.01352737036736321,
+    "reference_z": 10.936755662441598,
+    "groups": 136,
+    "rmse": 0.05077842445150072,
+    "r2": 0.010489100932139617,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "raw_NDVI_0.3_0.6",
+    "n": 12132,
+    "beta": [
+      0.0800440524702545,
+      0.5468712429363014,
+      -0.018672761283812723
+    ],
+    "rank": 3,
+    "condition": 143.83242472707136,
+    "reference": 0.07363618846880125,
+    "reference_se": 0.003904241739803914,
+    "reference_z": 18.860560737844974,
+    "groups": 157,
+    "rmse": 0.02646997991566612,
+    "r2": 0.023835508840901465,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "raw_NDVI_0.6_1.01",
+    "n": 39555,
+    "beta": [
+      0.03505000608905058,
+      0.22366462507540835,
+      -0.003091794058573883
+    ],
+    "rank": 3,
+    "condition": 129.90560413359037,
+    "reference": 0.027884086428822792,
+    "reference_se": 0.0016274358703789898,
+    "reference_z": 17.133754353300123,
+    "groups": 164,
+    "rmse": 0.01573143043373186,
+    "r2": 0.09527229432182538,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_displacement_0.0_m",
+    "beta": [
+      0.06366090635248225,
+      0.5340784793674874,
+      -0.009836482142331567
+    ],
+    "rank": 3,
+    "condition": 131.68101819052262,
+    "reference": 0.04900346531461684,
+    "reference_se": 0.005598040668203471,
+    "reference_z": 8.75368155021694,
+    "groups": 165,
+    "rmse": 0.039456123936003,
+    "r2": 0.05760495610965066,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_displacement_25.0_m",
+    "beta": [
+      0.034689852847448494,
+      -0.27747994707427803,
+      0.017120571447238348
+    ],
+    "rank": 3,
+    "condition": 133.88435935729032,
+    "reference": 0.030295075024644732,
+    "reference_se": 0.0054979667031112645,
+    "reference_z": 5.510232538785828,
+    "groups": 163,
+    "rmse": 0.040664598722628106,
+    "r2": 0.016594646441554284,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "spatial_displacement_50.0_m",
+    "beta": [
+      0.04620668776933279,
+      0.04556276053055806,
+      -0.00034994091247956177
+    ],
+    "rank": 3,
+    "condition": 132.34224827776472,
+    "reference": 0.04446702799684392,
+    "reference_se": 0.005585284833260933,
+    "reference_z": 7.961461111533345,
+    "groups": 165,
+    "rmse": 0.041058428160758685,
+    "r2": 0.0008306939274685954,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "response_scale_half_same_population",
+    "reference_ratio": 0.5,
+    "se_ratio": 0.5,
+    "same_acceptance": true,
+    "factor_max_difference": 0.0
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "equal_spatial_group_weight",
+    "reference": 0.04314281117983053,
+    "beta": [
+      0.055755769494843774,
+      0.39609912229408634,
+      -0.005552951467955303
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "soft_l1",
+    "reference": 0.035353056907964836,
+    "beta": [
+      0.046969563816316985,
+      0.36135027868618225,
+      -0.004955750370698455
+    ],
+    "rmse": 0.036962764966100424
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "nonnegative_all_coefficients_NOT_physical_requirement",
+    "reference": 0.03877391280423892,
+    "beta": [
+      0.05163743505019548,
+      0.28048305490560954,
+      4.2195563273403276e-13
+    ],
+    "rmse": 0.036199914088302185
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "standardized_ridge_0.001",
+    "reference": 0.04288170689443793,
+    "rmse": 0.03618317299291241
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "standardized_ridge_0.01",
+    "reference": 0.04100534669582654,
+    "rmse": 0.03618744781283622
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "standardized_ridge_0.1",
+    "reference": 0.036869892157676325,
+    "rmse": 0.036224865384981125
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_linear_nuisance",
+    "beta": [
+      0.03691371654230415,
+      0.15749408394495407,
+      -0.00398107305684142,
+      -0.008903612002033436,
+      0.028586424642631652
+    ],
+    "reference_at_center": 0.043513197535289906,
+    "rmse": 0.035842203876390276
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "mean_kernel_reference_DIAGNOSTIC",
+    "beta": [
+      0.05660088927113895,
+      0.42085242584603355,
+      -0.005863796753433572
+    ],
+    "rank": 3,
+    "condition": 131.694280627998,
+    "reference": 0.04116385103998072,
+    "reference_se": 0.0012788584541881004,
+    "reference_z": 32.187964903523365,
+    "groups": 165,
+    "rmse": 0.036183099535586384,
+    "r2": 0.05878200326403982,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.037341236224482106,
+      -0.047428591013492054
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 0,
+    "test_n": 11087,
+    "test_rmse": 0.030060323011889243
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 0,
+    "test_n": 11087,
+    "test_rmse": 0.030962267769480648
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 0,
+    "test_n": 11087,
+    "test_rmse": 0.030137399813565613
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 0,
+    "test_n": 11087,
+    "test_rmse": 0.030082130617248324
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 1,
+    "test_n": 11957,
+    "test_rmse": 0.033973551612467484
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 1,
+    "test_n": 11957,
+    "test_rmse": 0.03468339019557317
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 1,
+    "test_n": 11957,
+    "test_rmse": 0.03401676419827614
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 1,
+    "test_n": 11957,
+    "test_rmse": 0.034005393556846564
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 2,
+    "test_n": 11789,
+    "test_rmse": 0.035930022823676494
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 2,
+    "test_n": 11789,
+    "test_rmse": 0.03647096308968857
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 2,
+    "test_n": 11789,
+    "test_rmse": 0.03586720086213811
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 2,
+    "test_n": 11789,
+    "test_rmse": 0.035793301689442704
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 3,
+    "test_n": 11490,
+    "test_rmse": 0.04200606472903807
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 3,
+    "test_n": 11490,
+    "test_rmse": 0.042871673046418
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 3,
+    "test_n": 11490,
+    "test_rmse": 0.04197046759718424
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 3,
+    "test_n": 11490,
+    "test_rmse": 0.04195116111381188
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 4,
+    "test_n": 10418,
+    "test_rmse": 0.038434671295203476
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 4,
+    "test_n": 10418,
+    "test_rmse": 0.039335176762182886
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 4,
+    "test_n": 10418,
+    "test_rmse": 0.03840391952514409
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 4,
+    "test_n": 10418,
+    "test_rmse": 0.03841186093834884
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "raw_NDVI_-1_0.3",
+    "n": 5692,
+    "beta": [
+      0.13321088160673666,
+      0.5344086878011632,
+      -0.012400710843569375
+    ],
+    "rank": 3,
+    "condition": 174.07564523926598,
+    "reference": 0.12110252524105646,
+    "reference_se": 0.012876379145714099,
+    "reference_z": 9.40501393059441,
+    "groups": 136,
+    "rmse": 0.05064919438095212,
+    "r2": 0.008512560447261786,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "raw_NDVI_0.3_0.6",
+    "n": 12110,
+    "beta": [
+      0.069088077462797,
+      0.40219959569779157,
+      -0.011774272021676281
+    ],
+    "rank": 3,
+    "condition": 143.86142340799518,
+    "reference": 0.06241665960796839,
+    "reference_se": 0.0031638238277061493,
+    "reference_z": 19.728234885070076,
+    "groups": 157,
+    "rmse": 0.024776840061921573,
+    "r2": 0.02320420479644325,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "raw_NDVI_0.6_1.01",
+    "n": 38939,
+    "beta": [
+      0.03282568956509549,
+      0.17904000591280794,
+      -0.0015107741399817234
+    ],
+    "rank": 3,
+    "condition": 129.92926987588572,
+    "reference": 0.02612532560379296,
+    "reference_se": 0.0013121013014058406,
+    "reference_z": 19.911058373161573,
+    "groups": 164,
+    "rmse": 0.017086474022756922,
+    "r2": 0.07371482041481459,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "combined",
+    "method": "response_scale_half_same_population",
+    "reference_ratio": 0.5,
+    "se_ratio": 0.5,
+    "same_acceptance": true,
+    "factor_max_difference": 0.0
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_0_clock_hours_0",
+    "solar_zenith_deg": 35.56862674438077,
+    "solar_azimuth_deg": 231.4070587158203,
+    "height_above_ground": [
+      99.07066592187493,
+      103.76259354156245,
+      107.99716628124997,
+      118.85141695312495,
+      129.4402074765623,
+      136.32724692062493,
+      142.5428965937499
+    ],
+    "all_candidate_zenith_deg": [
+      0.05273682395343182,
+      2.3952526883838625,
+      7.527163730291332,
+      16.47740379164385,
+      23.47618831614853,
+      26.896276340563656,
+      28.563138249107496
+    ],
+    "camera_ground_distance": [
+      106.27941381347323,
+      111.16980104277303,
+      116.43125943351204,
+      124.30952889615877,
+      133.2092424381123,
+      141.77495083605587,
+      156.47412547593734
+    ],
+    "beta": [
+      0.06479439835921642,
+      0.5519783537832786,
+      -0.010585870993347412
+    ],
+    "rank": 3,
+    "condition": 130.88529557558184,
+    "reference": 0.05006542159702203,
+    "reference_se": 0.005797053264720396,
+    "reference_z": 8.636357009467083,
+    "groups": 163,
+    "rmse": 0.03908837684781374,
+    "r2": 0.05884820607942931,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_-30_clock_hours_0",
+    "solar_zenith_deg": 35.56862674438077,
+    "solar_azimuth_deg": 231.4070587158203,
+    "height_above_ground": [
+      69.07066592187493,
+      73.76259354156245,
+      77.99716628124997,
+      88.85141695312495,
+      99.44020747656232,
+      106.32724692062493,
+      112.5428965937499
+    ],
+    "all_candidate_zenith_deg": [
+      0.06885165534518485,
+      2.4552914447131164,
+      7.628949820027601,
+      16.658085579605796,
+      23.57439488377411,
+      26.92147310287137,
+      28.579361316391587
+    ],
+    "camera_ground_distance": [
+      76.38571220030602,
+      80.88823836017083,
+      85.88555514838,
+      93.33205225686926,
+      100.98990279548806,
+      108.26496978133528,
+      120.48854262643074
+    ],
+    "beta": [
+      0.06363070749933414,
+      0.5072156257389892,
+      -0.010508172131290908
+    ],
+    "rank": 3,
+    "condition": 105.28174041800675,
+    "reference": 0.05087694144625968,
+    "reference_se": 0.005345803564390737,
+    "reference_z": 9.517173766944827,
+    "groups": 163,
+    "rmse": 0.03922830632000944,
+    "r2": 0.05254144925273985,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_30_clock_hours_0",
+    "solar_zenith_deg": 35.56862674438077,
+    "solar_azimuth_deg": 231.4070587158203,
+    "height_above_ground": [
+      129.07066592187493,
+      133.76259354156247,
+      137.99716628124997,
+      148.85141695312495,
+      159.4402074765623,
+      166.32724692062493,
+      172.5428965937499
+    ],
+    "all_candidate_zenith_deg": [
+      0.04273470246889377,
+      2.3415231354966095,
+      7.393880980349868,
+      16.29709745732229,
+      23.40197288182007,
+      26.826401383203507,
+      28.57454144609622
+    ],
+    "camera_ground_distance": [
+      136.21986115366215,
+      141.42118459115034,
+      146.88017864453892,
+      155.2531333146304,
+      165.51072899683393,
+      175.34001545077504,
+      192.71606999272487
+    ],
+    "beta": [
+      0.06298031676155767,
+      0.507591921896421,
+      -0.008070038418722463
+    ],
+    "rank": 3,
+    "condition": 152.9175048524858,
+    "reference": 0.04777115929029807,
+    "reference_se": 0.006233729220132956,
+    "reference_z": 7.663335638001804,
+    "groups": 163,
+    "rmse": 0.03906927787964319,
+    "r2": 0.059767693569906855,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_0_clock_hours_6",
+    "status": "SUN_BELOW_HORIZON",
+    "solar_zenith_deg": 101.05699920654297
+  },
+  {
+    "site": "Gordon",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_0_clock_hours_7",
+    "status": "SUN_BELOW_HORIZON",
+    "solar_zenith_deg": 110.48076629638672
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "equal_spatial_group_weight",
+    "reference": 0.05328774609134299,
+    "beta": [
+      0.07306115605688158,
+      0.7393714072267197,
+      -0.014135663606744883
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "soft_l1",
+    "reference": 0.05032039337812157,
+    "beta": [
+      0.06988998803694232,
+      0.8428160905163751,
+      -0.01908366206964864
+    ],
+    "rmse": 0.042149062964722865
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "nonnegative_all_coefficients_NOT_physical_requirement",
+    "reference": 0.04618061504153321,
+    "beta": [
+      0.06531895061835569,
+      0.41730240952479725,
+      1.2779919973158492e-12
+    ],
+    "rmse": 0.04175137426230773
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "standardized_ridge_0.001",
+    "reference": 0.0524743604808039,
+    "rmse": 0.04166088212391254
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "standardized_ridge_0.01",
+    "reference": 0.05010001757220426,
+    "rmse": 0.0416776155304117
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "standardized_ridge_0.1",
+    "reference": 0.04528072383915267,
+    "rmse": 0.04180698485350224
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_linear_nuisance",
+    "beta": [
+      0.1002235670561885,
+      0.28503537016887576,
+      -0.012931672508881395,
+      -0.06680727825183674,
+      -0.012937021505662909
+    ],
+    "reference_at_center": 0.060210789022148305,
+    "rmse": 0.039969876282110184
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "mean_kernel_reference_DIAGNOSTIC",
+    "beta": [
+      0.07419472084484724,
+      0.7665831366746905,
+      -0.013801915550883387
+    ],
+    "rank": 3,
+    "condition": 133.11105758108306,
+    "reference": 0.05303170172230139,
+    "reference_se": 0.0018736326916159378,
+    "reference_z": 28.30421456649731,
+    "groups": 186,
+    "rmse": 0.041660582566700056,
+    "r2": 0.10483540390695423,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.029444471480324978,
+      -0.10205946974367493
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 0,
+    "test_n": 11638,
+    "test_rmse": 0.06605354806235048
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 0,
+    "test_n": 11638,
+    "test_rmse": 0.06713617330463427
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 0,
+    "test_n": 11638,
+    "test_rmse": 0.06592065839097273
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 0,
+    "test_n": 11638,
+    "test_rmse": 0.06570919512180151
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 1,
+    "test_n": 12247,
+    "test_rmse": 0.05063979161998515
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 1,
+    "test_n": 12247,
+    "test_rmse": 0.05123819009771555
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 1,
+    "test_n": 12247,
+    "test_rmse": 0.05075733505109877
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 1,
+    "test_n": 12247,
+    "test_rmse": 0.05084607723403287
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 2,
+    "test_n": 12870,
+    "test_rmse": 0.027701242485575008
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 2,
+    "test_n": 12870,
+    "test_rmse": 0.026500002734812702
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 2,
+    "test_n": 12870,
+    "test_rmse": 0.027846920007665314
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 2,
+    "test_n": 12870,
+    "test_rmse": 0.028055641484942065
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 3,
+    "test_n": 12661,
+    "test_rmse": 0.025471771496314678
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 3,
+    "test_n": 12661,
+    "test_rmse": 0.024395211915420403
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 3,
+    "test_n": 12661,
+    "test_rmse": 0.025523604489218484
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 3,
+    "test_n": 12661,
+    "test_rmse": 0.02568485908419204
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 4,
+    "test_n": 12063,
+    "test_rmse": 0.0274988247171306
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 4,
+    "test_n": 12063,
+    "test_rmse": 0.026925092490183437
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 4,
+    "test_n": 12063,
+    "test_rmse": 0.02734586888643592
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 4,
+    "test_n": 12063,
+    "test_rmse": 0.027312588661751788
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "raw_NDVI_-1_0.3",
+    "n": 3294,
+    "beta": [
+      0.2088208181433828,
+      0.9662589453797106,
+      -0.033119559349537295
+    ],
+    "rank": 3,
+    "condition": 142.7808527286655,
+    "reference": 0.1976257808659631,
+    "reference_se": 0.0276417803420796,
+    "reference_z": 7.1495315576729945,
+    "groups": 119,
+    "rmse": 0.07939229224908607,
+    "r2": 0.009954613972293247,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "raw_NDVI_0.3_0.6",
+    "n": 16691,
+    "beta": [
+      0.08717104331366393,
+      0.6717418118687972,
+      -0.014649747384209376
+    ],
+    "rank": 3,
+    "condition": 146.21367029715353,
+    "reference": 0.07101334764881664,
+    "reference_se": 0.0014595516066270005,
+    "reference_z": 48.654221835243845,
+    "groups": 178,
+    "rmse": 0.019061874651721683,
+    "r2": 0.2064305598568511,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "raw_NDVI_0.6_1.01",
+    "n": 41494,
+    "beta": [
+      0.050028096533796716,
+      0.514988514348115,
+      -0.011899581471933155
+    ],
+    "rank": 3,
+    "condition": 136.51758736842933,
+    "reference": 0.03830925937170169,
+    "reference_se": 0.0016267087754956921,
+    "reference_z": 23.550164570808352,
+    "groups": 186,
+    "rmse": 0.016507570902744382,
+    "r2": 0.17113700627251416,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_displacement_0.0_m",
+    "beta": [
+      0.07419472271996333,
+      0.7665831559090435,
+      -0.013801915894303372
+    ],
+    "rank": 3,
+    "condition": 133.11105758108306,
+    "reference": 0.0528395790107673,
+    "reference_se": 0.004993057990660581,
+    "reference_z": 10.582608715861646,
+    "groups": 186,
+    "rmse": 0.04166058362479083,
+    "r2": 0.10483536211141953,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_displacement_25.0_m",
+    "beta": [
+      0.0719813412470453,
+      0.7440301143027142,
+      -0.012206900114179995
+    ],
+    "rank": 3,
+    "condition": 133.89487246407091,
+    "reference": 0.0500655100258101,
+    "reference_se": 0.004604170294130785,
+    "reference_z": 10.873948361473866,
+    "groups": 183,
+    "rmse": 0.04027724021175248,
+    "r2": 0.1144692888855654,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "spatial_displacement_50.0_m",
+    "beta": [
+      0.06833371187534831,
+      0.6029422334592363,
+      -0.006859610956492548
+    ],
+    "rank": 3,
+    "condition": 133.38026471519257,
+    "reference": 0.04754116810368693,
+    "reference_se": 0.004444012782767705,
+    "reference_z": 10.697801835322034,
+    "groups": 182,
+    "rmse": 0.03974960355236804,
+    "r2": 0.11019074034255905,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "response_scale_half_same_population",
+    "reference_ratio": 0.5,
+    "se_ratio": 0.5,
+    "same_acceptance": true,
+    "factor_max_difference": 0.0
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "equal_spatial_group_weight",
+    "reference": 0.0506413189605435,
+    "beta": [
+      0.06273592146227976,
+      0.4431912529477644,
+      -0.008231047984488205
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "soft_l1",
+    "reference": 0.04940398614620139,
+    "beta": [
+      0.06299953315176297,
+      0.6837885711622582,
+      -0.01776438487819558
+    ],
+    "rmse": 0.041592299139613376
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "nonnegative_all_coefficients_NOT_physical_requirement",
+    "reference": 0.046357882590076845,
+    "beta": [
+      0.05849360550488671,
+      0.2646137326668349,
+      3.5611642667805447e-16
+    ],
+    "rmse": 0.04117971323401263
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "standardized_ridge_0.001",
+    "reference": 0.05143238479889183,
+    "rmse": 0.04112060962103623
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "standardized_ridge_0.01",
+    "reference": 0.049668268808937585,
+    "rmse": 0.041129907520051565
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "standardized_ridge_0.1",
+    "reference": 0.04605753819041786,
+    "rmse": 0.041200913582855866
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_linear_nuisance",
+    "beta": [
+      0.08630477153222375,
+      0.24629721198171997,
+      -0.010398990747664202,
+      -0.04375253077749649,
+      -0.014851100582577369
+    ],
+    "reference_at_center": 0.05610625650404038,
+    "rmse": 0.04010071837366124
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "mean_kernel_reference_DIAGNOSTIC",
+    "beta": [
+      0.06563085287253526,
+      0.5457145584900642,
+      -0.01110044851524902
+    ],
+    "rank": 3,
+    "condition": 133.2964731532653,
+    "reference": 0.050747628952590405,
+    "reference_se": 0.001664154109391065,
+    "reference_z": 30.494548952055652,
+    "groups": 186,
+    "rmse": 0.04112044290828976,
+    "r2": 0.04697354722132585,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.02927276855297956,
+      -0.09831603157539132
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 0,
+    "test_n": 11575,
+    "test_rmse": 0.06309786985336929
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 0,
+    "test_n": 11575,
+    "test_rmse": 0.06416016207223761
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 0,
+    "test_n": 11575,
+    "test_rmse": 0.0629818455584236
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 0,
+    "test_n": 11575,
+    "test_rmse": 0.06277268009712376
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 1,
+    "test_n": 12148,
+    "test_rmse": 0.04978398356064422
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 1,
+    "test_n": 12148,
+    "test_rmse": 0.050301082708950305
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 1,
+    "test_n": 12148,
+    "test_rmse": 0.04985609361164544
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 1,
+    "test_n": 12148,
+    "test_rmse": 0.049907978233811594
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 2,
+    "test_n": 12812,
+    "test_rmse": 0.027782568377682962
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 2,
+    "test_n": 12812,
+    "test_rmse": 0.026758462043159355
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 2,
+    "test_n": 12812,
+    "test_rmse": 0.027866124400570975
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 2,
+    "test_n": 12812,
+    "test_rmse": 0.028012824059353056
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 3,
+    "test_n": 12530,
+    "test_rmse": 0.027248366153762513
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 3,
+    "test_n": 12530,
+    "test_rmse": 0.026338501147446142
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 3,
+    "test_n": 12530,
+    "test_rmse": 0.027279938947160656
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 3,
+    "test_n": 12530,
+    "test_rmse": 0.027385363696235496
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 4,
+    "test_n": 11926,
+    "test_rmse": 0.02906685137973637
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 4,
+    "test_n": 11926,
+    "test_rmse": 0.02871700864423209
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 4,
+    "test_n": 11926,
+    "test_rmse": 0.02898533374677707
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 4,
+    "test_n": 11926,
+    "test_rmse": 0.028968828304878062
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "raw_NDVI_-1_0.3",
+    "n": 3292,
+    "beta": [
+      0.1852058712865712,
+      0.5370912220627188,
+      -0.024328889677691017
+    ],
+    "rank": 3,
+    "condition": 142.792754655677,
+    "reference": 0.18490266728854912,
+    "reference_se": 0.02730711204402468,
+    "reference_z": 6.771227473284176,
+    "groups": 119,
+    "rmse": 0.08235761358252774,
+    "r2": 0.005400921320277141,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "raw_NDVI_0.3_0.6",
+    "n": 16651,
+    "beta": [
+      0.07200826611075371,
+      0.28692646110088454,
+      -0.006675806856999705
+    ],
+    "rank": 3,
+    "condition": 146.96928465920698,
+    "reference": 0.06552504303474789,
+    "reference_se": 0.001337528563061525,
+    "reference_z": 48.98964017991876,
+    "groups": 178,
+    "rmse": 0.022702457807903625,
+    "r2": 0.027792771940090222,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "raw_NDVI_0.6_1.01",
+    "n": 41048,
+    "beta": [
+      0.046364434867734665,
+      0.3992385961249123,
+      -0.011587937573145997
+    ],
+    "rank": 3,
+    "condition": 136.56411912564238,
+    "reference": 0.039642480015268364,
+    "reference_se": 0.0012476438170738317,
+    "reference_z": 31.77387606363816,
+    "groups": 186,
+    "rmse": 0.01966183291961432,
+    "r2": 0.04438086005019026,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "combined",
+    "method": "response_scale_half_same_population",
+    "reference_ratio": 0.5,
+    "se_ratio": 0.5,
+    "same_acceptance": true,
+    "factor_max_difference": 0.0
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_0_clock_hours_0",
+    "solar_zenith_deg": 27.772285118154915,
+    "solar_azimuth_deg": 204.7407989501953,
+    "height_above_ground": [
+      111.05736854687484,
+      116.80373577468755,
+      126.00074442343744,
+      140.0530358593751,
+      152.30468122499983,
+      158.7926591784374,
+      162.38232618749998
+    ],
+    "all_candidate_zenith_deg": [
+      0.03997055964529471,
+      2.419506165593243,
+      7.542570069078141,
+      16.539539593112234,
+      23.466296139076793,
+      26.852738170233682,
+      28.582270680805237
+    ],
+    "camera_ground_distance": [
+      124.42801373800849,
+      129.61877414471013,
+      137.88672397733671,
+      149.08280803999668,
+      159.02284002031087,
+      167.22882083453325,
+      174.95905246307208
+    ],
+    "beta": [
+      0.07775801170951907,
+      0.8856751166542841,
+      -0.017462258374219993
+    ],
+    "rank": 3,
+    "condition": 132.93010868760638,
+    "reference": 0.054601411417810455,
+    "reference_se": 0.0048097044746745,
+    "reference_z": 11.35234227078071,
+    "groups": 185,
+    "rmse": 0.040771950658522155,
+    "r2": 0.12330731910671144,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_-30_clock_hours_0",
+    "solar_zenith_deg": 27.772285118154915,
+    "solar_azimuth_deg": 204.7407989501953,
+    "height_above_ground": [
+      81.05736854687484,
+      86.80373577468755,
+      96.00074442343744,
+      110.05303585937509,
+      122.30468122499983,
+      128.7926591784374,
+      132.38232618749998
+    ],
+    "all_candidate_zenith_deg": [
+      0.05086831496435636,
+      2.4428615328326195,
+      7.630632911563351,
+      16.712864723756304,
+      23.581665965326742,
+      26.94881557391301,
+      28.572408982349643
+    ],
+    "camera_ground_distance": [
+      95.09254826443139,
+      99.80401408592122,
+      107.7113936969116,
+      118.30004319294171,
+      127.02971264047285,
+      134.06325150985245,
+      140.23729628676801
+    ],
+    "beta": [
+      0.0742912818527937,
+      0.7273314111259331,
+      -0.012949429659567415
+    ],
+    "rank": 3,
+    "condition": 97.40219606046922,
+    "reference": 0.0538838166010336,
+    "reference_se": 0.00375438403928424,
+    "reference_z": 14.352238885850996,
+    "groups": 185,
+    "rmse": 0.04083308869837652,
+    "r2": 0.12067197783277672,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_30_clock_hours_0",
+    "solar_zenith_deg": 27.772285118154915,
+    "solar_azimuth_deg": 204.7407989501953,
+    "height_above_ground": [
+      141.05736854687484,
+      146.80373577468754,
+      156.00074442343742,
+      170.0530358593751,
+      182.30468122499983,
+      188.7926591784374,
+      192.38232618749998
+    ],
+    "all_candidate_zenith_deg": [
+      0.0329183155391687,
+      2.3754708933573387,
+      7.440142687260023,
+      16.343001817608688,
+      23.397597296786753,
+      26.832148595222435,
+      28.58924857112101
+    ],
+    "camera_ground_distance": [
+      153.62253896921675,
+      159.54505993900167,
+      168.10734460701067,
+      179.84195181107145,
+      191.04810445904047,
+      200.55888853038505,
+      209.90228114875922
+    ],
+    "beta": [
+      0.0801560556959102,
+      1.0047932434621487,
+      -0.020964803775734186
+    ],
+    "rank": 3,
+    "condition": 156.6657535673364,
+    "reference": 0.05503900171454061,
+    "reference_se": 0.005310610700651754,
+    "reference_z": 10.363968442986389,
+    "groups": 185,
+    "rmse": 0.04071076614144369,
+    "r2": 0.12593656641695672,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_0_clock_hours_6",
+    "solar_zenith_deg": 89.57218677562525,
+    "solar_azimuth_deg": 288.20489501953125,
+    "height_above_ground": [
+      111.05736854687484,
+      116.80373577468755,
+      126.00074442343744,
+      140.0530358593751,
+      152.30468122499983,
+      158.7926591784374,
+      162.38232618749998
+    ],
+    "all_candidate_zenith_deg": [
+      0.03997055964529471,
+      2.419506165593243,
+      7.542570069078141,
+      16.539539593112234,
+      23.466296139076793,
+      26.852738170233682,
+      28.582270680805237
+    ],
+    "camera_ground_distance": [
+      124.42801373800849,
+      129.61877414471013,
+      137.88672397733671,
+      149.08280803999668,
+      159.02284002031087,
+      167.22882083453325,
+      174.95905246307208
+    ],
+    "beta": [
+      0.08892313809687315,
+      -0.11660780210748231,
+      -0.00504910290462531
+    ],
+    "rank": 3,
+    "condition": 105.89554412176626,
+    "reference": 0.09932011150625064,
+    "reference_se": 0.030863071962182676,
+    "reference_z": 3.218088971439724,
+    "groups": 185,
+    "rmse": 0.042737191552350326,
+    "r2": 0.03675589537180013,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_0_clock_hours_7",
+    "status": "SUN_BELOW_HORIZON",
+    "solar_zenith_deg": 100.1275634765625
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "equal_spatial_group_weight",
+    "reference": 0.02009511215018492,
+    "beta": [
+      -0.0036409077201205657,
+      -2.975875491438586,
+      0.11274367084378731
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "soft_l1",
+    "reference": 0.017630505122805437,
+    "beta": [
+      0.009431226041800609,
+      -1.6303228706792294,
+      0.06657063713173637
+    ],
+    "rmse": 0.04775195289279657
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "nonnegative_all_coefficients_NOT_physical_requirement",
+    "reference": 0.0354087655186605,
+    "beta": [
+      0.05294775295940923,
+      2.160304905272979e-10,
+      0.017538987430841136
+    ],
+    "rmse": 0.046675248991710855
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "standardized_ridge_0.001",
+    "reference": 0.012169691369512861,
+    "rmse": 0.0461179585668654
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "standardized_ridge_0.01",
+    "reference": 0.015276271369248168,
+    "rmse": 0.046125026861148215
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "standardized_ridge_0.1",
+    "reference": 0.02964975303002889,
+    "rmse": 0.046302531681741796
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_linear_nuisance",
+    "beta": [
+      -0.016363554073744315,
+      -3.5980292900663797,
+      0.13235137089804652,
+      -0.018145433373840555,
+      0.019762105930896032
+    ],
+    "reference_at_center": 0.017106338124828036,
+    "rmse": 0.0455013823952028
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "mean_kernel_reference_DIAGNOSTIC",
+    "beta": [
+      -0.006326001986365876,
+      -3.2421524293265134,
+      0.13058244083940146
+    ],
+    "rank": 3,
+    "condition": 464.8529090956741,
+    "reference": 0.048664548466979624,
+    "reference_se": 0.0025652174124464575,
+    "reference_z": 18.970925517213008,
+    "groups": 60,
+    "rmse": 0.04611787086387857,
+    "r2": 0.02667661719038006,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.02679705921076611,
+      -0.2442104770033064
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 0,
+    "test_n": 3631,
+    "test_rmse": 0.036575582209493765
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 0,
+    "test_n": 3631,
+    "test_rmse": 0.03578642029068807
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 0,
+    "test_n": 3631,
+    "test_rmse": 0.036828157856433716
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 0,
+    "test_n": 3631,
+    "test_rmse": 0.03877724738358517
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 1,
+    "test_n": 3796,
+    "test_rmse": 0.03554114430274673
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 1,
+    "test_n": 3796,
+    "test_rmse": 0.032858561382712086
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 1,
+    "test_n": 3796,
+    "test_rmse": 0.03550704744086702
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 1,
+    "test_n": 3796,
+    "test_rmse": 0.03602917436839681
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 2,
+    "test_n": 3503,
+    "test_rmse": 0.052697498550063844
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 2,
+    "test_n": 3503,
+    "test_rmse": 0.05335174810356308
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 2,
+    "test_n": 3503,
+    "test_rmse": 0.052544684935252106
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 2,
+    "test_n": 3503,
+    "test_rmse": 0.05126723460847909
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 3,
+    "test_n": 3810,
+    "test_rmse": 0.05635420632659952
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 3,
+    "test_n": 3810,
+    "test_rmse": 0.06046449217811676
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 3,
+    "test_n": 3810,
+    "test_rmse": 0.05644395816104272
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 3,
+    "test_n": 3810,
+    "test_rmse": 0.05736466317863045
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_OLS",
+    "fold": 4,
+    "test_n": 3345,
+    "test_rmse": 0.05173638240137537
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_Huber",
+    "fold": 4,
+    "test_n": 3345,
+    "test_rmse": 0.054142706775812906
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 4,
+    "test_n": 3345,
+    "test_rmse": 0.051310969131038886
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 4,
+    "test_n": 3345,
+    "test_rmse": 0.05014667392945153
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "raw_NDVI_-1_0.3",
+    "n": 2301,
+    "beta": [
+      0.027320962164444063,
+      -6.458370319370938,
+      0.2472390802550733
+    ],
+    "rank": 3,
+    "condition": 460.3253668219398,
+    "reference": 0.07627585448673885,
+    "reference_se": 0.019339588838455275,
+    "reference_z": 3.9440266865999867,
+    "groups": 54,
+    "rmse": 0.04912010332666976,
+    "r2": 0.08287282002921081,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "raw_NDVI_0.3_0.6",
+    "n": 3454,
+    "beta": [
+      0.013550519140425649,
+      -2.7134203043276957,
+      0.09468522467321248
+    ],
+    "rank": 3,
+    "condition": 485.4461521420341,
+    "reference": 0.043308257547285275,
+    "reference_se": 0.005914494375081172,
+    "reference_z": 7.32239390230055,
+    "groups": 59,
+    "rmse": 0.02838234500699164,
+    "r2": 0.03970351439082842,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "raw_NDVI_0.6_1.01",
+    "n": 12330,
+    "beta": [
+      0.020710684596507867,
+      -0.38660612242498527,
+      0.017331151352702003
+    ],
+    "rank": 3,
+    "condition": 466.2204774211558,
+    "reference": 0.02111007478310587,
+    "reference_se": 0.0031691321193862373,
+    "reference_z": 6.661153270944803,
+    "groups": 60,
+    "rmse": 0.016887712444735043,
+    "r2": 0.0035749722228369807,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_displacement_0.0_m",
+    "beta": [
+      -0.006326002201141601,
+      -3.2421525143184584,
+      0.13058244424753826
+    ],
+    "rank": 3,
+    "condition": 464.8529090956741,
+    "reference": 0.01178324904567557,
+    "reference_se": 0.011962498700950041,
+    "reference_z": 0.9850157011711745,
+    "groups": 60,
+    "rmse": 0.04611787205596825,
+    "r2": 0.026676622658884597,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_displacement_25.0_m",
+    "beta": [
+      0.05199352732707397,
+      0.08627146386403277,
+      0.005727578330124899
+    ],
+    "rank": 3,
+    "condition": 466.0500005072796,
+    "reference": 0.0423093645432348,
+    "reference_se": 0.011751979979676124,
+    "reference_z": 3.6001903182616566,
+    "groups": 60,
+    "rmse": 0.046676243350261534,
+    "r2": 0.0007632331601201692,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "spatial_displacement_50.0_m",
+    "beta": [
+      0.07678191527029586,
+      1.5054071100826096,
+      -0.044359903858163345
+    ],
+    "rank": 3,
+    "condition": 464.06556989231836,
+    "reference": 0.05210079326095917,
+    "reference_se": 0.011535037389118872,
+    "reference_z": 4.51674246934877,
+    "groups": 60,
+    "rmse": 0.0451148772798856,
+    "r2": 0.006153749442094458,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "response_scale_half_same_population",
+    "reference_ratio": 0.5,
+    "se_ratio": 0.5,
+    "same_acceptance": true,
+    "factor_max_difference": 0.0
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "equal_spatial_group_weight",
+    "reference": 0.020089861621625918,
+    "beta": [
+      0.003936220710341628,
+      -2.2993520103880587,
+      0.08929930969885248
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "soft_l1",
+    "reference": 0.018386423171475458,
+    "beta": [
+      0.016347504819020652,
+      -1.0459281000640166,
+      0.04592946742732425
+    ],
+    "rmse": 0.04370043802783016
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "nonnegative_all_coefficients_NOT_physical_requirement",
+    "reference": 0.02920740995485602,
+    "beta": [
+      0.04822185788541896,
+      3.9326589959965716e-17,
+      0.01901444793056294
+    ],
+    "rmse": 0.04265022220487014
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "standardized_ridge_0.001",
+    "reference": 0.011758342720566806,
+    "rmse": 0.04230567281775879
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "standardized_ridge_0.01",
+    "reference": 0.014172000718713468,
+    "rmse": 0.04231025415865539
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "standardized_ridge_0.1",
+    "reference": 0.02545468989182765,
+    "rmse": 0.04242603055019613
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_linear_nuisance",
+    "beta": [
+      -0.0010034088517658633,
+      -2.7621254287118373,
+      0.1039787567000221,
+      -0.009482805649871378,
+      0.0012217713726180705
+    ],
+    "reference_at_center": 0.017563996259579745,
+    "rmse": 0.04225395945589551
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "mean_kernel_reference_DIAGNOSTIC",
+    "beta": [
+      0.0034819740549755602,
+      -2.444531363290097,
+      0.10413465101790569
+    ],
+    "rank": 3,
+    "condition": 465.8062198825165,
+    "reference": 0.04358662832666449,
+    "reference_se": 0.002238265221325913,
+    "reference_z": 19.47339748273641,
+    "groups": 60,
+    "rmse": 0.04230561604007759,
+    "r2": 0.020219801985043362,
+    "reference_outside_bounds": false,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.02679040410188437,
+      -0.24377408040881748
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 0,
+    "test_n": 3595,
+    "test_rmse": 0.03380870631265578
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 0,
+    "test_n": 3595,
+    "test_rmse": 0.0335787338406965
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 0,
+    "test_n": 3595,
+    "test_rmse": 0.033920528193435426
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 0,
+    "test_n": 3595,
+    "test_rmse": 0.03504998897192977
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 1,
+    "test_n": 3767,
+    "test_rmse": 0.0315520207738873
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 1,
+    "test_n": 3767,
+    "test_rmse": 0.029032984529236038
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 1,
+    "test_n": 3767,
+    "test_rmse": 0.03145937595304939
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 1,
+    "test_n": 3767,
+    "test_rmse": 0.03140166344057759
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 2,
+    "test_n": 3483,
+    "test_rmse": 0.04733673689450571
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 2,
+    "test_n": 3483,
+    "test_rmse": 0.048153215734254885
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 2,
+    "test_n": 3483,
+    "test_rmse": 0.04721633172428504
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 2,
+    "test_n": 3483,
+    "test_rmse": 0.04616179290763183
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 3,
+    "test_n": 3792,
+    "test_rmse": 0.05472273566222874
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 3,
+    "test_n": 3792,
+    "test_rmse": 0.05795682371707025
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 3,
+    "test_n": 3792,
+    "test_rmse": 0.05479583353119972
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 3,
+    "test_n": 3792,
+    "test_rmse": 0.055415095072896776
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_OLS",
+    "fold": 4,
+    "test_n": 3319,
+    "test_rmse": 0.043420933810532344
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_Huber",
+    "fold": 4,
+    "test_n": 3319,
+    "test_rmse": 0.04561311077172016
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_ridge_0.01",
+    "fold": 4,
+    "test_n": 3319,
+    "test_rmse": 0.04327921275696815
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "spatial_holdout_nonnegative_coefficients",
+    "fold": 4,
+    "test_n": 3319,
+    "test_rmse": 0.04320924066171185
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "raw_NDVI_-1_0.3",
+    "n": 2294,
+    "beta": [
+      -0.004765770680820168,
+      -7.281131338203744,
+      0.2895917645361482
+    ],
+    "rank": 3,
+    "condition": 459.5436257655573,
+    "reference": 0.03956992779202739,
+    "reference_se": 0.022383569730087084,
+    "reference_z": 1.7678113129041748,
+    "groups": 53,
+    "rmse": 0.05383758579082314,
+    "r2": 0.0917343363490648,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "raw_NDVI_0.3_0.6",
+    "n": 3445,
+    "beta": [
+      0.021636245537070845,
+      -1.8098558502581217,
+      0.06652472658514037
+    ],
+    "rank": 3,
+    "condition": 485.5454842640072,
+    "reference": 0.038115182038961026,
+    "reference_se": 0.006266775982591069,
+    "reference_z": 6.082103803430018,
+    "groups": 59,
+    "rmse": 0.02714486733694326,
+    "r2": 0.020330506005871385,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "raw_NDVI_0.6_1.01",
+    "n": 12217,
+    "beta": [
+      0.030904403649860836,
+      0.23347021156344258,
+      -0.0037888155136723794
+    ],
+    "rank": 3,
+    "condition": 467.538086834849,
+    "reference": 0.02398580134420472,
+    "reference_se": 0.002434748363978114,
+    "reference_z": 9.851449824989112,
+    "groups": 60,
+    "rmse": 0.018467348362263134,
+    "r2": 0.001961045300567177,
+    "reference_outside_bounds": true,
+    "valid": true,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "combined",
+    "method": "response_scale_half_same_population",
+    "reference_ratio": 0.5,
+    "se_ratio": 0.5,
+    "same_acceptance": true,
+    "factor_max_difference": 0.0
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_0_clock_hours_0",
+    "solar_zenith_deg": 26.002233057009647,
+    "solar_azimuth_deg": 172.3543243408203,
+    "height_above_ground": [
+      52.43349403125012,
+      93.33403319406263,
+      107.60468655625,
+      127.32986069531239,
+      140.62566361874997,
+      156.79153515796867,
+      172.92169692187508
+    ],
+    "all_candidate_zenith_deg": [
+      0.041565274503508554,
+      2.2791293349922728,
+      7.187174842407163,
+      16.147124933060407,
+      23.281959339592,
+      26.742764811390497,
+      28.581612144797376
+    ],
+    "camera_ground_distance": [
+      94.57782697214104,
+      109.90085311423438,
+      118.92961005029805,
+      133.47619066780024,
+      144.94191751813074,
+      156.30555044937654,
+      180.63087362985962
+    ],
+    "beta": [
+      -0.002883323510434793,
+      -2.9836138909447323,
+      0.11889870598333038
+    ],
+    "rank": 3,
+    "condition": 463.9940880496553,
+    "reference": 0.015052559929718962,
+    "reference_se": 0.01306533083867391,
+    "reference_z": 1.1520994083948317,
+    "groups": 60,
+    "rmse": 0.04601114739700426,
+    "r2": 0.022421262797336583,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_-30_clock_hours_0",
+    "solar_zenith_deg": 26.002233057009647,
+    "solar_azimuth_deg": 172.3543243408203,
+    "height_above_ground": [
+      22.43349403125012,
+      63.33403319406262,
+      77.60468655625,
+      97.32986069531239,
+      110.62566361874997,
+      126.79153515796867,
+      142.92169692187508
+    ],
+    "all_candidate_zenith_deg": [
+      0.05456447401326497,
+      2.3683176603101734,
+      7.46350824555391,
+      16.439430185760443,
+      23.424599658238336,
+      26.83487356898745,
+      28.532270886730977
+    ],
+    "camera_ground_distance": [
+      65.44051934598504,
+      80.43729261348952,
+      88.74126226339298,
+      102.4317899589326,
+      111.87817167589421,
+      120.18712199215372,
+      140.54676754397
+    ],
+    "beta": [
+      -0.014392562842940592,
+      -3.185629280449065,
+      0.10306447423011052
+    ],
+    "rank": 3,
+    "condition": 549.4990082854526,
+    "reference": 0.028642388180547027,
+    "reference_se": 0.016396389900529662,
+    "reference_z": 1.7468716195643637,
+    "groups": 60,
+    "rmse": 0.04615321823723287,
+    "r2": 0.016374908290675005,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_30_clock_hours_0",
+    "solar_zenith_deg": 26.002233057009647,
+    "solar_azimuth_deg": 172.3543243408203,
+    "height_above_ground": [
+      82.43349403125012,
+      123.33403319406263,
+      137.60468655625,
+      157.3298606953124,
+      170.62566361874997,
+      186.79153515796867,
+      202.92169692187508
+    ],
+    "all_candidate_zenith_deg": [
+      0.033568146661832304,
+      2.1979285216631728,
+      6.910512853060054,
+      15.818830161371812,
+      23.10034745417328,
+      26.59080451767428,
+      28.58961298168705
+    ],
+    "camera_ground_distance": [
+      124.12682682350443,
+      139.3032651381063,
+      149.00179117552065,
+      164.31823742019824,
+      177.990489318108,
+      192.56833408678767,
+      218.13461895900045
+    ],
+    "beta": [
+      0.003730044635616962,
+      -2.7838950989326454,
+      0.11458781166473173
+    ],
+    "rank": 3,
+    "condition": 427.9074708230159,
+    "reference": 0.01681731318707219,
+    "reference_se": 0.010355763357607534,
+    "reference_z": 1.623956883363686,
+    "groups": 60,
+    "rmse": 0.04596018549879715,
+    "r2": 0.024585593879141387,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_0_clock_hours_6",
+    "solar_zenith_deg": 78.36941295180789,
+    "solar_azimuth_deg": 278.78271484375,
+    "height_above_ground": [
+      52.43349403125012,
+      93.33403319406263,
+      107.60468655625,
+      127.32986069531239,
+      140.62566361874997,
+      156.79153515796867,
+      172.92169692187508
+    ],
+    "all_candidate_zenith_deg": [
+      0.041565274503508554,
+      2.2791293349922728,
+      7.187174842407163,
+      16.147124933060407,
+      23.281959339592,
+      26.742764811390497,
+      28.581612144797376
+    ],
+    "camera_ground_distance": [
+      94.57782697214104,
+      109.90085311423438,
+      118.92961005029805,
+      133.47619066780024,
+      144.94191751813074,
+      156.30555044937654,
+      180.63087362985962
+    ],
+    "beta": [
+      -0.15132207635933353,
+      2.086619528971812,
+      -0.013893233600789591
+    ],
+    "rank": 3,
+    "condition": 441.9113061704326,
+    "reference": -0.23312544994905215,
+    "reference_se": 0.09790758950369585,
+    "reference_z": -2.3810763918383677,
+    "groups": 60,
+    "rmse": 0.04536813095286505,
+    "r2": 0.049554113379356446,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  },
+  {
+    "site": "Ruby",
+    "stage": "brdf_only",
+    "method": "geometry_altitude_0_clock_hours_7",
+    "solar_zenith_deg": 89.53617801832094,
+    "solar_azimuth_deg": 288.17156982421875,
+    "height_above_ground": [
+      52.43349403125012,
+      93.33403319406263,
+      107.60468655625,
+      127.32986069531239,
+      140.62566361874997,
+      156.79153515796867,
+      172.92169692187508
+    ],
+    "all_candidate_zenith_deg": [
+      0.041565274503508554,
+      2.2791293349922728,
+      7.187174842407163,
+      16.147124933060407,
+      23.281959339592,
+      26.742764811390497,
+      28.581612144797376
+    ],
+    "camera_ground_distance": [
+      94.57782697214104,
+      109.90085311423438,
+      118.92961005029805,
+      133.47619066780024,
+      144.94191751813074,
+      156.30555044937654,
+      180.63087362985962
+    ],
+    "beta": [
+      -0.17986871834475018,
+      0.8665807433721312,
+      0.01793855690370506
+    ],
+    "rank": 3,
+    "condition": 218.3597236091165,
+    "reference": -0.23755042719633568,
+    "reference_se": 0.1167787212011713,
+    "reference_z": -2.0341927429322886,
+    "groups": 60,
+    "rmse": 0.04547513612243271,
+    "r2": 0.04506538709017138,
+    "reference_outside_bounds": true,
+    "valid": false,
+    "reference_kernel": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ]
+  }
+]

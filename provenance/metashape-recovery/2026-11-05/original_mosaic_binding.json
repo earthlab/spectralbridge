@@ -1,0 +1,2642 @@
+[
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 1,
+    "sampling": "nearest",
+    "n": 10145,
+    "correlation": 0.9966824100971391,
+    "rmse_DN": 55.65515522930316,
+    "median_abs_error_DN": 25.0,
+    "p99_abs_error_DN": 198.11999999999898,
+    "slope": 1.007802316430039,
+    "intercept": -7.720733853772444,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 1,
+    "sampling": "linear",
+    "n": 10145,
+    "correlation": 0.9999999066109561,
+    "rmse_DN": 0.29098792902578463,
+    "median_abs_error_DN": 0.253021240234375,
+    "p99_abs_error_DN": 0.4946002197265625,
+    "slope": 1.0000020255413404,
+    "intercept": -0.005594586102530606,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 1,
+    "sampling": "cubic",
+    "n": 10145,
+    "correlation": 0.9990511210032798,
+    "rmse_DN": 30.0668660833015,
+    "median_abs_error_DN": 13.57373046875,
+    "p99_abs_error_DN": 104.38244628906244,
+    "slope": 1.0079698704795361,
+    "intercept": -7.797209925287374,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 2,
+    "sampling": "nearest",
+    "n": 10145,
+    "correlation": 0.9970332405583543,
+    "rmse_DN": 60.601872814826166,
+    "median_abs_error_DN": 28.0,
+    "p99_abs_error_DN": 218.0,
+    "slope": 1.0070508459883698,
+    "intercept": -8.215781006171094,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 2,
+    "sampling": "linear",
+    "n": 10145,
+    "correlation": 0.9999999316876539,
+    "rmse_DN": 0.2869851475018257,
+    "median_abs_error_DN": 0.2454833984375,
+    "p99_abs_error_DN": 0.49555175781249994,
+    "slope": 0.99999945888203,
+    "intercept": -0.0045160072728948645,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 2,
+    "sampling": "cubic",
+    "n": 10145,
+    "correlation": 0.9991540733870009,
+    "rmse_DN": 32.63143059457654,
+    "median_abs_error_DN": 14.8533935546875,
+    "p99_abs_error_DN": 116.52725097656224,
+    "slope": 1.0069852412369444,
+    "intercept": -8.301732358873382,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 3,
+    "sampling": "nearest",
+    "n": 10145,
+    "correlation": 0.9966017252753785,
+    "rmse_DN": 83.21026766362753,
+    "median_abs_error_DN": 43.0,
+    "p99_abs_error_DN": 268.0,
+    "slope": 1.0074774129019197,
+    "intercept": -12.945730699176837,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 3,
+    "sampling": "linear",
+    "n": 10145,
+    "correlation": 0.9999999576117519,
+    "rmse_DN": 0.28979676761420564,
+    "median_abs_error_DN": 0.2520751953125,
+    "p99_abs_error_DN": 0.49483276367187495,
+    "slope": 0.9999987093280722,
+    "intercept": 0.00045091706084754565,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 3,
+    "sampling": "cubic",
+    "n": 10145,
+    "correlation": 0.9990106477308631,
+    "rmse_DN": 45.28046678015788,
+    "median_abs_error_DN": 23.75390625,
+    "p99_abs_error_DN": 147.20787597656243,
+    "slope": 1.007592952354287,
+    "intercept": -13.609047991354688,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 4,
+    "sampling": "nearest",
+    "n": 10145,
+    "correlation": 0.9966522789705188,
+    "rmse_DN": 93.20532880101266,
+    "median_abs_error_DN": 47.0,
+    "p99_abs_error_DN": 306.5599999999995,
+    "slope": 1.0076581019526036,
+    "intercept": -14.35925152615271,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 4,
+    "sampling": "linear",
+    "n": 10145,
+    "correlation": 0.9999999673993338,
+    "rmse_DN": 0.2867097073429191,
+    "median_abs_error_DN": 0.24658203125,
+    "p99_abs_error_DN": 0.4942773437499999,
+    "slope": 0.9999969025598793,
+    "intercept": 0.006534234314259262,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 4,
+    "sampling": "cubic",
+    "n": 10145,
+    "correlation": 0.9990570182115366,
+    "rmse_DN": 49.84608296108725,
+    "median_abs_error_DN": 26.6597900390625,
+    "p99_abs_error_DN": 159.19419921874996,
+    "slope": 1.007361221988988,
+    "intercept": -14.927786582594653,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 5,
+    "sampling": "nearest",
+    "n": 10145,
+    "correlation": 0.9980292963780517,
+    "rmse_DN": 90.38739744322702,
+    "median_abs_error_DN": 41.0,
+    "p99_abs_error_DN": 324.119999999999,
+    "slope": 1.0054529582491476,
+    "intercept": -9.363566894065546,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 5,
+    "sampling": "linear",
+    "n": 10145,
+    "correlation": 0.9999999797867752,
+    "rmse_DN": 0.28643792615011965,
+    "median_abs_error_DN": 0.2467041015625,
+    "p99_abs_error_DN": 0.49418334960937493,
+    "slope": 0.9999998091326242,
+    "intercept": -0.003009845057660844,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 5,
+    "sampling": "cubic",
+    "n": 10145,
+    "correlation": 0.9994676629192529,
+    "rmse_DN": 47.29414925053957,
+    "median_abs_error_DN": 22.098785400390625,
+    "p99_abs_error_DN": 163.69081054687481,
+    "slope": 1.0050812404756886,
+    "intercept": -9.022902500555768,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 6,
+    "sampling": "nearest",
+    "n": 10145,
+    "correlation": 0.9983147688972334,
+    "rmse_DN": 86.20349976142951,
+    "median_abs_error_DN": 38.0,
+    "p99_abs_error_DN": 306.119999999999,
+    "slope": 1.00395246052409,
+    "intercept": -6.776236304265653,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 6,
+    "sampling": "linear",
+    "n": 10145,
+    "correlation": 0.9999999809061328,
+    "rmse_DN": 0.28800511991289707,
+    "median_abs_error_DN": 0.2496337890625,
+    "p99_abs_error_DN": 0.4947509765625,
+    "slope": 0.9999999959813087,
+    "intercept": -0.0025869042557829995,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 6,
+    "sampling": "cubic",
+    "n": 10145,
+    "correlation": 0.9995547334159884,
+    "rmse_DN": 44.545508530436194,
+    "median_abs_error_DN": 19.218505859375,
+    "p99_abs_error_DN": 159.67248046874946,
+    "slope": 1.0039237756488217,
+    "intercept": -6.845049859156987,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 7,
+    "sampling": "nearest",
+    "n": 10145,
+    "correlation": 0.9974938584691172,
+    "rmse_DN": 112.0335446667926,
+    "median_abs_error_DN": 60.0,
+    "p99_abs_error_DN": 361.5599999999995,
+    "slope": 1.0055150925583851,
+    "intercept": -15.803627145572863,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 7,
+    "sampling": "linear",
+    "n": 10145,
+    "correlation": 0.9999999830310187,
+    "rmse_DN": 0.2885174994673162,
+    "median_abs_error_DN": 0.2490234375,
+    "p99_abs_error_DN": 0.49472412109374997,
+    "slope": 0.9999998317703047,
+    "intercept": 0.0016617209244021546,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 7,
+    "sampling": "cubic",
+    "n": 10145,
+    "correlation": 0.9993488768090201,
+    "rmse_DN": 57.644420362508164,
+    "median_abs_error_DN": 30.66748046875,
+    "p99_abs_error_DN": 178.6937792968747,
+    "slope": 1.0059685116453312,
+    "intercept": -17.809638529499505,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 8,
+    "sampling": "nearest",
+    "n": 10145,
+    "correlation": 0.9966232562943299,
+    "rmse_DN": 149.6587091559319,
+    "median_abs_error_DN": 79.0,
+    "p99_abs_error_DN": 468.5599999999995,
+    "slope": 1.0073356396513446,
+    "intercept": -29.574886803707404,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 8,
+    "sampling": "linear",
+    "n": 10145,
+    "correlation": 0.9999999868683358,
+    "rmse_DN": 0.29110557171875473,
+    "median_abs_error_DN": 0.25732421875,
+    "p99_abs_error_DN": 0.49462890625,
+    "slope": 1.0000006936292003,
+    "intercept": -0.003068356190604821,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 8,
+    "sampling": "cubic",
+    "n": 10145,
+    "correlation": 0.999128310020866,
+    "rmse_DN": 77.21124479075985,
+    "median_abs_error_DN": 40.99609375,
+    "p99_abs_error_DN": 242.52624023437488,
+    "slope": 1.0084866090017888,
+    "intercept": -34.72497020357232,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 9,
+    "sampling": "nearest",
+    "n": 10145,
+    "correlation": 0.9949400630030777,
+    "rmse_DN": 261.33952412595283,
+    "median_abs_error_DN": 136.0,
+    "p99_abs_error_DN": 825.5599999999995,
+    "slope": 1.0112560843161447,
+    "intercept": -64.85086968902053,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 9,
+    "sampling": "linear",
+    "n": 10145,
+    "correlation": 0.9999999935143709,
+    "rmse_DN": 0.2897263334165503,
+    "median_abs_error_DN": 0.25341796875,
+    "p99_abs_error_DN": 0.4951171875,
+    "slope": 1.000001101014529,
+    "intercept": -0.005138344151439458,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 9,
+    "sampling": "cubic",
+    "n": 10145,
+    "correlation": 0.9987033625744807,
+    "rmse_DN": 135.07602437041126,
+    "median_abs_error_DN": 71.42431640625,
+    "p99_abs_error_DN": 428.28507812499925,
+    "slope": 1.0124912454220554,
+    "intercept": -74.69232451893221,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 10,
+    "sampling": "nearest",
+    "n": 10145,
+    "correlation": 0.9956860024366397,
+    "rmse_DN": 285.1371117528686,
+    "median_abs_error_DN": 145.0,
+    "p99_abs_error_DN": 912.0,
+    "slope": 1.0100704005975,
+    "intercept": -73.26716260570227,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 10,
+    "sampling": "linear",
+    "n": 10145,
+    "correlation": 0.9999999954588947,
+    "rmse_DN": 0.2870723037471222,
+    "median_abs_error_DN": 0.24609375,
+    "p99_abs_error_DN": 0.4951171875,
+    "slope": 0.9999999750032269,
+    "intercept": -0.003848495543409935,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 10,
+    "sampling": "cubic",
+    "n": 10145,
+    "correlation": 0.9989485163809914,
+    "rmse_DN": 143.4302647644458,
+    "median_abs_error_DN": 73.990234375,
+    "p99_abs_error_DN": 448.97667968749994,
+    "slope": 1.0107558752255685,
+    "intercept": -81.78690657742416,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.08442750000000387,
+      0.08442749999994703
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 1,
+    "sampling": "nearest",
+    "n": 10149,
+    "correlation": 0.7412015191320139,
+    "rmse_DN": 486.4261955209993,
+    "median_abs_error_DN": 206.0,
+    "p99_abs_error_DN": 1840.5200000000004,
+    "slope": 0.7477347089346785,
+    "intercept": 243.8833218495172,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 1,
+    "sampling": "linear",
+    "n": 10149,
+    "correlation": 0.751705689994956,
+    "rmse_DN": 473.2350906797183,
+    "median_abs_error_DN": 200.1231689453125,
+    "p99_abs_error_DN": 1748.810491943361,
+    "slope": 0.748228302951793,
+    "intercept": 242.09668876892616,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 1,
+    "sampling": "cubic",
+    "n": 10149,
+    "correlation": 0.7438614658669769,
+    "rmse_DN": 483.03759253288007,
+    "median_abs_error_DN": 205.65098571777344,
+    "p99_abs_error_DN": 1788.5203955078139,
+    "slope": 0.747770579184224,
+    "intercept": 243.10441313996006,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 2,
+    "sampling": "nearest",
+    "n": 10149,
+    "correlation": 0.7550738686142539,
+    "rmse_DN": 544.8708010812501,
+    "median_abs_error_DN": 232.0,
+    "p99_abs_error_DN": 2028.0400000000009,
+    "slope": 0.7596311706629167,
+    "intercept": 272.398090657584,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 2,
+    "sampling": "linear",
+    "n": 10149,
+    "correlation": 0.7643513863735996,
+    "rmse_DN": 531.4721849394919,
+    "median_abs_error_DN": 228.27117919921875,
+    "p99_abs_error_DN": 1966.5576708984531,
+    "slope": 0.760435121052291,
+    "intercept": 271.03224121163333,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 2,
+    "sampling": "cubic",
+    "n": 10149,
+    "correlation": 0.7572581292013869,
+    "rmse_DN": 541.869192450553,
+    "median_abs_error_DN": 233.69952392578125,
+    "p99_abs_error_DN": 2001.4887402343793,
+    "slope": 0.7602711621942517,
+    "intercept": 271.56727039281685,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 3,
+    "sampling": "nearest",
+    "n": 10149,
+    "correlation": 0.7342670879147908,
+    "rmse_DN": 729.1210901455153,
+    "median_abs_error_DN": 333.0,
+    "p99_abs_error_DN": 2360.5200000000004,
+    "slope": 0.7416438458321436,
+    "intercept": 451.97329745089735,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 3,
+    "sampling": "linear",
+    "n": 10149,
+    "correlation": 0.743333300506269,
+    "rmse_DN": 712.6253773513312,
+    "median_abs_error_DN": 321.2337646484375,
+    "p99_abs_error_DN": 2307.572888183595,
+    "slope": 0.7427076566888661,
+    "intercept": 448.9427558742183,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 3,
+    "sampling": "cubic",
+    "n": 10149,
+    "correlation": 0.7355949235680909,
+    "rmse_DN": 726.9003728086861,
+    "median_abs_error_DN": 332.449951171875,
+    "p99_abs_error_DN": 2354.9490820312544,
+    "slope": 0.7422162873726247,
+    "intercept": 450.2774515342289,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 4,
+    "sampling": "nearest",
+    "n": 10149,
+    "correlation": 0.7430209345334992,
+    "rmse_DN": 808.3092374409364,
+    "median_abs_error_DN": 370.0,
+    "p99_abs_error_DN": 2506.0800000000017,
+    "slope": 0.7495344121214085,
+    "intercept": 493.37668403590396,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 4,
+    "sampling": "linear",
+    "n": 10149,
+    "correlation": 0.7508606300853667,
+    "rmse_DN": 791.9354243673287,
+    "median_abs_error_DN": 354.841064453125,
+    "p99_abs_error_DN": 2490.6102246093815,
+    "slope": 0.7500663996348156,
+    "intercept": 491.4513633536497,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 4,
+    "sampling": "cubic",
+    "n": 10149,
+    "correlation": 0.7436421347189183,
+    "rmse_DN": 806.9422088554439,
+    "median_abs_error_DN": 366.13372802734375,
+    "p99_abs_error_DN": 2512.164785156251,
+    "slope": 0.749469099507824,
+    "intercept": 492.8529637123996,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 5,
+    "sampling": "nearest",
+    "n": 10149,
+    "correlation": 0.7880652228703318,
+    "rmse_DN": 927.1827367742321,
+    "median_abs_error_DN": 379.0,
+    "p99_abs_error_DN": 3532.1600000000035,
+    "slope": 0.7879845701325886,
+    "intercept": 366.62512862591666,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 5,
+    "sampling": "linear",
+    "n": 10149,
+    "correlation": 0.7944837104767549,
+    "rmse_DN": 909.9269170639207,
+    "median_abs_error_DN": 366.60888671875,
+    "p99_abs_error_DN": 3274.9715039062503,
+    "slope": 0.7889085603415795,
+    "intercept": 364.9264239360861,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 5,
+    "sampling": "cubic",
+    "n": 10149,
+    "correlation": 0.7895040315126526,
+    "rmse_DN": 923.5570677415811,
+    "median_abs_error_DN": 376.355712890625,
+    "p99_abs_error_DN": 3374.5961718750063,
+    "slope": 0.7886121333039806,
+    "intercept": 365.66492236966053,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 6,
+    "sampling": "nearest",
+    "n": 10149,
+    "correlation": 0.7909650984610226,
+    "rmse_DN": 952.6166384481539,
+    "median_abs_error_DN": 368.0,
+    "p99_abs_error_DN": 3634.7600000000057,
+    "slope": 0.7908084790109707,
+    "intercept": 343.7676907306169,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 6,
+    "sampling": "linear",
+    "n": 10149,
+    "correlation": 0.7968365649124042,
+    "rmse_DN": 936.3657716706919,
+    "median_abs_error_DN": 360.99169921875,
+    "p99_abs_error_DN": 3480.0916601562535,
+    "slope": 0.7919004705329479,
+    "intercept": 341.68663594150377,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 6,
+    "sampling": "cubic",
+    "n": 10149,
+    "correlation": 0.7924290190732607,
+    "rmse_DN": 949.0117262175811,
+    "median_abs_error_DN": 365.25068283081055,
+    "p99_abs_error_DN": 3525.13445434571,
+    "slope": 0.7918309341499483,
+    "intercept": 342.2322382664471,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 7,
+    "sampling": "nearest",
+    "n": 10149,
+    "correlation": 0.7430467136800575,
+    "rmse_DN": 1125.3137944913497,
+    "median_abs_error_DN": 514.0,
+    "p99_abs_error_DN": 3439.5600000000013,
+    "slope": 0.7468083470865832,
+    "intercept": 760.2013200957158,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 7,
+    "sampling": "linear",
+    "n": 10149,
+    "correlation": 0.7488715668049087,
+    "rmse_DN": 1108.6257430619603,
+    "median_abs_error_DN": 500.709228515625,
+    "p99_abs_error_DN": 3403.031918945315,
+    "slope": 0.7475087150402453,
+    "intercept": 755.9070680758246,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 7,
+    "sampling": "cubic",
+    "n": 10149,
+    "correlation": 0.7432999500551971,
+    "rmse_DN": 1124.896223751414,
+    "median_abs_error_DN": 509.43017578125,
+    "p99_abs_error_DN": 3474.6935742187557,
+    "slope": 0.747262664269025,
+    "intercept": 757.2798845951287,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 8,
+    "sampling": "nearest",
+    "n": 10149,
+    "correlation": 0.6749535149990696,
+    "rmse_DN": 1457.8126750871975,
+    "median_abs_error_DN": 698.0,
+    "p99_abs_error_DN": 4398.52,
+    "slope": 0.683934064583439,
+    "intercept": 1284.0494331905993,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 8,
+    "sampling": "linear",
+    "n": 10149,
+    "correlation": 0.6818815327577058,
+    "rmse_DN": 1435.1643004663074,
+    "median_abs_error_DN": 682.416259765625,
+    "p99_abs_error_DN": 4374.708769531251,
+    "slope": 0.6844429117305345,
+    "intercept": 1278.692805086617,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 8,
+    "sampling": "cubic",
+    "n": 10149,
+    "correlation": 0.675147236716802,
+    "rmse_DN": 1457.3302486503953,
+    "median_abs_error_DN": 704.2001953125,
+    "p99_abs_error_DN": 4409.375079345703,
+    "slope": 0.6841162553232457,
+    "intercept": 1280.9498057920675,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 9,
+    "sampling": "nearest",
+    "n": 10149,
+    "correlation": 0.5860609637417378,
+    "rmse_DN": 2346.8986477444037,
+    "median_abs_error_DN": 1206.0,
+    "p99_abs_error_DN": 6966.560000000001,
+    "slope": 0.6023053679725883,
+    "intercept": 2390.2530010588957,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 9,
+    "sampling": "linear",
+    "n": 10149,
+    "correlation": 0.5948247454737527,
+    "rmse_DN": 2304.878591194027,
+    "median_abs_error_DN": 1179.13232421875,
+    "p99_abs_error_DN": 6921.554726562511,
+    "slope": 0.602818277290732,
+    "intercept": 2381.903168861217,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 9,
+    "sampling": "cubic",
+    "n": 10149,
+    "correlation": 0.5864513029528113,
+    "rmse_DN": 2345.191463904402,
+    "median_abs_error_DN": 1205.00830078125,
+    "p99_abs_error_DN": 6995.286542968751,
+    "slope": 0.6024460269870872,
+    "intercept": 2385.318980219793,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 10,
+    "sampling": "nearest",
+    "n": 10149,
+    "correlation": 0.6083427751227355,
+    "rmse_DN": 2701.8675779740356,
+    "median_abs_error_DN": 1363.0,
+    "p99_abs_error_DN": 8066.1600000000035,
+    "slope": 0.6246618417653184,
+    "intercept": 2855.9620397148756,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 10,
+    "sampling": "linear",
+    "n": 10149,
+    "correlation": 0.6163919122401689,
+    "rmse_DN": 2656.933188345853,
+    "median_abs_error_DN": 1333.8681640625,
+    "p99_abs_error_DN": 7985.567226562503,
+    "slope": 0.6253054193775502,
+    "intercept": 2847.0294652668194,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "unshifted",
+    "band": 10,
+    "sampling": "cubic",
+    "n": 10149,
+    "correlation": 0.6090237383673184,
+    "rmse_DN": 2698.4761766886622,
+    "median_abs_error_DN": 1353.4248046875,
+    "p99_abs_error_DN": 8093.445937500002,
+    "slope": 0.6249251630250963,
+    "intercept": 2851.0353753018335,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 1,
+    "sampling": "nearest",
+    "n": 10208,
+    "correlation": 0.7513241568323317,
+    "rmse_DN": 478.7541942039446,
+    "median_abs_error_DN": 203.0,
+    "p99_abs_error_DN": 1736.8800000000047,
+    "slope": 0.7658938383248884,
+    "intercept": 232.6658706318977,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 1,
+    "sampling": "linear",
+    "n": 10208,
+    "correlation": 0.7585909229542993,
+    "rmse_DN": 468.5736915560872,
+    "median_abs_error_DN": 199.24594116210938,
+    "p99_abs_error_DN": 1700.3720800781264,
+    "slope": 0.7635379030991564,
+    "intercept": 235.02773086103934,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 1,
+    "sampling": "cubic",
+    "n": 10208,
+    "correlation": 0.752224713009506,
+    "rmse_DN": 476.77901984432447,
+    "median_abs_error_DN": 205.09489822387695,
+    "p99_abs_error_DN": 1739.4749780273448,
+    "slope": 0.7634953924142598,
+    "intercept": 234.78206048156383,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 2,
+    "sampling": "nearest",
+    "n": 10208,
+    "correlation": 0.7642256733266447,
+    "rmse_DN": 537.5325395669179,
+    "median_abs_error_DN": 230.0,
+    "p99_abs_error_DN": 1939.3700000000026,
+    "slope": 0.7790481274142114,
+    "intercept": 259.6873518647355,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 2,
+    "sampling": "linear",
+    "n": 10208,
+    "correlation": 0.7707593326856585,
+    "rmse_DN": 526.8235100283243,
+    "median_abs_error_DN": 224.38369750976562,
+    "p99_abs_error_DN": 1917.352524414063,
+    "slope": 0.7766913896148216,
+    "intercept": 262.6454423057976,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 2,
+    "sampling": "cubic",
+    "n": 10208,
+    "correlation": 0.7649524951479058,
+    "rmse_DN": 535.5637973484104,
+    "median_abs_error_DN": 229.31045532226562,
+    "p99_abs_error_DN": 1937.67044433594,
+    "slope": 0.7767097160524848,
+    "intercept": 262.17766193913053,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 3,
+    "sampling": "nearest",
+    "n": 10208,
+    "correlation": 0.7457735599627123,
+    "rmse_DN": 716.2263380522593,
+    "median_abs_error_DN": 335.0,
+    "p99_abs_error_DN": 2308.720000000001,
+    "slope": 0.7614609426866558,
+    "intercept": 426.2320525096718,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 3,
+    "sampling": "linear",
+    "n": 10208,
+    "correlation": 0.753919040515285,
+    "rmse_DN": 700.2984372815691,
+    "median_abs_error_DN": 322.56109619140625,
+    "p99_abs_error_DN": 2247.275310058594,
+    "slope": 0.7607327616055004,
+    "intercept": 428.48851117396845,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 3,
+    "sampling": "cubic",
+    "n": 10208,
+    "correlation": 0.7473719107325393,
+    "rmse_DN": 712.9161027147476,
+    "median_abs_error_DN": 329.80474853515625,
+    "p99_abs_error_DN": 2303.0144537353526,
+    "slope": 0.7609685082087877,
+    "intercept": 427.5969942641633,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 4,
+    "sampling": "nearest",
+    "n": 10208,
+    "correlation": 0.7527340743313341,
+    "rmse_DN": 797.6018572373658,
+    "median_abs_error_DN": 370.0,
+    "p99_abs_error_DN": 2496.230000000003,
+    "slope": 0.7700301949337439,
+    "intercept": 464.92378418629755,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 4,
+    "sampling": "linear",
+    "n": 10208,
+    "correlation": 0.7603667359535622,
+    "rmse_DN": 780.2944388763574,
+    "median_abs_error_DN": 359.005126953125,
+    "p99_abs_error_DN": 2482.0396672058127,
+    "slope": 0.7687228635443693,
+    "intercept": 468.07776348704255,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 4,
+    "sampling": "cubic",
+    "n": 10208,
+    "correlation": 0.7541264143980013,
+    "rmse_DN": 794.1142262996825,
+    "median_abs_error_DN": 368.64007568359375,
+    "p99_abs_error_DN": 2526.899387207032,
+    "slope": 0.7692206547750513,
+    "intercept": 466.88342606211114,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 5,
+    "sampling": "nearest",
+    "n": 10208,
+    "correlation": 0.795504463317065,
+    "rmse_DN": 917.6269348784505,
+    "median_abs_error_DN": 370.0,
+    "p99_abs_error_DN": 3392.320000000007,
+    "slope": 0.8096695778654571,
+    "intercept": 346.1052244611304,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 5,
+    "sampling": "linear",
+    "n": 10208,
+    "correlation": 0.8002876617962943,
+    "rmse_DN": 902.6877866720519,
+    "median_abs_error_DN": 354.5952453613281,
+    "p99_abs_error_DN": 3401.8348339843797,
+    "slope": 0.8075128300170257,
+    "intercept": 350.72290424269914,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 5,
+    "sampling": "cubic",
+    "n": 10208,
+    "correlation": 0.7959945739093098,
+    "rmse_DN": 915.1557147330852,
+    "median_abs_error_DN": 364.8824462890625,
+    "p99_abs_error_DN": 3413.3057763671886,
+    "slope": 0.8079016455143072,
+    "intercept": 349.6952607857179,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 6,
+    "sampling": "nearest",
+    "n": 10208,
+    "correlation": 0.7984640157395426,
+    "rmse_DN": 941.2107554774802,
+    "median_abs_error_DN": 353.0,
+    "p99_abs_error_DN": 3605.5800000000017,
+    "slope": 0.8106900082293584,
+    "intercept": 326.15366233031926,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 6,
+    "sampling": "linear",
+    "n": 10208,
+    "correlation": 0.802078434545444,
+    "rmse_DN": 929.2431901740437,
+    "median_abs_error_DN": 348.6412658691406,
+    "p99_abs_error_DN": 3555.579381408693,
+    "slope": 0.8085652116668399,
+    "intercept": 330.6875583552127,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 6,
+    "sampling": "cubic",
+    "n": 10208,
+    "correlation": 0.7984901003459722,
+    "rmse_DN": 939.7496520860143,
+    "median_abs_error_DN": 356.1160888671875,
+    "p99_abs_error_DN": 3569.558618011478,
+    "slope": 0.8084494988802747,
+    "intercept": 330.1305600232504,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 7,
+    "sampling": "nearest",
+    "n": 10208,
+    "correlation": 0.7543955668148848,
+    "rmse_DN": 1106.7390744075738,
+    "median_abs_error_DN": 514.0,
+    "p99_abs_error_DN": 3587.8600000000006,
+    "slope": 0.7686041433602286,
+    "intercept": 707.965765785513,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 7,
+    "sampling": "linear",
+    "n": 10208,
+    "correlation": 0.759863333787,
+    "rmse_DN": 1088.9172480742293,
+    "median_abs_error_DN": 497.41648864746094,
+    "p99_abs_error_DN": 3515.837731933594,
+    "slope": 0.7668811426105507,
+    "intercept": 713.7429463759358,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 7,
+    "sampling": "cubic",
+    "n": 10208,
+    "correlation": 0.754832220454236,
+    "rmse_DN": 1104.2708920835394,
+    "median_abs_error_DN": 511.22625732421875,
+    "p99_abs_error_DN": 3531.2003027343762,
+    "slope": 0.767111848818735,
+    "intercept": 712.6675086221596,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 8,
+    "sampling": "nearest",
+    "n": 10208,
+    "correlation": 0.691138698748835,
+    "rmse_DN": 1427.103993508398,
+    "median_abs_error_DN": 681.0,
+    "p99_abs_error_DN": 4317.860000000001,
+    "slope": 0.7061724416665306,
+    "intercept": 1204.3366208380548,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 8,
+    "sampling": "linear",
+    "n": 10208,
+    "correlation": 0.6976359699425387,
+    "rmse_DN": 1403.9621607622264,
+    "median_abs_error_DN": 665.381103515625,
+    "p99_abs_error_DN": 4275.006850585938,
+    "slope": 0.7050676566103475,
+    "intercept": 1209.9263010300103,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 8,
+    "sampling": "cubic",
+    "n": 10208,
+    "correlation": 0.691354900814474,
+    "rmse_DN": 1425.5277440637235,
+    "median_abs_error_DN": 677.5693359375,
+    "p99_abs_error_DN": 4318.578934631348,
+    "slope": 0.705369675117933,
+    "intercept": 1208.7888132890027,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 9,
+    "sampling": "nearest",
+    "n": 10208,
+    "correlation": 0.6055323051848218,
+    "rmse_DN": 2295.9634368069514,
+    "median_abs_error_DN": 1171.0,
+    "p99_abs_error_DN": 6870.250000000007,
+    "slope": 0.6226298859177031,
+    "intercept": 2272.2518052735695,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 9,
+    "sampling": "linear",
+    "n": 10208,
+    "correlation": 0.6137844537388364,
+    "rmse_DN": 2253.802257175389,
+    "median_abs_error_DN": 1140.219482421875,
+    "p99_abs_error_DN": 6729.215934753418,
+    "slope": 0.6216147155571509,
+    "intercept": 2278.722067764848,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 9,
+    "sampling": "cubic",
+    "n": 10208,
+    "correlation": 0.605478280797177,
+    "rmse_DN": 2295.376428994467,
+    "median_abs_error_DN": 1168.037109375,
+    "p99_abs_error_DN": 6849.226242675784,
+    "slope": 0.6221818519755757,
+    "intercept": 2276.7726367497994,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 10,
+    "sampling": "nearest",
+    "n": 10208,
+    "correlation": 0.632154742987468,
+    "rmse_DN": 2620.2333107310455,
+    "median_abs_error_DN": 1306.0,
+    "p99_abs_error_DN": 7889.93,
+    "slope": 0.6468122674366115,
+    "intercept": 2688.0742262629756,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 10,
+    "sampling": "linear",
+    "n": 10208,
+    "correlation": 0.6389939605375428,
+    "rmse_DN": 2577.792370714708,
+    "median_abs_error_DN": 1290.994873046875,
+    "p99_abs_error_DN": 7799.252080078133,
+    "slope": 0.6451645395313534,
+    "intercept": 2700.4631889564043,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "offset": "pose_derived_translation",
+    "band": 10,
+    "sampling": "cubic",
+    "n": 10208,
+    "correlation": 0.6316927536688364,
+    "rmse_DN": 2620.686928428249,
+    "median_abs_error_DN": 1318.640380859375,
+    "p99_abs_error_DN": 7837.0392187500065,
+    "slope": 0.6457826067237745,
+    "intercept": 2696.511309973965,
+    "original_pixel_size": [
+      0.08442749999999995,
+      0.0844275000000419
+    ],
+    "project_pixel_size": [
+      0.0843090999999987,
+      0.08430909999999016
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 1,
+    "sampling": "nearest",
+    "n": 3080,
+    "correlation": 0.9993043476183646,
+    "rmse_DN": 29.163327576335924,
+    "median_abs_error_DN": 12.0,
+    "p99_abs_error_DN": 104.21000000000004,
+    "slope": 1.0021923661040884,
+    "intercept": -2.189733381232426,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 1,
+    "sampling": "linear",
+    "n": 3080,
+    "correlation": 0.9999999317771551,
+    "rmse_DN": 0.2875863259342795,
+    "median_abs_error_DN": 0.249114990234375,
+    "p99_abs_error_DN": 0.495565185546875,
+    "slope": 1.0000034121718655,
+    "intercept": 0.0023951000425367175,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 1,
+    "sampling": "cubic",
+    "n": 3080,
+    "correlation": 0.999807689361326,
+    "rmse_DN": 15.57743761621972,
+    "median_abs_error_DN": 6.31378173828125,
+    "p99_abs_error_DN": 55.05628173828127,
+    "slope": 1.003605049535939,
+    "intercept": -3.208021715220267,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 2,
+    "sampling": "nearest",
+    "n": 3080,
+    "correlation": 0.9993643190562896,
+    "rmse_DN": 31.471513608836307,
+    "median_abs_error_DN": 12.0,
+    "p99_abs_error_DN": 118.21000000000004,
+    "slope": 1.0021460528097974,
+    "intercept": -2.280928218128694,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 2,
+    "sampling": "linear",
+    "n": 3080,
+    "correlation": 0.9999999462506617,
+    "rmse_DN": 0.2881720641075944,
+    "median_abs_error_DN": 0.248046875,
+    "p99_abs_error_DN": 0.493922119140625,
+    "slope": 0.9999994504608756,
+    "intercept": 0.006325840168770741,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 2,
+    "sampling": "cubic",
+    "n": 3080,
+    "correlation": 0.999841443525396,
+    "rmse_DN": 16.00706240560197,
+    "median_abs_error_DN": 6.610115051269531,
+    "p99_abs_error_DN": 56.34926025390625,
+    "slope": 1.0035142883901549,
+    "intercept": -3.481197227675165,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 3,
+    "sampling": "nearest",
+    "n": 3080,
+    "correlation": 0.9992947113652679,
+    "rmse_DN": 42.04315578131532,
+    "median_abs_error_DN": 19.0,
+    "p99_abs_error_DN": 127.42000000000007,
+    "slope": 1.0023497827771408,
+    "intercept": -4.526300393468078,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 3,
+    "sampling": "linear",
+    "n": 3080,
+    "correlation": 0.999999966062582,
+    "rmse_DN": 0.29021248703852187,
+    "median_abs_error_DN": 0.25177001953125,
+    "p99_abs_error_DN": 0.49441650390625,
+    "slope": 0.9999952389882025,
+    "intercept": 0.007047883295191349,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 3,
+    "sampling": "cubic",
+    "n": 3080,
+    "correlation": 0.9998047072899837,
+    "rmse_DN": 22.466585086677313,
+    "median_abs_error_DN": 11.02227783203125,
+    "p99_abs_error_DN": 73.68434326171884,
+    "slope": 1.003644188414826,
+    "intercept": -5.828763535285768,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 4,
+    "sampling": "nearest",
+    "n": 3080,
+    "correlation": 0.9993058314100035,
+    "rmse_DN": 47.52294387772284,
+    "median_abs_error_DN": 23.0,
+    "p99_abs_error_DN": 155.0,
+    "slope": 1.002934208883093,
+    "intercept": -5.679615731233033,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 4,
+    "sampling": "linear",
+    "n": 3080,
+    "correlation": 0.9999999735969847,
+    "rmse_DN": 0.29121413935366225,
+    "median_abs_error_DN": 0.253662109375,
+    "p99_abs_error_DN": 0.49565673828125,
+    "slope": 0.9999984301487502,
+    "intercept": -0.0023742249348485864,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 4,
+    "sampling": "cubic",
+    "n": 3080,
+    "correlation": 0.9998040613494074,
+    "rmse_DN": 25.696151869796914,
+    "median_abs_error_DN": 12.09088134765625,
+    "p99_abs_error_DN": 83.18726806640629,
+    "slope": 1.0040172985895433,
+    "intercept": -7.078922070523588,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 5,
+    "sampling": "nearest",
+    "n": 3080,
+    "correlation": 0.999542886342321,
+    "rmse_DN": 45.88315198810601,
+    "median_abs_error_DN": 18.0,
+    "p99_abs_error_DN": 161.21000000000004,
+    "slope": 1.0012833063264166,
+    "intercept": -2.2667419757677028,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 5,
+    "sampling": "linear",
+    "n": 3080,
+    "correlation": 0.9999999818623028,
+    "rmse_DN": 0.28834566729436306,
+    "median_abs_error_DN": 0.2520751953125,
+    "p99_abs_error_DN": 0.4938874816894531,
+    "slope": 1.0000032407902575,
+    "intercept": -0.007806589485154028,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 5,
+    "sampling": "cubic",
+    "n": 3080,
+    "correlation": 0.9998901741638514,
+    "rmse_DN": 22.784109062397697,
+    "median_abs_error_DN": 9.589813232421875,
+    "p99_abs_error_DN": 88.54159667968753,
+    "slope": 1.002412530425771,
+    "intercept": -3.8899099753725466,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 6,
+    "sampling": "nearest",
+    "n": 3080,
+    "correlation": 0.999602562777555,
+    "rmse_DN": 44.86093953657119,
+    "median_abs_error_DN": 17.0,
+    "p99_abs_error_DN": 162.0,
+    "slope": 1.0013977696784164,
+    "intercept": -2.492316761608248,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 6,
+    "sampling": "linear",
+    "n": 3080,
+    "correlation": 0.9999999833896828,
+    "rmse_DN": 0.2892172282511694,
+    "median_abs_error_DN": 0.25176239013671875,
+    "p99_abs_error_DN": 0.4959490966796875,
+    "slope": 1.0000029798826389,
+    "intercept": -0.007562473236312014,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 6,
+    "sampling": "cubic",
+    "n": 3080,
+    "correlation": 0.9999048952099872,
+    "rmse_DN": 22.201826161838877,
+    "median_abs_error_DN": 8.757293701171875,
+    "p99_abs_error_DN": 83.3276513671875,
+    "slope": 1.0021785109013481,
+    "intercept": -3.574901851245173,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 7,
+    "sampling": "nearest",
+    "n": 3080,
+    "correlation": 0.9994638639055277,
+    "rmse_DN": 55.42496682950697,
+    "median_abs_error_DN": 26.0,
+    "p99_abs_error_DN": 182.0,
+    "slope": 1.002010793759459,
+    "intercept": -5.45299084303835,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 7,
+    "sampling": "linear",
+    "n": 3080,
+    "correlation": 0.9999999852954746,
+    "rmse_DN": 0.2891101395984595,
+    "median_abs_error_DN": 0.24810791015625,
+    "p99_abs_error_DN": 0.4947702026367188,
+    "slope": 0.9999963243087127,
+    "intercept": 0.013383723216485297,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 7,
+    "sampling": "cubic",
+    "n": 3080,
+    "correlation": 0.9998717816905438,
+    "rmse_DN": 27.523288697849512,
+    "median_abs_error_DN": 14.2003173828125,
+    "p99_abs_error_DN": 89.83516845703124,
+    "slope": 1.002951510420001,
+    "intercept": -7.324038432775745,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 8,
+    "sampling": "nearest",
+    "n": 3080,
+    "correlation": 0.9993574652391037,
+    "rmse_DN": 71.26338561891464,
+    "median_abs_error_DN": 35.0,
+    "p99_abs_error_DN": 224.0,
+    "slope": 1.00305074136322,
+    "intercept": -10.824634553711093,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 8,
+    "sampling": "linear",
+    "n": 3080,
+    "correlation": 0.9999999891511515,
+    "rmse_DN": 0.29077706100610473,
+    "median_abs_error_DN": 0.2571563720703125,
+    "p99_abs_error_DN": 0.494583740234375,
+    "slope": 0.9999999293500019,
+    "intercept": -0.00443762246415609,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 8,
+    "sampling": "cubic",
+    "n": 3080,
+    "correlation": 0.999848387439551,
+    "rmse_DN": 35.38282201554739,
+    "median_abs_error_DN": 18.829833984375,
+    "p99_abs_error_DN": 109.22475708007815,
+    "slope": 1.0039555709250394,
+    "intercept": -13.438118420064644,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 9,
+    "sampling": "nearest",
+    "n": 3080,
+    "correlation": 0.9991008882595213,
+    "rmse_DN": 118.47903124247702,
+    "median_abs_error_DN": 56.0,
+    "p99_abs_error_DN": 388.21000000000004,
+    "slope": 1.004428103284958,
+    "intercept": -23.111894316519823,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 9,
+    "sampling": "linear",
+    "n": 3080,
+    "correlation": 0.9999999945672027,
+    "rmse_DN": 0.28819890227720074,
+    "median_abs_error_DN": 0.2527008056640625,
+    "p99_abs_error_DN": 0.495020751953125,
+    "slope": 1.000000457873664,
+    "intercept": -0.005245882451582412,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 9,
+    "sampling": "cubic",
+    "n": 3080,
+    "correlation": 0.9997801898484265,
+    "rmse_DN": 60.33161282681492,
+    "median_abs_error_DN": 28.81640625,
+    "p99_abs_error_DN": 189.03189941406256,
+    "slope": 1.0056134896390025,
+    "intercept": -27.350729259251324,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 10,
+    "sampling": "nearest",
+    "n": 3080,
+    "correlation": 0.9991728793116299,
+    "rmse_DN": 131.31173625355075,
+    "median_abs_error_DN": 63.0,
+    "p99_abs_error_DN": 424.84000000000015,
+    "slope": 1.0036004580845732,
+    "intercept": -24.538743454611534,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 10,
+    "sampling": "linear",
+    "n": 3080,
+    "correlation": 0.9999999960173497,
+    "rmse_DN": 0.28579288199442227,
+    "median_abs_error_DN": 0.25244140625,
+    "p99_abs_error_DN": 0.4932666015625,
+    "slope": 0.9999996123979373,
+    "intercept": 0.00048067308265195953,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  },
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "offset": "unshifted",
+    "band": 10,
+    "sampling": "cubic",
+    "n": 3080,
+    "correlation": 0.999809470528321,
+    "rmse_DN": 64.77553822300656,
+    "median_abs_error_DN": 29.9991455078125,
+    "p99_abs_error_DN": 205.97910156250015,
+    "slope": 1.0049261549858963,
+    "intercept": -31.046769671891127,
+    "original_pixel_size": [
+      0.08315299999999169,
+      0.08315300000021639
+    ],
+    "project_pixel_size": [
+      0.08315299999999581,
+      0.08315300000003845
+    ]
+  }
+]

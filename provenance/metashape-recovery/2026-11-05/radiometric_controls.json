@@ -1,0 +1,178 @@
+{
+  "controls": [
+    {
+      "site": "Ruby",
+      "camera_key": 3314,
+      "raw_Photo_image_exact_PIL": true,
+      "reflectance_factor_double_error_quantiles": [
+        0.0,
+        1.0,
+        2.0
+      ],
+      "raw_to_calibrated_gradient_registration": [
+        {
+          "x": 160,
+          "y": 120,
+          "correlation": 0.9999715206769682,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 640,
+          "y": 120,
+          "correlation": 0.9999758189521745,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 1120,
+          "y": 120,
+          "correlation": 0.9999559409925219,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 160,
+          "y": 480,
+          "correlation": 0.9999834620951475,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 640,
+          "y": 480,
+          "correlation": 0.9999979841040686,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 1120,
+          "y": 480,
+          "correlation": 0.999975642783341,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 160,
+          "y": 840,
+          "correlation": 0.9999833160254111,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 640,
+          "y": 840,
+          "correlation": 0.9999963116215138,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 1120,
+          "y": 840,
+          "correlation": 0.9999741390370351,
+          "dx": 0,
+          "dy": 0
+        }
+      ],
+      "read_only": true,
+      "in_memory_control_not_saved": true
+    },
+    {
+      "site": "Goldhill",
+      "camera_key": 5314,
+      "raw_Photo_image_exact_PIL": true,
+      "reflectance_factor_double_error_quantiles": [
+        0.0,
+        1.0,
+        2.0
+      ],
+      "raw_to_calibrated_gradient_registration": [
+        {
+          "x": 160,
+          "y": 120,
+          "correlation": 0.9999758152189796,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 640,
+          "y": 120,
+          "correlation": 0.9999683887541266,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 1120,
+          "y": 120,
+          "correlation": 0.9999491894930674,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 160,
+          "y": 480,
+          "correlation": 0.9999872650255802,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 640,
+          "y": 480,
+          "correlation": 0.9999962650564065,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 1120,
+          "y": 480,
+          "correlation": 0.9999722290503347,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 160,
+          "y": 840,
+          "correlation": 0.9999836137301628,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 640,
+          "y": 840,
+          "correlation": 0.9999954371067502,
+          "dx": 0,
+          "dy": 0
+        },
+        {
+          "x": 1120,
+          "y": 840,
+          "correlation": 0.9999648896603283,
+          "dx": 0,
+          "dy": 0
+        }
+      ],
+      "read_only": true,
+      "in_memory_control_not_saved": true
+    }
+  ],
+  "source_immutability": [
+    {
+      "site": "Ruby",
+      "source_descriptors_unchanged": true,
+      "sha256": {
+        "/private/tmp/spectralbridge-metashape-recovery-20261105/sources/AOP-RUBY-08-14-23/ImageryProcessing/M300/AOP-RUBY-08-14-23-WORKING.psx": "ed86a3b4b8a65ee77e207bfcf5d5e17a86a6d07fe4fdd38a7c428b487f80182f",
+        "/private/tmp/spectralbridge-metashape-recovery-20261105/sources/AOP-RUBY-08-14-23/ImageryProcessing/M300/AOP-RUBY-08-14-23-WORKING.files/0/chunk.zip": "0b9d796c8d15922a869e5cb4054a47c72c899ec198b9c8d2759ebc82436cddb3",
+        "/private/tmp/spectralbridge-metashape-recovery-20261105/sources/AOP-RUBY-08-14-23/ImageryProcessing/M300/AOP-RUBY-08-14-23-WORKING.files/0/0/frame.zip": "c00e4e28ac2f636cbd4e3fa49bbe2503fb71dda1a5b09606ee985a388056bf65"
+      }
+    },
+    {
+      "site": "Goldhill",
+      "source_descriptors_unchanged": true,
+      "sha256": {
+        "/private/tmp/spectralbridge-metashape-recovery-20261105/sources/AOP-GOLDHILL-08-14-23/ImageryProcessing/M300/AOP-GOLDHILL-08-14-23-WORKING.psx": "ed86a3b4b8a65ee77e207bfcf5d5e17a86a6d07fe4fdd38a7c428b487f80182f",
+        "/private/tmp/spectralbridge-metashape-recovery-20261105/sources/AOP-GOLDHILL-08-14-23/ImageryProcessing/M300/AOP-GOLDHILL-08-14-23-WORKING.files/0/chunk.zip": "7e30b1bee2f41b55a64b39ae6848a4cdc9924218a3abf729f3c28a3ec6ec07c5",
+        "/private/tmp/spectralbridge-metashape-recovery-20261105/sources/AOP-GOLDHILL-08-14-23/ImageryProcessing/M300/AOP-GOLDHILL-08-14-23-WORKING.files/0/0/frame.zip": "f35bb3dcf4ee4974409f771f4d7e14b5d5cfdd063f665672351a3a557dfcd198"
+      }
+    }
+  ]
+}

@@ -1,0 +1,786 @@
+........................................................................ [  7%]
+........................................................................ [ 15%]
+.......................................................ss............... [ 22%]
+........................................................................ [ 30%]
+....F.............................................F..................... [ 37%]
+...............................................................F........ [ 45%]
+....ssss..............................................s................. [ 52%]
+........................................................................ [ 60%]
+........................................................................ [ 67%]
+..............s....F.................................................... [ 75%]
+.FFF.Fs................................................................. [ 83%]
+........................................................................ [ 90%]
+........................................................................ [ 98%]
+...........F.....                                                        [100%]
+=================================== FAILURES ===================================
+________________ test_bulk_readiness_uses_actual_bulk_discovery ________________
+
+tmp_path = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-160/test_bulk_readiness_uses_actua0')
+
+    def test_bulk_readiness_uses_actual_bulk_discovery(tmp_path: Path) -> None:
+        flight = tmp_path / "SPR1_20230628"
+        flight.mkdir()
+        (flight / "spectralbridge_flightline.json").write_text(
+            json.dumps(
+                {
+                    "flightline_id": "SPR1_20230628",
+                    "site": "SPR1",
+                    "acquisition_date": "2023-06-28",
+                    "platform": "drone",
+                }
+            ),
+            encoding="utf-8",
+        )
+        base = np.arange(16, dtype="float32").reshape(4, 2, 2) / 100
+        _write_envi(
+            flight / "SPR1_20230628__micasense_to_match_tm_etm+_envi.img", base
+        )
+        _write_envi(
+            flight / "SPR1_20230628__landsat_like_landsat_tm_translated_envi.img",
+            base * 1.2 + 0.01,
+        )
+        validation = validate_bulk_ready_flightline(flight)
+>       assert validation.bulk_ready is True
+E       AssertionError: assert False is True
+E        +  where False = BulkReadinessValidation(path='/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-160/test_...translation_pair', 'missing_required_product'), error='expected exactly one accepted, translation-eligible flightline').bulk_ready
+
+tests/test_drone_production.py:276: AssertionError
+__________ test_old_tiff_checkpoint_rebuilt_and_new_checkpoint_reused __________
+
+tmp_path = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-160/test_old_tiff_checkpoint_rebui0')
+
+    def test_old_tiff_checkpoint_rebuilt_and_new_checkpoint_reused(tmp_path):
+        import hashlib
+        import json
+    
+        path, _, transform = source(tmp_path)
+        out = tmp_path / "working.h5"
+        kwargs = dict(
+            source_type="tiff",
+            working_path=out,
+            tiff_wavelengths_nm=[500, 650, 860],
+            tiff_fwhm_nm=[10] * 3,
+        )
+        _prepare_drone_source_working_h5(path, **kwargs)
+        marker = out.with_suffix(".stage.json")
+        record = json.loads(marker.read_text())
+        record["configuration"]["algorithm_version"] = 2
+        payload = {
+            k: record[k] for k in ["schema_version", "stage", "inputs", "configuration"]
+        }
+        record["stage_signature_sha256"] = hashlib.sha256(
+            json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest()
+        marker.write_text(json.dumps(record))
+        with h5py.File(out, "r+") as f:
+            coord = next(iter(f.values()))["Reflectance/Metadata/Coordinate_System"]
+            del coord.attrs["spatial_reference_convention"]
+        _prepare_drone_source_working_h5(path, **kwargs)
+        np.testing.assert_allclose(
+            NeonCube(out).transform, transform.to_gdal(), rtol=0, atol=1e-9
+        )
+>       assert json.loads(marker.read_text())["configuration"]["algorithm_version"] == 3
+E       assert 4 == 3
+
+tests/test_drone_spatial_integrity.py:335: AssertionError
+___ test_calibration_collapses_equivalent_fractions_without_equal_weighting ____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x12ddbfa70>
+
+    def test_calibration_collapses_equivalent_fractions_without_equal_weighting(
+        monkeypatch,
+    ):
+        base = (
+            Path(__file__).resolve().parents[1]
+            / "provenance/researcher-evidence/2026-10-16/v1"
+        )
+        monkeypatch.syspath_prepend(str(base))
+        spec = importlib.util.spec_from_file_location(
+            "fraction_calibration", base / "prepare_calibration.py"
+        )
+        module = importlib.util.module_from_spec(spec)
+>       spec.loader.exec_module(module)
+
+tests/test_fraction_grid_calibration.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+<frozen importlib._bootstrap_external>:999: in exec_module
+    ???
+<frozen importlib._bootstrap>:488: in _call_with_frames_removed
+    ???
+provenance/researcher-evidence/2026-10-16/v1/prepare_calibration.py:5: in <module>
+    from run_controls import BASE, PRIOR
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Matched nested random/PCA controls and identity-disjoint temporal recognition."""
+    
+    from pathlib import Path
+    import hashlib
+    import json
+    import logging
+    import sys
+    from concurrent.futures import ThreadPoolExecutor
+    import numpy as np
+    import pandas as pd
+    from sklearn.decomposition import PCA
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.model_selection import StratifiedGroupKFold
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.metrics import confusion_matrix
+    from spectralbridge.researcher_information import (
+        RESEARCHER_CATEGORIES,
+        identity_weights,
+    )
+    from spectralbridge.researcher_validation import (
+        random_feature_path,
+        balanced_accuracy,
+        identity_correctness,
+    )
+    from spectralbridge.mesma_readiness import load_compact_inputs
+    
+    BASE = Path(__file__).resolve().parent
+    REPO = BASE.parents[3]
+    PRIOR = REPO / "provenance/researcher-pft-information/2026-10-15/v1"
+    sys.path.insert(0, str(PRIOR))
+>   from common import folds, seed  # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ImportError: cannot import name 'folds' from 'common' (/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/goldhill-clean-source-brdf/2026-11-03/common.py)
+
+provenance/researcher-evidence/2026-10-16/v1/run_controls.py:31: ImportError
+_ test_extract_polygon_parquet_from_envi_stabilizes_null_only_metadata_chunks __
+
+tmp_path = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-160/test_extract_polygon_parquet_f0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x12f1add90>
+
+    def test_extract_polygon_parquet_from_envi_stabilizes_null_only_metadata_chunks(
+        tmp_path: Path,
+        monkeypatch,
+    ) -> None:
+        polygon_index_path = tmp_path / "polygon_index.parquet"
+        output_parquet_path = tmp_path / "TEST_raw_polygon.parquet"
+    
+        polygon_index_df = pd.DataFrame(
+            {
+                "pixel_id": pd.Series([0, 1, 2, 3], dtype="int64"),
+                "polygon_id": pd.Series([101, 101, 101, 101], dtype="int64"),
+                "species": [None, None, "PIPO", "ABLA"],
+                "cover_subcategory": [None, None, "tree", "understory"],
+                "dead_subcategory": [None, None, "snag", "live"],
+                "polygon_geometry_wkb": [None, None, b"\x01\x02", b"\x03\x04"],
+                "surveyed_at": [
+                    pd.NaT,
+                    pd.NaT,
+                    pd.Timestamp("2024-06-01T12:00:00"),
+                    pd.Timestamp("2024-06-02T12:00:00"),
+                ],
+                "canopy_cover": [np.nan, np.nan, 0.65, 0.35],
+            }
+        )
+        _write_parquet(polygon_index_df, polygon_index_path)
+    
+        chunk_iter = _ChunkIter(
+            [
+                pd.DataFrame(
+                    {
+                        "pixel_id": [0, 1],
+                        "row": [0, 0],
+                        "col": [0, 1],
+                        "x": [100.0, 101.0],
+                        "y": [200.0, 200.0],
+                        "raw_b001_wl0450nm": [0.10, 0.20],
+                    }
+                ),
+                pd.DataFrame(
+                    {
+                        "pixel_id": [2, 3],
+                        "row": [1, 1],
+                        "col": [0, 1],
+                        "x": [100.0, 101.0],
+                        "y": [199.0, 199.0],
+                        "raw_b001_wl0450nm": [0.30, 0.40],
+                    }
+                ),
+            ]
+        )
+    
+        captured_chunks: list[pd.DataFrame] = []
+    
+        def _capture_chunks(parquet_path, filtered_iter, stage_key, **kwargs) -> None:
+            assert parquet_path == output_parquet_path
+            assert stage_key == "raw"
+            captured_chunks.extend(filtered_iter)
+    
+        monkeypatch.setattr(
+            "cross_sensor_cal.parquet_export.read_envi_in_chunks",
+            lambda *args, **kwargs: chunk_iter,
+        )
+        monkeypatch.setattr(
+            "cross_sensor_cal.parquet_export._write_parquet_chunks",
+            _capture_chunks,
+        )
+    
+>       result = extract_polygon_parquet_from_envi(
+            tmp_path / "dummy.img",
+            tmp_path / "dummy.hdr",
+            polygon_index_path,
+            output_parquet_path,
+            chunk_size=2,
+            overwrite=True,
+        )
+
+tests/test_polygons.py:111: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/spectralbridge/polygons.py:2038: in extract_polygon_parquet_from_envi
+    library_radiometry(envi_img)
+src/spectralbridge/radiometry.py:486: in library_radiometry
+    return require_library_header(hdr_to_dict(Path(image).with_suffix(".hdr")))
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/spectralbridge/envi.py:145: in hdr_to_dict
+    header = _parse_envi_header(hdr_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+hdr_path = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-160/test_extract_polygon_parquet_f0/dummy.hdr')
+
+    def _parse_envi_header(hdr_path: Path) -> dict[str, Any]:
+        if not hdr_path.exists():
+>           raise FileNotFoundError(hdr_path)
+E           FileNotFoundError: /private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-160/test_extract_polygon_parquet_f0/dummy.hdr
+
+src/spectralbridge/envi.py:300: FileNotFoundError
+____________________ test_render_panel_writes_png_and_json _____________________
+
+qa_fixture_dir = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-160/test_render_panel_writes_png_a0/NEON_TEST_FLIGHT')
+recwarn = WarningsRecorder(record=True)
+
+    def test_render_panel_writes_png_and_json(
+        qa_fixture_dir: Path,
+        recwarn: pytest.WarningsRecorder,
+    ) -> None:
+>       png_path, metrics = render_flightline_panel(qa_fixture_dir, quick=True)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_qa/test_qa_metrics_smoke.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/spectralbridge/qa_plots.py:3188: in render_flightline_panel
+    raw_cube, raw_valid = _unit_reflectance_cube(raw_cube, raw_hdr)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/spectralbridge/qa_plots.py:2352: in _unit_reflectance_cube
+    unit_cube = calibration.to_physical(cube)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/spectralbridge/radiometry.py:163: in to_physical
+    self.require_valid()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Radiometry(scale=None, offset=0.0, status='UNSUPPORTED', provenance='Historical header lacks explicit calibration', convention='physical = scale * stored + offset', encoding=None)
+
+    def require_valid(self):
+        details = self.encoding or {}
+        physical_status = details.get(
+            "physical_calibration_status", "DECLARED_BY_AFFINE_RECORD"
+        )
+        coefficients_valid = self.scale is not None and self.offset is not None
+        if coefficients_valid:
+            coefficients_valid = (
+                np.isfinite(self.scale).all()
+                and np.isfinite(self.offset).all()
+                and np.all(np.asarray(self.scale) > 0)
+            )
+        if (
+            self.convention != "physical = scale * stored + offset"
+            or self.status != "VALID"
+            or not self.provenance.strip()
+            or not coefficients_valid
+            or details.get("kind") == "unknown"
+            or details.get("scale_direction", "multiplier") != "multiplier"
+            or physical_status in {"UNVERIFIED", "UNKNOWN", "DIAGNOSTIC_ONLY"}
+            or (
+                details.get("kind") in {"raw_dn", "range_normalized_dn"}
+                and physical_status != "VERIFIED"
+            )
+        ):
+>           raise ValueError(
+                f"Radiometry {self.status}: authoritative physical scale, offset, units and provenance required ({self.provenance})."
+            )
+E           ValueError: Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Historical header lacks explicit calibration).
+
+src/spectralbridge/radiometry.py:86: ValueError
+----------------------------- Captured stdout call -----------------------------
+[QA] 📍 QA plots module file: /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py
+[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)
+[QA] 📅 File modification time: 2026-10-30 12:12:01
+[QA] ✅ Page 4 function found in module
+_____________________ test_metrics_arrays_are_serialisable _____________________
+
+qa_fixture_dir = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-160/test_metrics_arrays_are_serial0/NEON_TEST_FLIGHT')
+
+    def test_metrics_arrays_are_serialisable(qa_fixture_dir: Path) -> None:
+>       _, metrics = render_flightline_panel(qa_fixture_dir, quick=True)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_qa/test_qa_metrics_smoke.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/spectralbridge/qa_plots.py:3188: in render_flightline_panel
+    raw_cube, raw_valid = _unit_reflectance_cube(raw_cube, raw_hdr)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/spectralbridge/qa_plots.py:2352: in _unit_reflectance_cube
+    unit_cube = calibration.to_physical(cube)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/spectralbridge/radiometry.py:163: in to_physical
+    self.require_valid()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Radiometry(scale=None, offset=0.0, status='UNSUPPORTED', provenance='Historical header lacks explicit calibration', convention='physical = scale * stored + offset', encoding=None)
+
+    def require_valid(self):
+        details = self.encoding or {}
+        physical_status = details.get(
+            "physical_calibration_status", "DECLARED_BY_AFFINE_RECORD"
+        )
+        coefficients_valid = self.scale is not None and self.offset is not None
+        if coefficients_valid:
+            coefficients_valid = (
+                np.isfinite(self.scale).all()
+                and np.isfinite(self.offset).all()
+                and np.all(np.asarray(self.scale) > 0)
+            )
+        if (
+            self.convention != "physical = scale * stored + offset"
+            or self.status != "VALID"
+            or not self.provenance.strip()
+            or not coefficients_valid
+            or details.get("kind") == "unknown"
+            or details.get("scale_direction", "multiplier") != "multiplier"
+            or physical_status in {"UNVERIFIED", "UNKNOWN", "DIAGNOSTIC_ONLY"}
+            or (
+                details.get("kind") in {"raw_dn", "range_normalized_dn"}
+                and physical_status != "VERIFIED"
+            )
+        ):
+>           raise ValueError(
+                f"Radiometry {self.status}: authoritative physical scale, offset, units and provenance required ({self.provenance})."
+            )
+E           ValueError: Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Historical header lacks explicit calibration).
+
+src/spectralbridge/radiometry.py:86: ValueError
+----------------------------- Captured stdout call -----------------------------
+[QA] 📍 QA plots module file: /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py
+[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)
+[QA] 📅 File modification time: 2026-10-30 12:12:01
+[QA] ✅ Page 4 function found in module
+______________ test_aop_qa_uses_header_scale_and_excludes_nodata _______________
+
+qa_fixture_dir = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-160/test_aop_qa_uses_header_scale_0/NEON_TEST_FLIGHT')
+
+    def test_aop_qa_uses_header_scale_and_excludes_nodata(
+        qa_fixture_dir: Path,
+    ) -> None:
+        for image in qa_fixture_dir.glob("*.img"):
+            values = np.fromfile(image, dtype=np.float32)
+            values *= np.float32(10_000.0)
+            if "corrected" in image.name:
+                values[0] = -9999.0
+            values.tofile(image)
+            with image.with_suffix(".hdr").open("a", encoding="utf-8") as header:
+                header.write(
+                    "\nreflectance scale factor = 10000"
+                    "\ndata ignore value = -9999\n"
+                )
+    
+>       _, metrics = render_flightline_panel(qa_fixture_dir, quick=True)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_qa/test_qa_metrics_smoke.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/spectralbridge/qa_plots.py:3188: in render_flightline_panel
+    raw_cube, raw_valid = _unit_reflectance_cube(raw_cube, raw_hdr)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/spectralbridge/qa_plots.py:2352: in _unit_reflectance_cube
+    unit_cube = calibration.to_physical(cube)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/spectralbridge/radiometry.py:163: in to_physical
+    self.require_valid()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Radiometry(scale=None, offset=0.0, status='UNSUPPORTED', provenance='Historical header lacks explicit calibration', convention='physical = scale * stored + offset', encoding={'kind': 'unknown', 'nodata': -9999.0})
+
+    def require_valid(self):
+        details = self.encoding or {}
+        physical_status = details.get(
+            "physical_calibration_status", "DECLARED_BY_AFFINE_RECORD"
+        )
+        coefficients_valid = self.scale is not None and self.offset is not None
+        if coefficients_valid:
+            coefficients_valid = (
+                np.isfinite(self.scale).all()
+                and np.isfinite(self.offset).all()
+                and np.all(np.asarray(self.scale) > 0)
+            )
+        if (
+            self.convention != "physical = scale * stored + offset"
+            or self.status != "VALID"
+            or not self.provenance.strip()
+            or not coefficients_valid
+            or details.get("kind") == "unknown"
+            or details.get("scale_direction", "multiplier") != "multiplier"
+            or physical_status in {"UNVERIFIED", "UNKNOWN", "DIAGNOSTIC_ONLY"}
+            or (
+                details.get("kind") in {"raw_dn", "range_normalized_dn"}
+                and physical_status != "VERIFIED"
+            )
+        ):
+>           raise ValueError(
+                f"Radiometry {self.status}: authoritative physical scale, offset, units and provenance required ({self.provenance})."
+            )
+E           ValueError: Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Historical header lacks explicit calibration).
+
+src/spectralbridge/radiometry.py:86: ValueError
+----------------------------- Captured stdout call -----------------------------
+[QA] 📍 QA plots module file: /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py
+[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)
+[QA] 📅 File modification time: 2026-10-30 12:12:01
+[QA] ✅ Page 4 function found in module
+_____________ test_aop_qa_png_shows_raw_corrected_and_diagnostics ______________
+
+qa_fixture_dir = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-160/test_aop_qa_png_shows_raw_corr0/NEON_TEST_FLIGHT')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x13203c140>
+
+    def test_aop_qa_png_shows_raw_corrected_and_diagnostics(
+        qa_fixture_dir: Path,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        plt = pytest.importorskip("matplotlib.pyplot")
+    
+        captured: dict[str, object] = {}
+        original_subplots = qa_plots.plt.subplots
+    
+        def _capture_subplots(*args, **kwargs):
+            fig, axes = original_subplots(*args, **kwargs)
+            if args[:2] == (2, 3) and "axes" not in captured:
+                captured["fig"] = fig
+                captured["axes"] = axes
+            return fig, axes
+    
+        monkeypatch.setattr(qa_plots.plt, "subplots", _capture_subplots)
+        monkeypatch.setattr(qa_plots.plt, "close", lambda fig=None: None)
+    
+>       png_path, _ = render_flightline_panel(qa_fixture_dir, quick=True)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_qa/test_qa_metrics_smoke.py:121: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/spectralbridge/qa_plots.py:3188: in render_flightline_panel
+    raw_cube, raw_valid = _unit_reflectance_cube(raw_cube, raw_hdr)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/spectralbridge/qa_plots.py:2352: in _unit_reflectance_cube
+    unit_cube = calibration.to_physical(cube)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/spectralbridge/radiometry.py:163: in to_physical
+    self.require_valid()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Radiometry(scale=None, offset=0.0, status='UNSUPPORTED', provenance='Historical header lacks explicit calibration', convention='physical = scale * stored + offset', encoding=None)
+
+    def require_valid(self):
+        details = self.encoding or {}
+        physical_status = details.get(
+            "physical_calibration_status", "DECLARED_BY_AFFINE_RECORD"
+        )
+        coefficients_valid = self.scale is not None and self.offset is not None
+        if coefficients_valid:
+            coefficients_valid = (
+                np.isfinite(self.scale).all()
+                and np.isfinite(self.offset).all()
+                and np.all(np.asarray(self.scale) > 0)
+            )
+        if (
+            self.convention != "physical = scale * stored + offset"
+            or self.status != "VALID"
+            or not self.provenance.strip()
+            or not coefficients_valid
+            or details.get("kind") == "unknown"
+            or details.get("scale_direction", "multiplier") != "multiplier"
+            or physical_status in {"UNVERIFIED", "UNKNOWN", "DIAGNOSTIC_ONLY"}
+            or (
+                details.get("kind") in {"raw_dn", "range_normalized_dn"}
+                and physical_status != "VERIFIED"
+            )
+        ):
+>           raise ValueError(
+                f"Radiometry {self.status}: authoritative physical scale, offset, units and provenance required ({self.provenance})."
+            )
+E           ValueError: Radiometry UNSUPPORTED: authoritative physical scale, offset, units and provenance required (Historical header lacks explicit calibration).
+
+src/spectralbridge/radiometry.py:86: ValueError
+----------------------------- Captured stdout call -----------------------------
+[QA] 📍 QA plots module file: /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py
+[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)
+[QA] 📅 File modification time: 2026-10-30 12:12:01
+[QA] ✅ Page 4 function found in module
+_____________ test_offline_validation_smoke_exercises_every_module _____________
+
+tmp_path = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-160/test_offline_validation_smoke_0')
+
+    def test_offline_validation_smoke_exercises_every_module(tmp_path: Path) -> None:
+        cases = build_offline_cases(tmp_path, count=1)
+        campaign = run_campaign(
+            cases,
+            campaign_id="pytest-offline-smoke",
+            mode="offline",
+            repo_root=tmp_path,
+        )
+    
+        observed_modules = {result["module"] for result in campaign["results"]}
+        assert observed_modules == set(MODULE_LABELS)
+>       assert campaign["summary"] == {
+            "total": len(MODULE_LABELS),
+            "passed": len(MODULE_LABELS),
+            "failed": 0,
+            "skipped": 0,
+        }
+E       AssertionError: assert {'total': 8, ... 'skipped': 0} == {'total': 8, ... 'skipped': 0}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'passed': 4} != {'passed': 8}
+E         {'failed': 4} != {'failed': 0}
+E         Use -v to get more diff
+
+tests/test_validation_campaign.py:117: AssertionError
+----------------------------- Captured stdout call -----------------------------
+[QA] 📍 QA plots module file: /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py
+[QA] ✅ QA plots version: 2025-01-20-v2 (includes Page 4: Parquet & Merge Quality)
+[QA] 📅 File modification time: 2026-10-30 12:12:01
+[QA] ✅ Page 4 function found in module
+=============================== warnings summary ===============================
+src/spectralbridge/polygons.py:30
+tests/test_cross_sensor_cal_shim.py::test_project_script_entry_points_resolve_from_non_repo_cwd
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/polygons.py:30: DeprecationWarning: cross_sensor_cal is deprecated; use spectralbridge instead.
+    from cross_sensor_cal.exports.schema_utils import ensure_coord_columns
+
+tests/test_aop_drone_equivalence.py: 160 warnings
+tests/test_drone_cloud_workflow.py: 36 warnings
+tests/test_drone_pipeline.py: 40 warnings
+tests/test_drone_spatial_integrity.py: 8 warnings
+tests/test_drone_spatial_roundtrip.py: 20 warnings
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py:882: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    expected = np.asarray([reference * corner for corner in corners], dtype=np.float64)
+
+tests/test_aop_drone_equivalence.py: 160 warnings
+tests/test_drone_cloud_workflow.py: 36 warnings
+tests/test_drone_pipeline.py: 40 warnings
+tests/test_drone_spatial_integrity.py: 8 warnings
+tests/test_drone_spatial_roundtrip.py: 20 warnings
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py:883: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    actual = np.asarray([candidate * corner for corner in corners], dtype=np.float64)
+
+tests/test_bulk_spectral_library.py::test_preflight_reports_schema_counts_and_render_cost_without_pdfs
+tests/test_bulk_spectral_library.py::test_full_reports_write_compact_summaries_and_multipage_pdfs_without_copy
+tests/test_bulk_spectral_library.py::test_summary_plots_do_not_implicitly_create_expensive_full_reports
+tests/test_bulk_spectral_library.py::test_visualization_validity_robust_ranges_and_extremes_are_separate
+tests/test_bulk_spectral_library.py::test_per_group_robust_scaling_keeps_separate_full_range_audit
+tests/test_bulk_spectral_library.py::test_compact_summaries_preserve_extreme_valid_spectra
+tests/test_bulk_spectral_library.py::test_bulk_pipeline_integrates_opt_in_library_reports_and_restart
+tests/test_bulk_spectral_library.py::test_bulk_pipeline_library_only_builds_compact_summaries_without_pdfs
+tests/test_installed_artifact_smoke.py::test_spectral_library_smoke_runs_preflight_and_reporting
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/bulk/analyses/spectral_library.py:665: UserWarning: Arrow output on a DB-API result makes an extra copy of the rows, use con.sql(query).to_arrow_table() instead.
+    rows = con.execute(query, [schema.source.as_posix()]).to_arrow_table().to_pylist()
+
+tests/test_bulk_spectral_library.py::test_group_scanning_is_bounded_and_optional_sampling_is_deterministic
+tests/test_bulk_spectral_library.py::test_full_reports_write_compact_summaries_and_multipage_pdfs_without_copy
+tests/test_bulk_spectral_library.py::test_optional_visualization_minimum_threshold_excludes_negative_spectrum
+tests/test_bulk_spectral_library.py::test_per_group_robust_scaling_keeps_separate_full_range_audit
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/bulk/analyses/spectral_library.py:1462: UserWarning: Arrow output on a DB-API result makes an extra copy of the rows, use con.sql(query).to_arrow_reader() instead.
+    reader = con.execute(base, parameters).to_arrow_reader(batch_size)
+
+tests/test_bulk_spectral_library.py::test_full_reports_write_compact_summaries_and_multipage_pdfs_without_copy
+tests/test_bulk_spectral_library.py::test_summary_plots_do_not_implicitly_create_expensive_full_reports
+tests/test_bulk_spectral_library.py::test_visualization_validity_robust_ranges_and_extremes_are_separate
+tests/test_bulk_spectral_library.py::test_per_group_robust_scaling_keeps_separate_full_range_audit
+tests/test_bulk_spectral_library.py::test_compact_summaries_preserve_extreme_valid_spectra
+tests/test_bulk_spectral_library.py::test_bulk_pipeline_integrates_opt_in_library_reports_and_restart
+tests/test_bulk_spectral_library.py::test_bulk_pipeline_library_only_builds_compact_summaries_without_pdfs
+tests/test_installed_artifact_smoke.py::test_spectral_library_smoke_runs_preflight_and_reporting
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/bulk/analyses/spectral_library.py:759: UserWarning: Arrow output on a DB-API result makes an extra copy of the rows, use con.sql(query).to_arrow_table() instead.
+    records = con.execute(query, [schema.source.as_posix()]).to_arrow_table().to_pylist()
+
+tests/test_bulk_spectral_library.py::test_full_reports_write_compact_summaries_and_multipage_pdfs_without_copy
+tests/test_bulk_spectral_library.py::test_summary_plots_do_not_implicitly_create_expensive_full_reports
+tests/test_bulk_spectral_library.py::test_visualization_validity_robust_ranges_and_extremes_are_separate
+tests/test_bulk_spectral_library.py::test_per_group_robust_scaling_keeps_separate_full_range_audit
+tests/test_bulk_spectral_library.py::test_compact_summaries_preserve_extreme_valid_spectra
+tests/test_bulk_spectral_library.py::test_bulk_pipeline_integrates_opt_in_library_reports_and_restart
+tests/test_bulk_spectral_library.py::test_bulk_pipeline_library_only_builds_compact_summaries_without_pdfs
+tests/test_installed_artifact_smoke.py::test_spectral_library_smoke_runs_preflight_and_reporting
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/bulk/analyses/spectral_library.py:982: UserWarning: Arrow output on a DB-API result makes an extra copy of the rows, use con.sql(query).to_arrow_table() instead.
+    ).to_arrow_table().to_pylist()
+
+tests/test_bulk_spectral_library.py::test_full_reports_write_compact_summaries_and_multipage_pdfs_without_copy
+tests/test_bulk_spectral_library.py::test_summary_plots_do_not_implicitly_create_expensive_full_reports
+tests/test_bulk_spectral_library.py::test_visualization_validity_robust_ranges_and_extremes_are_separate
+tests/test_bulk_spectral_library.py::test_per_group_robust_scaling_keeps_separate_full_range_audit
+tests/test_bulk_spectral_library.py::test_compact_summaries_preserve_extreme_valid_spectra
+tests/test_bulk_spectral_library.py::test_bulk_pipeline_integrates_opt_in_library_reports_and_restart
+tests/test_bulk_spectral_library.py::test_bulk_pipeline_library_only_builds_compact_summaries_without_pdfs
+tests/test_installed_artifact_smoke.py::test_spectral_library_smoke_runs_preflight_and_reporting
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/bulk/analyses/spectral_library.py:1129: UserWarning: Arrow output on a DB-API result makes an extra copy of the rows, use con.sql(query).to_arrow_table() instead.
+    ).to_arrow_table().to_pylist()
+
+tests/test_bulk_spectral_library.py::test_full_reports_write_compact_summaries_and_multipage_pdfs_without_copy
+tests/test_bulk_spectral_library.py::test_per_group_robust_scaling_keeps_separate_full_range_audit
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/bulk/analyses/spectral_library.py:1990: UserWarning: Arrow output on a DB-API result makes an extra copy of the rows, use con.sql(query).to_arrow_reader() instead.
+    reader = con.execute(query, [schema.source.as_posix(), species]).to_arrow_reader(
+
+tests/test_drone_cloud_workflow.py: 64 warnings
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/scripts/drone_cloud_workflow.py:119: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    differences = np.asarray([np.asarray(t * c) - np.asarray(terrain.transform * c)
+
+tests/test_drone_pipeline.py: 13 warnings
+tests/test_drone_spatial_integrity.py: 3 warnings
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:1377: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    created_utc=_dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:2442: RuntimeWarning: All-NaN slice encountered
+    return np.nanmedian(masked, axis=(1, 2))
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:493: RuntimeWarning: All-NaN slice encountered
+    delta_median = np.nanmedian(diff, axis=1)
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /private/tmp/spectralbridge-usability-20261104/venv/lib/python3.12/site-packages/numpy/lib/_nanfunctions_impl.py:1593: RuntimeWarning: All-NaN slice encountered
+    return fnb._ureduce(a,
+
+tests/test_drone_pipeline.py::test_render_drone_panel_logs_sampling_debug_and_writes_debug_payload
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/qa_plots.py:498: RuntimeWarning: All-NaN slice encountered
+    delta_abs_median = np.nanmedian(np.abs(diff), axis=1)
+
+tests/test_drone_spatial_integrity.py::test_tiff_h5_envi_pixel_identity[32613]
+tests/test_drone_spatial_integrity.py::test_tiff_h5_envi_pixel_identity[32719]
+tests/test_drone_spatial_integrity.py::test_tiff_h5_envi_pixel_identity[5070]
+tests/test_drone_spatial_integrity.py::test_tiff_h5_envi_pixel_identity[26913]
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/tests/test_drone_spatial_integrity.py:77: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    expected = transform * Affine.translation(2, 1)
+
+tests/test_drone_spatial_integrity.py::test_ancillary_alignment_and_values
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/tests/test_drone_spatial_integrity.py:110: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    profile.update(transform=transform * Affine.translation(0, 1))
+
+tests/test_drone_spatial_integrity.py::test_boundary_polygon_extraction_matches_source_centers
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/tests/test_drone_spatial_integrity.py:131: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    x0, y0 = transform * (0.51, 0.51)
+
+tests/test_drone_spatial_integrity.py::test_boundary_polygon_extraction_matches_source_centers
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/tests/test_drone_spatial_integrity.py:132: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    x1, y1 = transform * (2.49, 2.49)
+
+tests/test_drone_spatial_integrity.py::test_boundary_polygon_extraction_matches_source_centers
+tests/test_drone_spatial_integrity.py::test_pipeline_refreshes_polygon_and_merged_cache_after_grid_change
+tests/test_drone_spatial_integrity.py::test_pipeline_refreshes_polygon_and_merged_cache_after_grid_change
+tests/test_drone_spatial_integrity.py::test_diagnostic_validates_exact_index_and_detects_duplicates
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py:3130: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+    polygons["polygon_id"] = polygons["polygon_id"].astype("int64", copy=False)
+
+tests/test_drone_spatial_integrity.py: 35 warnings
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/tests/test_drone_spatial_integrity.py:152: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    if polygon.contains(Point(*(transform * (c + 0.5, r + 0.5))))
+
+tests/test_drone_spatial_integrity.py::test_boundary_polygon_extraction_matches_source_centers
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/tests/test_drone_spatial_integrity.py:160: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    transform * (row.col + 0.5, row.row + 0.5),
+
+tests/test_drone_spatial_integrity.py::test_pipeline_refreshes_polygon_and_merged_cache_after_grid_change
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/tests/test_drone_spatial_integrity.py:417: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    dst.transform = transform * Affine.translation(1, 0)
+
+tests/test_drone_spatial_integrity.py: 25 warnings
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/scripts/diagnose_drone_spatial_integrity.py:140: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    x, y = transform * (col + 0.5, row + 0.5)
+
+tests/test_drone_spatial_integrity.py: 20 warnings
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/scripts/diagnose_drone_spatial_integrity.py:42: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    [transform * p for p in [(0, 0), (width, 0), (width, height), (0, height)]]
+
+tests/test_drone_spatial_integrity.py: 10 warnings
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/scripts/diagnose_drone_spatial_integrity.py:186: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    dc, dr = inv * (x, y)
+
+tests/test_drone_spatial_integrity.py::test_diagnostic_validates_exact_index_and_detects_duplicates
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/tests/test_drone_spatial_integrity.py:490: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    left, bottom = transform * (0, 5)
+
+tests/test_drone_spatial_integrity.py::test_diagnostic_validates_exact_index_and_detects_duplicates
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/tests/test_drone_spatial_integrity.py:491: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    right, top = transform * (7, 0)
+
+tests/test_drone_spatial_integrity.py: 74 warnings
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/scripts/diagnose_drone_spatial_integrity.py:361: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    x, y = src.transform * (col + 0.5, row + 0.5)
+
+tests/test_drone_spatial_integrity.py::test_parquet_value_comparison_uses_explicit_radiometric_reference
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/tests/test_drone_spatial_integrity.py:578: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    x, y = transform * (1.5, 1.5)
+
+tests/test_drone_spatial_roundtrip.py::test_ancillary_coordinate_roundoff_is_allowed_but_real_shift_is_not
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/tests/test_drone_spatial_roundtrip.py:64: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    assert not _drone_grid_transforms_match(reference, Affine.translation(.00001, 0) * ancillary, shape)
+
+tests/test_drone_spatial_roundtrip.py::test_ancillary_coordinate_roundoff_is_allowed_but_real_shift_is_not
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/tests/test_drone_spatial_roundtrip.py:65: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    assert not _drone_grid_transforms_match(reference, Affine.translation(0, .00001) * ancillary, shape)
+
+tests/test_landsat_agreement.py: 4 warnings
+tests/test_landsat_flight_validation.py: 12 warnings
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/landsat_agreement.py:334: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    left, top = a * (0, start)
+
+tests/test_landsat_agreement.py: 4 warnings
+tests/test_landsat_flight_validation.py: 12 warnings
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/landsat_agreement.py:335: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    right, bottom = a * (grid.width, stop)
+
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/landsat_agreement.py:422: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    left, top = a * (col, row)
+
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/landsat_agreement.py:423: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    right, bottom = a * (col + 1, row + 1)
+
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+tests/test_landsat_agreement.py::test_cross_crs_true_footprint_intersections
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/landsat_agreement.py:437: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    x, y = s * (cc + dc, rr + dr)
+
+tests/test_landsat_flight_validation.py::test_complete_mocked_transport_and_checksum_restart
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/landsat_flight_validation.py:566: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    xx, yy = grid.affine * (cc + 0.5, rr + 0.5)
+
+tests/test_polygon_pipeline.py::test_build_polygon_pixel_index
+tests/test_polygon_pipeline.py::test_extract_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_merge_polygon_parquets_for_flightline
+tests/test_polygon_pipeline.py::test_run_polygon_pipeline_for_flightline
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/polygons.py:1860: Pandas4Warning: The copy keyword is deprecated and will be removed in a future version. Copy-on-Write is active in pandas since 3.0 which utilizes a lazy copy mechanism that defers copies until necessary. Use .copy() to make an eager copy if necessary.
+    polygon_ids = polygons["polygon_id"].astype("int64", copy=False)
+
+tests/test_radiometric_encoding.py::test_declared_tiff_alpha_and_partial_band_nodata_survive_ingestion
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py:1798: NodataShadowWarning: The dataset's nodata attribute is shadowing the alpha band. All masks will be determined by the nodata attribute
+    valid = (src.read_masks(band) > 0) & np.isfinite(data[index])
+
+tests/test_scientific_docs_integration.py::test_both_publication_figures_compose_offline_without_original_archive
+  /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/examples/publication_figures/figure_panels.py:132: PendingDeprecationWarning: The set_bad function will be deprecated in a future version. Use cmap.with_extremes(bad=...) or Colormap(bad=...) instead.
+    cmap.set_bad('#eeeeee')
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_drone_production.py::test_bulk_readiness_uses_actual_bulk_discovery
+FAILED tests/test_drone_spatial_integrity.py::test_old_tiff_checkpoint_rebuilt_and_new_checkpoint_reused
+FAILED tests/test_fraction_grid_calibration.py::test_calibration_collapses_equivalent_fractions_without_equal_weighting
+FAILED tests/test_polygons.py::test_extract_polygon_parquet_from_envi_stabilizes_null_only_metadata_chunks
+FAILED tests/test_qa/test_qa_metrics_smoke.py::test_render_panel_writes_png_and_json
+FAILED tests/test_qa/test_qa_metrics_smoke.py::test_metrics_arrays_are_serialisable
+FAILED tests/test_qa/test_qa_metrics_smoke.py::test_aop_qa_uses_header_scale_and_excludes_nodata
+FAILED tests/test_qa/test_qa_metrics_smoke.py::test_aop_qa_png_shows_raw_corrected_and_diagnostics
+FAILED tests/test_validation_campaign.py::test_offline_validation_smoke_exercises_every_module

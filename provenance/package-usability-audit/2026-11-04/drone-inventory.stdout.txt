@@ -1,0 +1,13 @@
+usage: spectralbridge-drone-production inventory [-h] [--years [YEARS ...]]
+                                                 [--manifest MANIFEST]
+                                                 [--output-dir OUTPUT_DIR]
+                                                 source
+
+positional arguments:
+  source
+
+options:
+  -h, --help            show this help message and exit
+  --years [YEARS ...]
+  --manifest MANIFEST
+  --output-dir OUTPUT_DIR

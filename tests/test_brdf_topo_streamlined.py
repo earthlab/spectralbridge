@@ -1,12 +1,9 @@
-import json
 from pathlib import Path
 
 import numpy as np
 import pytest
 
 from spectralbridge.corrections import (
-    NDVIBinningConfig,
-    ReferenceGeometry,
     apply_brdf_correct,
     apply_topo_correct,
     _scs_c_ratio,
@@ -131,3 +128,15 @@ def test_brdf_invalid_kernel_factor_passes_through_input(tmp_path: Path):
     chunk = np.full((2, 2, 2), .2, np.float32)
     with pytest.raises(ValueError, match="UNSUPPORTED"):
         apply_brdf_correct(cube, chunk, 0, 2, 0, 2)
+
+
+@pytest.mark.parametrize("use_scs_c", [True, False])
+def test_topo_missing_band_preserves_other_band_measurements(use_scs_c):
+    cube = _DummyCube()
+    full = np.array([[[.2, .4], [.3, .5]], [[.4, .6], [.5, .7]]], dtype=np.float32)
+    expected = apply_topo_correct(cube, full, 0, 2, 0, 2, use_scs_c=use_scs_c)
+    partial = full.copy()
+    partial[..., 1] = cube.no_data
+    actual = apply_topo_correct(cube, partial, 0, 2, 0, 2, use_scs_c=use_scs_c)
+    np.testing.assert_array_equal(actual[..., 0], expected[..., 0])
+    np.testing.assert_array_equal(actual[..., 1], cube.no_data)

@@ -1,0 +1,432 @@
+[
+  {
+    "file": "src/spectralbridge/radiometry.py",
+    "line": 200,
+    "text": "fields[\"physical reflectance multiplier\"] = self.scale"
+  },
+  {
+    "file": "src/spectralbridge/radiometry.py",
+    "line": 251,
+    "text": "(\"physical reflectance multiplier\", result.scale),"
+  },
+  {
+    "file": "src/spectralbridge/library_analysis.py",
+    "line": 340,
+    "text": "maximum_mixtures=100000,"
+  },
+  {
+    "file": "src/spectralbridge/library_analysis.py",
+    "line": 364,
+    "text": "maximum_mixtures : int, default=100000"
+  },
+  {
+    "file": "src/spectralbridge/library_analysis.py",
+    "line": 559,
+    "text": "min/max/range, maximum range (ambiguity_score), near count and alternative count."
+  },
+  {
+    "file": "src/spectralbridge/plant_spectral_atlas.py",
+    "line": 366,
+    "text": "\"finite_bands_per_pixel_min_max\": [int(counts.min()), int(counts.max())],"
+  },
+  {
+    "file": "src/spectralbridge/neon_cube.py",
+    "line": 411,
+    "text": "\"reflectance scale factor\": float(self.scale_factor),"
+  },
+  {
+    "file": "src/spectralbridge/polygons.py",
+    "line": 566,
+    "text": "tolerance_m: float = 10000.0,  # Increased default to 10km to handle large flightlines"
+  },
+  {
+    "file": "src/spectralbridge/drone_production.py",
+    "line": 463,
+    "text": "max_remote_entries : int, default=100000"
+  },
+  {
+    "file": "src/spectralbridge/drone_production.py",
+    "line": 1210,
+    "text": "max_entries : int, default=100000"
+  },
+  {
+    "file": "src/spectralbridge/drone_translation.py",
+    "line": 689,
+    "text": "f\"[{band.x_min:g}, {band.x_max:g}]. Check reflectance units/scale.\""
+  },
+  {
+    "file": "src/spectralbridge/drone_translation.py",
+    "line": 793,
+    "text": "output_header[\"reflectance scale factor\"] = 1."
+  },
+  {
+    "file": "src/spectralbridge/merge_duckdb.py",
+    "line": 863,
+    "text": "effective_threads = min(max(2, int(memory_gb / 32) * 2), 8)"
+  },
+  {
+    "file": "src/spectralbridge/drone_original.py",
+    "line": 19,
+    "text": "def calibrated_integer_to_fraction(values, *, scale=1 / 32768, offset=0.0):"
+  },
+  {
+    "file": "src/spectralbridge/drone_original.py",
+    "line": 190,
+    "text": "\"\"\"Immutable explicit-scale 10-band+alpha export to float fraction*10000."
+  },
+  {
+    "file": "src/spectralbridge/drone_original.py",
+    "line": 289,
+    "text": "dst.write(result * 10000, i)"
+  },
+  {
+    "file": "src/spectralbridge/brdf_topo.py",
+    "line": 37,
+    "text": "_SCENE_APPLY_CHUNK_Y = 100000"
+  },
+  {
+    "file": "src/spectralbridge/brdf_topo.py",
+    "line": 358,
+    "text": "header.setdefault(\"reflectance scale factor\", float(getattr(cube, \"scale_factor\", 1.0)))"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 376,
+    "text": "sample_count = min(max(1, int(n_sample)), eligible_pixels)"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 724,
+    "text": "reflectance_scale_factor: float = 1.0,"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 821,
+    "text": "xv = x[valid] / reflectance_scale_factor"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 822,
+    "text": "yv = y[valid] / reflectance_scale_factor"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 1042,
+    "text": "reflectance_scale_factor: float = 1.0,"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 1057,
+    "text": "reflectance_scale_factor=reflectance_scale_factor,"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 1266,
+    "text": "lines.append(f\"Corrected (showing {min(max_samples, len(corr_cols))} of {len(corr_cols)}):\")"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 1303,
+    "text": "lines.append(f\"Metadata (showing {min(max_samples, len(meta_cols))} of {len(meta_cols)}):\")"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 1850,
+    "text": "reflectance_scale_factor: float = 1.0,"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 1964,
+    "text": "/ reflectance_scale_factor"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 2087,
+    "text": "/ reflectance_scale_factor"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 2116,
+    "text": "/ reflectance_scale_factor"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 2345,
+    "text": "scale_factor = _header_number(header, \"reflectance scale factor\", 1.0)"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 2941,
+    "text": "max_samples = min(max(1, int(qa_max_samples)), raw_cube.shape[1] * raw_cube.shape[2])"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 3249,
+    "text": "reflectance_scale_factor=("
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 3250,
+    "text": "_header_number(corr_hdr, \"reflectance scale factor\", 1.0) or 1.0"
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 3358,
+    "text": "reflectance_scale_factor=("
+  },
+  {
+    "file": "src/spectralbridge/qa_plots.py",
+    "line": 3359,
+    "text": "_header_number(corr_hdr, \"reflectance scale factor\", 1.0) or 1.0"
+  },
+  {
+    "file": "src/spectralbridge/envi_writer.py",
+    "line": 182,
+    "text": "if \"reflectance scale factor\" in header_dict:"
+  },
+  {
+    "file": "src/spectralbridge/envi_writer.py",
+    "line": 183,
+    "text": "scale = _to_python_scalar(header_dict[\"reflectance scale factor\"])"
+  },
+  {
+    "file": "src/spectralbridge/envi_writer.py",
+    "line": 184,
+    "text": "lines.append(f\"reflectance scale factor = {scale}\")"
+  },
+  {
+    "file": "src/spectralbridge/corrections.py",
+    "line": 107,
+    "text": "\"\"\"Log min/max and validity fractions for quick debugging.\"\"\""
+  },
+  {
+    "file": "src/spectralbridge/corrections.py",
+    "line": 601,
+    "text": "# Internally we work in unitless reflectance. ``scale_factor`` converts from"
+  },
+  {
+    "file": "src/spectralbridge/landsat_agreement.py",
+    "line": 13,
+    "text": "LANDSAT_SURFACE_REFLECTANCE_SCALE,"
+  },
+  {
+    "file": "src/spectralbridge/landsat_agreement.py",
+    "line": 61,
+    "text": "a.astype(np.float64) * LANDSAT_SURFACE_REFLECTANCE_SCALE"
+  },
+  {
+    "file": "src/spectralbridge/landsat_agreement.py",
+    "line": 226,
+    "text": "value = tags.get(\"reflectance_scale_factor\", tags.get(\"reflectance scale factor\"))"
+  },
+  {
+    "file": "src/spectralbridge/landsat_agreement.py",
+    "line": 228,
+    "text": "raise ValueError(\"Explicit source reflectance scale metadata required\")"
+  },
+  {
+    "file": "src/spectralbridge/landsat_agreement.py",
+    "line": 231,
+    "text": "raise ValueError(\"Invalid source reflectance scale factor\")"
+  },
+  {
+    "file": "src/spectralbridge/landsat_agreement.py",
+    "line": 237,
+    "text": "raise ValueError(\"Explicit and raster reflectance scale metadata disagree\")"
+  },
+  {
+    "file": "src/spectralbridge/drone_radiometry.py",
+    "line": 24,
+    "text": "HISTORICAL_10K = \"metashape_micasense_65535_to_10000_v1\""
+  },
+  {
+    "file": "src/spectralbridge/drone_radiometry.py",
+    "line": 26,
+    "text": "REFLECTANCE_10K = \"reflectance_times_10000\""
+  },
+  {
+    "file": "src/spectralbridge/drone_radiometry.py",
+    "line": 68,
+    "text": "DroneEncoding.METASHAPE_MICASENSE: 1 / 32768,"
+  },
+  {
+    "file": "src/spectralbridge/drone_radiometry.py",
+    "line": 69,
+    "text": "DroneEncoding.HISTORICAL_10K: 65535 / (10000 * 32768),"
+  },
+  {
+    "file": "src/spectralbridge/polygon_extraction.py",
+    "line": 385,
+    "text": "value_range=(0.0, 10000.0),"
+  },
+  {
+    "file": "src/spectralbridge/polygon_extraction.py",
+    "line": 666,
+    "text": "chunk_size=100000,"
+  },
+  {
+    "file": "src/spectralbridge/envi.py",
+    "line": 280,
+    "text": "\"\"\"Apply the legacy median heuristic: divide by 10000 when the finite median exceeds 1.5.\"\"\""
+  },
+  {
+    "file": "src/spectralbridge/envi.py",
+    "line": 285,
+    "text": "return arr / 10000.0 if med > 1.5 else arr"
+  },
+  {
+    "file": "src/spectralbridge/landsat_flight_validation.py",
+    "line": 278,
+    "text": "scale, legacy.LANDSAT_SURFACE_REFLECTANCE_SCALE, rtol=0, atol=1e-12"
+  },
+  {
+    "file": "src/spectralbridge/landsat_flight_validation.py",
+    "line": 310,
+    "text": "source_scale=str(legacy.LANDSAT_SURFACE_REFLECTANCE_SCALE),"
+  },
+  {
+    "file": "src/spectralbridge/mixtures.py",
+    "line": 27,
+    "text": "for size in range(1, min(max_components, len(groups)) + 1)"
+  },
+  {
+    "file": "src/spectralbridge/mixtures.py",
+    "line": 33,
+    "text": "for size in range(1, min(max_components, len(groups)) + 1)"
+  },
+  {
+    "file": "src/spectralbridge/mixtures.py",
+    "line": 76,
+    "text": "for size in range(1, min(max_components, len(classes)) + 1):"
+  },
+  {
+    "file": "src/spectralbridge/drone_qa.py",
+    "line": 121,
+    "text": "\"physical_reflectance_scale_status\": ("
+  },
+  {
+    "file": "src/spectralbridge/drone_qa.py",
+    "line": 224,
+    "text": "\"Physical reflectance scale is unverified for count-scale translation; \""
+  },
+  {
+    "file": "src/spectralbridge/drone_qa.py",
+    "line": 228,
+    "text": "row[\"physical_reflectance_scale_status\"] == \"unverified_count_scale\""
+  },
+  {
+    "file": "src/spectralbridge/landsat_validation.py",
+    "line": 26,
+    "text": "LANDSAT_SURFACE_REFLECTANCE_SCALE = 0.0000275"
+  },
+  {
+    "file": "src/spectralbridge/landsat_validation.py",
+    "line": 116,
+    "text": "scale = float(band.get(\"scale\", LANDSAT_SURFACE_REFLECTANCE_SCALE))"
+  },
+  {
+    "file": "src/spectralbridge/landsat_validation.py",
+    "line": 183,
+    "text": "\"surface_reflectance_fallback_scale\": LANDSAT_SURFACE_REFLECTANCE_SCALE,"
+  },
+  {
+    "file": "src/spectralbridge/landsat_validation.py",
+    "line": 379,
+    "text": "\"surface_reflectance_fallback_scale\": LANDSAT_SURFACE_REFLECTANCE_SCALE,"
+  },
+  {
+    "file": "src/spectralbridge/landsat_validation.py",
+    "line": 524,
+    "text": "\"reflectance range; apply Collection 2 scale/offset first\""
+  },
+  {
+    "file": "src/spectralbridge/landsat_validation.py",
+    "line": 723,
+    "text": "scales = [LANDSAT_SURFACE_REFLECTANCE_SCALE] * len("
+  },
+  {
+    "file": "src/spectralbridge/landsat_validation.py",
+    "line": 861,
+    "text": "\"LANDSAT_SURFACE_REFLECTANCE_SCALE\","
+  },
+  {
+    "file": "src/spectralbridge/io/neon.py",
+    "line": 150,
+    "text": "\"\"\"Return the reflectance scale factor for a NEON dataset, defaulting to 1.0.\"\"\""
+  },
+  {
+    "file": "src/spectralbridge/io/neon.py",
+    "line": 171,
+    "text": "def reflectance_to_unitless_multiplier(scale_factor: float) -> float:"
+  },
+  {
+    "file": "src/spectralbridge/io/neon.py",
+    "line": 177,
+    "text": "* NEON / ENVI divisor style (``10000``): ``unitless = DN / 10000``"
+  },
+  {
+    "file": "src/spectralbridge/io/neon.py",
+    "line": 190,
+    "text": "# Values above 1 are treated as storage divisors (e.g. NEON Scale_Factor=10000)."
+  },
+  {
+    "file": "src/spectralbridge/io/neon.py",
+    "line": 199,
+    "text": "multiplier = np.float32(reflectance_to_unitless_multiplier(scale_factor))"
+  },
+  {
+    "file": "src/spectralbridge/io/neon.py",
+    "line": 204,
+    "text": "\"\"\"Convert unitless reflectance back to the cube's storage scale.\"\"\""
+  },
+  {
+    "file": "src/spectralbridge/io/neon.py",
+    "line": 206,
+    "text": "multiplier = float(reflectance_to_unitless_multiplier(scale_factor))"
+  },
+  {
+    "file": "src/spectralbridge/io/neon.py",
+    "line": 215,
+    "text": "\"\"\"Return unitless reflectance scaled by the NEON factor with ignore masked."
+  },
+  {
+    "file": "src/spectralbridge/qa/metrics.py",
+    "line": 27,
+    "text": "\"\"\"Summarize valid support and distribution without changing reflectance scale."
+  },
+  {
+    "file": "src/spectralbridge/qa/metrics.py",
+    "line": 32,
+    "text": "Numeric reflectance values of any shape; stored scale is retained and finite values are summarized without clipping."
+  },
+  {
+    "file": "src/spectralbridge/qa/stages.py",
+    "line": 132,
+    "text": "value = header.get(\"reflectance scale factor\")"
+  },
+  {
+    "file": "src/spectralbridge/pipelines/drone.py",
+    "line": 2001,
+    "text": "reflectance_ds.attrs[\"Scale_Factor\"] = np.float32(1.0)"
+  },
+  {
+    "file": "src/spectralbridge/pipelines/drone.py",
+    "line": 2454,
+    "text": "header[\"reflectance scale factor\"] = 1.0 / calibration.scale"
+  },
+  {
+    "file": "src/spectralbridge/pipelines/drone.py",
+    "line": 2497,
+    "text": "header.setdefault(\"reflectance scale factor\", float(getattr(cube, \"scale_factor\", 1.0)))"
+  },
+  {
+    "file": "src/spectralbridge/pipelines/drone.py",
+    "line": 2837,
+    "text": "header.setdefault(\"reflectance scale factor\", float(getattr(cube, \"scale_factor\", 1.0)))"
+  },
+  {
+    "file": "src/spectralbridge/pipelines/pipeline.py",
+    "line": 832,
+    "text": "\"reflectance scale factor\": src_header.get(\"reflectance scale factor\"),"
+  }
+]

@@ -1,0 +1,1386 @@
+{
+  "solar_zenith_deg": 26.054234504699707,
+  "solar_azimuth_deg": 171.3017349243164,
+  "records": [
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 444,
+      "stratum": "all",
+      "n": 18014,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.25456325464738255,
+      "C_interval": [
+        0.18130081547941146,
+        0.3532497557218606
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        -652.8481015791228,
+        0.45057055715172234,
+        0.9403043656083622,
+        7.048601072439015,
+        508.1697996941717
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 444,
+      "stratum": "high_NDVI",
+      "n": 13582,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 1.2597966958379678,
+      "C_interval": [
+        1.042335277413843,
+        1.5585840496826835
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7507409756513658,
+        0.7780845052935892,
+        0.9728656469307815,
+        1.3999050319223982,
+        1.4992289991891663
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 444,
+      "stratum": "low_NDVI",
+      "n": 4432,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.816771065785716,
+      "C_interval": [
+        0.6246495327070912,
+        1.0920622881131437
+      ],
+      "groups": 58,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6667375812366904,
+        0.7078852431179757,
+        0.964700750814498,
+        1.7039888179964675,
+        2.0156178917462073
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 475,
+      "stratum": "all",
+      "n": 18014,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.27395023352601794,
+      "C_interval": [
+        0.19949453755267338,
+        0.373274312733911
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        -181.99146227681152,
+        0.4857558876963762,
+        0.9424542664055318,
+        6.337279747195351,
+        1994.4416573641968
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 475,
+      "stratum": "high_NDVI",
+      "n": 13582,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 1.301747117058204,
+      "C_interval": [
+        1.082591972251341,
+        1.5988201362397372
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7565516613726161,
+        0.7831252677841649,
+        0.9735001824914294,
+        1.383983774213251,
+        1.4764635525536525
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 475,
+      "stratum": "low_NDVI",
+      "n": 4432,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.8267564061589985,
+      "C_interval": [
+        0.6369337860173734,
+        1.0963418790465687
+      ],
+      "groups": 58,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6692499376204372,
+        0.7099434569971323,
+        0.9649233092184151,
+        1.692383460518542,
+        1.9924546794940423
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 531,
+      "stratum": "all",
+      "n": 18014,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.423161179278192,
+      "C_interval": [
+        0.333429368136683,
+        0.5409564332467864
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.5243037970213934,
+        0.5930033958279884,
+        0.9529674903384873,
+        3.1929912565459326,
+        13.696748260508015
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 531,
+      "stratum": "high_NDVI",
+      "n": 13582,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 1.1985367298072527,
+      "C_interval": [
+        0.9948191974402857,
+        1.4742391155131431
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7417394476603908,
+        0.7706193999591703,
+        0.971969251455201,
+        1.4247715221901072,
+        1.5367035962168722
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 531,
+      "stratum": "low_NDVI",
+      "n": 4432,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.7764246546847339,
+      "C_interval": [
+        0.5960660827270448,
+        1.031767101929837
+      ],
+      "groups": 58,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6561852781296805,
+        0.6995284789866555,
+        0.9637739986660063,
+        1.7560477813372244,
+        2.121367796921382
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 560,
+      "stratum": "all",
+      "n": 18014,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.43501998019966504,
+      "C_interval": [
+        0.343254031443634,
+        0.5556390074904176
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.5303512676440322,
+        0.5982642749218252,
+        0.9534509939943321,
+        3.06019326952917,
+        10.429302287067472
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 560,
+      "stratum": "high_NDVI",
+      "n": 13582,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 1.1420881174209774,
+      "C_interval": [
+        0.9431887361072004,
+        1.4124662208689824
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7328495049911015,
+        0.7630037429161202,
+        0.9710965891940625,
+        1.451158837742521,
+        1.5769295026680572
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 560,
+      "stratum": "low_NDVI",
+      "n": 4432,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.7383296438115644,
+      "C_interval": [
+        0.5635817374258357,
+        0.9862586651553049
+      ],
+      "groups": 58,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6455895621354503,
+        0.6910493635864715,
+        0.9628103967357975,
+        1.8132783047849703,
+        2.243633383324425
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 650,
+      "stratum": "all",
+      "n": 18014,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.1474494091617753,
+      "C_interval": [
+        0.08394416178774677,
+        0.23305260922005103
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        -20200.4450352852,
+        -6.8831682398939975,
+        0.9213313411924833,
+        8.922554935228678,
+        1858.3938804746222
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 650,
+      "stratum": "high_NDVI",
+      "n": 13582,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.9825457547943934,
+      "C_interval": [
+        0.8005313612989103,
+        1.2309917658802576
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7040576607449462,
+        0.7386360573910381,
+        0.9682732005101502,
+        1.5476466166448468,
+        1.7319896848100922
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 650,
+      "stratum": "low_NDVI",
+      "n": 4432,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.6641176708403486,
+      "C_interval": [
+        0.49393396633384595,
+        0.9101344057111408
+      ],
+      "groups": 58,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6229531876789848,
+        0.6726609895734067,
+        0.9608612537471188,
+        1.9551294442128637,
+        2.579023973812078
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 668,
+      "stratum": "all",
+      "n": 18014,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.09503601189470763,
+      "C_interval": [
+        0.037833904813916124,
+        0.17206517990943923
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        -393.8882905033563,
+        -8.252297106616098,
+        0.9086649068210579,
+        10.465889055095602,
+        6705.916382177196
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 668,
+      "stratum": "high_NDVI",
+      "n": 13582,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.9007670036848646,
+      "C_interval": [
+        0.7262832408476162,
+        1.1414649149986829
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6867529065288251,
+        0.7243875391048553,
+        0.9664869071612485,
+        1.6148348292775658,
+        1.8489453620165401
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 668,
+      "stratum": "low_NDVI",
+      "n": 4432,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.6656834019693687,
+      "C_interval": [
+        0.49360158331141063,
+        0.9153661510105779
+      ],
+      "groups": 58,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6234606110624941,
+        0.6730580030116732,
+        0.9608996647606616,
+        1.9517451583050247,
+        2.5700907101330666
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 705,
+      "stratum": "all",
+      "n": 18014,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.4484420207055491,
+      "C_interval": [
+        0.35984917993602444,
+        0.5626619501787266
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.5370130806006908,
+        0.6037207389965212,
+        0.9539661763051197,
+        2.931084911390074,
+        8.302353726380124
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 705,
+      "stratum": "high_NDVI",
+      "n": 13582,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 1.0191947711736478,
+      "C_interval": [
+        0.8269446383722817,
+        1.2866474462241324
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7112073527215989,
+        0.7446595919287093,
+        0.969003344520629,
+        1.522532577275463,
+        1.6894249942209512
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 705,
+      "stratum": "low_NDVI",
+      "n": 4432,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.8132476914358121,
+      "C_interval": [
+        0.6372392393777401,
+        1.0584457806830947
+      ],
+      "groups": 58,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6658419399776814,
+        0.707175673977194,
+        0.9646246085224739,
+        1.7081773471284107,
+        2.024051539705367
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 717,
+      "stratum": "all",
+      "n": 18014,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.7129762545656236,
+      "C_interval": [
+        0.5970472011347103,
+        0.8615376957318368
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6381682820788487,
+        0.6846606146022458,
+        0.9621428699223604,
+        1.8560356650069816,
+        2.3409377842741015
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 717,
+      "stratum": "high_NDVI",
+      "n": 13582,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 1.0522233917981891,
+      "C_interval": [
+        0.8490334573684207,
+        1.340533505523863
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7173610509645052,
+        0.7497728910387612,
+        0.9696413188610347,
+        1.5017043471341516,
+        1.6550944498420443
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 717,
+      "stratum": "low_NDVI",
+      "n": 4432,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.8973218160147868,
+      "C_interval": [
+        0.7206567876019409,
+        1.137118178854651
+      ],
+      "groups": 58,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.685979335960353,
+        0.7237516622124309,
+        0.9664122623769422,
+        1.6182622977963061,
+        1.8546983134731534
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 740,
+      "stratum": "all",
+      "n": 18014,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 1.327538630047744,
+      "C_interval": [
+        1.0915820059644465,
+        1.6591783752929257
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7599915193860707,
+        0.7861759555553743,
+        0.9738442913194751,
+        1.3747257209104373,
+        1.463469603132799
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 740,
+      "stratum": "high_NDVI",
+      "n": 13582,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 1.1836939951878143,
+      "C_interval": [
+        0.94831858213415,
+        1.5306662779582474
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7394597535567311,
+        0.7687118137124918,
+        0.9717138693565126,
+        1.4315561810024657,
+        1.5467270212877884
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 740,
+      "stratum": "low_NDVI",
+      "n": 4432,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 1.0734857673037703,
+      "C_interval": [
+        0.8741763635190012,
+        1.3423475528524753
+      ],
+      "groups": 58,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7211857239927201,
+        0.7529893044653265,
+        0.9699806758297225,
+        1.4889650895216013,
+        1.6347470987440351
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 842,
+      "stratum": "all",
+      "n": 18014,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 1.761488845293905,
+      "C_interval": [
+        1.4279339973313834,
+        2.2549767882426335
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.806091001318892,
+        0.825944211067472,
+        0.9784041103875835,
+        1.2698454779893655,
+        1.31769447194358
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 842,
+      "stratum": "high_NDVI",
+      "n": 13582,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 1.3823314580085282,
+      "C_interval": [
+        1.1042405707838812,
+        1.8026266298968203
+      ],
+      "groups": 60,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7669861005475433,
+        0.7923404471510402,
+        0.9745147227703568,
+        1.3572100433527559,
+        1.4380879225851444
+      ]
+    },
+    {
+      "surface": "viewing_absolute",
+      "wavelength_nm": 842,
+      "stratum": "low_NDVI",
+      "n": 4432,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 1.4298985400237976,
+      "C_interval": [
+        1.1945959425854003,
+        1.742406050014062
+      ],
+      "groups": 58,
+      "unsupported_application": 1495,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7727358952316087,
+        0.7973527610081373,
+        0.9750437656127741,
+        1.343177103639306,
+        1.4182055527577877
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 444,
+      "stratum": "all",
+      "n": 19229,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": -0.05074942652444986,
+      "C_interval": [
+        -0.12168333025517301,
+        0.04449556778523797
+      ],
+      "groups": 60,
+      "unsupported_application": 23,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        -49.47184477116454,
+        0.6057562811491225,
+        0.9223446233534769,
+        2.067325009647543,
+        383.75340818308507
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 444,
+      "stratum": "high_NDVI",
+      "n": 14706,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.8657527723718441,
+      "C_interval": [
+        0.6313456857483778,
+        1.208332337219404
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7382906708521236,
+        0.8168990316037893,
+        0.9627379775895535,
+        1.2358694542883923,
+        1.5502477479071641
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 444,
+      "stratum": "low_NDVI",
+      "n": 4523,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.40479131812314445,
+      "C_interval": [
+        0.1974312976123132,
+        0.7161164596390082
+      ],
+      "groups": 58,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6279584140582141,
+        0.7511611918862392,
+        0.9495703038019514,
+        1.3895236541558946,
+        2.541415712378176
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 475,
+      "stratum": "all",
+      "n": 19229,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": -0.056612104844049285,
+      "C_interval": [
+        -0.12394988372746694,
+        0.0320470889038968
+      ],
+      "groups": 60,
+      "unsupported_application": 23,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        -74.68487127149669,
+        0.6025055751498155,
+        0.9217956959011668,
+        2.090105349444318,
+        37.035369885062266
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 475,
+      "stratum": "high_NDVI",
+      "n": 14706,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.7411864354519571,
+      "C_interval": [
+        0.5523121704242914,
+        1.0031424895542544
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7154901600151574,
+        0.8028705003418654,
+        0.9599396743464771,
+        1.263612731369452,
+        1.6659704035566327
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 475,
+      "stratum": "low_NDVI",
+      "n": 4523,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.39161110640427954,
+      "C_interval": [
+        0.19402503633311188,
+        0.6831452694068867
+      ],
+      "groups": 58,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6234190286972799,
+        0.7484838662741407,
+        0.9490519675571798,
+        1.3967146191122919,
+        2.625117193227615
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 531,
+      "stratum": "all",
+      "n": 19229,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.04670045691838208,
+      "C_interval": [
+        -0.02649263143387709,
+        0.14249668175039445
+      ],
+      "groups": 60,
+      "unsupported_application": 4,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        -24.022890333860836,
+        0.6504928944431765,
+        0.9304192950555719,
+        1.7819245689629377,
+        8.635227451089044
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 531,
+      "stratum": "high_NDVI",
+      "n": 14706,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.6517846085750233,
+      "C_interval": [
+        0.47501113912405146,
+        0.8993507793411496
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6965140133913507,
+        0.7913802731508124,
+        0.9576417796416936,
+        1.2878989582470806,
+        1.7843625919095603
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 531,
+      "stratum": "low_NDVI",
+      "n": 4523,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.3589698645504359,
+      "C_interval": [
+        0.157331605992933,
+        0.6601505908439215
+      ],
+      "groups": 58,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6116853263205749,
+        0.7416800298303403,
+        0.9477583140224811,
+        1.4173591094398925,
+        2.8776182189357877
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 560,
+      "stratum": "all",
+      "n": 19229,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.05358299444374499,
+      "C_interval": [
+        -0.01954540277048214,
+        0.14912602851964524
+      ],
+      "groups": 60,
+      "unsupported_application": 4,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        -42.829676282946416,
+        0.6531296104347304,
+        0.9309585223016622,
+        1.7675195097928875,
+        7.633813520868368
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 560,
+      "stratum": "high_NDVI",
+      "n": 14706,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.6071882773805349,
+      "C_interval": [
+        0.43884550450539056,
+        0.8421174868438288
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6860691691304568,
+        0.7851522718756911,
+        0.9563765764457117,
+        1.3024207868942201,
+        1.8606874106615547
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 560,
+      "stratum": "low_NDVI",
+      "n": 4523,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.3412972922385924,
+      "C_interval": [
+        0.13752840522632961,
+        0.6482423848052657
+      ],
+      "groups": 58,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6050220940384103,
+        0.7378305808819214,
+        0.9470306704276821,
+        1.4288085357669433,
+        3.050075478593391
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 650,
+      "stratum": "all",
+      "n": 19229,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": -0.17349661775882688,
+      "C_interval": [
+        -0.23058968704017324,
+        -0.09842377868416148
+      ],
+      "groups": 60,
+      "unsupported_application": 109,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        -574.0780975420698,
+        0.5202903667822232,
+        0.9080375459923763,
+        2.815524409848204,
+        215.61645162297418
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 650,
+      "stratum": "high_NDVI",
+      "n": 14706,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.40910096314416217,
+      "C_interval": [
+        0.27847831863335704,
+        0.5860125030657346
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6294191174619309,
+        0.751990648880311,
+        0.9497393061743238,
+        1.3872563272260026,
+        2.5158872600235775
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 650,
+      "stratum": "low_NDVI",
+      "n": 4523,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.26670762828362593,
+      "C_interval": [
+        0.07678814310732833,
+        0.5575959439258802
+      ],
+      "groups": 58,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.5741829584420665,
+        0.719878603719282,
+        0.9436913053262974,
+        1.4850559467287667,
+        4.3479476316460435
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 668,
+      "stratum": "all",
+      "n": 19229,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": -0.2145728245964435,
+      "C_interval": [
+        -0.26867871900700113,
+        -0.14374513786100102
+      ],
+      "groups": 60,
+      "unsupported_application": 164,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        -1162.5245471380438,
+        0.4680153339145185,
+        0.901391263842229,
+        3.0225941485185532,
+        269.20969234585806
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 668,
+      "stratum": "high_NDVI",
+      "n": 14706,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.34731659194045594,
+      "C_interval": [
+        0.2239151742806346,
+        0.5141788192515637
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6073170904373907,
+        0.7391378106531429,
+        0.947279414379938,
+        1.4248428293088493,
+        2.987886763518786
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 668,
+      "stratum": "low_NDVI",
+      "n": 4523,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.26315273195229044,
+      "C_interval": [
+        0.07539056496003042,
+        0.5508183632772765
+      ],
+      "groups": 58,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.5725925373748681,
+        0.7189899294328351,
+        0.9435220966698126,
+        1.487907304106032,
+        4.452106612775092
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 705,
+      "stratum": "all",
+      "n": 19229,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.0598387020643386,
+      "C_interval": [
+        -0.013308176766422188,
+        0.1545033400200474
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        -137.321522138917,
+        0.6555151715577014,
+        0.9314352100596047,
+        1.7544538094254432,
+        6.927219359392053
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 705,
+      "stratum": "high_NDVI",
+      "n": 14706,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.5262205423709742,
+      "C_interval": [
+        0.3704706802321932,
+        0.743743679560566
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6651459665936629,
+        0.7728531164731287,
+        0.9538712148914357,
+        1.3321911708333167,
+        2.0453731527047987
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 705,
+      "stratum": "low_NDVI",
+      "n": 4523,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.3842929977739181,
+      "C_interval": [
+        0.17693084927833275,
+        0.6969983644043605
+      ],
+      "groups": 58,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6208504547782594,
+        0.7469174064210367,
+        0.9487662563190626,
+        1.4012130871021855,
+        2.675637786451208
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 717,
+      "stratum": "all",
+      "n": 19229,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.26341697283524135,
+      "C_interval": [
+        0.17109336645057074,
+        0.38264016632721415
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.5727111386512033,
+        0.7190531547948021,
+        0.9435346750231005,
+        1.4876644775804446,
+        4.444141270410262
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 717,
+      "stratum": "high_NDVI",
+      "n": 14706,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.6098756590533446,
+      "C_interval": [
+        0.4308187963409061,
+        0.866795030689189
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6867189115381503,
+        0.7855455032026959,
+        0.956456360287653,
+        1.3015192091247758,
+        1.8556698771737112
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 717,
+      "stratum": "low_NDVI",
+      "n": 4523,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.4478501186450028,
+      "C_interval": [
+        0.22794645359173474,
+        0.777471678214323
+      ],
+      "groups": 58,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6420544956151348,
+        0.7594287201642917,
+        0.9511815973671025,
+        1.3673037876904248,
+        2.3194094664371154
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 740,
+      "stratum": "all",
+      "n": 19229,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.7093176461812047,
+      "C_interval": [
+        0.5291966153599996,
+        0.9578449023270905
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7090042355660553,
+        0.7988628812811019,
+        0.959154398212136,
+        1.2716717893915326,
+        1.7038408587718652
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 740,
+      "stratum": "high_NDVI",
+      "n": 14706,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.7736840265785114,
+      "C_interval": [
+        0.5411635150195798,
+        1.124648205099914
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7218130366637943,
+        0.8066599394765697,
+        0.960707662695883,
+        1.255726631039227,
+        1.6313312052362914
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 740,
+      "stratum": "low_NDVI",
+      "n": 4523,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.585145510938353,
+      "C_interval": [
+        0.3251621277555618,
+        0.9848866882583507
+      ],
+      "groups": 58,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.6806365011059976,
+        0.7820058010174609,
+        0.9557276077651828,
+        1.3100242334832162,
+        1.9041752924526039
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 842,
+      "stratum": "all",
+      "n": 19229,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.9914759490951104,
+      "C_interval": [
+        0.7466008581431194,
+        1.3421895877173158
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7578747192034682,
+        0.8290654406415077,
+        0.9652308138248772,
+        1.2129278343489145,
+        1.4681448297867998
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 842,
+      "stratum": "high_NDVI",
+      "n": 14706,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.9296422904436188,
+      "C_interval": [
+        0.6601791933399633,
+        1.3436285491494921
+      ],
+      "groups": 60,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.7486230829115584,
+        0.823276560451411,
+        0.9640257622109893,
+        1.2236754247906094,
+        1.5052205922680904
+      ]
+    },
+    {
+      "surface": "ground_dtm_chunk",
+      "wavelength_nm": 842,
+      "stratum": "low_NDVI",
+      "n": 4523,
+      "status": "UNSUPPORTED_APPLICATION",
+      "processing_space": "Raw calibrated orthomosaic; dense terrain diagnostic only",
+      "C": 0.847007282482221,
+      "C_interval": [
+        0.5462046521917515,
+        1.3051354691017916
+      ],
+      "groups": 58,
+      "unsupported_application": 3,
+      "application_pixels": 19858,
+      "gain_quantiles": [
+        0.735095983000783,
+        0.8149203296409193,
+        0.9623410260266864,
+        1.2396497033019733,
+        1.565022666711345
+      ]
+    }
+  ]
+}

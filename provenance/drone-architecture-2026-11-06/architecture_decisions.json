@@ -1,0 +1,25 @@
+{
+  "schema": "DESIGN_ONLY_NOT_IMPLEMENTED_DISPATCHER",
+  "requested_corrections": [
+    "topographic",
+    "BRDF"
+  ],
+  "identity_fallback": false,
+  "required_for_combined_claim": [
+    "verified_radiometry",
+    "verified_spatial_spectral_contract",
+    "suitable_terrain_solar",
+    "topographic_identifiability",
+    "angular_reference_support",
+    "stable_factors",
+    "joint_band_pixel_domain"
+  ],
+  "escalation": {
+    "unknown_encoding": "validated source declaration",
+    "terrain_mismatch": "suitable DTM and datum/shadow validation",
+    "view_uncertain": "adjusted geometry",
+    "angular_fit_weak": "compact repeated target packet",
+    "source_calibration_or_rebuild": "original calibrated photos and licensed path",
+    "single_sun_topographic_confounding": "independent illumination and ground checks"
+  }
+}

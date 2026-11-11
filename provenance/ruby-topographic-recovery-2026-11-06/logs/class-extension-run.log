@@ -1,0 +1,14 @@
+REUSE characterize
+REUSE evaluate
+REUSE synthetic_audit
+REUSE matched_originals
+START class_matched
+COMPLETE class_matched
+REUSE full_frame
+REUSE sensitivity
+REUSE spectral_validation
+REUSE field_holdouts
+REUSE figures
+START report
+COMPLETE report
+Complete; scientific decision is in decision.json

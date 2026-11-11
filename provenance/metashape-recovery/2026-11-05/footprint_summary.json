@@ -1,0 +1,44 @@
+[
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "aligned_red_planes": 507,
+    "complete_four_corner_DEM_hits": 501,
+    "optical_axis_tilt_quantiles": [
+      0.1012615139792668,
+      1.1787119481916501,
+      6.6792723426234595,
+      19.411909466448538,
+      30.40140072862922
+    ],
+    "limitation": "Incomplete footprints are not extended beyond DEM coverage; ray-cast visibility does not prove unoccluded image contribution"
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "aligned_red_planes": 565,
+    "complete_four_corner_DEM_hits": 555,
+    "optical_axis_tilt_quantiles": [
+      0.6588585743736871,
+      1.4017415395087163,
+      5.068825024950668,
+      17.3194531681071,
+      25.044421453369303
+    ],
+    "limitation": "Incomplete footprints are not extended beyond DEM coverage; ray-cast visibility does not prove unoccluded image contribution"
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS",
+    "aligned_red_planes": 565,
+    "complete_four_corner_DEM_hits": 556,
+    "optical_axis_tilt_quantiles": [
+      0.878111252887532,
+      1.535727856246224,
+      5.194233000080539,
+      17.835200855404207,
+      24.707230049988933
+    ],
+    "limitation": "Incomplete footprints are not extended beyond DEM coverage; ray-cast visibility does not prove unoccluded image contribution"
+  }
+]

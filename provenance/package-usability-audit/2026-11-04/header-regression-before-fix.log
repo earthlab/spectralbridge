@@ -1,0 +1,41 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_resampled_header_remains_accepted_by_physical_library_gate ________
+
+tmp_path = PosixPath('/private/var/folders/s8/lrymhy5j13d_8jkh4zv8gjm00000gr/T/pytest-of-tuff/pytest-150/test_resampled_header_remains_0')
+
+    def test_resampled_header_remains_accepted_by_physical_library_gate(tmp_path):
+        from spectralbridge.pipelines.pipeline import _build_resample_header_text
+        from spectralbridge.envi import hdr_to_dict
+        from spectralbridge.radiometry import Radiometry, require_library_header
+    
+        radiometry = Radiometry(0.0001, 0., 'VALID', 'Synthetic teaching calibration with spaces')
+        header = {**radiometry.header(), 'brdf status':'NOT_REQUESTED', 'description': 'Synthetic convolved sensor bands'}
+        path = tmp_path / 'target.hdr'
+        path.write_text(_build_resample_header_text(header))
+        recovered = hdr_to_dict(path)
+>       require_library_header(recovered)
+
+tests/test_usability_contracts.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/spectralbridge/radiometry.py:463: in require_library_header
+    r = Radiometry.from_header(header).require_valid()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'spectralbridge.radiometry.Radiometry'>
+header = {'brdf status': 'NOT_REQUESTED', 'description': ['Synthetic convolved sensor bands'], 'physical reflectance multiplier': 0.0001, 'physical reflectance offset': 0, ...}
+
+    @classmethod
+    def from_header(cls, header):
+        contract = header.get("radiometry contract")
+        if contract is not None:
+            if not isinstance(contract, str) or not contract.startswith("json:"):
+>               raise ValueError(
+                    "Radiometry INVALID: malformed serialized header contract"
+                )
+E               ValueError: Radiometry INVALID: malformed serialized header contract
+
+src/spectralbridge/radiometry.py:246: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_usability_contracts.py::test_resampled_header_remains_accepted_by_physical_library_gate

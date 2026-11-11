@@ -1,0 +1,50 @@
+{
+  "shape": [
+    1035,
+    1960
+  ],
+  "crs": "EPSG:26913",
+  "transform": [
+    0.1,
+    0.0,
+    455725.0,
+    0.0,
+    -0.1,
+    4432104.75,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "matches_established_processing_grid": true,
+  "scale": [
+    0.0001,
+    0.0001,
+    0.0001,
+    0.0001,
+    0.0001,
+    0.0001,
+    0.0001,
+    0.0001,
+    0.0001,
+    0.0001
+  ],
+  "offset": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "mask_valid": 1993472,
+  "independent_geolocation_accuracy": "UNVERIFIED",
+  "production_sources_unchanged": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/corrections.py": true,
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/topographic.py": true,
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/pipelines/drone.py": true
+  }
+}

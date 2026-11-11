@@ -1,0 +1,185 @@
+{
+  "key": 1,
+  "label": "Copy of Chunk 1",
+  "cameras": 6090,
+  "aligned": 5650,
+  "sensors": 10,
+  "chunk_transform": [
+    [
+      3.2902814826246107,
+      -17.053404865135658,
+      -2.5966588805204793,
+      -1306823.5061405837
+    ],
+    [
+      11.126660989543876,
+      4.118171000128589,
+      -12.947018572180363,
+      -4713926.510183882
+    ],
+    [
+      13.181755196474441,
+      0.7805492876097735,
+      11.576669634258025,
+      4083577.9315503705
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "crs": "PROJCS[\"NAD83 / UTM zone 13N\",GEOGCS[\"NAD83\",DATUM[\"North American Datum 1983\",SPHEROID[\"GRS 1980\",6378137,298.257222101,AUTHORITY[\"EPSG\",\"7019\"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY[\"EPSG\",\"6269\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.01745329251994328,AUTHORITY[\"EPSG\",\"9102\"]],AUTHORITY[\"EPSG\",\"4269\"]],PROJECTION[\"Transverse_Mercator\",AUTHORITY[\"EPSG\",\"9807\"]],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",-105],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AUTHORITY[\"EPSG\",\"26913\"]]",
+  "camera_reference_crs": null,
+  "marker_crs": null,
+  "meta": {
+    "AlignCameras/adaptive_fitting": "true",
+    "AlignCameras/duration": "3144.560472",
+    "AlignCameras/min_image": "2",
+    "AlignCameras/ram_used": "5371179008",
+    "AlignCameras/reset_alignment": "false",
+    "AlignCameras/subdivide_task": "true",
+    "Info/LastSavedDateTime": "2024:12:19 21:08:44",
+    "Info/LastSavedSoftwareVersion": "1.8.3.14331",
+    "OptimizeCameras/adaptive_fitting": "false",
+    "OptimizeCameras/duration": "43.382589",
+    "OptimizeCameras/fit_flags": "f cx cy b1 b2 k1 k2 k3 p1 p2",
+    "OptimizeCameras/sigma0": "0.126640514461412"
+  },
+  "assets": {
+    "elevation": {
+      "present": true,
+      "type": "Elevation",
+      "key": 1,
+      "label": "",
+      "width": 735,
+      "height": 610,
+      "resolution": 0.5525069998580648,
+      "meta": {
+        "BuildDem/duration": "52.323224",
+        "BuildDem/flip_x": "false",
+        "BuildDem/flip_y": "false",
+        "BuildDem/flip_z": "false",
+        "BuildDem/interpolation": "1",
+        "BuildDem/max_workgroup_size": "100",
+        "BuildDem/ram_used": "15228928",
+        "BuildDem/resolution": "0.552507",
+        "BuildDem/source_data": "2",
+        "BuildDem/subdivide_task": "true",
+        "BuildDem/workitem_size_tiles": "10",
+        "Info/LastSavedDateTime": "2024:12:19 21:00:30",
+        "Info/LastSavedSoftwareVersion": "1.8.3.14331",
+        "Info/OriginalDateTime": "2024:12:19 21:00:30",
+        "Info/OriginalSoftwareVersion": "1.8.3.14331"
+      }
+    },
+    "orthomosaic": {
+      "present": false,
+      "type": "NoneType"
+    },
+    "model": {
+      "present": true,
+      "type": "Model",
+      "key": 0,
+      "label": "",
+      "meta": {
+        "BuildModel/classes": "2",
+        "BuildModel/duration": "30.949007",
+        "BuildModel/face_count": "3",
+        "BuildModel/face_count_custom": "200000",
+        "BuildModel/interpolation": "1",
+        "BuildModel/iters_max_level": "11",
+        "BuildModel/keep_depth": "true",
+        "BuildModel/max_workgroup_size": "100",
+        "BuildModel/ram_used": "650813440",
+        "BuildModel/source_data": "1",
+        "BuildModel/subdivide_task": "true",
+        "BuildModel/surface_type": "0",
+        "BuildModel/trimming_radius": "10",
+        "BuildModel/vertex_colors": "true",
+        "BuildModel/vertex_confidence": "true",
+        "BuildModel/volumetric_masks": "false",
+        "BuildModel/workitem_size_cameras": "20",
+        "Info/LastSavedDateTime": "2024:12:19 21:08:42",
+        "Info/LastSavedSoftwareVersion": "1.8.3.14331",
+        "Info/OriginalDateTime": "2024:12:19 20:59:27",
+        "Info/OriginalSoftwareVersion": "1.8.3.14331"
+      }
+    },
+    "point_cloud": {
+      "present": true,
+      "type": "PointCloud",
+      "key": 0,
+      "label": "",
+      "point_count": 1346739,
+      "meta": {
+        "BuildDenseCloud/duration": "267.225683",
+        "BuildDenseCloud/keep_depth": "true",
+        "BuildDenseCloud/max_neighbors": "100",
+        "BuildDenseCloud/max_workgroup_size": "100",
+        "BuildDenseCloud/point_colors": "true",
+        "BuildDenseCloud/point_confidence": "false",
+        "BuildDenseCloud/resolution": "0.0192110123575348",
+        "BuildDenseCloud/subdivide_task": "true",
+        "BuildDenseCloud/workitem_size_cameras": "20",
+        "BuildDepthMaps/downscale": "4",
+        "BuildDepthMaps/duration": "78.71643",
+        "BuildDepthMaps/filter_mode": "2",
+        "BuildDepthMaps/max_neighbors": "16",
+        "BuildDepthMaps/max_workgroup_size": "100",
+        "BuildDepthMaps/reuse_depth": "false",
+        "BuildDepthMaps/subdivide_task": "true",
+        "BuildDepthMaps/workitem_size_cameras": "20",
+        "ClassifyGroundPoints/cell_size": "50",
+        "ClassifyGroundPoints/duration": "4.228492",
+        "ClassifyGroundPoints/erosion_radius": "0",
+        "ClassifyGroundPoints/max_angle": "15",
+        "ClassifyGroundPoints/max_distance": "1",
+        "ClassifyGroundPoints/ram_used": "69181440",
+        "ClassifyGroundPoints/source_class": "-1",
+        "Info/LastSavedDateTime": "2024:12:19 21:08:42",
+        "Info/LastSavedSoftwareVersion": "1.8.3.14331",
+        "Info/OriginalDateTime": "2023:09:03 20:29:58",
+        "Info/OriginalSoftwareVersion": "1.8.3.14331"
+      }
+    },
+    "tie_points": {
+      "present": true,
+      "type": "TiePoints",
+      "meta": {
+        "Info/LastSavedDateTime": "2024:12:19 20:52:59",
+        "Info/LastSavedSoftwareVersion": "1.8.3.14331",
+        "Info/OriginalDateTime": "2023:09:03 19:29:37",
+        "Info/OriginalSoftwareVersion": "1.8.3.14331",
+        "MatchPhotos/descriptor_type": "binary",
+        "MatchPhotos/descriptor_version": "1.1.0",
+        "MatchPhotos/downscale": "1",
+        "MatchPhotos/duration": "318.880173",
+        "MatchPhotos/filter_mask": "false",
+        "MatchPhotos/filter_stationary_points": "true",
+        "MatchPhotos/generic_preselection": "true",
+        "MatchPhotos/guided_matching": "false",
+        "MatchPhotos/keep_keypoints": "false",
+        "MatchPhotos/keypoint_limit": "10000",
+        "MatchPhotos/keypoint_limit_per_mpx": "1000",
+        "MatchPhotos/mask_tiepoints": "false",
+        "MatchPhotos/max_workgroup_size": "100",
+        "MatchPhotos/ram_used": "13078454272",
+        "MatchPhotos/reference_preselection": "true",
+        "MatchPhotos/reference_preselection_mode": "0",
+        "MatchPhotos/reset_matches": "false",
+        "MatchPhotos/subdivide_task": "true",
+        "MatchPhotos/tiepoint_limit": "4000",
+        "MatchPhotos/workitem_size_cameras": "20",
+        "MatchPhotos/workitem_size_pairs": "80"
+      }
+    },
+    "shapes": {
+      "present": false,
+      "type": "NoneType"
+    }
+  },
+  "portable_camera_table": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/metashape-recovery/2026-11-05/extracted/AOP-GOLDHILL-08-14-23-NOGCPS-WORKING_chunk_1/cameras.parquet",
+  "portable_sensors": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/metashape-recovery/2026-11-05/extracted/AOP-GOLDHILL-08-14-23-NOGCPS-WORKING_chunk_1/sensors.json"
+}

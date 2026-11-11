@@ -1,0 +1,240 @@
+{
+  "original_fraction_scale": 3.0517578125e-05,
+  "previous_preparation_fraction_scale": 0.0001999969482421875,
+  "new_storage_fraction_scale": 0.0001,
+  "source_specific_wavelengths_nm": [
+    444,
+    475,
+    531,
+    560,
+    650,
+    668,
+    705,
+    717,
+    740,
+    842
+  ],
+  "physical_accuracy": "INDEPENDENT_VALIDATION_PENDING",
+  "original_mosaic_binding": [
+    {
+      "site": "Ruby",
+      "variant": "WORKING",
+      "offset": "unshifted",
+      "band": 1,
+      "sampling": "linear",
+      "n": 3080,
+      "correlation": 0.9999999317771551,
+      "rmse_DN": 0.2875863259342795,
+      "median_abs_error_DN": 0.249114990234375,
+      "p99_abs_error_DN": 0.495565185546875,
+      "slope": 1.0000034121718655,
+      "intercept": 0.0023951000425367175,
+      "original_pixel_size": [
+        0.08315299999999169,
+        0.08315300000021639
+      ],
+      "project_pixel_size": [
+        0.08315299999999581,
+        0.08315300000003845
+      ]
+    },
+    {
+      "site": "Ruby",
+      "variant": "WORKING",
+      "offset": "unshifted",
+      "band": 2,
+      "sampling": "linear",
+      "n": 3080,
+      "correlation": 0.9999999462506617,
+      "rmse_DN": 0.2881720641075944,
+      "median_abs_error_DN": 0.248046875,
+      "p99_abs_error_DN": 0.493922119140625,
+      "slope": 0.9999994504608756,
+      "intercept": 0.006325840168770741,
+      "original_pixel_size": [
+        0.08315299999999169,
+        0.08315300000021639
+      ],
+      "project_pixel_size": [
+        0.08315299999999581,
+        0.08315300000003845
+      ]
+    },
+    {
+      "site": "Ruby",
+      "variant": "WORKING",
+      "offset": "unshifted",
+      "band": 3,
+      "sampling": "linear",
+      "n": 3080,
+      "correlation": 0.999999966062582,
+      "rmse_DN": 0.29021248703852187,
+      "median_abs_error_DN": 0.25177001953125,
+      "p99_abs_error_DN": 0.49441650390625,
+      "slope": 0.9999952389882025,
+      "intercept": 0.007047883295191349,
+      "original_pixel_size": [
+        0.08315299999999169,
+        0.08315300000021639
+      ],
+      "project_pixel_size": [
+        0.08315299999999581,
+        0.08315300000003845
+      ]
+    },
+    {
+      "site": "Ruby",
+      "variant": "WORKING",
+      "offset": "unshifted",
+      "band": 4,
+      "sampling": "linear",
+      "n": 3080,
+      "correlation": 0.9999999735969847,
+      "rmse_DN": 0.29121413935366225,
+      "median_abs_error_DN": 0.253662109375,
+      "p99_abs_error_DN": 0.49565673828125,
+      "slope": 0.9999984301487502,
+      "intercept": -0.0023742249348485864,
+      "original_pixel_size": [
+        0.08315299999999169,
+        0.08315300000021639
+      ],
+      "project_pixel_size": [
+        0.08315299999999581,
+        0.08315300000003845
+      ]
+    },
+    {
+      "site": "Ruby",
+      "variant": "WORKING",
+      "offset": "unshifted",
+      "band": 5,
+      "sampling": "linear",
+      "n": 3080,
+      "correlation": 0.9999999818623028,
+      "rmse_DN": 0.28834566729436306,
+      "median_abs_error_DN": 0.2520751953125,
+      "p99_abs_error_DN": 0.4938874816894531,
+      "slope": 1.0000032407902575,
+      "intercept": -0.007806589485154028,
+      "original_pixel_size": [
+        0.08315299999999169,
+        0.08315300000021639
+      ],
+      "project_pixel_size": [
+        0.08315299999999581,
+        0.08315300000003845
+      ]
+    },
+    {
+      "site": "Ruby",
+      "variant": "WORKING",
+      "offset": "unshifted",
+      "band": 6,
+      "sampling": "linear",
+      "n": 3080,
+      "correlation": 0.9999999833896828,
+      "rmse_DN": 0.2892172282511694,
+      "median_abs_error_DN": 0.25176239013671875,
+      "p99_abs_error_DN": 0.4959490966796875,
+      "slope": 1.0000029798826389,
+      "intercept": -0.007562473236312014,
+      "original_pixel_size": [
+        0.08315299999999169,
+        0.08315300000021639
+      ],
+      "project_pixel_size": [
+        0.08315299999999581,
+        0.08315300000003845
+      ]
+    },
+    {
+      "site": "Ruby",
+      "variant": "WORKING",
+      "offset": "unshifted",
+      "band": 7,
+      "sampling": "linear",
+      "n": 3080,
+      "correlation": 0.9999999852954746,
+      "rmse_DN": 0.2891101395984595,
+      "median_abs_error_DN": 0.24810791015625,
+      "p99_abs_error_DN": 0.4947702026367188,
+      "slope": 0.9999963243087127,
+      "intercept": 0.013383723216485297,
+      "original_pixel_size": [
+        0.08315299999999169,
+        0.08315300000021639
+      ],
+      "project_pixel_size": [
+        0.08315299999999581,
+        0.08315300000003845
+      ]
+    },
+    {
+      "site": "Ruby",
+      "variant": "WORKING",
+      "offset": "unshifted",
+      "band": 8,
+      "sampling": "linear",
+      "n": 3080,
+      "correlation": 0.9999999891511515,
+      "rmse_DN": 0.29077706100610473,
+      "median_abs_error_DN": 0.2571563720703125,
+      "p99_abs_error_DN": 0.494583740234375,
+      "slope": 0.9999999293500019,
+      "intercept": -0.00443762246415609,
+      "original_pixel_size": [
+        0.08315299999999169,
+        0.08315300000021639
+      ],
+      "project_pixel_size": [
+        0.08315299999999581,
+        0.08315300000003845
+      ]
+    },
+    {
+      "site": "Ruby",
+      "variant": "WORKING",
+      "offset": "unshifted",
+      "band": 9,
+      "sampling": "linear",
+      "n": 3080,
+      "correlation": 0.9999999945672027,
+      "rmse_DN": 0.28819890227720074,
+      "median_abs_error_DN": 0.2527008056640625,
+      "p99_abs_error_DN": 0.495020751953125,
+      "slope": 1.000000457873664,
+      "intercept": -0.005245882451582412,
+      "original_pixel_size": [
+        0.08315299999999169,
+        0.08315300000021639
+      ],
+      "project_pixel_size": [
+        0.08315299999999581,
+        0.08315300000003845
+      ]
+    },
+    {
+      "site": "Ruby",
+      "variant": "WORKING",
+      "offset": "unshifted",
+      "band": 10,
+      "sampling": "linear",
+      "n": 3080,
+      "correlation": 0.9999999960173497,
+      "rmse_DN": 0.28579288199442227,
+      "median_abs_error_DN": 0.25244140625,
+      "p99_abs_error_DN": 0.4932666015625,
+      "slope": 0.9999996123979373,
+      "intercept": 0.00048067308265195953,
+      "original_pixel_size": [
+        0.08315299999999169,
+        0.08315300000021639
+      ],
+      "project_pixel_size": [
+        0.08315299999999581,
+        0.08315300000003845
+      ]
+    }
+  ]
+}

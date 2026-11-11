@@ -50733,3 +50733,4489 @@ Final deliverables
 
 The goal is not merely to remove visible artifacts. It is to recover physically meaningful, numerically stable spectral information that can support reliable ecological research.
 ```
+
+## 2026-11-04 - P178 core functionality and user experience audit
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+SpectralBridge: Core Functionality and User Experience Audit
+
+Mission
+
+Conduct a comprehensive usability audit of the SpectralBridge Python package and its documentation, with the goal of preparing a stable, intuitive, researcher-friendly release.
+
+Repository: earthlab/spectralbridge
+
+Target release: 2.3.0rc2
+
+We have spent considerable time developing, debugging, validating, and documenting SpectralBridge. The repository now contains substantial scientific infrastructure, experimental analyses, QA tools, reports, and specialized workflows.
+
+However, extensive development and testing can make a package increasingly difficult for new users to understand.
+
+Our priority is now to make the core functionality stable, discoverable, intuitive, and easy to use.
+
+This is not another scientific QA investigation or comprehensive architectural refactor.
+
+Approach the work from the perspective of an environmental scientist who is encountering SpectralBridge for the first time.
+
+The package should feel like a coherent scientific tool, not a collection of research experiments.
+
+⸻
+
+1. Identify the core purpose of SpectralBridge
+
+Begin by reviewing the README, documentation, public API, CLI, package structure, and existing examples.
+
+Determine what the package currently presents as its primary capabilities.
+
+SpectralBridge’s central purpose is to prepare, correct, harmonize, and compare spectral reflectance across sensors and spatial scales.
+
+Its major capabilities include:
+
+1. NEON AOP processing: Process airborne hyperspectral imagery through the established correction and sensor-translation workflow.
+2. Drone processing: Process supported drone imagery through spatial preparation, topographic correction, BRDF correction, and spectral translation.
+3. Cross-sensor spectral translation: Transform spectra into target sensor band representations and apply supported calibration methods.
+4. Spectral-library creation: Extract, organize, and analyze spectral observations associated with researcher-defined polygons and vegetation classes.
+5. Scientific analysis: Evaluate spectral separability, identifiability, and abundance estimation using the package’s established analytical methods.
+6. Bulk processing: Process collections of completed imagery and generate reusable statistical summaries.
+
+Inspect the actual implementation and documentation to verify these capabilities.
+
+Do not assume every experimental method is a supported public feature.
+
+For each major capability, identify:
+
+* Its primary user.
+* Its scientific purpose.
+* Its expected inputs.
+* Its expected outputs.
+* Its primary Python entry point.
+* Its CLI entry point, if applicable.
+* Its documentation page.
+* Its simplest working example.
+* Its current support status.
+
+Create a concise capability inventory.
+
+Distinguish core functionality from optional advanced functionality, experimental methods, internal utilities, and development-only QA tools.
+
+The objective is to establish a clear product identity.
+
+⸻
+
+2. Evaluate the first-time user experience
+
+Simulate the experience of a researcher who has never used SpectralBridge.
+
+Start with the repository homepage.
+
+Do not rely on knowledge gained from developing the package.
+
+Follow the instructions exactly as written.
+
+Evaluate the complete onboarding journey:
+
+Discovery
+
+Can a user understand what SpectralBridge does within the first minute of reading the README?
+
+Is the scientific problem clearly explained?
+
+Are the major capabilities immediately visible?
+
+Can the user tell whether SpectralBridge is appropriate for their data?
+
+Installation
+
+Can the user install the package using the documented instructions?
+
+Does installation work in a clean environment?
+
+Are optional dependencies explained?
+
+Is the distinction between the distribution name earthlab-spectralbridge and Python import spectralbridge clear?
+
+Are installation problems handled with useful guidance?
+
+First successful result
+
+Can a new user produce a meaningful result quickly?
+
+Is there a small, self-contained example that does not require access to large NEON datasets or authenticated services?
+
+Does the example demonstrate actual SpectralBridge functionality rather than merely verifying that Python imports work?
+
+Can the user understand the output?
+
+Next steps
+
+After completing the introductory example, is it obvious how to proceed to:
+
+* NEON imagery.
+* Drone imagery.
+* Spectral translation.
+* Spectral libraries.
+* Scientific analysis.
+* Bulk processing.
+
+Identify every point where a user would likely become confused, encounter missing information, or need developer assistance.
+
+⸻
+
+3. Audit the public Python API
+
+Inspect the package’s public functions and their organization.
+
+Determine whether the API presents a coherent, predictable interface.
+
+Evaluate:
+
+* Function naming.
+* Argument naming.
+* Default behavior.
+* Required versus optional arguments.
+* Input validation.
+* Return values.
+* Error messages.
+* Consistency across related functions.
+* Discoverability.
+* Documentation completeness.
+* Stability.
+
+Pay particular attention to the distinction between high-level user-facing functions and low-level implementation utilities.
+
+A user should not need to understand the internal architecture to perform a common task.
+
+Questions to answer
+
+Can users identify the correct function for a task?
+
+Are important functions buried in obscure modules?
+
+Are there multiple overlapping functions with unclear differences?
+
+Do function names communicate what they do?
+
+Are common operations unnecessarily complicated?
+
+Do users need to manually perform steps that the package could safely coordinate?
+
+Are advanced options overwhelming the basic interface?
+
+Are important defaults documented and scientifically defensible?
+
+Are errors actionable?
+
+Recommended improvements
+
+Where appropriate:
+
+* Improve docstrings.
+* Clarify parameter names in documentation.
+* Expose established functions through sensible public interfaces.
+* Add lightweight convenience functions.
+* Simplify common usage patterns.
+* Improve validation messages.
+* Add practical examples.
+
+Avoid breaking existing APIs.
+
+If an interface change would be backward-incompatible, document the proposed change rather than implementing it automatically.
+
+Do not create a second API that duplicates the existing one.
+
+⸻
+
+4. Audit the command-line experience
+
+Review every public SpectralBridge CLI command.
+
+Determine which commands are intended for ordinary researchers and which are specialized development utilities.
+
+Evaluate:
+
+* Command naming.
+* Help messages.
+* Required arguments.
+* Defaults.
+* Configuration handling.
+* Error reporting.
+* Progress reporting.
+* Output locations.
+* Restart behavior.
+* Discoverability.
+
+Run each command’s --help interface.
+
+Check whether the help output explains what the command does and how to begin.
+
+For major commands, provide a working example.
+
+A user should be able to understand the expected input and output without reading the source code.
+
+Simplify the experience
+
+Determine whether the existing CLI presents too many commands without clear organization.
+
+Recommend a simple hierarchy that distinguishes:
+
+Primary workflows
+
+* NEON processing.
+* Drone processing.
+* Bulk processing.
+* Spectral-library analysis.
+
+Supporting tools
+
+* QA.
+* Validation.
+* Recovery.
+* Data conversion.
+* Diagnostics.
+
+Prefer improving documentation and help messages over introducing disruptive command changes.
+
+Preserve existing command compatibility.
+
+⸻
+
+5. Evaluate the main workflows from beginning to end
+
+Conduct user-centered walkthroughs of the principal workflows.
+
+Use small fixtures, representative data, or available real datasets.
+
+Do not substitute code inspection for execution when a workflow can actually be tested.
+
+For each workflow, evaluate the entire experience.
+
+A. NEON processing
+
+Can a user identify the necessary inputs?
+
+Can they configure and launch the pipeline?
+
+Are correction options understandable?
+
+Are output directories predictable?
+
+Can they determine whether processing succeeded?
+
+Are the resulting files explained?
+
+B. Drone processing
+
+Can a user provide a flight package or Data Store location?
+
+Can the pipeline discover its inputs?
+
+Are the required orthomosaic and flight-coordinate metadata clearly explained?
+
+Can the user run the complete workflow without manually assembling internal processing stages?
+
+Are topographic and BRDF corrections integrated into the normal workflow?
+
+Are experimental calibration limitations communicated clearly without unnecessarily complicating routine operation?
+
+C. Cross-sensor translation
+
+Can a user identify the source and target sensors?
+
+Can they understand which translation methods are supported?
+
+Are coefficient requirements and provenance clear?
+
+Can they distinguish sensor-band convolution from empirical calibration?
+
+Are translated outputs clearly labeled?
+
+D. Spectral libraries
+
+Can a user understand how to create a spectral library from imagery and polygons?
+
+Are expected polygon attributes documented?
+
+Are PFT assignments preserved and explained?
+
+Can users inspect the resulting spectra and metadata?
+
+Is the workflow straightforward enough for collaborators?
+
+E. Scientific analysis
+
+Can a researcher use the package to evaluate:
+
+* Spectral separability.
+* Spectral identifiability.
+* Abundance estimation.
+
+Are the supported analytical functions easy to discover?
+
+Are their assumptions explained?
+
+Are the outputs interpretable?
+
+Can a user reproduce a simple analysis without navigating historical research reports?
+
+F. Bulk processing
+
+Can a user process multiple completed products?
+
+Are configuration and restart behavior understandable?
+
+Can users locate and interpret the statistical summaries?
+
+Is it clear when bulk analysis is preferable to loading all pixel data?
+
+Required workflow assessment
+
+For every workflow, record:
+
+1. Number of steps required.
+2. Required user decisions.
+3. Dependencies and credentials.
+4. Expected runtime and resource requirements, where measurable.
+5. Common failure points.
+6. Output discoverability.
+7. Documentation gaps.
+8. Opportunities for simplification.
+
+Do not invent runtime estimates or claim successful execution where external data are unavailable.
+
+⸻
+
+6. Audit outputs and result interpretation
+
+A scientific package is not usable simply because it produces files.
+
+Users must understand what those files mean.
+
+Review the output conventions across the package.
+
+Evaluate:
+
+* Directory structure.
+* File naming.
+* Metadata.
+* Provenance.
+* Output formats.
+* QA summaries.
+* Processing status.
+* Scientific limitations.
+* Discoverability.
+
+Key questions
+
+Can users distinguish raw, corrected, and translated products?
+
+Can they identify the relevant sensor and wavelengths?
+
+Can they determine which corrections were applied?
+
+Can they find the final products without searching through dozens of intermediate files?
+
+Can they identify experimental versus validated outputs?
+
+Can they determine whether a run completed successfully?
+
+Can they understand the most important QA results?
+
+Recommended improvements
+
+Consider a consistent run-summary artifact that identifies:
+
+* Input datasets.
+* Processing configuration.
+* Major processing stages.
+* Final output files.
+* QA status.
+* Scientific support status.
+* Warnings.
+* Software version.
+* Provenance.
+
+Reuse existing manifests and QA metadata wherever possible.
+
+Do not create redundant reporting systems.
+
+The final scientific products should be immediately identifiable, even when the pipeline generates many intermediate files.
+
+⸻
+
+7. Evaluate the documentation architecture
+
+Review the entire documentation website from the perspective of a new researcher.
+
+Determine whether the organization reflects user needs or the historical order in which features were developed.
+
+The website should have a clear hierarchy.
+
+Getting started
+
+What is SpectralBridge?
+
+What problems does it solve?
+
+How do I install it?
+
+How do I run my first example?
+
+Workflows
+
+How do I process NEON data?
+
+How do I process drone data?
+
+How do I translate spectra?
+
+How do I create spectral libraries?
+
+How do I analyze spectral libraries?
+
+How do I run bulk processing?
+
+Reference
+
+What functions are available?
+
+What arguments do they accept?
+
+What do they return?
+
+What formats are supported?
+
+Scientific methods
+
+How do the corrections and analytical methods work?
+
+What assumptions do they make?
+
+What are their limitations?
+
+Development
+
+How do I contribute?
+
+How do I run tests?
+
+How do I prepare a release?
+
+How do I cite the software?
+
+Documentation requirements
+
+Ensure that:
+
+* The navigation is intuitive.
+* Major workflows are visible.
+* Pages have descriptive titles.
+* Examples are easy to find.
+* Function documentation is standardized.
+* Internal links work.
+* Terminology is consistent.
+* Historical investigations do not dominate the primary navigation.
+
+Preserve detailed scientific reports and provenance, but place them where advanced users can find them without overwhelming newcomers.
+
+Do not delete research history.
+
+⸻
+
+8. Improve the core examples
+
+Review the existing examples and notebooks.
+
+Identify the smallest set that demonstrates the package’s principal capabilities.
+
+Create or improve a coherent collection of examples.
+
+Each example should:
+
+1. State its scientific purpose.
+2. Explain the required inputs.
+3. Show the simplest supported workflow.
+4. Produce an interpretable result.
+5. Explain the outputs.
+6. Link to relevant API documentation.
+7. Explain any important limitations.
+
+Prefer examples that run quickly using small datasets.
+
+Separate examples requiring authenticated services or large datasets from those that work immediately after installation.
+
+Avoid presenting experimental research notebooks as the primary introduction to the package.
+
+Ensure examples execute successfully where their inputs are available.
+
+⸻
+
+9. Evaluate stability from the user’s perspective
+
+Review common user-facing failure modes.
+
+Examples include:
+
+* Missing input files.
+* Incorrect file formats.
+* Missing coordinate metadata.
+* Unsupported sensor configurations.
+* Missing optional dependencies.
+* Invalid correction settings.
+* Incompatible calibration metadata.
+* Insufficient disk space.
+* Interrupted processing.
+* Failed Data Store transfers.
+* Missing polygon attributes.
+* Invalid output directories.
+
+Determine whether errors are understandable and actionable.
+
+Where possible, improve error messages so they explain:
+
+1. What failed.
+2. Why it failed.
+3. What the user can do next.
+
+Add regression tests for any error-handling improvements.
+
+Do not suppress important scientific warnings.
+
+⸻
+
+10. Implement high-value usability improvements
+
+After completing the audit, identify the improvements that would most benefit ordinary users.
+
+Prioritize changes that:
+
+* Reduce the number of steps required for common tasks.
+* Make important functionality easier to discover.
+* Clarify inputs and outputs.
+* Improve error messages.
+* Simplify documentation.
+* Improve examples.
+* Preserve backward compatibility.
+* Require relatively little new infrastructure.
+
+Implement straightforward, low-risk improvements directly.
+
+Do not undertake major API redesigns or architectural refactors without approval.
+
+Avoid adding dependencies unless clearly justified.
+
+Keep the changes focused on the RC2 release.
+
+⸻
+
+11. Create a usability report
+
+Produce:
+
+PACKAGE_USABILITY_AUDIT.md
+
+The report should be concise, practical, and organized around the user experience.
+
+Include the following sections.
+
+Executive summary
+
+Can a new researcher successfully use SpectralBridge?
+
+What are the three most important usability strengths?
+
+What are the three most important usability problems?
+
+Core capability inventory
+
+Summarize the main supported workflows and their entry points.
+
+User journey assessment
+
+Evaluate installation, onboarding, workflow discovery, execution, and output interpretation.
+
+API and CLI findings
+
+Identify confusing interfaces and opportunities for simplification.
+
+Documentation findings
+
+Evaluate navigation, completeness, and discoverability.
+
+Changes implemented
+
+Describe actual usability improvements made during the audit.
+
+Remaining recommendations
+
+Prioritize findings as:
+
+P0 — Release blocker: Prevents ordinary users from successfully using a core supported workflow.
+
+P1 — High priority: Significant usability problem that should be addressed before or shortly after RC2.
+
+P2 — Improvement: Useful enhancement appropriate for a future release.
+
+Do not classify every documentation imperfection as a release blocker.
+
+Before-and-after examples
+
+For the most important improvements, demonstrate how the user experience changed.
+
+Examples might include:
+
+* Simpler installation.
+* Clearer CLI invocation.
+* Improved workflow documentation.
+* More discoverable functions.
+* Better error messages.
+* Easier output navigation.
+
+Use actual working examples rather than hypothetical interfaces.
+
+⸻
+
+12. Completion criteria
+
+The audit is complete when:
+
+1. The package’s core capabilities are clearly identified.
+2. The primary user journeys have been evaluated.
+3. The public API has been reviewed for discoverability and consistency.
+4. The CLI experience has been assessed.
+5. Major workflows have been exercised where practical.
+6. Outputs and provenance are understandable.
+7. Documentation navigation has been reviewed and improved.
+8. Core examples are functional and easy to find.
+9. High-value, low-risk usability improvements have been implemented.
+10. Relevant tests and documentation builds pass.
+11. Remaining recommendations are prioritized.
+12. The usability report clearly identifies any RC2 release blockers.
+
+Do not stop at generating an inventory of problems.
+
+Make practical improvements, test them, and document the results.
+
+Do not publish or tag a release.
+
+⸻
+
+Guiding philosophy
+
+SpectralBridge is scientific software intended to be used by researchers, not just its developers.
+
+Its complexity should support the science without becoming a burden on the user.
+
+The user should encounter the simplest useful interface first, with advanced functionality available when needed.
+
+The README should communicate what the package does.
+
+The documentation should explain how to use it.
+
+The API should make the important functions easy to find.
+
+The workflows should be straightforward to execute.
+
+The outputs should be understandable.
+
+The QA system should build confidence without overwhelming the user.
+
+Our goal is to make SpectralBridge feel like a mature, coherent scientific Python package rather than an accumulation of research pipelines, tests, and reports.
+```
+
+## 2026-11-04 - P178 camera-table availability update
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue. I added AOP calibration flight's camera locations to respective folders starting with "AOP". in datastore: https://de.cyverse.org/data/ds/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023?type=folder&resourceId=3eee91cc-e35e-11ef-ad77-90e2ba675364. The naming convention starts with the same as the folder name and then added "-camera-locations.csv". For example, the Goldhill :"AOP-GOLDHILL-8-14-2023-camera-locations.csv" and the data is in "AOP-GOLDHILL-08-14-23-ExportPackage" folder.
+```
+
+## 2026-11-05 - P181 resume three-site calibration rerun with camera tables
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+can you continue our earlier efforts to re run the three calibration sites now that we have the camera location data in the data store
+```
+
+## 2026-11-05 - Resolve three-site correction instability
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+SpectralBridge: Resolve Remaining Drone BRDF and Topographic Correction Problems
+
+Mission
+
+Investigate and resolve the remaining correction problems identified in the November 5, 2026, three-site drone camera rerun.
+
+Repository: earthlab/spectralbridge
+
+Reference report: DRONE_CAMERA_RERUN_REPORT.md
+
+Reference PDF: drone-camera-rerun-2026-11-05.pdf
+
+Target release: 2.3.0rc2
+
+We have substantially improved the drone-processing pipeline, including radiometric handling, viewing-geometry reconstruction, BRDF mathematics, topographic correction, spatial integrity, and numerical safeguards.
+
+The latest experiment successfully generated topographic-only, BRDF-only, and combined imagery for Gordon and Goldhill.
+
+However, two important problems remain:
+
+1. Ruby’s BRDF model fails the prediction acceptance checks, preventing production of BRDF-only and combined imagery.
+2. Gordon and Goldhill retain extreme correction factors, including values that may represent harmful artifacts.
+
+Our objective is to identify the actual causes of these problems, implement scientifically defensible corrections, and determine whether all three sites can be processed reliably.
+
+This is a targeted scientific debugging and algorithm-hardening task.
+
+Do not conduct a broad refactor.
+
+Do not weaken acceptance criteria simply to force the processing to succeed.
+
+Do not replace rejected BRDF results with identity corrections or silently clipped values.
+
+Both topographic and BRDF correction remain required components of the intended drone workflow.
+
+⸻
+
+1. Establish the exact experimental baseline
+
+Begin by examining the November 5 rerun, its code, configurations, input manifests, and saved diagnostics.
+
+Reproduce the reported results before changing anything.
+
+Expected baseline
+
+Site	BRDF-only	Combined	Largest reported 650 nm factor
+Gordon	Accepted experimentally	Accepted experimentally	17.17×
+Goldhill	Accepted experimentally	Accepted experimentally	21.55×
+Ruby	Rejected	Rejected	Not applicable
+
+Ruby’s topographic-only branch reached a 650 nm factor of 6.88×.
+
+For Ruby:
+
+* BRDF-only failed at 444, 475, 650, and 668 nm.
+* Combined correction failed at 650 and 668 nm.
+* The combined 650 nm fit had rank 3 and condition number approximately 464.
+* Its reference prediction was approximately 0.01229, with spatial-cluster standard error 0.00939.
+
+These values indicate that numerical rank alone does not establish a sufficiently supported BRDF correction.
+
+Verify the exact implementation and saved diagnostics rather than relying solely on these summary values.
+
+Preserve the original experimental outputs.
+
+⸻
+
+2. Investigate Ruby’s BRDF failure
+
+The first priority is understanding why Ruby behaves differently from Gordon and Goldhill.
+
+Do not assume that Ruby requires different correction parameters.
+
+Determine whether the failure originates in:
+
+* Input radiometry.
+* Camera-coordinate interpretation.
+* Reconstructed viewing geometry.
+* Solar geometry.
+* BRDF kernel construction.
+* Spatial sampling.
+* Model identifiability.
+* Regression fitting.
+* Reference-angle normalization.
+* Uncertainty estimation.
+* Actual scene characteristics.
+
+A. Compare viewing geometry
+
+Generate consistent diagnostics for all three sites.
+
+Compare:
+
+* Camera positions.
+* Camera heights.
+* Camera-to-ground distances.
+* Estimated view zenith.
+* Estimated relative azimuth.
+* Solar zenith and azimuth.
+* Candidate camera counts per pixel.
+* Spatial distributions of kernel values.
+* Angular coverage.
+* Kernel-design conditioning.
+
+Pay particular attention to whether Ruby has sufficient independent angular variation to support the BRDF model.
+
+Inspect the spatial distribution of viewing geometry rather than relying only on global summary statistics.
+
+B. Verify coordinate conventions
+
+Recheck:
+
+* Horizontal CRS.
+* Camera altitude reference.
+* DEM vertical reference.
+* Camera/world rotation conventions.
+* Camera orientation.
+* Image footprint assumptions.
+* Timestamp and timezone assumptions.
+* Solar-position calculations.
+
+The November 5 report identifies unresolved camera/world, vertical-datum, and clock-zone conventions.
+
+It also identifies a Ruby acquisition-date discrepancy: photo metadata supports August 15 rather than the manifest’s August 16 date.
+
+Determine whether these uncertainties materially affect the BRDF model.
+
+Do not silently choose whichever convention produces the most favorable result.
+
+Use independently supported metadata where available.
+
+Where the evidence is insufficient, perform explicitly labeled sensitivity experiments.
+
+C. Examine the failed predictions
+
+For each rejected wavelength, inspect:
+
+* Observed response distribution.
+* Model coefficients.
+* Kernel distributions.
+* Reference prediction.
+* Prediction uncertainty.
+* Spatial-cluster uncertainty.
+* Fitted versus observed values.
+* Residual structure.
+* Spatial distribution of model errors.
+
+Determine why the model produces a nonpositive or uncertainty-dominated reference prediction.
+
+Separate numerical instability from insufficient scientific information.
+
+D. Test model support
+
+Evaluate whether the existing fitting strategy is appropriate for Ruby’s available observations.
+
+Investigate:
+
+* Spatially balanced sampling.
+* Angular coverage.
+* Vegetation heterogeneity.
+* Spatial confounding.
+* Robust regression alternatives.
+* Physically constrained parameterizations.
+* Regularization where scientifically justified.
+* Reference-angle selection.
+
+Do not introduce a new fitting method solely because it produces accepted results.
+
+Any proposed change must improve model behavior across independent tests and all three sites.
+
+If Ruby remains unsupported after correcting demonstrable defects, preserve that result.
+
+⸻
+
+3. Investigate extreme correction factors
+
+The second priority is determining why Gordon and Goldhill retain large correction tails.
+
+The November 5 report identifies:
+
+Site	650 nm raw maximum	Corrected maximum	Largest factor
+Gordon	0.3261	0.9497	17.17×
+Goldhill	0.3780	2.4243	21.55×
+
+These are conditional values under the unverified DN/32768 interpretation.
+
+Do not interpret them as independently calibrated surface reflectance.
+
+A. Trace the extreme pixels
+
+Use the existing extreme-value records from the November 5 experiment.
+
+The report identifies 140 bounded extreme source records.
+
+For each important extreme, recover:
+
+* Site.
+* Band.
+* Pixel coordinates.
+* Original value.
+* Topographic-only value.
+* BRDF-only value.
+* Combined value.
+* Topographic factor.
+* BRDF factor.
+* Combined factor.
+* Correction-support status.
+* Slope.
+* Aspect.
+* Solar incidence.
+* View geometry.
+* Model prediction and uncertainty.
+
+Identify which correction stage is responsible.
+
+B. Determine whether extremes are systematic
+
+Evaluate whether extreme values concentrate:
+
+* Near image boundaries.
+* Along flight lines.
+* Near camera-footprint transitions.
+* On steep terrain.
+* In shadowed areas.
+* Near invalid or missing data.
+* In particular vegetation types.
+* At low original signal values.
+* In specific spectral bands.
+
+Generate spatial maps of correction factors and their relationships to these variables.
+
+C. Evaluate topographic correction
+
+Inspect the conditioned SCS+C implementation.
+
+Determine whether large factors arise from:
+
+* Near-zero illumination geometry.
+* Unstable fitted C parameters.
+* Terrain or DEM errors.
+* Insufficiently supported regression fits.
+* Shadowed pixels.
+* Incorrect incidence calculations.
+* Numerical behavior near correction boundaries.
+
+Retain the established support and uncertainty safeguards.
+
+Investigate whether the algorithm can be made more stable without imposing arbitrary clipping.
+
+D. Evaluate BRDF correction
+
+Inspect whether extreme factors arise from:
+
+* Small reference predictions.
+* Unstable kernel coefficients.
+* Inadequate angular coverage.
+* Incorrect viewing geometry.
+* Spatial confounding.
+* Reference-angle mismatch.
+* Prediction uncertainty.
+* Incorrect correction-factor application.
+
+Examine whether the factor tails originate in the model itself or in its application to the raster.
+
+E. Evaluate combined correction
+
+Determine whether the combined workflow amplifies otherwise moderate corrections.
+
+Verify:
+
+* Correction order.
+* Factor composition.
+* Radiometric units.
+* Mask propagation.
+* NoData handling.
+* Per-band consistency.
+* Numerical safeguards.
+
+Compare the product of the individual factors with the actual combined result, accounting for any stage-specific refitting or support differences.
+
+Do not assume the two corrections are independent.
+
+⸻
+
+4. Investigate the radiometric assumptions
+
+The November 5 experiment reused the hypothetical DN/32768 interpretation.
+
+This remains unverified.
+
+Inspect the original orthomosaics, source metadata, and current radiometric conversion.
+
+Verify that the implementation correctly handles:
+
+* Original stored values.
+* Fixed-range normalization.
+* Band-specific offsets where applicable.
+* Scale direction.
+* Physical-unit interpretation.
+* Filtering thresholds.
+* NoData values.
+
+Determine whether the radiometric assumptions materially influence:
+
+* BRDF coefficient estimation.
+* Prediction uncertainty.
+* Topographic fitting.
+* Correction factors.
+* Model acceptance.
+
+Distinguish transformations that are mathematically invariant under common scaling from those affected by offsets, thresholds, weighting, or uncertainty rules.
+
+Do not invent a physical calibration.
+
+Do not label hypothetical values as verified reflectance.
+
+⸻
+
+5. Compare the three sites under identical conditions
+
+Create a standardized cross-site diagnostic framework.
+
+Use the same methods and acceptance criteria for Gordon, Goldhill, and Ruby.
+
+Evaluate:
+
+1. Source radiometry.
+2. Viewing geometry.
+3. Solar geometry.
+4. Topographic model support.
+5. BRDF model support.
+6. Correction-factor distributions.
+7. Spatial artifacts.
+8. Spectral distortions.
+9. Correction coverage.
+10. Model uncertainty.
+
+Use comparable plots and statistics.
+
+Identify which differences are caused by the data and which are caused by the algorithm.
+
+Avoid tuning the algorithm separately for each site unless a site-specific physical difference independently justifies it.
+
+⸻
+
+6. Implement scientifically defensible improvements
+
+After identifying the causes, implement targeted fixes.
+
+Prioritize:
+
+* Correcting demonstrable mathematical errors.
+* Correcting metadata interpretation errors.
+* Improving numerical stability.
+* Improving spatial sampling.
+* Improving model support assessment.
+* Improving uncertainty handling.
+* Preventing extreme unsupported corrections.
+* Making failure diagnostics more informative.
+
+Preserve the shared AOP/drone correction mathematics where appropriate.
+
+Do not introduce drone-specific deviations from validated shared methods without explicit scientific justification.
+
+Do not weaken the production calibration gate.
+
+Do not remove either correction from the intended workflow.
+
+Do not introduce arbitrary clipping as a substitute for a stable correction model.
+
+A rejected correction is preferable to a numerically accepted but scientifically indefensible result.
+
+⸻
+
+7. Rerun all three sites
+
+After implementing the changes, rerun the three-site experiment using the same source imagery and camera-coordinate tables.
+
+Generate:
+
+* Raw imagery.
+* Topographic-only imagery.
+* BRDF-only imagery, where supported.
+* Combined imagery, where supported.
+* Correction-factor maps.
+* Viewing-geometry diagnostics.
+* Model-fit diagnostics.
+* Support masks.
+* Spectral comparisons.
+* Extreme-value records.
+
+Compare results against the November 5 baseline.
+
+Do not claim improvement solely because more pixels pass or more correction branches are accepted.
+
+Evaluate whether the new results demonstrate:
+
+* Better-supported model predictions.
+* Reduced numerical instability.
+* Fewer harmful artifacts.
+* Better spatial continuity.
+* More defensible correction factors.
+* Preserved spectral structure.
+* Stable behavior across all three sites.
+
+If Ruby remains unsupported, explain precisely why.
+
+If extreme factors remain, determine whether they are physically plausible, scientifically unresolved, or evidence of a remaining defect.
+
+⸻
+
+8. Protect existing functionality
+
+Run the established regression tests.
+
+Include:
+
+* RossThick/LiDenseR kernel tests.
+* SCS+C tests.
+* Viewing-geometry tests.
+* Radiometric conversion tests.
+* Correction eligibility tests.
+* Spatial metadata tests.
+* Drone integration tests.
+* NEON AOP regression tests.
+
+Verify that improvements to drone processing do not break existing AOP behavior.
+
+Add regression tests for any identified defects.
+
+Preserve the existing experimental provenance system.
+
+Do not overwrite previous scientific products.
+
+⸻
+
+9. Produce a figure-rich scientific report
+
+Create:
+
+DRONE_CORRECTION_STABILITY_REPORT.md
+
+Also generate a polished PDF report:
+
+SpectralBridge: Resolving Three-Site BRDF and Topographic Correction Instability
+
+The report should include:
+
+1. Executive summary
+
+What was wrong?
+
+What was fixed?
+
+What remains unresolved?
+
+2. Ruby BRDF diagnosis
+
+Explain the actual cause of the rejected predictions.
+
+Show the relevant geometry, regression, and uncertainty diagnostics.
+
+3. Extreme correction factors
+
+Explain where the large factors originate and whether they indicate harmful artifacts.
+
+4. Algorithm improvements
+
+Describe each change and its scientific justification.
+
+5. Before-and-after imagery
+
+Show consistent comparisons for all three sites.
+
+Include RGB, red, and red-edge imagery.
+
+6. Quantitative results
+
+Compare model support, correction factors, uncertainty, and spatial coverage.
+
+7. Scientific limitations
+
+Clearly distinguish numerical stability from independently verified physical calibration.
+
+8. Release implications
+
+Identify which remaining issues are software defects, scientific limitations, or future research questions.
+
+Use figures prominently.
+
+Write for environmental scientists rather than only software developers.
+
+⸻
+
+10. Completion criteria
+
+The task is complete when:
+
+1. Ruby’s BRDF failure has been traced to specific causes or demonstrably unresolved limitations.
+2. The extreme correction factors in Gordon and Goldhill have been traced to their generating mechanisms.
+3. Correctable mathematical or implementation defects have been fixed.
+4. All three sites have been rerun consistently.
+5. The results have been compared against the November 5 baseline.
+6. No acceptance safeguards have been weakened to force success.
+7. Existing NEON processing remains stable.
+8. Regression tests pass.
+9. A clear scientific report has been produced.
+10. Remaining issues are classified for RC2 release planning.
+
+Do not stop after producing diagnostic plots.
+
+Implement and validate fixes wherever the evidence supports them.
+
+Do not publish or tag a release.
+
+Guiding principle
+
+We want SpectralBridge to perform both topographic and BRDF corrections reliably across different drone sites.
+
+The objective is not to make every model pass.
+
+The objective is to make the underlying mathematics, geometry, radiometry, and fitting procedures as correct and robust as possible, so that successful corrections are scientifically defensible and unsuccessful corrections are clearly explained.
+
+Preserve what already works. Fix what is demonstrably wrong. Do not manufacture successful results.
+```
+
+## 2026-11-05 - Full Metashape recovery investigation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+SpectralBridge: Full Metashape Recovery and Drone Correction Investigation
+
+Objective
+
+We have uploaded the complete Agisoft Metashape project folders for our drone flights to the CyVerse Data Store.
+
+Your task is to retrieve these projects, investigate their contents, recover as much original camera geometry and radiometric information as possible, and determine how these data can improve the reliability and physical validity of the SpectralBridge drone processing pipeline.
+
+This is a scientific investigation followed by carefully justified implementation, not simply a software debugging exercise.
+
+Our ultimate goal is to make drone topographic and BRDF corrections as reliable and physically defensible as the corresponding NEON AOP corrections.
+
+Both corrections are required components of our workflow. We are not considering disabling them as a solution.
+
+However, unsupported corrections must continue to fail safely rather than produce misleading reflectance products.
+
+1. Retrieve the complete Metashape projects
+
+Use the existing CyVerse Data Store access through gocmds.
+
+First, inspect the existing SpectralBridge repository and its documentation to identify:
+
+* Established CyVerse source directories.
+* Existing gocmds configuration and download utilities.
+* The Gordon, Goldhill, and Ruby flight identifiers.
+* Existing original orthomosaics, camera coordinate files, and processed drone products.
+* The most recent BRDF and topographic correction investigations.
+
+Locate the newly uploaded Metashape project folders.
+
+If their locations are not obvious, search the relevant flight directories in the Data Store. Do not assume that the new projects are located alongside the previously processed orthomosaics.
+
+If multiple candidate projects exist, inventory them and determine which are complete before selecting one.
+
+Use existing authenticated gocmds access. Do not expose credentials or alter authentication configuration.
+
+Download strategy
+
+These projects may contain thousands of photographs and substantial photogrammetric data.
+
+1. Inventory remote directories and file sizes before downloading.
+2. Estimate total transfer size and available local storage.
+3. Download project metadata and reconstruction files first.
+4. Retrieve original photographs as needed for the scientific investigation.
+5. Preserve original directory structures and filenames.
+6. Verify transfer completeness using file counts, sizes, and checksums where practical.
+7. Maintain a manifest mapping remote paths to local files.
+
+Avoid unnecessary duplicate downloads.
+
+Do not modify, overwrite, or reorganize the original Data Store folders.
+
+If a complete download exceeds available storage, implement a staged retrieval strategy and clearly document what remains unavailable.
+
+2. Inventory the Metashape projects
+
+For each available flight, identify:
+
+* .psx or .psz project files.
+* Associated .files directories.
+* Original photographs.
+* Multispectral band organization.
+* Camera and sensor metadata.
+* Camera calibration files.
+* Tie points and reconstructed point clouds.
+* DEM/DSM products.
+* Orthomosaics.
+* Reflectance calibration information.
+* Processing reports and logs.
+* Any retained source-image or seamline information.
+
+Build a structured inventory showing which information exists for Gordon, Goldhill, and Ruby.
+
+Distinguish between:
+
+1. Data physically present in the downloaded folders.
+2. Data referenced by the project but stored elsewhere.
+3. Data recoverable through the Metashape project.
+4. Data unavailable or not yet verified.
+
+Pay particular attention to whether the original photographs are actually accessible.
+
+A project listing cameras is not sufficient evidence that the underlying photographs have been recovered.
+
+3. Recover actual camera geometry
+
+This is the highest-priority scientific task.
+
+Our previous drone investigations used camera coordinates and assumed nadir viewing geometry because recorded yaw, pitch, and roll were unavailable.
+
+However, Metashape may contain estimated camera transformations from photogrammetric alignment.
+
+Investigate whether the projects contain these transformations.
+
+Extract camera information
+
+For every aligned camera, recover where available:
+
+* Camera identifier.
+* Original photograph filename.
+* Estimated camera position.
+* Estimated camera rotation.
+* Full camera transformation matrix.
+* Reference GPS position.
+* Reference orientation, if recorded.
+* Camera alignment status.
+* Sensor or camera group.
+* Image dimensions.
+* Coordinate reference system.
+* Alignment uncertainty or quality information.
+
+Do not confuse original reference coordinates with estimated camera positions.
+
+Do not confuse absent IMU orientation measurements with absent photogrammetric orientation estimates.
+
+Recover camera calibration
+
+For each sensor or spectral band, extract:
+
+* Focal length.
+* Principal point.
+* Radial distortion coefficients.
+* Tangential distortion coefficients.
+* Image dimensions.
+* Sensor dimensions or pixel pitch, if available.
+* Camera model.
+* Calibration grouping.
+* Initial versus adjusted calibration parameters.
+
+Determine whether the spectral bands share a camera model or have distinct calibrations and relative orientations.
+
+Implementation
+
+Prefer the official Metashape Python API when available.
+
+Check whether Metashape and its Python module are installed and licensed in the execution environment.
+
+If they are unavailable, investigate what can be extracted from the project files using documented, read-only methods.
+
+Do not assume proprietary project internals are stable or fully documented.
+
+Do not modify the original project or attempt unsupported binary reconstruction.
+
+If a licensed Metashape environment is required, provide a standalone extraction script that can be run inside Metashape on the user’s machine.
+
+Export recovered information into documented, portable formats such as CSV, JSON, NumPy, or Parquet.
+
+Include coordinate systems, units, transformation conventions, and provenance.
+
+4. Reconstruct physically meaningful viewing angles
+
+Using the recovered camera transformations and calibrations, investigate whether we can calculate actual viewing geometry.
+
+For each camera, reconstruct viewing rays from image coordinates through the calibrated camera model.
+
+Account for:
+
+* Camera position.
+* Camera rotation.
+* Focal length.
+* Principal point.
+* Lens distortion.
+* Sensor geometry.
+* Terrain elevation.
+* Coordinate transformations.
+
+Where possible, intersect camera rays with the actual DEM/DSM used in Metashape.
+
+Calculate:
+
+* View zenith angle.
+* View azimuth angle.
+* Solar zenith angle.
+* Solar azimuth angle.
+* Relative solar-view azimuth.
+* Terrain-relative viewing geometry where scientifically appropriate.
+
+Check coordinate-frame conventions carefully.
+
+Verify angle definitions against those required by SpectralBridge’s RossThick/LiDenseR implementation.
+
+Do not assume that Metashape’s rotation convention directly matches the BRDF kernel convention.
+
+Validation
+
+Include geometric consistency tests:
+
+* Reprojection of reconstructed ground points into photographs.
+* Camera footprints compared with the orthomosaic.
+* Expected versus reconstructed nadir directions.
+* DEM intersection consistency.
+* Comparison with previous assumed camera geometry.
+
+Quantify reconstruction error wherever independent evidence exists.
+
+A successful calculation is not sufficient proof that the viewing angles are correct.
+
+5. Determine actual orthomosaic image contributions
+
+Our previous analysis estimated which photographs might contribute to each orthomosaic pixel.
+
+That is not equivalent to knowing which photographs Metashape actually used.
+
+Investigate whether the project retains:
+
+* Source-image assignments.
+* Seamline polygons.
+* Mosaic contribution maps.
+* Blending weights.
+* Per-pixel source-image indices.
+* Orthomosaic generation settings.
+
+Determine what the Metashape API can expose directly.
+
+If the actual assignments are unavailable, investigate whether they can be reconstructed from the original photographs, project geometry, and orthomosaic processing settings.
+
+Clearly distinguish:
+
+* Actual retained contributions.
+* Reconstructed contributions supported by evidence.
+* Geometrically possible contributors.
+* Assumed contributions.
+
+Do not describe estimated camera footprints as actual source-image assignments.
+
+If blending weights cannot be recovered, state that limitation explicitly.
+
+6. Investigate BRDF estimation from original overlapping photographs
+
+This may be the most important scientific opportunity.
+
+Rather than estimating BRDF from a single orthomosaic, investigate whether the original overlapping photographs contain repeated observations of the same ground locations from different viewing angles.
+
+Build an experimental overlap dataset
+
+Start with Ruby, where the previous BRDF correction was rejected.
+
+Identify a representative set of ground locations observed by multiple photographs.
+
+For each location, attempt to recover:
+
+* Ground coordinates.
+* Spectral band.
+* Source photograph.
+* Original pixel value.
+* Camera position and orientation.
+* Actual viewing geometry.
+* Solar geometry.
+* Terrain geometry.
+* Observation time.
+* Radiometric calibration information.
+* Relevant image-quality and shadow indicators.
+
+Use accurate image-to-ground registration and document the uncertainty.
+
+Do not treat neighboring pixels from different photographs as identical ground observations without checking registration.
+
+Evaluate angular information
+
+For each repeated ground target, quantify:
+
+* Number of independent observations.
+* View zenith range.
+* Relative azimuth range.
+* RossThick kernel range.
+* LiDenseR kernel range.
+* Angular design rank.
+* Condition number.
+* Support for the desired normalization geometry.
+
+Distinguish repeated observations of the same surface from spatially varying observations of different vegetation or soil.
+
+The latter can create apparent BRDF relationships that are actually spatial reflectance differences.
+
+Experimental BRDF comparison
+
+Where the data support it, compare:
+
+1. Existing orthomosaic-derived BRDF fitting.
+2. BRDF fitting using reconstructed orthomosaic viewing geometry.
+3. BRDF fitting using original overlapping photograph observations.
+
+Use the same scientifically supported RossThick/LiDenseR formulation and normalization definitions.
+
+Evaluate whether original-image observations provide better angular support and more identifiable BRDF coefficients.
+
+Use spatially appropriate validation and uncertainty estimation.
+
+Do not select a model merely because it has a higher R² or passes an acceptance threshold.
+
+Do not weaken the current BRDF safeguards to make Ruby pass.
+
+7. Audit original radiometric information
+
+Investigate whether the Metashape projects and original photographs contain information that can resolve our remaining radiometric uncertainties.
+
+Look for:
+
+* Reflectance-panel images.
+* Known panel reflectance values.
+* Irradiance sensor measurements.
+* Exposure times.
+* Gain and ISO.
+* Vignetting corrections.
+* Radiometric calibration settings.
+* Reflectance conversion metadata.
+* Per-band calibration factors.
+* Original pixel data types and ranges.
+* Orthomosaic export scaling.
+* Any additional normalization applied during processing.
+
+Trace the radiometric pathway:
+
+Original photograph → Metashape processing → original orthomosaic → 10 cm resampling → SpectralBridge input → topographic correction → BRDF correction
+
+Document every supported transformation.
+
+Our current DN/32768 interpretation is hypothetical and unverified.
+
+Do not silently promote it to a validated reflectance calibration.
+
+Likewise, do not assume that a 0–10000 storage range establishes physical reflectance.
+
+Determine whether the original project provides evidence for a defensible radiometric conversion.
+
+8. Revisit the three-site correction problems
+
+Use the recovered Metashape evidence to revisit the findings from our November 5 investigations.
+
+Ruby: BRDF rejection
+
+The previous investigation found that Ruby’s BRDF normalization reference was outside the sampled angular-kernel support.
+
+Its fitted reference prediction was uncertain and failed the existing acceptance safeguards.
+
+Determine whether actual camera geometry and original overlapping photographs:
+
+* Increase angular support.
+* Change the kernel distribution.
+* Improve model identifiability.
+* Support the normalization reference.
+* Reduce uncertainty in the reference prediction.
+* Permit a scientifically defensible correction.
+
+Do not force the model to pass.
+
+Gordon and Goldhill: extreme correction factors
+
+Our previous experiments found very large combined correction gains, including approximately:
+
+* Gordon: 17.17× maximum at 650 nm.
+* Goldhill: 21.55× maximum at 650 nm.
+
+These arose partly from unstable SCS+C denominators associated with negative fitted C parameters.
+
+Investigate whether recovered camera geometry, terrain information, and original observations help explain these extreme values.
+
+Separate:
+
+* Topographic correction instability.
+* BRDF correction instability.
+* Radiometric calibration problems.
+* Terrain and shadow effects.
+* Orthomosaic blending artifacts.
+
+Determine whether improved inputs support better corrections.
+
+Do not simply cap the gains or substitute arbitrary coefficients without scientific justification.
+
+Goldhill red boundary
+
+Revisit the previously identified red-band boundary artifact.
+
+Test whether it corresponds spatially to:
+
+* Camera contribution boundaries.
+* Seamlines.
+* Changes in viewing geometry.
+* Radiometric differences between photographs.
+* BRDF model extrapolation.
+* Topographic correction instability.
+
+Use direct spatial comparisons rather than visual speculation.
+
+9. Produce a figure-rich scientific report
+
+Create a detailed, human-readable report with clear figures and interpretations.
+
+Suggested figures:
+
+1. Project inventory: What we recovered for each flight.
+2. Camera geometry: Camera positions, orientations, and ground footprints.
+3. Viewing-angle maps: Actual reconstructed view zenith and azimuth.
+4. Angular coverage: Observed viewing-angle distributions by flight.
+5. BRDF kernel support: Actual observations versus normalization reference.
+6. Photograph overlap: Number of observations per ground location.
+7. Repeated spectra: Same ground targets viewed from different photographs.
+8. BRDF comparison: Orthomosaic-derived versus original-image estimates.
+9. Radiometric lineage: Original DN through the full processing chain.
+10. Correction stability: Topographic and BRDF factors across the three flights.
+11. Goldhill artifact: Red-band boundary compared with camera geometry and seamlines.
+12. Before/after comparisons: Only for experimentally justified corrections.
+
+Where useful, show maps and corresponding spectra side by side.
+
+For each figure, explain what it demonstrates and what remains uncertain.
+
+Avoid interpreting hypothetical reflectance units as validated physical reflectance.
+
+10. Determine the best future SpectralBridge workflow
+
+Based on the evidence, recommend a robust architecture for processing drone imagery.
+
+Consider whether we should:
+
+Option A: Continue correcting orthomosaics using improved viewing geometry.
+
+Option B: Estimate BRDF from original overlapping photographs, then apply the supported correction to the orthomosaic.
+
+Option C: Correct original photographs before orthomosaic generation.
+
+Option D: Use a hybrid approach that estimates directional effects from original imagery but preserves our existing orthomosaic-based downstream workflow.
+
+Evaluate each option for:
+
+* Scientific validity.
+* Available angular information.
+* Radiometric requirements.
+* Computational cost.
+* Reproducibility.
+* Compatibility with existing NEON AOP methods.
+* Integration complexity.
+* Suitability for future drone datasets.
+
+Recommend the best supported approach, not necessarily the easiest to implement.
+
+The goal is methodological consistency with NEON AOP, not forcing the drone data into an inappropriate model.
+
+11. Implementation boundaries
+
+You may add:
+
+* Metashape project inspection utilities.
+* Camera geometry extraction scripts.
+* Viewing-angle reconstruction functions.
+* Experimental overlap-analysis tools.
+* Tests and validation fixtures.
+* Documentation.
+* Reproducible research notebooks or scripts.
+
+Keep experimental work isolated from production.
+
+Do not change production topographic or BRDF correction behavior until the investigation demonstrates a justified improvement.
+
+Preserve:
+
+* Existing correction acceptance safeguards.
+* Existing NEON AOP behavior.
+* Existing scientific output contracts.
+* Existing validated spatial integrity repairs.
+
+Do not overwrite previous products or upload experimental outputs into production locations.
+
+Run relevant tests and report regressions.
+
+12. Deliverables
+
+Produce:
+
+A. Metashape recovery inventory
+
+A machine-readable and human-readable inventory of recovered project files and metadata for all three flights.
+
+B. Camera geometry dataset
+
+Portable tables containing recovered camera positions, orientations, calibrations, and coordinate-system metadata.
+
+C. Viewing-angle reconstruction
+
+Validated functions and experimental products demonstrating what viewing geometry can be reconstructed.
+
+D. Original-image BRDF feasibility experiment
+
+A reproducible Ruby experiment testing whether overlapping photographs support BRDF estimation.
+
+E. Radiometric provenance audit
+
+A documented assessment of original image values, calibration metadata, and transformations.
+
+F. Scientific investigation report
+
+A figure-rich report covering Ruby, Gordon, and Goldhill, including the Goldhill red artifact and extreme correction factors.
+
+G. Recommended pipeline architecture
+
+A concrete recommendation for improving SpectralBridge’s drone correction workflow.
+
+Include an implementation roadmap identifying:
+
+* Changes supported by current evidence.
+* Changes requiring additional validation.
+* Information still missing.
+* Tests required before production adoption.
+
+13. Final scientific questions
+
+The investigation should explicitly answer:
+
+1. Does Metashape contain actual estimated camera orientations, even though the drone did not record yaw, pitch, and roll?
+2. Can we reconstruct accurate viewing angles for the original photographs?
+3. Can we determine which photographs contributed to each orthomosaic pixel?
+4. Do overlapping photographs provide repeated observations of the same ground targets?
+5. Do those observations provide enough angular diversity to estimate BRDF reliably?
+6. Does this resolve Ruby’s unsupported BRDF normalization?
+7. Can recovered camera geometry explain Goldhill’s red boundary?
+8. Can original radiometric metadata resolve our scaling uncertainty?
+9. Can the recovered information improve the stability of our topographic and BRDF corrections?
+10. What is the most scientifically defensible and reproducible correction workflow for future drone flights?
+
+Success means recovering and validating the physical information needed to improve the corrections—not merely producing a new set of corrected images.
+
+Begin by inspecting the repository and CyVerse Data Store, then retrieve and inventory the Metashape projects. Prioritize Ruby for the first complete reconstruction and use Gordon and Goldhill for cross-site validation.
+
+Document findings as you proceed, distinguish verified evidence from assumptions, and implement only changes justified by the recovered data.
+```
+
+## 2026-11-06 - Continue Metashape recovery
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue
+```
+
+## 2026-11-06 - Ruby original-image correction repair
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+SpectralBridge — Repair the Ruby Drone Correction Pipeline
+
+Mission
+
+Develop and validate a reliable topographic and BRDF correction workflow for the Ruby drone flight using the original Metashape project, original multispectral photographs, recovered camera geometry, and radiometric calibration information.
+
+We have completed several investigations identifying problems with our previous orthomosaic-based corrections.
+
+The November 6 Metashape recovery investigation represents an important breakthrough: we now have estimated camera orientations, calibrated sensor geometry, original overlapping photographs, radiometric metadata, and repeated observations of the same ground targets.
+
+Use this information to develop a substantially better Ruby correction pipeline.
+
+Our objective is a corrected Ruby orthomosaic that:
+
+1. Preserves accurate geographic alignment.
+2. Uses the correct radiometric scaling.
+3. Applies a physically defensible topographic correction.
+4. Applies a physically defensible BRDF correction.
+5. Uses actual reconstructed viewing geometry.
+6. Avoids extreme correction artifacts.
+7. Preserves meaningful spectral relationships.
+8. Can be reproduced and eventually generalized to Goldhill, Gordon, and future drone flights.
+
+Both topographic and BRDF correction are required.
+
+Do not solve the problem by disabling either correction, replacing unsupported results with identity corrections, arbitrarily clipping gains, or relaxing validation safeguards.
+
+If a correction cannot be justified, report exactly why and retain the unsupported status. A scientifically valid experimental pipeline is more important than producing an apparently successful but misleading raster.
+
+⸻
+
+1. Review the existing investigation
+
+Begin by reading the existing SpectralBridge code and investigation artifacts.
+
+Primary reference:
+
+provenance/metashape-recovery/2026-11-05/
+
+Read:
+
+* METASHAPE_RECOVERY_REPORT.md
+* remote_inventory.json
+* retrieval_manifest.json
+* project_extraction.json
+* Extracted camera and calibration tables.
+* Recovered original-image overlap datasets.
+* Existing BRDF kernel-support diagnostics.
+* Previous Ruby topographic and BRDF investigation reports.
+
+Review the current implementations of:
+
+* SCS+C topographic correction.
+* RossThick/LiDenseR BRDF correction.
+* BRDF parameter estimation.
+* Reference-angle normalization.
+* Radiometric scaling.
+* Validity masks.
+* Correction acceptance criteria.
+* Drone orthomosaic processing.
+* NEON AOP correction methods.
+
+Preserve existing validated NEON behavior.
+
+Establish the current Ruby baseline
+
+Record:
+
+* Current source files and project identity.
+* Radiometric scale and offset.
+* Band wavelengths.
+* Topographic coefficients.
+* BRDF coefficients.
+* Kernel distributions.
+* Reference-angle support.
+* Invalid prediction counts.
+* Correction-factor distributions.
+* Spatial artifacts.
+* Output validity.
+
+Use this as the baseline for every subsequent experiment.
+
+Do not overwrite historical products.
+
+⸻
+
+2. Establish the correct Ruby radiometric representation
+
+The Metashape investigation strongly supports the following original orthomosaic encoding:
+
+[
+\rho = \frac{DN}{32768}
+]
+
+where (\rho) is the vendor-calibrated reflectance fraction.
+
+This is supported by the recovered Metashape calibration settings and original-mosaic comparisons.
+
+However, independent physical reflectance accuracy remains unverified.
+
+Required work
+
+Verify the encoding against the recovered Ruby project and original photographs.
+
+Trace:
+
+Original sensor DN → Metashape radiometric calibration → calibrated photograph → orthomosaic export → 10 cm resampling → SpectralBridge input.
+
+Explicitly distinguish raw sensor values from Metashape-calibrated image values.
+
+Do not subtract black level twice or apply calibration factors already incorporated into the processed photographs.
+
+The old 10 cm preparation used:
+
+[
+S = DN \frac{10000}{65535}
+]
+
+Therefore:
+
+[
+\rho = S\frac{65535}{10000 \times 32768}
+]
+
+The previous stored values must not be interpreted as reflectance multiplied by 10000.
+
+Implement
+
+Create a new, immutable Ruby radiometric input product with explicit:
+
+* Scale.
+* Offset.
+* Units.
+* Source encoding.
+* Calibration provenance.
+* Band wavelengths.
+* Validity masks.
+* NoData handling.
+
+If storing reflectance as fraction × 10000, preserve legitimate values above 10000 rather than clipping them.
+
+Keep the old product unchanged.
+
+Investigate the NIR wavelength discrepancy:
+
+* Recovered source metadata: 842 nm.
+* Earlier pipeline declaration: 862 nm.
+
+Use the verified source-specific wavelength metadata.
+
+Do not silently alter unrelated datasets.
+
+⸻
+
+3. Recover Ruby’s actual viewing geometry
+
+Use the existing Metashape extraction utilities and recovered Ruby project.
+
+We know the original project contains estimated camera transformations despite the absence of recorded IMU yaw, pitch, and roll.
+
+The previous recovery found:
+
+* 507 aligned Ruby exposures.
+* Median camera optical-axis tilt approximately 6.68°.
+* Maximum optical-axis tilt approximately 30.40°.
+* Band-specific camera calibrations.
+* Original-image observations with meaningful angular variation.
+
+These are camera-axis tilt statistics, not ground-pixel view-zenith distributions.
+
+Implement a reusable viewing-geometry module
+
+For each original photograph and spectral band, calculate:
+
+* Camera position.
+* Camera rotation.
+* Pixel viewing ray.
+* View zenith.
+* View azimuth.
+* Solar zenith.
+* Solar azimuth.
+* Relative solar-view azimuth.
+* Ground intersection.
+* Terrain slope and aspect.
+* Local incidence geometry.
+
+Use the actual adjusted camera calibration, including lens distortion.
+
+Use the absolute DEM for ray intersections.
+
+Do not substitute Ruby’s relative canopy-height surface for absolute elevation.
+
+Preserve separate surface roles for:
+
+* Viewing-ray intersection.
+* Ground terrain.
+* Canopy or vegetation height.
+
+Where these surfaces differ, quantify the resulting geometric uncertainty.
+
+Validate
+
+Use:
+
+* Reprojection residuals.
+* Camera footprint consistency.
+* Original-image feature correspondence.
+* DEM intersection diagnostics.
+* Coordinate-system round trips.
+
+Report the accuracy that is demonstrated and the accuracy that remains unverified.
+
+⸻
+
+4. Move BRDF estimation to the original photographs
+
+This is the central scientific change.
+
+The previous Ruby BRDF model was fitted to an orthomosaic whose pixels represent processed combinations of observations.
+
+That makes it difficult to separate directional reflectance from spatial differences in vegetation, soil, and illumination.
+
+The recovered original photographs allow us to investigate repeated observations of the same ground locations.
+
+Develop a BRDF estimation method based on these repeated observations.
+
+4.1 Build the original-photo observation dataset
+
+Expand the previous feasibility experiment beyond the small selected sample.
+
+Use the recovered Metashape tie points, camera transformations, original photographs, and calibrated image geometry.
+
+Identify ground locations observed in multiple photographs.
+
+For each observation, record:
+
+* Ground-target identifier.
+* Ground coordinates.
+* Photograph identifier.
+* Spectral band.
+* Observation timestamp.
+* Calibrated pixel value.
+* View zenith.
+* View azimuth.
+* Solar zenith.
+* Solar azimuth.
+* Relative azimuth.
+* Terrain slope and aspect.
+* Local solar incidence.
+* Image registration uncertainty.
+* Radiometric calibration metadata.
+* Shadow and quality indicators.
+
+Retrieve additional original photographs from CyVerse as necessary.
+
+Do not treat a small, angular-diversity-enriched feasibility sample as representative of the entire flight.
+
+Sampling design
+
+Construct a larger, spatially distributed observation dataset covering:
+
+* Forest canopy.
+* Grass or herbaceous vegetation.
+* Bare ground.
+* Bright surfaces.
+* Dark surfaces.
+* Different slopes and aspects.
+* Different parts of the flight.
+* Different overlap densities.
+
+Prefer stable, well-registered targets.
+
+Avoid mixing different physical surfaces within a target.
+
+Distinguish image overlap from genuinely independent temporal observations.
+
+⸻
+
+5. Estimate BRDF using repeated observations of the same targets
+
+Use the established RossThick/LiDenseR kernels.
+
+Start with the same mathematical formulation used by the NEON AOP pipeline.
+
+Do not introduce an alternative BRDF formulation unless the existing one is demonstrated to be inadequate.
+
+5.1 Separate surface reflectance from angular response
+
+Repeated observations of a ground target share approximately the same underlying surface reflectance over the short flight interval.
+
+Use this structure to separate:
+
+* Target-specific reflectance.
+* Viewing-angle effects.
+* Illumination variation.
+* Residual radiometric differences.
+* Measurement uncertainty.
+
+Investigate a hierarchical or target-fixed-effect regression where appropriate.
+
+For example, an exploratory model could be:
+
+[
+\rho_{ij}
+
+\alpha_i
++
+\beta_{\mathrm{vol}}K_{\mathrm{vol},ij}
++
+\beta_{\mathrm{geo}}K_{\mathrm{geo},ij}
++
+\epsilon_{ij}
+]
+
+where:
+
+* (i) indexes ground targets.
+* (j) indexes repeated photographs.
+* (\alpha_i) captures target-specific reflectance.
+* (K_{\mathrm{vol}}) is the RossThick kernel.
+* (K_{\mathrm{geo}}) is the LiDenseR kernel.
+
+This is a candidate statistical model, not a preapproved physical correction.
+
+Evaluate whether an additive model, multiplicative formulation, or target-specific amplitude structure is more consistent with the existing BRDF normalization mathematics.
+
+Do not assume that a fitted additive angular response can be used directly as a multiplicative reflectance correction.
+
+Model requirements
+
+Evaluate:
+
+* Angular design rank.
+* Condition number.
+* Kernel support.
+* Reference-angle support.
+* Parameter uncertainty.
+* Spatial dependence.
+* Temporal dependence.
+* Calibration dependence.
+* Model extrapolation.
+* Held-out target performance.
+
+Use independent validation groups wherever possible.
+
+Do not treat multiple photographs sharing calibration and flight conditions as fully independent observations.
+
+5.2 Determine the appropriate normalization reference
+
+Our existing reference uses:
+
+* Solar zenith: 45°.
+* View zenith: 0°.
+
+The previous orthomosaic regression did not support this reference.
+
+Determine whether original-image observations provide sufficient support for that reference.
+
+If not, investigate whether another physically meaningful reference can be supported.
+
+However:
+
+* Do not change the reference solely to make the regression pass.
+* Do not silently change the NEON AOP reference.
+* Do not compare products normalized to different references without explicit transformations.
+* Do not extrapolate beyond supported angular geometry.
+
+Quantify the consequences of any alternative reference.
+
+⸻
+
+6. Integrate topographic correction properly
+
+Our goal is not BRDF correction alone.
+
+Ruby must receive both topographic and BRDF correction.
+
+The previous SCS+C implementation produced extreme correction factors associated with unstable denominators and negative fitted C parameters.
+
+Better camera geometry does not automatically solve this problem.
+
+Investigate topographic correction using the recovered data
+
+Evaluate:
+
+* Terrain slope and aspect.
+* Solar incidence.
+* Absolute DEM quality.
+* Canopy versus ground-surface effects.
+* Shadow contamination.
+* Radiometric calibration.
+* SCS+C regression support.
+* C-parameter uncertainty.
+* Correction-factor stability.
+
+Use the original-image observations to investigate whether topographic and angular effects can be estimated more consistently.
+
+Important processing question
+
+Determine whether topographic correction should be applied:
+
+1. To original calibrated photographs before BRDF fitting.
+2. Jointly with directional reflectance estimation.
+3. In another physically justified sequence.
+
+The previous repeated-photo BRDF fits were performed before the required complete topographic correction.
+
+Do not transplant those coefficients directly into a different processing space.
+
+Required outcome
+
+Develop a method in which the topographic and BRDF corrections are estimated and applied consistently.
+
+Maintain the existing SCS+C and RossThick/LiDenseR scientific formulations unless evidence supports a change.
+
+If the existing SCS+C fit remains unstable, investigate the cause and test scientifically justified alternatives in isolation.
+
+Do not conceal instability using arbitrary gain limits.
+
+⸻
+
+7. Test correction before orthomosaic generation
+
+The Metashape report recommends a hybrid workflow, potentially correcting original photographs before producing the final orthomosaic.
+
+Implement an experimental version for Ruby.
+
+Proposed workflow
+
+1. Read original multispectral photographs.
+2. Recover vendor-calibrated reflectance.
+3. Calculate actual pixel viewing geometry.
+4. Calculate terrain and solar geometry.
+5. Estimate supported topographic correction parameters.
+6. Estimate supported BRDF parameters from overlapping observations.
+7. Apply both corrections in their validated processing space.
+8. Generate corrected source-image products.
+9. Reconstruct a corrected orthomosaic using Metashape where licensed functionality is available.
+10. Export the corrected orthomosaic into the existing SpectralBridge format.
+
+Do not assume that correcting original photographs and subsequently mosaicking them is mathematically equivalent to correcting an already blended orthomosaic.
+
+Test the differences.
+
+Metashape integration
+
+Investigate the available Metashape Python API and the saved project.
+
+Determine whether corrected source images can be incorporated into a copied project while preserving:
+
+* Camera alignment.
+* Camera calibration.
+* Image geometry.
+* Spectral band identity.
+* Coordinate systems.
+* Orthomosaic settings.
+
+Never modify the original Metashape project.
+
+If licensed Metashape operations are unavailable in the execution environment, prepare a reproducible script for the licensed environment.
+
+Do not claim that an orthomosaic was regenerated unless that operation actually completed.
+
+⸻
+
+8. Validate the corrected Ruby products
+
+Validation must go beyond whether the BRDF model passes numerical acceptance checks.
+
+8.1 Geometric validation
+
+Compare the new products with:
+
+* Original Ruby orthomosaic.
+* Existing corrected products.
+* Source-image ground control.
+* Existing polygon boundaries.
+
+Quantify spatial displacement and registration error.
+
+8.2 Radiometric validation
+
+Compare:
+
+* Original calibrated reflectance.
+* Topographic-only reflectance.
+* BRDF-only reflectance.
+* Combined corrected reflectance.
+
+Inspect all ten bands.
+
+Report:
+
+* Reflectance distributions.
+* Negative values.
+* Extreme values.
+* Spectral continuity.
+* Correction-factor distributions.
+* Validity-mask changes.
+* Uncertainty.
+
+Distinguish reflectance values above one from processing artifacts; do not automatically classify every value above one as invalid.
+
+8.3 Topographic correction effectiveness
+
+Evaluate whether corrected reflectance becomes less dependent on terrain illumination while preserving real ecological variation.
+
+Use matched surface classes and held-out targets.
+
+Avoid assuming that a weaker reflectance–slope correlation always means a better correction.
+
+8.4 BRDF correction effectiveness
+
+Evaluate whether repeated observations of the same ground targets become more consistent after correction.
+
+For held-out observations, compare:
+
+* Within-target reflectance variance.
+* Angular dependence.
+* Spectral shape.
+* Prediction error.
+* Correction uncertainty.
+
+Compare against the uncorrected observations and previous orthomosaic-based method.
+
+8.5 Spatial artifacts
+
+Create maps of correction factors and residuals.
+
+Look for:
+
+* Flight-line artifacts.
+* Camera boundaries.
+* Seamlines.
+* Abrupt gain changes.
+* Shadow artifacts.
+* Extreme terrain correction factors.
+
+Investigate any newly introduced spatial discontinuities.
+
+⸻
+
+9. Compare against the existing Ruby pipeline
+
+Produce a controlled comparison of:
+
+A. Original Ruby orthomosaic
+
+B. Existing topographic correction
+
+C. Existing orthomosaic-based BRDF attempt
+
+D. New original-image BRDF experiment
+
+E. New combined topographic and BRDF correction
+
+Only generate E if the necessary corrections pass their scientific acceptance criteria.
+
+For every comparison, document whether it uses:
+
+* Identical radiometric units.
+* Identical spatial support.
+* Identical spectral bands.
+* Identical normalization geometry.
+* Identical terrain representation.
+
+Avoid comparisons that confound processing changes with changes in input data.
+
+⸻
+
+10. Produce a figure-rich Ruby correction report
+
+Create:
+
+provenance/ruby-correction-recovery-2026-11-06/
+
+Include a comprehensive Markdown report and supporting figures.
+
+The report should be readable by scientists who understand remote sensing but are not familiar with our code.
+
+Required figures
+
+Figure 1 — Ruby source reconstruction
+
+Camera locations, orientations, footprints, and orthomosaic extent.
+
+Figure 2 — Original image overlap
+
+Number of observations per ground target and spatial distribution.
+
+Figure 3 — Actual viewing geometry
+
+View zenith, view azimuth, relative azimuth, and kernel distributions.
+
+Figure 4 — Repeated observations
+
+Spectra from the same ground targets observed by multiple photographs.
+
+Figure 5 — BRDF model support
+
+RossThick/LiDenseR kernel space, reference geometry, and uncertainty.
+
+Figure 6 — Topographic correction
+
+Terrain illumination, fitted SCS+C behavior, correction factors, and instability diagnostics.
+
+Figure 7 — Correction stages
+
+Maps showing raw, topographic-only, BRDF-only, and combined reflectance where supported.
+
+Figure 8 — Spectral comparisons
+
+Representative vegetation and soil spectra before and after correction.
+
+Figure 9 — Validation
+
+Held-out repeated-observation agreement before and after correction.
+
+Figure 10 — Historical versus new pipeline
+
+A concise comparison of correction validity, uncertainty, spatial artifacts, and scientific limitations.
+
+Use consistent map extents and color scales for comparisons where possible.
+
+Make all figures reproducible.
+
+⸻
+
+11. Harden the supported improvements
+
+Once experimental validation is complete, identify which components are ready to become reusable SpectralBridge functionality.
+
+Potential additions:
+
+* Metashape camera geometry import.
+* Original-image radiometric conversion.
+* Per-pixel view-angle reconstruction.
+* Repeated-observation extraction.
+* Original-image BRDF estimation.
+* Matched topographic and BRDF application.
+* Corrected-image export.
+* Orthomosaic reconstruction interface.
+* Automated correction QA.
+
+Add unit tests and integration tests.
+
+Preserve the existing AOP correction mathematics and validated behavior.
+
+Do not make unsupported experimental models production defaults.
+
+Do not overwrite existing Ruby products.
+
+⸻
+
+12. Acceptance criteria
+
+The Ruby correction can be considered successful only if:
+
+1. Original-image radiometric encoding is correctly represented.
+2. Camera geometry comes from the recovered Metashape reconstruction.
+3. Original photographs are correctly registered to ground locations.
+4. Topographic correction is numerically and scientifically supported.
+5. BRDF estimation uses sufficient angular information.
+6. The chosen normalization reference is supported.
+7. Both corrections are applied consistently.
+8. No unsupported extrapolation is hidden.
+9. Correction factors do not produce unexplained extreme artifacts.
+10. Spectral relationships are preserved or changes are scientifically explained.
+11. Independent or appropriately held-out validation demonstrates improvement.
+12. The corrected orthomosaic retains accurate spatial alignment.
+13. The workflow is reproducible.
+14. Existing NEON AOP behavior is unchanged.
+
+If any criterion fails, document the failure rather than declaring success.
+
+⸻
+
+13. Execution strategy
+
+Work through the investigation in stages.
+
+Phase 1 — Recover and verify
+
+Confirm source project, original photographs, camera geometry, radiometry, and terrain surfaces.
+
+Phase 2 — Develop BRDF estimation
+
+Build a spatially representative repeated-observation dataset and estimate directional reflectance using original images.
+
+Phase 3 — Stabilize topographic correction
+
+Investigate Ruby’s SCS+C instability and establish a supported correction approach.
+
+Phase 4 — Integrate
+
+Develop the matched topographic and BRDF processing workflow.
+
+Phase 5 — Generate experimental products
+
+Produce corrected original photographs and a reconstructed orthomosaic where technically possible and scientifically justified.
+
+Phase 6 — Validate
+
+Compare against original imagery, existing corrections, and held-out observations.
+
+Phase 7 — Harden
+
+Integrate supported components into SpectralBridge with tests and documentation.
+
+Proceed through these phases autonomously where possible.
+
+Do not stop after producing another diagnostic report if the evidence supports implementing and testing an improvement.
+
+However, do not bypass scientific acceptance criteria to produce a final raster.
+
+⸻
+
+Final deliverables
+
+Provide:
+
+1. A working experimental Ruby correction pipeline.
+2. Reusable functions for original-image viewing geometry and BRDF estimation.
+3. A verified radiometric conversion.
+4. A scientifically evaluated topographic correction.
+5. A combined correction workflow.
+6. An experimental corrected Ruby orthomosaic, if all required conditions are met.
+7. Comprehensive validation figures.
+8. A scientific report explaining what changed and why.
+9. Automated tests.
+10. A clear recommendation on production readiness.
+
+End with a concise summary answering:
+
+Did the original Metashape photographs allow us to solve Ruby’s BRDF problem?
+
+Did we resolve Ruby’s extreme topographic correction factors?
+
+Can we now produce a defensible corrected Ruby orthomosaic?
+
+What, if anything, still prevents production adoption?
+
+Our objective is to make the Ruby drone pipeline work correctly using the physical information we have recovered—not to make an unsupported model pass.
+```
+
+## 2026-11-06 - Resolve Ruby topographic instability
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+SpectralBridge — Resolve Ruby Topographic Correction Instability
+
+Mission
+
+Investigate and resolve the remaining topographic correction instability in the Ruby drone pipeline using the recovered Metashape project, original multispectral photographs, calibrated reflectance, reconstructed viewing geometry, and available terrain surfaces.
+
+Our November 6 P184 investigation successfully recovered the original-photo information needed to improve BRDF estimation. However, topographic correction remains the primary obstacle to producing a scientifically defensible corrected Ruby orthomosaic.
+
+The objective is to identify why the current SCS+C implementation produces unstable corrections, determine whether those failures can be resolved using better terrain representation, illumination modeling, sample selection, and statistically appropriate fitting, and implement the best scientifically supported correction.
+
+We are not deciding whether to apply topographic correction.
+
+Both topographic and BRDF corrections are required parts of the SpectralBridge drone workflow.
+
+The task is to make those corrections reliable, physically meaningful, and compatible with our existing NEON AOP processing framework.
+
+Do not solve the problem by disabling topographic correction, forcing C to be positive, arbitrarily clipping correction factors, or weakening acceptance safeguards.
+
+If SCS+C cannot be supported under Ruby’s conditions, investigate a defensible alternative while retaining the existing method as a baseline.
+
+Proceed beyond diagnosis into implementation and validation wherever the evidence supports doing so.
+
+⸻
+
+1. Review the existing Ruby investigations
+
+Begin by reviewing the current SpectralBridge repository and all relevant investigation artifacts.
+
+Primary references:
+
+* provenance/metashape-recovery/2026-11-05/
+* The P184 Ruby original-photo correction recovery investigation.
+* src/spectralbridge/drone_original.py
+* Existing SCS+C implementation and tests.
+* Existing RossThick/LiDenseR implementation and tests.
+* Existing NEON AOP correction workflow.
+
+Locate the P184 experimental outputs, including:
+
+* baseline.json
+* brdf_models.json
+* reference_sensitivity.json
+* Original-photo repeated-observation datasets.
+* Terrain-surface comparisons.
+* Topographic coefficient estimates.
+* Spatial cross-validation results.
+* Correction-factor maps.
+* Unsupported application masks.
+* Radiometric input products.
+
+Do not assume the P184 experiment directory is in the same location as the earlier Metashape investigation. Locate it from the repository and recorded manifests.
+
+Preserve all previous products and experimental evidence.
+
+Establish the baseline
+
+Record the current Ruby red-band results:
+
+* Ground-DTM SCS+C C = -0.17350.
+* Reported interval approximately [-0.23059, -0.09842].
+* 109 unsupported sampled application locations in the dense DTM control.
+* Negative-denominator and uncertainty-related failures.
+* Original-photo matched-stage fold failures.
+* The difference between viewing-surface and ground-DTM terrain geometry.
+
+The recovered surfaces have substantially different slope distributions:
+
+* Absolute viewing surface: median local slope approximately 35°.
+* Recovered DTM: median local slope approximately 18°.
+
+Determine exactly how these surfaces were generated, what they represent physically, and how their uncertainties affect illumination geometry.
+
+Do not treat either surface as automatically correct for all targets.
+
+⸻
+
+2. Diagnose the negative-C problem mathematically
+
+Start with the existing SCS+C correction:
+
+[
+F_{\mathrm{topo}} =
+\frac{\cos\theta_s\cos\alpha+C}
+{\cos i+C}
+]
+
+where:
+
+* (\theta_s) is solar zenith.
+* (\alpha) is terrain slope.
+* (i) is solar incidence angle.
+* (C) is the fitted SCS+C parameter.
+
+The current Ruby red-band estimate is negative.
+
+A negative C is not automatically a software error. However, it can create an unstable denominator and extreme correction factors.
+
+Required diagnostics
+
+For each spectral band, examine:
+
+1. Fitted C.
+2. Confidence or Fieller interval.
+3. Regression slope and intercept.
+4. Regression sample distribution.
+5. Solar incidence distribution.
+6. Terrain slope distribution.
+7. Denominator distribution.
+8. Correction-factor distribution.
+9. Locations where the denominator approaches zero.
+10. Locations where uncertainty makes correction unsupported.
+
+Map these quantities spatially.
+
+Investigate the underlying regression
+
+Determine whether the negative C arises from:
+
+* An incorrect illumination calculation.
+* Terrain slope or aspect errors.
+* Incorrect solar geometry.
+* Shadows.
+* Canopy geometry.
+* Spatially heterogeneous reflectance.
+* Insufficient illumination variation.
+* Regression leverage.
+* Outliers.
+* An inappropriate regression population.
+* The mathematical behavior of the SCS+C estimator.
+
+Use controlled experiments to distinguish these explanations.
+
+Do not infer the cause solely from the sign of C.
+
+Numerical audit
+
+Verify that the existing implementation correctly handles:
+
+* Angles and units.
+* Slope and aspect conventions.
+* Solar azimuth conventions.
+* Solar incidence.
+* Coordinate reference systems.
+* Regression coefficient ordering.
+* C calculation.
+* Correction application.
+* Denominator checks.
+* Uncertainty propagation.
+
+Compare the implementation against the established SCS+C formulation.
+
+Preserve NEON behavior unless a genuine shared mathematical defect is demonstrated.
+
+⸻
+
+3. Investigate the terrain surfaces
+
+Ruby contains multiple reconstructed surface products.
+
+The P184 investigation distinguishes:
+
+* An absolute DEM used for viewing-ray intersections.
+* A separate ground-DTM candidate.
+* Relative canopy-height information.
+
+These have different physical roles.
+
+3.1 Compare terrain geometry
+
+For each surface, calculate:
+
+* Elevation.
+* Slope.
+* Aspect.
+* Solar incidence.
+* Terrain shadow.
+* Local curvature.
+* Surface roughness.
+* Correction-factor distributions.
+
+Create side-by-side maps using identical spatial extents and comparable color scales.
+
+Investigate where the two surfaces disagree most strongly.
+
+Pay particular attention to:
+
+* Forest canopy.
+* Canopy edges.
+* Bare ground.
+* Steep terrain.
+* Terrain transitions.
+* Areas of high surface roughness.
+
+3.2 Determine which surface is physically appropriate
+
+A ground DTM may be appropriate for terrain illumination of low vegetation and exposed soil.
+
+A canopy surface may better represent some aspects of illumination at the top of vegetation.
+
+However, a photogrammetric canopy surface is not necessarily an accurate representation of leaf or crown orientation.
+
+Evaluate whether the terrain surface used for SCS+C should depend on the observed surface type.
+
+Do not assume that substituting a canopy surface automatically fixes the correction.
+
+3.3 Surface uncertainty
+
+Investigate:
+
+* DEM resolution.
+* DTM interpolation.
+* Canopy occlusion.
+* Slope estimation scale.
+* Registration errors.
+* Surface smoothing.
+* Sensitivity to small elevation errors.
+
+Evaluate whether the current 10 cm processing resolution is appropriate for estimating terrain illumination.
+
+Test physically justified smoothing scales rather than selecting the scale that produces the most favorable regression.
+
+Report sensitivity across scales.
+
+⸻
+
+4. Separate terrain illumination from surface reflectance
+
+This is the central scientific challenge.
+
+Ruby contains heterogeneous vegetation, canopy, soil, and shadow.
+
+A regression across the entire landscape can mistake differences in vegetation reflectance for differences caused by terrain illumination.
+
+We need to determine whether SCS+C can be estimated from observations that are sufficiently comparable.
+
+4.1 Build a surface-characterization dataset
+
+Use the original photographs, recovered terrain surfaces, and calibrated orthomosaic.
+
+Develop reproducible classifications or descriptive strata for:
+
+* Likely canopy.
+* Likely herbaceous vegetation.
+* Likely exposed soil.
+* Mixed vegetation.
+* Shadowed surfaces.
+* Bright and dark surfaces.
+
+Use available spectral indices, height information, spatial texture, and image context.
+
+Do not present automatically inferred classes as independently verified ecological labels.
+
+Where possible, use existing field polygons or reference observations to validate the classes.
+
+If reliable reference labels are unavailable, retain descriptive strata and uncertainty.
+
+4.2 Identify stable fitting targets
+
+Construct a spatially distributed sample of relatively homogeneous surfaces.
+
+Consider:
+
+* Within-patch spectral variability.
+* Surface texture.
+* Registration uncertainty.
+* Shadow contamination.
+* Mixed pixels.
+* Terrain slope.
+* Illumination conditions.
+* Spectral consistency across repeated photographs.
+
+The P184 experiment found that many original-image patches have high local variability.
+
+Use that information to avoid treating heterogeneous patches as identical surfaces.
+
+Do not simply discard difficult observations without reporting the resulting sampling bias.
+
+4.3 Test within-class topographic relationships
+
+For each supported surface class or descriptive stratum, evaluate:
+
+[
+\rho = f(\cos i)
+]
+
+Determine whether reflectance changes systematically with illumination after accounting for surface differences.
+
+Compare:
+
+* All-surface regression.
+* Homogeneous-target regression.
+* Canopy-only candidates.
+* Herbaceous candidates.
+* Bare-ground candidates.
+* Shadow-screened candidates.
+* Terrain-stratified candidates.
+
+Estimate C and its uncertainty for each candidate.
+
+Investigate whether class-specific estimation improves physical interpretability and application support.
+
+Do not select a class-specific model solely because it produces positive C.
+
+⸻
+
+5. Investigate shadow and illumination effects
+
+Topographic correction should not treat deep shadow as ordinary direct illumination.
+
+Develop explicit diagnostics for:
+
+* Self-shadow.
+* Cast shadow.
+* Low solar incidence.
+* Canopy shadow.
+* Dark but sunlit surfaces.
+* Possible sensor saturation.
+
+Use the recovered solar geometry and terrain surfaces.
+
+Where practical, calculate terrain visibility to the sun.
+
+Distinguish geometric shadow predictions from spectral darkness.
+
+Evaluate whether unstable SCS+C fits are concentrated in shadowed or near-shadowed conditions.
+
+Controlled experiments
+
+Fit SCS+C using:
+
+1. The existing sample.
+2. Geometrically sunlit samples.
+3. Spectrally screened samples.
+4. Combined geometric and spectral screening.
+5. Homogeneous sunlit samples.
+6. Spatially balanced homogeneous sunlit samples.
+
+For each experiment, report:
+
+* Sample size.
+* Spatial coverage.
+* C estimates.
+* Uncertainty.
+* Denominator support.
+* Application coverage.
+* Held-out performance.
+
+Do not silently exclude shadows from the final output.
+
+If shadowed pixels require a different treatment, report that requirement explicitly.
+
+⸻
+
+6. Evaluate whether SCS+C is identifiable
+
+The P184 investigation identified a fundamental limitation.
+
+Repeated photographs of the same target provide useful viewing-angle diversity, but the sun and terrain illumination geometry change very little during one short flight.
+
+Therefore, repeated observations do not automatically identify the topographic correction.
+
+Required analysis
+
+Determine how much independent illumination information Ruby actually contains.
+
+Evaluate:
+
+* Solar-angle variation during the flight.
+* Terrain incidence variation.
+* Illumination variation within surface classes.
+* Spatial correlation between terrain and vegetation.
+* Correlation between reflectance and incidence.
+* Parameter sensitivity.
+* Effective independent sample size.
+* Regression leverage.
+* Spatial autocorrelation.
+
+Use spatial-block cross-validation.
+
+Avoid treating thousands of neighboring pixels or repeated photographs as independent terrain observations.
+
+Identifiability experiment
+
+Construct controlled synthetic datasets using Ruby’s actual terrain and illumination geometry.
+
+Simulate known surface reflectance and known topographic effects.
+
+Then test whether the existing SCS+C estimator can recover the true parameters.
+
+Vary:
+
+* Surface heterogeneity.
+* Spatial autocorrelation.
+* Shadow contamination.
+* Terrain error.
+* Radiometric noise.
+* Illumination range.
+* Sample density.
+
+Determine whether the negative-C behavior can arise even when the implementation is mathematically correct.
+
+This experiment should help distinguish an algorithmic defect from insufficient or confounded information.
+
+⸻
+
+7. Test scientifically justified SCS+C improvements
+
+Use the diagnostic evidence to develop candidate improvements.
+
+Possible approaches include:
+
+A. Better fitting populations
+
+Estimate C using spatially distributed, homogeneous, sunlit surfaces.
+
+B. Surface-specific fitting
+
+Estimate separate corrections for supported surface classes.
+
+C. Robust regression
+
+Investigate whether regression leverage or outliers cause instability.
+
+Use robust methods only when their assumptions are justified.
+
+D. Spatially structured fitting
+
+Account for spatial dependence and uncertainty.
+
+E. Terrain-scale selection
+
+Evaluate whether slope and aspect should be calculated at a scale better matched to the physical surfaces and sensor resolution.
+
+F. Illumination-domain restrictions
+
+Identify the domain in which the correction is physically supported.
+
+Do not expand application beyond that domain without evidence.
+
+For every candidate, preserve explicit uncertainty and application-support checks.
+
+A positive C, smaller correction factor, or higher R² is not sufficient evidence of improvement.
+
+⸻
+
+8. Compare alternative topographic correction methods
+
+If SCS+C remains unstable, investigate whether another established topographic correction formulation is more appropriate for Ruby.
+
+Consider scientifically established methods such as:
+
+* C-correction.
+* Minnaert correction.
+* Modified Minnaert correction.
+* Other physically justified illumination-normalization approaches supported by the literature.
+
+These are experimental comparisons, not preapproved replacements.
+
+Use consistent:
+
+* Radiometric inputs.
+* Terrain surfaces.
+* Solar geometry.
+* Training samples.
+* Validation targets.
+* Spatial folds.
+* Shadow handling.
+
+Evaluate whether alternative methods provide better:
+
+* Parameter identifiability.
+* Correction stability.
+* Spectral preservation.
+* Held-out consistency.
+* Application coverage.
+* Physical interpretability.
+
+Do not select a model merely because it avoids negative C or produces bounded gains.
+
+Where models have different physical assumptions, explain those differences.
+
+Preserve the existing SCS+C method as the baseline.
+
+Any proposed alternative must have a clearly documented relationship to the NEON AOP workflow.
+
+⸻
+
+9. Evaluate topographic correction independently
+
+Before integrating BRDF, determine whether a candidate topographic correction actually improves Ruby.
+
+Compare:
+
+* Uncorrected calibrated reflectance.
+* Existing SCS+C.
+* Improved SCS+C candidates.
+* Alternative topographic models.
+
+Use held-out spatial targets.
+
+Evaluate:
+
+Illumination dependence
+
+Does corrected reflectance show reduced dependence on terrain illumination within comparable surface types?
+
+Spectral preservation
+
+Are spectral shapes and vegetation indices preserved appropriately?
+
+Spatial artifacts
+
+Does correction introduce discontinuities, extreme gains, or unnatural patterns?
+
+Surface consistency
+
+Do similar surfaces on different slopes become more consistent?
+
+Uncertainty
+
+Are corrected values supported across the application domain?
+
+Correction magnitude
+
+Are the resulting correction factors physically plausible?
+
+A reduction in reflectance–incidence correlation is not sufficient by itself.
+
+Report improvements and degradations.
+
+⸻
+
+10. Reintegrate the original-photo BRDF model
+
+Once a topographic correction candidate is supported, integrate it with the P184 original-photo BRDF workflow.
+
+The current preferred experimental BRDF candidate is the multiplicative target-amplitude model.
+
+It showed a median held-out variance ratio of 0.766, although mean performance was worse than uncorrected and some observations degraded substantially.
+
+Do not treat this candidate as production-approved.
+
+Matched-stage fitting
+
+For every spatial fold:
+
+1. Fit the topographic model using training data only.
+2. Validate its parameter and application support.
+3. Apply the supported topographic correction to training observations.
+4. Fit the BRDF model in that corrected radiometric space.
+5. Apply both corrections to held-out observations.
+6. Evaluate combined uncertainty and performance.
+
+Do not transplant coefficients between different processing spaces.
+
+Do not substitute identity corrections when a stage fails.
+
+Joint evaluation
+
+Compare:
+
+* Raw observations.
+* Topographic-only correction.
+* BRDF-only correction.
+* Combined correction.
+
+Evaluate whether the combined correction improves:
+
+* Within-target consistency.
+* Across-slope consistency.
+* Spectral preservation.
+* Angular dependence.
+* Spatial stability.
+
+Determine whether topographic correction improves or degrades BRDF parameter estimation.
+
+⸻
+
+11. Investigate full-frame applicability
+
+A correction that works for selected targets may fail across the complete flight.
+
+For the strongest supported candidates, evaluate full-frame application without immediately generating a production raster.
+
+Calculate:
+
+* Correction-factor maps.
+* Validity masks.
+* Unsupported regions.
+* Parameter uncertainty.
+* Denominator stability.
+* Spectral consistency.
+* Shadow-related failures.
+* Terrain-related failures.
+
+Report the fraction of Ruby that can be corrected with scientific support.
+
+Do not fill unsupported regions with identity corrections.
+
+Do not hide missing regions through interpolation.
+
+If different surface classes require different corrections, investigate whether class boundaries create new spatial artifacts.
+
+A complete-looking image is not evidence of a successful correction.
+
+⸻
+
+12. Produce a figure-rich scientific report
+
+Create a new investigation directory:
+
+provenance/ruby-topographic-recovery-2026-11-06/
+
+Include a reproducible Markdown report, machine-readable results, and publication-quality diagnostic figures.
+
+Required figures
+
+Figure 1 — Ruby terrain surfaces
+
+Absolute viewing DEM, ground DTM, canopy information, slopes, and differences.
+
+Figure 2 — Solar illumination
+
+Solar incidence, slope, aspect, geometric shadows, and illumination distributions.
+
+Figure 3 — Negative-C diagnosis
+
+Reflectance versus illumination, fitted regression, C uncertainty, and denominator behavior.
+
+Figure 4 — Surface heterogeneity
+
+Spectral strata, local texture, vegetation indices, and candidate fitting populations.
+
+Figure 5 — Shadow analysis
+
+Predicted shadows, observed darkness, and effects on fitted C.
+
+Figure 6 — SCS+C sensitivity
+
+C estimates and uncertainty across terrain surfaces, fitting populations, and smoothing scales.
+
+Figure 7 — Identifiability experiment
+
+Recovery of known synthetic correction parameters under Ruby’s actual geometry.
+
+Figure 8 — Alternative methods
+
+Comparison of SCS+C, improved fitting strategies, and supported alternative topographic models.
+
+Figure 9 — Held-out validation
+
+Before/after performance across spatial blocks, surface strata, and illumination conditions.
+
+Figure 10 — Combined correction
+
+Topographic-only, BRDF-only, and matched combined performance.
+
+Figure 11 — Full-frame support
+
+Maps of correction factors, unsupported regions, and uncertainty.
+
+Figure 12 — Recommended pipeline
+
+A clear conceptual diagram of the resulting topographic and BRDF workflow.
+
+Make figures interpretable without requiring the reader to inspect the source code.
+
+Use consistent scales and clearly label experimental results.
+
+⸻
+
+13. Implementation requirements
+
+Add reusable functions where justified.
+
+Potential functionality includes:
+
+* Terrain-surface validation.
+* Solar incidence calculation.
+* Geometric shadow detection.
+* Homogeneous-target selection.
+* Surface-stratified SCS+C fitting.
+* Robust regression diagnostics.
+* Topographic parameter uncertainty.
+* Correction-domain validation.
+* Alternative topographic models.
+* Matched topographic/BRDF fitting.
+* Full-frame correction-support mapping.
+
+Keep experimental methods isolated from production defaults.
+
+Add tests for:
+
+* Terrain geometry.
+* Solar geometry.
+* Regression mathematics.
+* Negative and near-zero denominators.
+* Shadow masks.
+* Parameter uncertainty.
+* Spatial cross-validation.
+* Correction-factor application.
+* Spectral preservation.
+* NEON AOP equivalence.
+
+Preserve existing source products.
+
+Do not overwrite the P183 or P184 investigations.
+
+Do not upload unsupported products into production locations.
+
+⸻
+
+14. Acceptance criteria
+
+A candidate topographic correction is acceptable only when:
+
+1. Its mathematical implementation is verified.
+2. Terrain and illumination inputs are physically appropriate.
+3. Fitting populations are scientifically justified.
+4. Parameters are identifiable within the available observations.
+5. Parameter uncertainty is adequately characterized.
+6. Correction factors remain stable over the supported domain.
+7. Unsupported locations are explicitly identified.
+8. Held-out validation demonstrates meaningful improvement.
+9. Spectral relationships remain physically interpretable.
+10. The correction can be applied consistently with BRDF.
+11. Full-frame support is quantified.
+12. Existing NEON AOP behavior is preserved.
+
+Do not interpret numerical convergence as physical validation.
+
+Do not require every pixel to pass if the evidence does not support correction everywhere.
+
+However, quantify whether the supported coverage is sufficient for the intended scientific use.
+
+⸻
+
+15. Execution plan
+
+Work autonomously through the following stages.
+
+Phase 1 — Diagnose
+
+Reproduce the negative-C problem and identify its mathematical and physical causes.
+
+Phase 2 — Characterize
+
+Compare terrain surfaces, shadows, vegetation heterogeneity, and illumination geometry.
+
+Phase 3 — Test identifiability
+
+Use controlled synthetic experiments and spatial validation to determine what can be estimated reliably.
+
+Phase 4 — Improve SCS+C
+
+Test scientifically justified fitting and application strategies.
+
+Phase 5 — Compare alternatives
+
+Evaluate established topographic models if SCS+C remains unsupported.
+
+Phase 6 — Integrate BRDF
+
+Combine the best supported topographic approach with the original-photo BRDF framework.
+
+Phase 7 — Validate full-frame support
+
+Quantify correction stability, uncertainty, and coverage across Ruby.
+
+Phase 8 — Harden
+
+Implement supported improvements with tests and documentation.
+
+Do not stop at a diagnostic report if a scientifically justified correction can be implemented and validated.
+
+Do not force a complete corrected raster if the evidence does not support one.
+
+⸻
+
+Final deliverables
+
+Provide:
+
+1. A clear diagnosis of Ruby’s negative-C instability.
+2. A verified terrain and illumination analysis.
+3. A surface-heterogeneity and shadow assessment.
+4. A topographic identifiability experiment.
+5. Quantitative comparisons of SCS+C fitting strategies.
+6. Evaluation of alternative topographic methods where warranted.
+7. A recommended Ruby topographic correction approach.
+8. A matched topographic and BRDF experiment.
+9. Full-frame correction-support diagnostics.
+10. Reusable code and regression tests.
+11. A figure-rich scientific report.
+12. A clear recommendation on production readiness.
+
+End the report by answering:
+
+Why does Ruby produce negative SCS+C coefficients?
+
+Is the problem caused by incorrect implementation, inappropriate terrain geometry, confounded fitting data, or insufficient physical information?
+
+Can a better fitting strategy produce a stable and defensible topographic correction?
+
+Does that correction improve the original-photo BRDF workflow?
+
+Can we now generate a scientifically supported Ruby orthomosaic with both corrections?
+
+If not, what is the smallest additional dataset or validation experiment needed to make that possible?
+
+Our objective is to solve Ruby’s topographic correction problem using the best available physical evidence, while retaining scientific safeguards and consistency with the established SpectralBridge pipeline.
+```
+
+## 2026-11-06 - Drone architecture and permanent radiometry
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+SpectralBridge — Drone Pipeline Architecture, Performance, and Simplification Study
+
+Mission
+
+Conduct a comprehensive, evidence-based evaluation of the SpectralBridge drone processing pipeline, from its original H5-only implementation through the most recent Ruby, Goldhill, and Gordon investigations.
+
+Our objective is to design the simplest possible reliable drone processing pipeline that produces scientifically useful, consistently calibrated spectral data, while identifying which additional data and processing steps provide meaningful improvements.
+
+We have spent considerable effort recovering original Metashape projects, camera orientations, calibration information, terrain models, and thousands of original photographs.
+
+That work has been scientifically valuable, but it is too labor-intensive to require for every drone dataset.
+
+We need to determine:
+
+1. What improvements did each investigation actually produce?
+2. Which improvements came from fixing software errors rather than obtaining additional information?
+3. How much additional accuracy or consistency did each new data source provide?
+4. Which assumptions can safely replace unavailable metadata?
+5. Which assumptions fail under identifiable conditions?
+6. What should SpectralBridge do automatically with only an H5 file?
+7. What additional functionality should activate when camera metadata, terrain models, Metashape projects, or original photographs are available?
+8. When is the additional processing scientifically worth the computational and operational cost?
+
+The primary deliverable is a clear, quantitative, figure-rich report that informs the future architecture of SpectralBridge.
+
+A second required deliverable is to verify and permanently harden the drone radiometric scaling implementation.
+
+This is not primarily a request for another large correction experiment. Reuse existing evidence wherever possible, conduct targeted comparisons to fill important gaps, and implement only clearly justified foundational improvements.
+
+⸻
+
+PART I — RECONSTRUCT THE DEVELOPMENT HISTORY
+
+1. Review the complete drone processing history
+
+Inspect the current repository, Git history, existing documentation, tests, and previous investigations.
+
+Locate and review the relevant work from October and November 2026, including:
+
+* Original H5 drone processing.
+* Drone spatial integrity investigation.
+* TIFF-to-H5 conversion.
+* Original radiometric scaling investigation.
+* AOP/drone radiometric and BRDF audit.
+* Goldhill red-boundary investigation.
+* Three-site drone camera rerun.
+* Three-site BRDF and topographic instability investigation.
+* Metashape recovery investigation, P183.
+* Ruby original-photo correction recovery, P184.
+* Ruby topographic correction recovery, P185.
+
+Search the repository for the actual report locations rather than assuming all experiments use identical directory structures.
+
+Review:
+
+* src/spectralbridge/drone_original.py
+* src/spectralbridge/drone_topography.py
+* Shared SCS+C functions.
+* Shared RossThick/LiDenseR functions.
+* Drone H5 ingestion.
+* TIFF ingestion and export.
+* Radiometric scaling and metadata handling.
+* ENVI output.
+* Polygon extraction.
+* Existing quality-control functionality.
+
+Reconstruct the processing evolution
+
+Identify the exact changes made at each stage.
+
+Distinguish between:
+
+A. Software corrections
+
+Examples:
+
+* Fixing spatial metadata.
+* Correcting radiometric interpretation.
+* Correcting wavelength metadata.
+* Fixing numerical support checks.
+
+B. Additional information
+
+Examples:
+
+* Actual camera positions.
+* Adjusted camera orientations.
+* Source-camera assignments.
+* Original overlapping photographs.
+* Terrain surfaces.
+* Independent field observations.
+
+C. Modeling improvements
+
+Examples:
+
+* Target-aware BRDF estimation.
+* Improved uncertainty calculations.
+* Shadow screening.
+* Spatially structured topographic fitting.
+
+These categories must remain separate.
+
+We should not attribute an improvement caused by fixing a software bug to the acquisition of more complex source data.
+
+⸻
+
+PART II — DEFINE THE PIPELINE LEVELS
+
+2. Establish a hierarchy of processing configurations
+
+Build a reproducible comparison of the following configurations.
+
+Level 0 — Original H5 pipeline
+
+Inputs:
+
+* Existing drone H5 file.
+* Metadata available in that file.
+
+Reconstruct the original processing behavior as faithfully as possible.
+
+Evaluate:
+
+* Radiometric scaling.
+* Spatial geometry.
+* Topographic correction.
+* BRDF correction.
+* Spectral output.
+* Polygon extraction.
+
+This is the historical baseline, not a recommended implementation.
+
+Preserve the distinction between original software defects and limitations caused by missing information.
+
+Level 1 — Corrected H5-only pipeline
+
+Inputs:
+
+* H5 file.
+* Verified metadata already embedded in the file.
+
+Use the repaired:
+
+* Radiometric conversion.
+* Spatial metadata interpretation.
+* Band identity.
+* Numerical safeguards.
+* Correction-support checks.
+
+Determine what can be done reliably without recovering Metashape projects or original photographs.
+
+Critically, identify what information is actually present in each H5.
+
+Do not assume all drone H5 files have the same calibration, spatial metadata, solar geometry, or terrain information.
+
+If essential metadata is missing, distinguish between a scientifically justified assumption and an unsupported guess.
+
+Level 2 — H5 plus standard external metadata
+
+Additional inputs, when available:
+
+* DEM or DTM.
+* Solar geometry.
+* Flight altitude.
+* Sensor specifications.
+* Nominal viewing geometry.
+* Calibration provenance.
+
+Evaluate how much these relatively inexpensive inputs improve the pipeline.
+
+Determine whether commonly available metadata is sufficient for reliable topographic correction and approximate BRDF normalization.
+
+Level 3 — Metashape camera geometry
+
+Additional inputs:
+
+* Estimated camera positions.
+* Adjusted camera orientations.
+* Camera calibration.
+* Band-specific camera geometry.
+* Orthomosaic source assignments, when available.
+
+Do not require the complete original photographs.
+
+Evaluate the improvement from reconstructing actual viewing angles instead of assuming nadir.
+
+Compare:
+
+* Assumed nadir.
+* Nominal flight geometry.
+* Actual adjusted camera geometry.
+* Primary-source camera geometry.
+
+Investigate how much of the original-photo benefit can be recovered using geometry alone.
+
+Explicitly account for orthomosaic blending, which may prevent primary-camera geometry from representing the effective angular observation.
+
+Level 4 — Compact original-photo calibration dataset
+
+Additional inputs:
+
+* Repeated calibrated observations of selected ground targets.
+* Original viewing geometry.
+* Solar geometry.
+* Target identity.
+* Quality flags.
+
+This level should not require transferring or retaining every original photograph in SpectralBridge.
+
+Evaluate whether a compact exported calibration dataset can support target-aware BRDF estimation.
+
+Determine the minimum useful information needed.
+
+Investigate whether a small, spatially distributed subset of original images or image-derived observations provides nearly the same benefit as the full original-photo experiment.
+
+Level 5 — Full original-photo correction
+
+Additional inputs:
+
+* Original calibrated photographs.
+* Complete Metashape project.
+* Camera calibration and orientations.
+* Terrain surfaces.
+* Original-photo overlap.
+* Licensed remosaicking capability when required.
+
+Evaluate the full source-image correction workflow developed in P184 and P185.
+
+Distinguish demonstrated capabilities from unexecuted interfaces.
+
+Do not claim that a corrected original-photo mosaic exists when it has not been generated.
+
+This is the most expensive processing level and should only be recommended when its additional information provides a meaningful scientific advantage.
+
+⸻
+
+PART III — QUANTIFY THE IMPROVEMENT
+
+3. Develop a common evaluation framework
+
+The most important requirement is a fair comparison.
+
+Use identical source areas, wavelengths, validation targets, and quality metrics wherever possible.
+
+Avoid comparing results from different sample populations as though they were directly equivalent.
+
+Where the available experiments used different metrics or datasets, reproduce targeted comparisons on common support.
+
+Do not manufacture equivalence between historical results that cannot be compared directly.
+
+Evaluate six dimensions
+
+A. Radiometric correctness
+
+Measure:
+
+* Reflectance scaling accuracy relative to the verified encoding.
+* Calibration consistency.
+* Spectral range.
+* Spectral shape.
+* Wavelength identity.
+* Invalid values.
+* Band-specific differences.
+
+B. Spatial correctness
+
+Measure:
+
+* Pixel-to-ground alignment.
+* Polygon membership.
+* Geometric displacement.
+* Registration uncertainty.
+* Source-grid consistency.
+
+Include the historical spatial reflection problem.
+
+C. Topographic correction
+
+Measure:
+
+* Supported application fraction.
+* Correction-factor distributions.
+* Numerical stability.
+* Terrain illumination dependence.
+* Held-out performance.
+* Shadow sensitivity.
+* Spectral preservation.
+
+D. BRDF correction
+
+Measure:
+
+* Angular information content.
+* Model identifiability.
+* Kernel-space support.
+* Reference-angle support.
+* Held-out target consistency.
+* Correction-factor uncertainty.
+* Unsupported predictions.
+
+E. Spectral-library quality
+
+Measure:
+
+* Within-polygon spectral variability.
+* Between-polygon separability.
+* Within-class consistency.
+* Spectral-angle changes.
+* Vegetation-index stability.
+* Polygon retention.
+* Number of valid spectra.
+
+Where field PFT labels are available, evaluate whether the processing improvements actually improve separation of research-assigned vegetation types.
+
+Do not use automatically inferred spectral classes as independent field truth.
+
+F. Computational and operational cost
+
+Measure:
+
+* Input data volume.
+* Required files.
+* Transfer time.
+* Runtime.
+* Memory.
+* Storage.
+* External software dependencies.
+* Manual intervention.
+* Reproducibility.
+* Failure risk.
+
+Use measured values when available.
+
+Label estimates explicitly.
+
+⸻
+
+4. Build an incremental improvement analysis
+
+For each processing level, calculate the improvement relative to the preceding level.
+
+Also compare each level against the best available reference.
+
+Use a common validation population whenever possible.
+
+Create a summary table with:
+
+Level	Required inputs	Spatial improvement	Radiometric improvement	Topographic improvement	BRDF improvement	Spectral-library improvement	Additional cost
+
+Use quantitative values rather than qualitative labels whenever the evidence permits.
+
+Separate information value from implementation quality
+
+For example:
+
+If Level 1 dramatically improves radiometric correctness over Level 0, but both use the same H5, that is a software improvement.
+
+If Level 4 improves BRDF estimation over Level 3, that is an information improvement from repeated observations.
+
+If Level 5 offers no demonstrated improvement over Level 4, do not assume it is better simply because it uses more data.
+
+Important limitation
+
+The full original-photo workflow has not yet produced an approved corrected Ruby orthomosaic.
+
+Therefore, comparisons involving Level 5 may be limited to:
+
+* Original-photo observations.
+* BRDF parameter support.
+* Held-out consistency.
+* Experimental matched corrections.
+* Interface validation.
+
+Do not report unmeasured full-mosaic accuracy gains.
+
+⸻
+
+PART IV — DETERMINE WHICH ASSUMPTIONS ARE SAFE
+
+5. Evaluate simplified viewing-geometry assumptions
+
+This is a central architectural question.
+
+We want to know whether the expensive camera-reconstruction workflow can be replaced by simpler assumptions without materially reducing scientific quality.
+
+Test the following candidates:
+
+1. Nadir viewing.
+2. Nominal camera orientation.
+3. Flight-altitude-based viewing geometry.
+4. Primary-camera geometry.
+5. Actual adjusted camera geometry.
+6. Original-photo observation geometry.
+
+For each, evaluate:
+
+* Viewing-angle error.
+* Kernel error.
+* BRDF prediction error.
+* Reference-normalization error.
+* Spectral consequences.
+
+Use the recovered Ruby and Goldhill geometry as the reference for geometric comparisons, while acknowledging that adjusted camera poses are not independent ground truth.
+
+Determine when nadir is adequate
+
+Investigate whether the error depends on:
+
+* Actual view zenith.
+* Off-nadir acquisition.
+* Flight overlap.
+* Terrain slope.
+* Sensor field of view.
+* Mosaic source switching.
+* Angular diversity.
+* Surface type.
+
+Develop evidence-based decision rules.
+
+For example, determine whether a simple nadir assumption is acceptable under a measured angular-error tolerance.
+
+Do not invent a universal threshold.
+
+If the available data cannot establish a defensible threshold, report that limitation.
+
+⸻
+
+6. Evaluate simplified BRDF assumptions
+
+Compare:
+
+* Identity/no angular normalization as a diagnostic baseline.
+* Existing mosaic-stage BRDF.
+* Nadir-assumed BRDF.
+* Actual-camera mosaic-stage BRDF.
+* Target-aware original-photo BRDF.
+* Compact-calibration-data BRDF.
+
+The production goal still includes BRDF correction.
+
+An identity baseline is useful for measuring whether an attempted correction improves the data, but it is not a substitute for an accepted correction.
+
+Key question
+
+How much of the original-photo BRDF improvement can we reproduce using a compact calibration dataset?
+
+Use the existing repeated-observation dataset.
+
+Conduct a predeclared subsampling experiment.
+
+Vary:
+
+* Number of targets.
+* Number of observations per target.
+* Angular diversity.
+* Spatial distribution.
+* Surface heterogeneity.
+* Number of spectral bands.
+* Calibration context.
+
+Use nested spatial holdouts so the same targets are not used to select and evaluate the reduced calibration design.
+
+Measure:
+
+* Parameter stability.
+* Kernel-space support.
+* Held-out consistency.
+* Uncertainty.
+* Failure rates.
+
+Identify the smallest calibration dataset that approaches the full available original-photo model’s performance.
+
+Report the performance-versus-cost curve.
+
+The objective is not to find the smallest dataset that merely allows a numerical fit.
+
+It is to find the smallest dataset that retains meaningful predictive performance and support.
+
+⸻
+
+PART V — TOPOGRAPHIC CORRECTION
+
+7. Determine what additional data actually improves topographic correction
+
+P185 showed that original photographs provided viewing-angle diversity but little independent solar-illumination diversity.
+
+The negative-C problem remained.
+
+Evaluate whether each processing level provides genuinely new information for estimating topographic effects.
+
+Separate:
+
+* Better terrain geometry.
+* Better solar geometry.
+* Better shadow identification.
+* Better surface classification.
+* More reflectance observations.
+* Independent illumination conditions.
+
+Determine which additions materially improve topographic support.
+
+Simplified terrain assumptions
+
+Compare:
+
+* Available H5 terrain metadata.
+* Standard external DEM.
+* Metashape ground DTM.
+* Metashape viewing surface.
+* Terrain smoothing at documented scales.
+
+Investigate whether a standard external DEM is sufficient for most applications.
+
+Do not assume a more detailed surface is necessarily more physically appropriate.
+
+Important
+
+Do not recommend full original-photo recovery as a routine solution to the topographic problem unless the evidence demonstrates that it provides useful independent information.
+
+The current evidence suggests that additional illumination conditions may be more valuable than additional views from the same flight.
+
+⸻
+
+PART VI — PERMANENTLY FIX RADIOMETRIC SCALING
+
+8. Audit and harden the actual production radiometric implementation
+
+This is a required code deliverable, not merely a report section.
+
+We previously investigated the MicaSense sensor calibration and Metashape radiometric encoding.
+
+We consulted the manufacturer’s and Metashape’s documented calibration conventions and verified the encoding against recovered source imagery and project calibration information.
+
+The pipeline must not repeat the earlier scaling mistake.
+
+Established Ruby/Goldhill findings
+
+The recovered vendor-calibrated original orthomosaic encoding is:
+
+[
+\rho = \frac{DN}{32768}
+]
+
+where (\rho) is reflectance fraction.
+
+The historical 10 cm export used:
+
+[
+S = DN \frac{10000}{65535}
+]
+
+Therefore, its correct reflectance conversion is:
+
+[
+\rho =
+S\frac{65535}{10000 \times 32768}
+]
+
+or approximately:
+
+[
+\rho = S \times 0.0001999969482421875
+]
+
+The historical stored values are not equivalent to reflectance multiplied by 10,000.
+
+A properly encoded reflectance-times-10,000 product uses:
+
+[
+S_{\mathrm{new}} = 10000\rho
+]
+
+with:
+
+[
+\rho = 0.0001S_{\mathrm{new}}
+]
+
+Values above 10,000 must be preserved when they occur legitimately.
+
+The source NIR wavelength is 842 nm, not the previously declared 862 nm.
+
+Critical distinction
+
+Do not conflate:
+
+1. Raw MicaSense sensor DN.
+2. Metashape-calibrated source-image DN.
+3. Vendor-calibrated orthomosaic DN.
+4. Historical rescaled TIFF values.
+5. Reflectance fractions.
+6. Reflectance multiplied by 10,000.
+7. H5-stored values with explicit scale and offset.
+
+These are different representations.
+
+The correct conversion depends on the source representation and calibration history.
+
+Do not apply the 32768 divisor blindly to raw sensor images or unrelated drone datasets.
+
+Do not apply black-level, exposure, vignetting, or panel corrections twice.
+
+8.1 Verify the authoritative documentation
+
+Locate the original MicaSense sensor documentation and Metashape calibration documentation used in the previous investigations.
+
+Confirm:
+
+* Sensor model and band configuration.
+* Raw DN interpretation.
+* Radiometric calibration sequence.
+* Panel calibration.
+* Irradiance/DLS handling.
+* Vendor-calibrated output encoding.
+* Orthomosaic export conventions.
+* Reflectance scale.
+* Wavelength metadata.
+
+Record exact documentation references, versions, and relevant source statements.
+
+Distinguish sensor-specific conventions from Metashape output conventions.
+
+Do not assume every MicaSense model, firmware version, or export path has identical metadata.
+
+If documentation and experimental evidence differ, report the discrepancy instead of silently choosing one.
+
+8.2 Inspect the current package
+
+Search all production and experimental code for:
+
+* 32768
+* 65535
+* 10000
+* Reflectance scaling.
+* Min/max normalization.
+* Scale and offset.
+* TIFF/H5 conversion.
+* ENVI reflectance metadata.
+* Band wavelengths.
+* Calibration flags.
+* Sensor-specific assumptions.
+
+Determine whether the previously developed scaling repair was actually integrated into the production pipeline.
+
+Check whether any code still assumes that values between 0 and 10000 necessarily represent reflectance times 10000.
+
+Check for any double-scaling or double-calibration paths.
+
+8.3 Implement an explicit radiometric contract
+
+Create or strengthen a single authoritative conversion boundary.
+
+Use the relationship:
+
+[
+\text{physical reflectance}
+
+\text{stored value}\times\text{scale}+\text{offset}
+]
+
+Require explicit provenance for scale and offset.
+
+Represent the input encoding with a typed, documented identifier rather than inferring it from numeric ranges.
+
+Support, as appropriate:
+
+* Raw sensor data requiring calibration.
+* Metashape-calibrated DN.
+* Historical drone TIFF/H5 scaling.
+* Reflectance fraction.
+* Reflectance-times-10000.
+* Other explicitly documented source encodings.
+
+Do not silently guess the encoding.
+
+For ambiguous legacy H5 files, require a validated sidecar, known source fingerprint, or explicit user declaration.
+
+Unknown scaling must produce a clear actionable error or unsupported status.
+
+8.4 Make the correct behavior the default
+
+For recognized and verified source products, apply the correct conversion automatically.
+
+Do not require users to remember historical Ruby-specific scaling factors.
+
+The package should know how to interpret a verified Metashape-calibrated MicaSense product.
+
+However, recognition must depend on trustworthy metadata or source identity, not merely on the observed value range.
+
+Preserve backwards compatibility where scientifically possible.
+
+If legacy outputs cannot be safely interpreted, mark them explicitly rather than silently reinterpreting them.
+
+8.5 Add regression tests
+
+Create permanent tests demonstrating:
+
+* Correct DN/32768 conversion.
+* Correct historical DN × 10000/65535 recovery.
+* Correct reflectance-times-10000 conversion.
+* Nonzero scale offsets.
+* Values above one.
+* Zero values.
+* NoData.
+* NaN handling.
+* Band-specific metadata.
+* 842 nm NIR identity.
+* Prevention of double scaling.
+* Prevention of double calibration.
+* Rejection of unknown encodings.
+* Preservation of spatial metadata.
+* Preservation of existing NEON AOP behavior.
+
+Include at least one golden-data regression fixture from the verified Ruby or Goldhill source encoding.
+
+The fixture should be small, checksum-verified, and suitable for automated testing.
+
+Do not make the normal test suite depend on retrieving the full Metashape project.
+
+8.6 Update documentation
+
+Add a clear documentation section:
+
+Drone Radiometric Calibration and Scaling
+
+Explain:
+
+* What MicaSense measures.
+* What Metashape calibrates.
+* What the stored DN represents.
+* How SpectralBridge converts it.
+* Why the earlier scaling was incorrect.
+* How to recognize each supported encoding.
+* How to handle legacy H5 files.
+* How to verify output reflectance.
+* How scale and offset are preserved through TIFF, H5, ENVI, and Parquet.
+
+Include a small numerical example.
+
+Document the difference between verified encoding and independently verified physical reflectance accuracy.
+
+Required outcome
+
+At the end of this task, the production package must not repeat the known Ruby/Goldhill scaling error when the input is a recognized, verified product.
+
+If this requires modifying production ingestion functions, implement those modifications with tests.
+
+Do not leave the correction isolated in an experimental script.
+
+⸻
+
+PART VII — DESIGN THE FUTURE PIPELINE
+
+9. Recommend the simplest scientifically defensible architecture
+
+Use the quantitative results to propose the future SpectralBridge drone architecture.
+
+I want a practical design that minimizes:
+
+* Required source files.
+* Data transfers.
+* Manual preprocessing.
+* External software dependencies.
+* Processing time.
+* Storage requirements.
+* User decisions.
+* Opportunities for silent errors.
+
+But not at the expense of scientifically defensible results.
+
+Recommended structure
+
+Evaluate an architecture with:
+
+Core pipeline
+
+Accepts a correctly described drone H5 or calibrated orthomosaic.
+
+Provides:
+
+* Radiometric normalization.
+* Spatial validation.
+* Wavelength validation.
+* Terrain and solar geometry handling.
+* Topographic correction.
+* BRDF correction where supported.
+* Explicit correction-support masks.
+* Quality-controlled polygon extraction.
+* Standardized output provenance.
+
+Both correction stages remain part of the intended scientific workflow.
+
+If a correction cannot be supported, the pipeline must report that limitation rather than silently substituting an identity correction.
+
+Geometry enhancement
+
+Adds camera geometry and source assignments.
+
+Compact BRDF calibration enhancement
+
+Adds repeated original-photo observations without requiring the full image archive.
+
+Full source-image enhancement
+
+Adds complete original photographs and source-first correction/reconstruction when scientifically necessary.
+
+Determine whether these are the correct boundaries.
+
+Do not preserve this proposed architecture if the evidence supports a better one.
+
+⸻
+
+10. Develop automatic processing decisions
+
+The pipeline should inspect its inputs and determine which operations are scientifically supported.
+
+Design an explicit capability-detection system.
+
+For example:
+
+* Is radiometric encoding verified?
+* Is spatial geometry verified?
+* Is solar geometry available?
+* Is an appropriate terrain surface available?
+* Is actual viewing geometry available?
+* Is angular support sufficient?
+* Are repeated target observations available?
+* Is the BRDF reference supported?
+* Is topographic correction identifiable?
+* Are correction factors stable?
+* Is the full spectral range supported?
+
+Use these checks to determine which processing level is available.
+
+Distinguish:
+
+* Required inputs.
+* Optional inputs.
+* Assumptions.
+* Verified metadata.
+* Estimated geometry.
+* Unsupported operations.
+
+Automatic escalation
+
+Develop evidence-based rules for when the pipeline should request:
+
+1. Better terrain information.
+2. Actual camera geometry.
+3. Compact repeated-observation calibration.
+4. Original photographs.
+5. Additional independent illumination observations.
+
+Do not recommend expensive original-photo recovery when the actual limitation is insufficient solar-illumination diversity.
+
+⸻
+
+PART VIII — FIGURE-RICH DESIGN REPORT
+
+11. Create a comprehensive, human-readable report
+
+Create a new provenance investigation directory with a dated, unique name.
+
+Suggested title:
+
+From H5 to Original Photographs: How Much Complexity Does a Reliable Drone Pipeline Need?
+
+The report should be written for a scientist designing and maintaining SpectralBridge.
+
+It should not read like a software audit log.
+
+Explain the scientific implications of each processing level.
+
+Use clear narratives, visual comparisons, and quantitative results.
+
+Required report sections
+
+1. Executive summary
+
+What did we learn, and what should we build?
+
+2. How the drone pipeline evolved
+
+A concise narrative from the original H5 implementation to P185.
+
+3. What was actually broken
+
+Separate software bugs from missing information and physical limitations.
+
+4. What additional information bought us
+
+Quantify the value of each new data source.
+
+5. How much did spectral quality improve?
+
+Use common-support comparisons.
+
+6. How much complexity did we add?
+
+Compare data volume, runtime, storage, dependencies, and manual work.
+
+7. Which assumptions are safe?
+
+Identify assumptions that approximate the full-information result.
+
+8. When do those assumptions fail?
+
+Provide observable failure conditions.
+
+9. The recommended out-of-the-box pipeline
+
+Show the minimum required inputs and automatic behavior.
+
+10. Optional enhancements
+
+Explain when camera geometry, compact calibration, or full photographs are justified.
+
+11. Radiometric calibration contract
+
+Document the verified MicaSense/Metashape scaling and permanent package implementation.
+
+12. Proposed software architecture
+
+Show modules, data contracts, processing decisions, and outputs.
+
+13. Implementation roadmap
+
+Prioritize the changes needed to reach the recommended architecture.
+
+14. Remaining scientific limitations
+
+Clearly distinguish engineering completion from physical validation.
+
+⸻
+
+12. Required figures
+
+Produce a visually compelling report with at least the following figures.
+
+Figure 1 — Evolution of SpectralBridge
+
+A timeline showing the original H5 pipeline through P185.
+
+Identify major discoveries, fixes, and additional data sources.
+
+Figure 2 — Processing levels
+
+A diagram showing the inputs required at each level.
+
+Make the increasing data requirements visually obvious.
+
+Figure 3 — What each new input provides
+
+A capability matrix showing which information is available at each processing level.
+
+Figure 4 — Radiometric scaling recovery
+
+Show original stored values, historical interpretation, and verified calibrated reflectance.
+
+Include example spectra.
+
+Figure 5 — Viewing geometry
+
+Compare nadir assumptions, actual adjusted camera geometry, and original-photo observations.
+
+Figure 6 — BRDF improvement
+
+Show held-out performance as additional geometry and repeated observations become available.
+
+Use common-support metrics.
+
+Figure 7 — Topographic correction
+
+Show what improved with better terrain information and what remained unresolved despite original-photo recovery.
+
+Figure 8 — Spectral-library consequences
+
+Compare extracted polygon spectra and within-class variability across supported processing levels.
+
+Figure 9 — Accuracy versus complexity
+
+Plot measured scientific improvement against data volume, runtime, or operational cost.
+
+Where accuracy cannot be independently established, use clearly labeled conditional performance metrics instead.
+
+Figure 10 — Compact calibration experiment
+
+Show how BRDF performance changes with the number of targets and repeated observations.
+
+Figure 11 — Recommended architecture
+
+A clean diagram of the proposed core pipeline and optional enhancements.
+
+Figure 12 — Decision framework
+
+A flowchart showing when additional metadata or original photographs are necessary.
+
+Use consistent visual styling.
+
+Prefer maps, spectra, and interpretable scientific plots over dense tables.
+
+Do not manufacture missing comparisons or use unsupported claims of absolute accuracy.
+
+⸻
+
+PART IX — IMPLEMENTATION AND VALIDATION
+
+13. Implementation scope
+
+This task has two different implementation priorities.
+
+Required implementation
+
+Permanently harden radiometric scaling and metadata interpretation in the actual package.
+
+Add tests and documentation.
+
+This must be completed.
+
+Conditional implementation
+
+Implement small, reusable functions that directly support the comparison or recommended architecture.
+
+Examples:
+
+* Input capability detection.
+* Radiometric provenance validation.
+* Compact calibration dataset export.
+* Processing-level diagnostics.
+* Correction-support summaries.
+
+Avoid a large speculative refactor.
+
+Do not rewrite the existing production pipeline solely to match the proposed architecture.
+
+Document larger architectural changes as a prioritized implementation plan.
+
+⸻
+
+14. Verification
+
+Run the relevant existing tests and new regression tests.
+
+Confirm:
+
+* Correct radiometric conversion.
+* No double scaling.
+* No double calibration.
+* Correct band identity.
+* Spatial metadata preservation.
+* Existing NEON behavior.
+* Existing correction mathematics.
+* Explicit unsupported statuses.
+* Reproducible report calculations.
+
+Record test counts and any failures.
+
+Keep source files and historical investigations immutable.
+
+Do not overwrite experimental results.
+
+⸻
+
+PART X — FINAL DECISION
+
+15. Answer these questions explicitly
+
+End the report with a concise decision section answering:
+
+1. How much better is the final original-photo approach than the original H5-only pipeline?
+
+Separate software repairs from information-driven improvements.
+
+2. How much of that improvement can be obtained using only a correctly calibrated H5?
+
+3. How much additional improvement comes from actual camera geometry?
+
+4. How much additional improvement comes from repeated original-photo observations?
+
+5. Can a compact calibration dataset reproduce most of the original-photo BRDF improvement?
+
+6. Which simple assumptions are sufficiently accurate for routine processing?
+
+7. Under what measurable conditions do those assumptions fail?
+
+8. What is the minimum input dataset needed for reliable polygon spectral extraction?
+
+9. What is the minimum input dataset needed for supported topographic and BRDF correction?
+
+10. When should SpectralBridge require original photographs?
+
+11. When would additional solar-illumination observations be more valuable than additional photographs?
+
+12. Is the correct MicaSense/Metashape radiometric scaling now permanently implemented in the production package and protected by tests?
+
+13. What should the default drone pipeline look like?
+
+14. What should remain optional?
+
+15. What are the next three highest-priority development changes?
+
+For each answer, distinguish:
+
+* Demonstrated evidence.
+* Reasonable engineering inference.
+* Unverified scientific assumption.
+* Work requiring additional observations.
+
+⸻
+
+Success criteria
+
+This investigation succeeds when we can explain, quantitatively and visually:
+
+How much additional scientific value did we obtain from each increase in pipeline complexity?
+
+We should be able to decide whether a new drone dataset needs only a calibrated H5, additional camera metadata, a compact original-photo calibration dataset, or complete original-photo processing.
+
+The preferred architecture should achieve as much of the full-information performance as possible using the smallest practical input dataset.
+
+Most importantly:
+
+The known radiometric scaling problem must be permanently resolved in the production package, so future datasets do not require rediscovering the MicaSense/Metashape calibration conventions.
+
+Do not finish with only recommendations. Complete the radiometric implementation, tests, and documentation, then provide the quantitative architecture report.
+```

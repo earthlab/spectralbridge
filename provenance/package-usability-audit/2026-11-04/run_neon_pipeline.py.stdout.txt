@@ -1,0 +1,8 @@
+SpectralBridge NEON pipeline configuration
+  output: /Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/outputs/neon_demo
+  site/month: NIWO / 2023-08
+  flightlines: 1
+  engine/workers: thread / 1
+  extraction: full
+  stages: download → raw ENVI → topo/BRDF → sensor convolution → Parquet → QA
+Configuration is valid; no network or processing work was performed.

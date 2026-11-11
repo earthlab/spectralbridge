@@ -1,0 +1,273 @@
+[
+  {
+    "package": "AOP-GOLDHILL-08-14-23-ExportPackage",
+    "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-8-14-2023-camera-locations.csv",
+    "remote_md5": "1e4979e1d475890de31b77e4d85cd609",
+    "sha256": "3cc4505e80353b50bb04b530e369e168d258724047f2903a7262c5ca9d4ce53d",
+    "rows": 5650,
+    "declared_camera_rows": 5650,
+    "declared_epsg": "5070",
+    "columns": [
+      "PhotoID",
+      "X",
+      "Y",
+      "Z",
+      "Omega",
+      "Phi",
+      "Kappa",
+      "r11",
+      "r12",
+      "r13",
+      "r21",
+      "r22",
+      "r23",
+      "r31",
+      "r32",
+      "r33"
+    ],
+    "unique_photo_ids": 5650,
+    "duplicated_photo_ids": 0,
+    "missing_values": 0,
+    "numeric_values_finite": true,
+    "unique_xyz_positions": 565,
+    "xyz_min": [
+      457667.0441,
+      4432650.051,
+      2834.023433
+    ],
+    "xyz_max": [
+      457896.3455,
+      4432791.581,
+      2843.090334
+    ],
+    "max_rotation_orthogonality_error": 1.2462104681532082e-09,
+    "rotation_determinant_range": [
+      0.9999999985797828,
+      1.0000000014344355
+    ],
+    "timestamps_in_table": false,
+    "source_immutable": true,
+    "geometry_status": "SOURCE_CAMERA_METADATA; actual mosaic contributors, clock, vertical datum and physical radiometry not certified",
+    "historical_footprint_check": {
+      "reference": "provenance/drone-spatial-integrity/2026-10-29/production_source_comparison.json",
+      "raster_crs": "EPSG:26913",
+      "inside_using_declared_crs": 0,
+      "inside_if_xy_already_in_raster_crs": 5650,
+      "qualification": "Historical processing footprint, not a new survey validation. Alternate interpretation is diagnostic only; source CRS not relabeled."
+    }
+  },
+  {
+    "package": "AOP-GORDON-08-14-23-ExportPackage",
+    "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-2023-camera-locations.csv",
+    "remote_md5": "08ebc153da927cd119628316c13c7a76",
+    "sha256": "f1401bbf800abe8945b74f134cfcf45f8b0f26ffb6e35ec19b8d87afb19f8bb8",
+    "rows": 5720,
+    "declared_camera_rows": 5720,
+    "declared_epsg": "26913",
+    "columns": [
+      "PhotoID",
+      "X",
+      "Y",
+      "Z",
+      "Omega",
+      "Phi",
+      "Kappa",
+      "r11",
+      "r12",
+      "r13",
+      "r21",
+      "r22",
+      "r23",
+      "r31",
+      "r32",
+      "r33"
+    ],
+    "unique_photo_ids": 5720,
+    "duplicated_photo_ids": 0,
+    "missing_values": 0,
+    "numeric_values_finite": true,
+    "unique_xyz_positions": 572,
+    "xyz_min": [
+      457307.3224,
+      4428860.196,
+      2781.187121
+    ],
+    "xyz_max": [
+      457538.3369,
+      4429002.267,
+      2793.889088
+    ],
+    "max_rotation_orthogonality_error": 1.3535540466236284e-09,
+    "rotation_determinant_range": [
+      0.99999999857589,
+      1.0000000014785173
+    ],
+    "timestamps_in_table": false,
+    "source_immutable": true,
+    "geometry_status": "SOURCE_CAMERA_METADATA; actual mosaic contributors, clock, vertical datum and physical radiometry not certified",
+    "historical_footprint_check": {
+      "reference": "provenance/drone-spatial-integrity/2026-10-29/production_source_comparison.json",
+      "raster_crs": "EPSG:26913",
+      "inside_using_declared_crs": 5720,
+      "inside_if_xy_already_in_raster_crs": 5720,
+      "qualification": "Historical processing footprint, not a new survey validation. Alternate interpretation is diagnostic only; source CRS not relabeled."
+    }
+  },
+  {
+    "package": "AOP-MRS1-08-14-23-ExportPackage",
+    "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-MRS1-08-14-23-ExportPackage/AOP-MRS1-8-14-2023-camera-locations.csv",
+    "remote_md5": "2266fc374c5f1121299e2809f03fa946",
+    "sha256": "4a5b393943699aad1554d43e7f3d43f360693c67195b9f7396a6b4b07b1a1597",
+    "rows": 4500,
+    "declared_camera_rows": 4500,
+    "declared_epsg": "26913",
+    "columns": [
+      "PhotoID",
+      "X",
+      "Y",
+      "Z",
+      "Omega",
+      "Phi",
+      "Kappa",
+      "r11",
+      "r12",
+      "r13",
+      "r21",
+      "r22",
+      "r23",
+      "r31",
+      "r32",
+      "r33"
+    ],
+    "unique_photo_ids": 4500,
+    "duplicated_photo_ids": 0,
+    "missing_values": 0,
+    "numeric_values_finite": true,
+    "unique_xyz_positions": 450,
+    "xyz_min": [
+      453817.2732,
+      4431680.18,
+      3099.126445
+    ],
+    "xyz_max": [
+      453938.4677,
+      4431906.68,
+      3139.011073
+    ],
+    "max_rotation_orthogonality_error": 1.39482980721084e-09,
+    "rotation_determinant_range": [
+      0.9999999985328368,
+      1.0000000016824866
+    ],
+    "timestamps_in_table": false,
+    "source_immutable": true,
+    "geometry_status": "SOURCE_CAMERA_METADATA; actual mosaic contributors, clock, vertical datum and physical radiometry not certified"
+  },
+  {
+    "package": "AOP-MRS2-08-14-23-ExportPackage",
+    "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-MRS2-08-14-23-ExportPackage/AOP-MRS2-8-14-2023-camera-locations.csv",
+    "remote_md5": "53ef352fc75bf635ebd21171a5164e22",
+    "sha256": "f4ff502d6391ffb9d14b5a3561aee4c2e1d7815444ca7a8d835b71199265e6e2",
+    "rows": 4330,
+    "declared_camera_rows": 4330,
+    "declared_epsg": "26913",
+    "columns": [
+      "PhotoID",
+      "X",
+      "Y",
+      "Z",
+      "Omega",
+      "Phi",
+      "Kappa",
+      "r11",
+      "r12",
+      "r13",
+      "r21",
+      "r22",
+      "r23",
+      "r31",
+      "r32",
+      "r33"
+    ],
+    "unique_photo_ids": 4330,
+    "duplicated_photo_ids": 0,
+    "missing_values": 0,
+    "numeric_values_finite": true,
+    "unique_xyz_positions": 433,
+    "xyz_min": [
+      453868.8168,
+      4431693.082,
+      3111.996047
+    ],
+    "xyz_max": [
+      453983.4686,
+      4431906.8,
+      3136.998649
+    ],
+    "max_rotation_orthogonality_error": 1.3785452779302432e-09,
+    "rotation_determinant_range": [
+      0.9999999985715052,
+      1.0000000014012396
+    ],
+    "timestamps_in_table": false,
+    "source_immutable": true,
+    "geometry_status": "SOURCE_CAMERA_METADATA; actual mosaic contributors, clock, vertical datum and physical radiometry not certified"
+  },
+  {
+    "package": "AOP-Ruby-08-14-23-ExportPackage",
+    "remote_path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-8-14-2023-camera-locations.csv",
+    "remote_md5": "5fe313ee3749cbd840766e813315ea8f",
+    "sha256": "40964dcc5167b033babfa5e24b38b6be60ddf79dd19944c07ed68b4760ef1f15",
+    "rows": 5070,
+    "declared_camera_rows": 5070,
+    "declared_epsg": "26913",
+    "columns": [
+      "PhotoID",
+      "X",
+      "Y",
+      "Z",
+      "Omega",
+      "Phi",
+      "Kappa",
+      "r11",
+      "r12",
+      "r13",
+      "r21",
+      "r22",
+      "r23",
+      "r31",
+      "r32",
+      "r33"
+    ],
+    "unique_photo_ids": 5070,
+    "duplicated_photo_ids": 0,
+    "missing_values": 0,
+    "numeric_values_finite": true,
+    "unique_xyz_positions": 507,
+    "xyz_min": [
+      455716.0144,
+      4431984.419,
+      2830.921287
+    ],
+    "xyz_max": [
+      455931.4827,
+      4432120.369,
+      2898.116277
+    ],
+    "max_rotation_orthogonality_error": 1.5541240516725452e-09,
+    "rotation_determinant_range": [
+      0.9999999985587804,
+      1.0000000013982802
+    ],
+    "timestamps_in_table": false,
+    "source_immutable": true,
+    "geometry_status": "SOURCE_CAMERA_METADATA; actual mosaic contributors, clock, vertical datum and physical radiometry not certified",
+    "historical_footprint_check": {
+      "reference": "provenance/drone-spatial-integrity/2026-10-29/production_source_comparison.json",
+      "raster_crs": "EPSG:26913",
+      "inside_using_declared_crs": 3380,
+      "inside_if_xy_already_in_raster_crs": 3380,
+      "qualification": "Historical processing footprint, not a new survey validation. Alternate interpretation is diagnostic only; source CRS not relabeled."
+    }
+  }
+]

@@ -20,6 +20,29 @@ same corrected NEON source. It is diagnostic, not universal empirical sensor
 calibration. Drone use of those coefficients remains an explicit opt-in with
 band-level cautions and a corrected-value scale check.
 
+## Capability map
+
+Three pipelines support six researcher tasks. Start with the guide rather than
+assembling low-level transforms yourself. A supported callable does not certify
+the scientific validity of arbitrary inputs.
+
+| Task / primary user | Expected inputs → useful outputs | Primary Python entry point | CLI / simplest example | Support |
+| --- | --- | --- | --- | --- |
+| NEON processing / airborne researcher | NEON directional-reflectance H5 + site/date → corrected ENVI, target bands, optional tables, QA | `spectralbridge.go_forth_and_multiply`; `process_one_flightline` for one flight | `spectralbridge-pipeline`; `python examples/run_neon_pipeline.py --check` before the [NEON guide](full-pipeline.md) | Core; real downloads require credentials and storage |
+| Drone processing / UAS researcher | Supported local TIFF/H5 + verified radiometry and aligned geometry → native/corrected ENVI, optional translated bands, QA | `spectralbridge.run_drone_pipeline` | JSON runner: `python examples/run_drone_pipeline.py --check`; [drone guide](drone-processing.md) | Core orchestration; inferred viewing reconstruction remains experimental |
+| Sensor translation / cross-sensor researcher | Corrected hyperspectral data and target responses, or drone data and reviewed coefficients → separately named target-band products | Existing NEON pipeline for convolution; `run_drone_pipeline(..., apply_translation=True)` for drone affine translation | Included in the producer workflows; [sensor guide](sensor-harmonization.md) | Supported configured transforms; synthetic comparisons do not establish empirical calibration |
+| Library creation / field collaborator | Completed products + overlapping researcher polygons → pixel index and labeled spectral Parquet | `spectralbridge.polygons.run_polygon_pipeline_for_flightline` | Python / [polygon example](polygon-extraction.md) | Core extraction; labels and polygon definitions come from the researcher |
+| Library inspection and analysis / ecologist | Existing spectral Parquet, or same-unit arrays with labels/identities → compact summaries, separability/recognition metrics, mixture diagnostics | `inspect_spectral_library_preflight`, `run_spectral_library_analysis`; explicit `spectralbridge.library_analysis` methods | `python examples/scientific_workflows_offline.py`; analysis lesson: `python examples/spectral_library_methods.py` | Core reporting; numerical analysis contracts have explicit assumptions; field abundance mapping is experimental |
+| Bulk analysis / collection manager | Completed immutable flightline outputs → compact pooled/balanced/held-out statistics and reports | `spectralbridge.run_bulk_pipeline`, then `summarize_bulk_results` | `spectralbridge-bulk SOURCE --output-dir NEW_DIR --preflight-only`; [bulk guide](bulk-analysis.md) | Core; ordinary analysis does not copy all pixels |
+
+The first two offline lessons need no credentials. The analysis lesson needs the
+`analytics` extra. A configuration `--check` confirms JSON structure and options;
+it does not verify a missing dataset, geometry or scientific eligibility.
+
+[Installation and offline results](../getting-started.md) ·
+[Scientific method assumptions](../api/scientific-analysis.md) ·
+[Which outputs to open first](../pipeline/outputs.md)
+
 ## Start with your situation
 
 | I want to… | Vignette |

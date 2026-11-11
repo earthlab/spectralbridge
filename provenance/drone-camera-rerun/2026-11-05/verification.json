@@ -1,0 +1,99 @@
+[
+  {
+    "site": "Gordon",
+    "original_and_derived_inputs_unchanged": true,
+    "implementation_frozen": true,
+    "raw_candidate_exact_prepared": true,
+    "products": [
+      {
+        "branch": "topographic_only",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "native_envi_exact": true,
+        "finite_values_compared": 58591070,
+        "library_gate_rejection": "Experimental correction is not eligible for an approved spectral library",
+        "topographic_applied": true,
+        "brdf_applied": false
+      },
+      {
+        "branch": "brdf_only",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "native_envi_exact": true,
+        "finite_values_compared": 58983430,
+        "library_gate_rejection": "Experimental correction is not eligible for an approved spectral library",
+        "topographic_applied": false,
+        "brdf_applied": true
+      },
+      {
+        "branch": "combined",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "native_envi_exact": true,
+        "finite_values_compared": 58591070,
+        "library_gate_rejection": "Experimental correction is not eligible for an approved spectral library",
+        "topographic_applied": true,
+        "brdf_applied": true
+      }
+    ]
+  },
+  {
+    "site": "Goldhill",
+    "original_and_derived_inputs_unchanged": true,
+    "implementation_frozen": true,
+    "raw_candidate_exact_prepared": true,
+    "products": [
+      {
+        "branch": "topographic_only",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "native_envi_exact": true,
+        "finite_values_compared": 66523865,
+        "library_gate_rejection": "Experimental correction is not eligible for an approved spectral library",
+        "topographic_applied": true,
+        "brdf_applied": false
+      },
+      {
+        "branch": "brdf_only",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "native_envi_exact": true,
+        "finite_values_compared": 66839050,
+        "library_gate_rejection": "Experimental correction is not eligible for an approved spectral library",
+        "topographic_applied": false,
+        "brdf_applied": true
+      },
+      {
+        "branch": "combined",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "native_envi_exact": true,
+        "finite_values_compared": 66523865,
+        "library_gate_rejection": "Experimental correction is not eligible for an approved spectral library",
+        "topographic_applied": true,
+        "brdf_applied": true
+      }
+    ]
+  },
+  {
+    "site": "Ruby",
+    "original_and_derived_inputs_unchanged": true,
+    "implementation_frozen": true,
+    "raw_candidate_exact_prepared": true,
+    "products": [
+      {
+        "branch": "topographic_only",
+        "status": "EXECUTED_EXPERIMENTAL",
+        "native_envi_exact": true,
+        "finite_values_compared": 19855840,
+        "library_gate_rejection": "Experimental correction is not eligible for an approved spectral library",
+        "topographic_applied": true,
+        "brdf_applied": false
+      },
+      {
+        "branch": "brdf_only",
+        "status": "UNSUPPORTED",
+        "reason": "Requested drone correction did not produce a corrected output."
+      },
+      {
+        "branch": "combined",
+        "status": "UNSUPPORTED",
+        "reason": "BRDF INVALID: retained native/topographic-only products; approved downstream processing is blocked."
+      }
+    ]
+  }
+]

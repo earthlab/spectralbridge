@@ -1,0 +1,127 @@
+[
+  {
+    "site": "Goldhill",
+    "branch": "topographic_only",
+    "status": "EXECUTED_EXPERIMENTAL",
+    "audit": {
+      "requested_topo": true,
+      "requested_brdf": false,
+      "topo_applied": true,
+      "brdf_applied": false,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "scientific_validation_status": "EXPERIMENTAL",
+      "experimental_configuration": {
+        "topographic_model_sha256": "8041c61d39e01d7d0977c53c9f97f37d0c2d3eaae49ee53dd6b8105da2ddd00f"
+      },
+      "radiometry": {
+        "scale": 0.0001999969482421875,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset"
+      },
+      "brdf_status": "NOT_REQUESTED",
+      "topo_ready": true,
+      "brdf_ready": false
+    },
+    "image": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/reproduced_baseline/goldhill/topographic_only/AOP_GOLDHILL_20230814__topographic_only_EXPERIMENTAL.img",
+    "header": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/reproduced_baseline/goldhill/topographic_only/AOP_GOLDHILL_20230814__topographic_only_EXPERIMENTAL.hdr",
+    "elapsed_seconds": 1.244688166945707,
+    "geotiff": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/reproduced_baseline/goldhill/topographic_only/AOP_GOLDHILL_20230814__topographic_only_EXPERIMENTAL.tif"
+  },
+  {
+    "site": "Goldhill",
+    "branch": "brdf_only",
+    "status": "EXECUTED_EXPERIMENTAL",
+    "audit": {
+      "requested_topo": false,
+      "requested_brdf": true,
+      "topo_applied": false,
+      "brdf_applied": true,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "scientific_validation_status": "EXPERIMENTAL",
+      "experimental_configuration": {
+        "fitting_mask_sha256": "57fd2819739d71816671c4f6d2f89f651b546013fb852b12480c49ee6f2b6866",
+        "uncertainty_groups_sha256": "744e3a26830adcbc49579ca02b18fbe4c487d26e84d023412909354cf0592de9",
+        "fitting_provenance": {
+          "strategy": "Exclude evaluation polygons and2mManhattanbuffer",
+          "source_camera_sha256": "3cc4505e80353b50bb04b530e369e168d258724047f2903a7262c5ca9d4ce53d",
+          "geometry": "Center-weighted candidate ray kernels, not recovered contributors",
+          "calibration": "HYPOTHETICAL_UNVERIFIED DN/32768",
+          "uncertainty": "20m spatial clusters"
+        }
+      },
+      "radiometry": {
+        "scale": 0.0001999969482421875,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset"
+      },
+      "brdf_status": "VALID",
+      "topo_ready": false,
+      "brdf_ready": true
+    },
+    "image": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/reproduced_baseline/goldhill/brdf_only/AOP_GOLDHILL_20230814__brdf_only_EXPERIMENTAL.img",
+    "header": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/reproduced_baseline/goldhill/brdf_only/AOP_GOLDHILL_20230814__brdf_only_EXPERIMENTAL.hdr",
+    "elapsed_seconds": 13.417543167015538,
+    "geotiff": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/reproduced_baseline/goldhill/brdf_only/AOP_GOLDHILL_20230814__brdf_only_EXPERIMENTAL.tif"
+  },
+  {
+    "site": "Goldhill",
+    "branch": "combined",
+    "status": "EXECUTED_EXPERIMENTAL",
+    "audit": {
+      "requested_topo": true,
+      "requested_brdf": true,
+      "topo_applied": true,
+      "brdf_applied": true,
+      "topo_fallback_due_to_nodata": false,
+      "brdf_fallback_due_to_nodata": false,
+      "brightness_applied": false,
+      "cloud_mask_applied": false,
+      "reused_existing_corrected": false,
+      "correction_status_source": "live_run",
+      "ndvi_brdf_bins_enabled": false,
+      "scientific_validation_status": "EXPERIMENTAL",
+      "experimental_configuration": {
+        "topographic_model_sha256": "8041c61d39e01d7d0977c53c9f97f37d0c2d3eaae49ee53dd6b8105da2ddd00f",
+        "fitting_mask_sha256": "57fd2819739d71816671c4f6d2f89f651b546013fb852b12480c49ee6f2b6866",
+        "uncertainty_groups_sha256": "744e3a26830adcbc49579ca02b18fbe4c487d26e84d023412909354cf0592de9",
+        "fitting_provenance": {
+          "strategy": "Exclude evaluation polygons and2mManhattanbuffer",
+          "source_camera_sha256": "3cc4505e80353b50bb04b530e369e168d258724047f2903a7262c5ca9d4ce53d",
+          "geometry": "Center-weighted candidate ray kernels, not recovered contributors",
+          "calibration": "HYPOTHETICAL_UNVERIFIED DN/32768",
+          "uncertainty": "20m spatial clusters"
+        }
+      },
+      "radiometry": {
+        "scale": 0.0001999969482421875,
+        "offset": 0.0,
+        "status": "HYPOTHETICAL_UNVERIFIED",
+        "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "convention": "physical = scale * stored + offset"
+      },
+      "brdf_status": "VALID",
+      "topo_ready": true,
+      "brdf_ready": true
+    },
+    "image": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/reproduced_baseline/goldhill/combined/AOP_GOLDHILL_20230814__combined_EXPERIMENTAL.img",
+    "header": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/reproduced_baseline/goldhill/combined/AOP_GOLDHILL_20230814__combined_EXPERIMENTAL.hdr",
+    "elapsed_seconds": 15.465556041977834,
+    "geotiff": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/reproduced_baseline/goldhill/combined/AOP_GOLDHILL_20230814__combined_EXPERIMENTAL.tif"
+  }
+]

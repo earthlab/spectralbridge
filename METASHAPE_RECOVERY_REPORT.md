@@ -1,0 +1,154 @@
+# Metashape recovery and drone correction investigation
+
+6 November 2026 | P183 | Experimental evidence, not production approval
+
+## Findings and decision
+
+Estimated camera orientations, band-specific calibrations, original photo responses and retained primary-source assignments were recovered for Ruby and Goldhill. These are materially better inputs than assumed nadir geometry. They do not yet establish a defensible replacement correction. Both topographic and BRDF corrections remain required, with unsupported results rejected.
+
+The strongest newly demonstrated defect is Goldhill source identity: its old camera table belongs to NOGCPS-WORKING, whereas its original mosaic belongs to WORKING. The median camera difference is +1.574 m east, -1.750 m north and -19.228 m vertically. The cause of the alignment/datum difference is not independently established. Production correction defaults, previous products and NEON behavior were preserved.
+
+## Recovery inventory and completeness
+
+The remote inventory contains 11,665 unique objects totalling 96,106,111,162 bytes across 121 collections under /iplant/home/shared/earthlab/Drone_Calibrations. Ruby and Goldhill are present. Gordon was not found in this collection or the established alternate locations searched; its project recovery remains pending a location/upload.
+
+Retrieval was staged: project descriptors, selected reconstruction assets, full-resolution mosaic tiles, absolute DEM assets and selected original photos. The complete 96.1 GB archive was not downloaded. Large cached per-photo orthophotos remain remote. remote_inventory.json records remote availability; retrieval_manifest.json records exact local paths, sizes, remote MD5 verification and SHA256. A referenced camera filename is not evidence that the photo was downloaded.
+
+Ruby WORKING has chunks 0 and 3, 5,210 camera-plane records, 5,070 aligned planes and 507 aligned exposures in the primary chunk. Goldhill WORKING has 6,090 records, 5,650 aligned planes and 565 aligned exposures. Goldhill NOGCPS-WORKING contains three chunk variants of the same flight, not three independent flights. All have ten sensors. Reports, tie points, panel metadata and surface/mosaic descriptors are available. Raw photo subsets are physically recovered and checksum verified; the remainder are remotely accessible references.
+
+The reliable analysis cache is /private/tmp/spectralbridge-metashape-recovery-20261105/sources. Initial OneDrive photo reads timed out; analysis was rerun from the verified cache. Temporary cache persistence is not archival storage: preserve or rehydrate it using the manifest before another run.
+
+## Geometry and validation
+
+The official Metashape Python API 2.3.2 opens the saved 1.8.3 projects read-only while reporting no active license. No project save, licensed reconstruction, activation or export was attempted. extract_projects.py exports camera transforms, estimated chunk/ECEF/project centers, separate reference coordinates, covariance where available and ten separate initial/adjusted sensor calibrations to CSV/Parquet/JSON. Per-photo presence flags distinguish local files from unresolved references.
+
+Calibrated unprojection and chunk-to-ECEF transforms define rays; ground-to-camera vectors define view zenith and clockwise-from-north azimuth. DLS attitude is not camera orientation. Reference GPS and estimated alignment coordinates remain distinct. Composite project fingerprints include descriptors: all three tiny PSX pointers have identical checksums and cannot identify an alignment alone.
+
+Ruby median optical-axis tilt is 6.679 degrees (maximum 30.40); Goldhill WORKING median is 5.069 (maximum 25.04). These differ from ground-point viewing angles. Stored DEM intersections produce complete four-corner red-plane footprints for 501/507 Ruby and 555/565 Goldhill exposures. Incomplete footprints are retained as incomplete.
+
+Internal tie-point reprojection medians are approximately 0.279 pixels for Ruby (827 observations) and 0.282 for Goldhill (661). These are reconstruction fit diagnostics, not independent geolocation accuracy. Algebraic ray consistency is a computational test only. DEM nearest-sample versus first-ray-hit discrepancies reach metres in canopy/rough terrain; field control accuracy remains unverified.
+
+Ruby has both an absolute DEM and an active Canopy Height surface. Rays explicitly use DEM id 0. Relative canopy height cannot substitute for absolute elevation. Viewing DSM and ground terrain for SCS+C need separate, typed roles.
+
+## Bind imagery to its reconstruction
+
+The original Goldhill camera CSV matches NOGCPS estimated positions to within approximately 0.000502 m. In contrast, pixel comparison binds its original unscaled mosaic to WORKING: bilinear red-band RMSE is 0.286 DN over 10,145 valid samples, versus approximately 910 DN for unshifted NOGCPS. Ruby WORKING matches its original mosaic to 0.288 DN over 3,080 red samples. All ten bands were compared; full metrics are in original_mosaic_binding.json.
+
+Two inspection details matter. Stored mosaic TIFFs begin with a 257-square thumbnail; the experimental reader explicitly selects the native multispectral TIFF directory and checks its dimensions against the paired mask. The original export has an explicit eleventh alpha band, which must be tested directly; its generic GDAL dataset mask is all-valid. No source TIFF was repaired or rewritten.
+
+Goldhill repeated-target geometry was rebound to WORKING using 141 identical observed source-image feature coordinates, with differences below 1e-6 pixel. Numeric track IDs alone were not used as proof of identity. The prior NOGCPS experiment remains preserved as a control.
+
+## Actual contributions and the historical red boundary
+
+The official orthomosaic.camera(point) method exposes retained primary camera assignments. This is actual retained primary-source evidence, stronger than geometric footprints. It does not expose effective blending weights. Empty manual patches do not establish that blending is absent. Cached orthorectified photos were inventoried, but not interpreted as recovered weight maps.
+
+At the fixed historical Goldhill ROI (rows 573:974, columns 812:1313), 528 gain-switch edges were compared directly with primary-source changes. WORKING coincides at only 2 edges: 99.6212% remain within the same primary camera. NOGCPS coincides at 10. The known crossing at row 921, columns 980 through 982 has the same WORKING primary camera key 1690. Thus a simple primary-photo seam does not explain the historical gain boundary. Blending/radiometric effects cannot be entirely excluded without weights. Earlier algorithmic ablations remain the evidence for the generated extreme jump; these source maps add an independent spatial control.
+
+## Original-image overlap experiment
+
+Twenty-three tracked ground features were selected: 11 Ruby and 12 Goldhill. Selection used a fixed lattice followed by the nearest tracked feature within 20 m, requiring at least six master-image observations, then angular diversity. Actual shifts were about 1.5-11 m. This is an overlap-enriched feasibility sample, not an unbiased vegetation census. A stricter 5 m selection is retained separately.
+
+The final dataset contains 325 band-target records from 315 unique original photos. Ruby has 88 red-band observations across 11 targets and 14 observations in each other band across two full-spectrum targets. Goldhill has 111 red-band observations across 12 targets. Original tracked feature coordinates identify repeated observations; calibrated rig geometry supplies other bands. Median reprojection discrepancy is about 0.277 pixels, maximum 7.50; explicit 1 and 0.5 pixel sensitivity fits preserve rejected/missing cases.
+
+The same RossThick/LiDenseR formulation and 45-degree sun/nadir reference were used. Of 29 Ruby all-tracked target-band fits, 28 are numerically supported and one is invalid; red alone is 10/11. Goldhill red is 12/12 numerically supported. This demonstrates improved directional information, not production approval. Every target lacks more than three independent one-minute temporal groups, so temporal uncertainty is explicitly insufficient. Exposure-based standard errors condition on shared calibration and do not establish independent physical accuracy.
+
+Responses are vendor-calibrated original-photo patch measurements, before the required full topographic correction stage. Fits cannot simply be transplanted to a differently processed orthomosaic. No new corrected raster was justified or produced.
+
+## Why Ruby still does not pass
+
+Using retained primary-camera geometry at the previous 1 m training mask does not resolve the mosaic models. Ruby has 18,198 samples, condition number 2,848.92 and reference prediction -0.03382 with standard error 0.02951. The reference remains outside sampled volume-kernel bounds and the fit is INVALID.
+
+Goldhill WORKING has 61,279 samples, condition 85.75, reference 0.04604 and standard error 0.00203, but 32 application predictions remain unsupported; it is also INVALID. Primary-camera geometry is not an effective blended kernel. Higher rank, more samples or a resolved mean reference cannot override unsupported application predictions. Local repeated-photo success does not establish a global correction.
+
+## Radiometric provenance and storage
+
+Original uint16 photographs retain exposure, ISO, black level 4800, vignetting, radiometric coefficients, DLS irradiance and solar metadata. Sensor sensitivity normalization is enabled and float normalization disabled. The project retains per-camera ReflectanceFactor values. Photo.image() matches raw PIL pixels exactly; Camera.image() applies the project calibration. In-memory doubling of ReflectanceFactor doubles processed values within two DN rounding. Nine patch registration controls per site show zero best gradient shift. Source descriptors remain unchanged.
+
+Panel serial RP06-2104096-OB and band albedos around 0.485-0.488 are retained. Goldhill has two complete ten-band panel sets; Ruby's first set lacks stored panel calibration at 531, 650 and 705 nm, while its second set has all ten. Thirty-seven referenced panel images reproduce the stored albedos closely, with real within-panel variation. This is resubstitution on calibration inputs, not independent validation. DLS metadata presence does not prove the original Use Sun Sensor checkbox or full task recipe.
+
+Official MicaSense/Metashape documentation defines 100% reflectance as 32768 DN for this calibrated integer output. Project settings, controlled application and near-exact original-mosaic binding now strongly support DN/32768 as the Ruby/Goldhill export encoding. Independent physical calibration accuracy remains unverified; no production VALID status was silently assigned. Gordon was not newly verified.
+
+The old 10 cm fixed-range preparation is stored = original_DN * 10000 / 65535. Under the supported export encoding, fraction = stored * 0.0001999969482421875; unit reflectance is therefore about 5000.08 stored units, not 10000. Resampling does not establish physical calibration. A new fraction-times-10000 product must declare an explicit scale, preserve values above 10000 where present, and be a new immutable product, not overwrite the old preparation.
+
+Raw black level must not be subtracted again from an already calibrated mosaic. Source metadata identifies NIR as 842 nm, whereas earlier pipeline declarations said 862 nm. This requires source-specific metadata binding before adoption; production bands were not silently changed. DLS solar values interpreted in radians agree with the UTC solar calculation within about 0.27 degrees in zenith, but this is a convention consistency check, not independent solar instrument validation.
+
+## Extreme gains and correction stability
+
+The preceding investigation found maximum combined red gains near 17.17 for Gordon and 21.55 for Goldhill, including near-zero SCS+C denominators with negative fitted C. Better camera geometry changes BRDF inputs; SCS+C does not use camera viewing angles. A uniform positive radiometric scale alone does not remove its fitted denominator pole. The Goldhill alignment mismatch is real, but cannot by itself be declared the cause of all topographic tails.
+
+Terrain, canopy/ground surface distinction, shadows, calibration variation and fit/application support still require controlled validation. No arbitrary gain cap, identity fallback, invented coefficient or weakened gate was introduced. Gordon cannot receive a new project-based diagnosis until its project is supplied. Existing P182 controls and correction products remain authoritative historical evidence.
+
+## Recommended architecture and roadmap
+
+Recommend a hybrid workflow (D), with original-photo correction before final mosaicking (C) when supported. Bind an immutable project/chunk fingerprint to source imagery, absolute viewing surface, ground terrain, calibration and per-band wavelengths. Recover repeated registered observations to estimate directional effects with independent spatial/temporal validation. Apply both accepted topographic and BRDF stages in a matched fit/application space, then mosaic through a licensed reproducible Metashape workflow and retain SpectralBridge's existing orthomosaic downstream contracts.
+
+A: Improved orthomosaic geometry is useful QA, but primary assignments alone fail the present Ruby/Goldhill tests. B: Estimating from photos and applying to an existing blended mosaic requires known effective contribution kernels/weights; these are currently missing. C: Correcting photos preserves directional observations but requires licensed regeneration, careful shadow/terrain treatment, source calibration and seam/validation tests. D: Preserves downstream compatibility while making original overlaps the directional evidence; its implementation cost is higher but its physical assumptions are explicit.
+
+Supported now: read-only extraction, asset binding validation, portable geometry/calibration tables, typed surfaces, source-band metadata, repeated-observation diagnostics and explicit uncertainty reporting. Before production adoption: recover Gordon; establish independent panel/field reflectance and registration checks; obtain independent temporal/angular groups; test terrain/shadow handling; validate fit/application equivalence and either recover blend weights or regenerate mosaics from corrected originals. Compare on held-out sites/targets and retain current NEON math and fail-safe acceptance gates. No release or production upload is authorized by these experiments.
+
+## Answers to the ten scientific questions
+
+1. Estimated orientations present? Yes, Ruby and Goldhill contain photogrammetric transforms even without recorded camera IMU orientation.
+2. Accurate original-photo viewing angles? Reconstructable and internally checked; independent field accuracy is not established.
+3. Which photos contributed? Retained primary assignments yes; complete blending contributions/weights no.
+4. Repeated observations of the same targets? Yes, tracked source-image feature observations with explicit registration diagnostics.
+5. Enough diversity for reliable BRDF? Many local fits have numerical support; independent temporal/calibration uncertainty remains insufficient.
+6. Ruby normalization resolved? No. The mosaic fit remains invalid and local overlap fits do not approve a global correction.
+7. Goldhill red boundary explained by camera geometry? Simple primary-source switching is contradicted by the fixed spatial test; exact blended contributions remain unknown.
+8. Scaling uncertainty resolved? Encoding is strongly supported for Ruby/Goldhill; independent physical accuracy and full original processing recipe remain open.
+9. Stability improved? Better source binding and geometry are justified inputs, but they do not yet eliminate topographic poles or approve replacement corrections.
+10. Best future workflow? Original-overlap estimation with independently validated, matched topographic/BRDF application and licensed final mosaicking, retaining downstream SpectralBridge contracts.
+
+## Reproduction, evidence and limitations
+
+All experimental utilities and compact evidence are in provenance/metashape-recovery/2026-11-05. Start with remote_inventory.json, retrieval_manifest.json and project_extraction.json. Camera CSV/Parquet tables and sensors.json live in extracted/. The source mirror root can be supplied to extract_projects.py; the script is portable to an installed official Metashape Python environment. Remote source paths and checksums are authoritative, while local paths are deployment-specific.
+
+Key sequence: inventory_remote.py; retrieve.py with metadata/reconstruction/selected plans; extract_projects.py; validate_geometry.py; footprints.py; map_primary_geometry.py; bind_original_mosaics.py; select_tie_targets.py; rebind_goldhill_tracks.py; sample_photos.py; analyze_overlap.py; fit_primary_mosaic.py; goldhill_boundary.py; panel_controls.py. Scripts are investigation snapshots, not new public pipeline APIs. Selection plans, original inputs and preserved NOGCPS/strict-selection controls are required for exact reproduction.
+
+Thirty-nine focused regression tests passed in the recorded run, covering experimental geometry, drone view geometry, AOP equivalence, radiometric encoding and spatial round-trip contracts. No full-suite or release-readiness claim is made. Missing Gordon project, unavailable effective blend weights, partial raw-photo retrieval, unlicensed build/export operations, no independent reflectance truth and insufficient temporal groups remain explicit limitations.
+
+## Figures
+
+![Ruby calibrated footprints on the absolute DEM; incomplete intersections remain excluded.](provenance/metashape-recovery/2026-11-05/figures/ruby_working_footprints.png)
+
+Ruby calibrated footprints on the absolute DEM; incomplete intersections remain excluded.
+
+![Goldhill WORKING footprint reconstruction, distinct from the old NOGCPS camera table.](provenance/metashape-recovery/2026-11-05/figures/goldhill_working_footprints.png)
+
+Goldhill WORKING footprint reconstruction, distinct from the old NOGCPS camera table.
+
+![Ruby retained-primary viewing geometry; this is not a blend-weight map.](provenance/metashape-recovery/2026-11-05/figures/ruby_working_primary_geometry.png)
+
+Ruby retained-primary viewing geometry; this is not a blend-weight map.
+
+![Goldhill retained-primary geometry in the export-matching reconstruction.](provenance/metashape-recovery/2026-11-05/figures/goldhill_working_primary_geometry.png)
+
+Goldhill retained-primary geometry in the export-matching reconstruction.
+
+![Original Goldhill mosaic compared with the retained WORKING mosaic at fixed samples.](provenance/metashape-recovery/2026-11-05/figures/goldhill_working_mosaic_binding.png)
+
+Original Goldhill mosaic compared with the retained WORKING mosaic at fixed samples.
+
+![NOGCPS mismatch control, without a fitted arbitrary registration.](provenance/metashape-recovery/2026-11-05/figures/goldhill_nogcps_mosaic_binding.png)
+
+NOGCPS mismatch control, without a fitted arbitrary registration.
+
+![Tracked original-photo observations and kernel support. Local support is not global approval.](provenance/metashape-recovery/2026-11-05/figures/repeated_targets.png)
+
+Tracked original-photo observations and kernel support. Local support is not global approval.
+
+![Repeated spectra at two Ruby features; vendor-calibrated units, independent accuracy pending.](provenance/metashape-recovery/2026-11-05/figures/repeated_spectra.png)
+
+Repeated spectra at two Ruby features; vendor-calibrated units, independent accuracy pending.
+
+![Fixed historical gain boundary compared with actual primary assignments. Blending weights remain unavailable.](provenance/metashape-recovery/2026-11-05/figures/goldhill_boundary_sources.png)
+
+Fixed historical gain boundary compared with actual primary assignments. Blending weights remain unavailable.
+
+## Official technical references
+
+- [Metashape Python API](https://www.agisoft.com/pdf/metashape_python_api_2_3_1.pdf)
+- [Official calibrated footprint example](https://github.com/agisoft-llc/metashape-scripts/blob/master/src/footprints_to_shapes.py)
+- [MicaSense reflectance calibration workflow](https://agisoft.freshdesk.com/support/solutions/articles/31000148780-micasense-rededge-mx-processing-workflow-including-reflectance-calibration-in-agisoft-metashape-pro)
+
+Vendor documents support API/encoding interpretation; numerical project findings above come from the local evidence files.

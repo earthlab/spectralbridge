@@ -1,0 +1,44 @@
+[
+  {
+    "variant": "WORKING",
+    "ROI": [
+      573,
+      974,
+      812,
+      1313
+    ],
+    "historical_edges": 528,
+    "retained_source_change_coincident_edges": 2,
+    "fraction_historical_edges_same_primary_camera": 0.9962121212121212,
+    "distance_to_source_boundary_m_quantiles": [
+      0.0,
+      1.3892443989449805,
+      3.1,
+      4.219869633442707,
+      4.27551166528639
+    ],
+    "source_seam_edge_density": 0.014020952856073833,
+    "method": "Exact 0.1m edge locations selected in P165, before recovered project inspection; primary camera API, no blending weights"
+  },
+  {
+    "variant": "NOGCPS",
+    "ROI": [
+      573,
+      974,
+      812,
+      1313
+    ],
+    "historical_edges": 528,
+    "retained_source_change_coincident_edges": 10,
+    "fraction_historical_edges_same_primary_camera": 0.9810606060606061,
+    "distance_to_source_boundary_m_quantiles": [
+      0.0,
+      1.1421121838594774,
+      2.7,
+      3.257299494980466,
+      3.4000000000000004
+    ],
+    "source_seam_edge_density": 0.014312796208530806,
+    "method": "Exact 0.1m edge locations selected in P165, before recovered project inspection; primary camera API, no blending weights"
+  }
+]

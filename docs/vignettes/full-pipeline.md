@@ -8,6 +8,7 @@ corrected ENVI, harmonized sensor products, Parquet tables, and QA artifacts.
 ## What you need
 
 - Python 3.10 or newer with `spectralbridge` installed
+- a NEON API token for downloading (`NEON_API_TOKEN` or `NEON_TOKEN`; keep it out of configuration and version control);
 - enough local storage for the HDF5 and derived products
 - a NEON site, acquisition month, product code, and exact flightline identifier
 

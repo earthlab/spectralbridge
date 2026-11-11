@@ -1,0 +1,33 @@
+    site   baseline_stage  topographic_factor_interval_low  topographic_factor_interval_high
+  Gordon topographic_only                         3.552905                        366.863167
+  Gordon        brdf_only                              NaN                               NaN
+  Gordon         combined                         3.531094                        193.655448
+Goldhill topographic_only                         6.258516                        267.982666
+Goldhill        brdf_only                              NaN                               NaN
+Goldhill         combined                         6.053202                        280.603447
+    Ruby topographic_only                         3.595537                        299.652152
+site      stage      method                                  
+Goldhill  brdf_only  spatial_holdout_Huber                       0.039239
+                     spatial_holdout_OLS                         0.039473
+                     spatial_holdout_nonnegative_coefficients    0.039522
+                     spatial_holdout_ridge_0.01                  0.039479
+          combined   spatial_holdout_Huber                       0.039255
+                     spatial_holdout_OLS                         0.039396
+                     spatial_holdout_nonnegative_coefficients    0.039410
+                     spatial_holdout_ridge_0.01                  0.039394
+Gordon    brdf_only  spatial_holdout_Huber                       0.040306
+                     spatial_holdout_OLS                         0.039352
+                     spatial_holdout_nonnegative_coefficients    0.039335
+                     spatial_holdout_ridge_0.01                  0.039353
+          combined   spatial_holdout_Huber                       0.036865
+                     spatial_holdout_OLS                         0.036081
+                     spatial_holdout_nonnegative_coefficients    0.036049
+                     spatial_holdout_ridge_0.01                  0.036079
+Ruby      brdf_only  spatial_holdout_Huber                       0.047321
+                     spatial_holdout_OLS                         0.046581
+                     spatial_holdout_nonnegative_coefficients    0.046717
+                     spatial_holdout_ridge_0.01                  0.046527
+          combined   spatial_holdout_Huber                       0.042867
+                     spatial_holdout_OLS                         0.042168
+                     spatial_holdout_nonnegative_coefficients    0.042248
+                     spatial_holdout_ridge_0.01                  0.042134

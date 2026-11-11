@@ -13,6 +13,15 @@ from spectralbridge.pipelines.bulk import run_bulk_pipeline
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "Inspect first (no raster pixel scan):\n"
+            "  spectralbridge-bulk /data/completed --output-dir /data/bulk --preflight-only\n"
+            "Run the same command without --preflight-only to analyze.\n"
+            "Outputs: catalog/, compact analyses/, figures/ and reports/ as requested.\n"
+            "Keep output outside the immutable source tree; valid checkpoints are reused.\n"
+            "Guide: https://earthlab.github.io/spectralbridge/vignettes/bulk-analysis/"
+        ),
         description=(
             "Catalog completed SpectralBridge flightlines and run bounded, "
             "read-in-place hierarchical translation analyses."

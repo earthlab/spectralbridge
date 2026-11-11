@@ -1,0 +1,497 @@
+[
+  {
+    "flight": "AOP_GOLDHILL_20230814",
+    "path": "/private/tmp/spectralbridge-drone-production/AOP-GOLDHILL-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+    "exists": false
+  },
+  {
+    "flight": "AOP_GORDON_20230814",
+    "path": "/private/tmp/spectralbridge-drone-production/AOP-GORDON-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+    "exists": false
+  },
+  {
+    "flight": "AOP_Ruby_20230814",
+    "path": "/private/tmp/spectralbridge-drone-production/AOP-Ruby-08-14-23-ExportPackage/NEON_D13_NIWO_test_aligned_orthomosaic.h5",
+    "exists": false
+  },
+  {
+    "flight": "AOP_GORDON_20230814",
+    "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_GORDON_20230814/preparation_pipeline/AOP_GORDON_20230814/AOP_GORDON_20230814__working.h5",
+    "exists": true,
+    "role": "Nov4 TIFF-derived preparation H5; not the original legacy H5",
+    "bytes": 326255072,
+    "shape": [
+      2088,
+      2948,
+      10
+    ],
+    "attrs": {
+      "Data_Ignore_Value": "nan",
+      "NoData": "nan",
+      "Scale_Factor": "1.0",
+      "_FillValue": "nan",
+      "no_data": "nan",
+      "spectralbridge_radiometry": "{\"scale\": null, \"offset\": null, \"status\": \"UNSUPPORTED\", \"provenance\": \"Original UInt16 DN; fixed numerical encoding; physical calibration unavailable\", \"convention\": \"physical = scale * stored + offset\", \"encoding\": {\"kind\": \"range_normalized_dn\", \"physical_calibration_status\": \"UNVERIFIED\", \"nodata\": \"NaN\", \"normalization\": {\"stored_min\": 0, \"stored_max\": 10000, \"source_min\": 0, \"source_max\": 65535}, \"quality_mask\": {\"status\": \"DOCUMENTED\", \"provenance\": \"TIFF per-band GDAL masks and declared alpha; finite source samples\", \"convention\": \"true means valid\"}, \"source_spectral_band_indices\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], \"source_alpha_band_indices\": [], \"source_valid_mask_path\": \"/AOP-GORDON-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask\"}}",
+      "spectralbridge_source_validity_version": "1",
+      "spectralbridge_valid_mask_path": "/AOP-GORDON-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask"
+    },
+    "datasets": [
+      {
+        "path": "AOP-GORDON-08-14-23-ExportPackage/Reflectance/Metadata/Ancillary_Imagery/Path_Length",
+        "shape": [
+          2088,
+          2948
+        ],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-GORDON-08-14-23-ExportPackage/Reflectance/Metadata/Coordinate_System/Coordinate_System_String",
+        "shape": [],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-GORDON-08-14-23-ExportPackage/Reflectance/Metadata/Coordinate_System/Map_Info",
+        "shape": [],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-GORDON-08-14-23-ExportPackage/Reflectance/Metadata/Solar_Azimuth_Angle",
+        "shape": [
+          2088,
+          2948
+        ],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-GORDON-08-14-23-ExportPackage/Reflectance/Metadata/Solar_Zenith_Angle",
+        "shape": [
+          2088,
+          2948
+        ],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-GORDON-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask",
+        "shape": [
+          2088,
+          2948
+        ],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-GORDON-08-14-23-ExportPackage/Reflectance/Metadata/Spectral_Data/FWHM",
+        "shape": [
+          10
+        ],
+        "attrs": {
+          "Units": "nanometers"
+        }
+      },
+      {
+        "path": "AOP-GORDON-08-14-23-ExportPackage/Reflectance/Metadata/Spectral_Data/Wavelength",
+        "shape": [
+          10
+        ],
+        "attrs": {
+          "Units": "nanometers"
+        }
+      },
+      {
+        "path": "AOP-GORDON-08-14-23-ExportPackage/Reflectance/Reflectance_Data",
+        "shape": [
+          2088,
+          2948,
+          10
+        ],
+        "attrs": {
+          "Data_Ignore_Value": "nan",
+          "NoData": "nan",
+          "Scale_Factor": "1.0",
+          "_FillValue": "nan",
+          "no_data": "nan",
+          "spectralbridge_radiometry": "{\"scale\": null, \"offset\": null, \"status\": \"UNSUPPORTED\", \"provenance\": \"Original UInt16 DN; fixed numerical encoding; physical calibration unavailable\", \"convention\": \"physical = scale * stored + offset\", \"encoding\": {\"kind\": \"range_normalized_dn\", \"physical_calibration_status\": \"UNVERIFIED\", \"nodata\": \"NaN\", \"normalization\": {\"stored_min\": 0, \"stored_max\": 10000, \"source_min\": 0, \"source_max\": 65535}, \"quality_mask\": {\"status\": \"DOCUMENTED\", \"provenance\": \"TIFF per-band GDAL masks and declared alpha; finite source samples\", \"convention\": \"true means valid\"}, \"source_spectral_band_indices\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], \"source_alpha_band_indices\": [], \"source_valid_mask_path\": \"/AOP-GORDON-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask\"}}",
+          "spectralbridge_source_validity_version": "1",
+          "spectralbridge_valid_mask_path": "/AOP-GORDON-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask"
+        }
+      }
+    ],
+    "wavelengths_nm": [
+      444.0,
+      475.0,
+      531.0,
+      560.0,
+      650.0,
+      668.0,
+      705.0,
+      717.0,
+      740.0,
+      862.0
+    ],
+    "current_radiometry": {
+      "scale": null,
+      "offset": null,
+      "status": "UNSUPPORTED",
+      "provenance": "Original UInt16 DN; fixed numerical encoding; physical calibration unavailable",
+      "convention": "physical = scale * stored + offset",
+      "encoding": {
+        "kind": "range_normalized_dn",
+        "source_units": "unverified source units",
+        "stored_units": "unknown numerical encoding",
+        "scale_direction": "multiplier",
+        "physical_calibration_status": "UNVERIFIED",
+        "valid_numerical_range": null,
+        "source_units_attribute": "not supplied",
+        "source_dtype": "float32",
+        "nodata": "NaN",
+        "saturation": {
+          "status": "NOT_PROVIDED"
+        },
+        "quality_mask": {
+          "status": "DOCUMENTED",
+          "provenance": "TIFF per-band GDAL masks and declared alpha; finite source samples",
+          "convention": "true means valid"
+        },
+        "source_valid_mask_path": "/AOP-GORDON-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask",
+        "normalization": {
+          "stored_min": 0,
+          "stored_max": 10000,
+          "source_min": 0,
+          "source_max": 65535
+        },
+        "source_spectral_band_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "source_alpha_band_indices": []
+      }
+    }
+  },
+  {
+    "flight": "AOP_GOLDHILL_20230814",
+    "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_GOLDHILL_20230814/preparation_pipeline/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__working.h5",
+    "exists": true,
+    "role": "Nov4 TIFF-derived preparation H5; not the original legacy H5",
+    "bytes": 375430910,
+    "shape": [
+      2238,
+      3165,
+      10
+    ],
+    "attrs": {
+      "Data_Ignore_Value": "nan",
+      "NoData": "nan",
+      "Scale_Factor": "1.0",
+      "_FillValue": "nan",
+      "no_data": "nan",
+      "spectralbridge_radiometry": "{\"scale\": null, \"offset\": null, \"status\": \"UNSUPPORTED\", \"provenance\": \"Original UInt16 DN; fixed numerical encoding; physical calibration unavailable\", \"convention\": \"physical = scale * stored + offset\", \"encoding\": {\"kind\": \"range_normalized_dn\", \"physical_calibration_status\": \"UNVERIFIED\", \"nodata\": \"NaN\", \"normalization\": {\"stored_min\": 0, \"stored_max\": 10000, \"source_min\": 0, \"source_max\": 65535}, \"quality_mask\": {\"status\": \"DOCUMENTED\", \"provenance\": \"TIFF per-band GDAL masks and declared alpha; finite source samples\", \"convention\": \"true means valid\"}, \"source_spectral_band_indices\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], \"source_alpha_band_indices\": [], \"source_valid_mask_path\": \"/AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask\"}}",
+      "spectralbridge_source_validity_version": "1",
+      "spectralbridge_valid_mask_path": "/AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask"
+    },
+    "datasets": [
+      {
+        "path": "AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Metadata/Ancillary_Imagery/Path_Length",
+        "shape": [
+          2238,
+          3165
+        ],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Metadata/Coordinate_System/Coordinate_System_String",
+        "shape": [],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Metadata/Coordinate_System/Map_Info",
+        "shape": [],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Metadata/Solar_Azimuth_Angle",
+        "shape": [
+          2238,
+          3165
+        ],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Metadata/Solar_Zenith_Angle",
+        "shape": [
+          2238,
+          3165
+        ],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask",
+        "shape": [
+          2238,
+          3165
+        ],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Metadata/Spectral_Data/FWHM",
+        "shape": [
+          10
+        ],
+        "attrs": {
+          "Units": "nanometers"
+        }
+      },
+      {
+        "path": "AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Metadata/Spectral_Data/Wavelength",
+        "shape": [
+          10
+        ],
+        "attrs": {
+          "Units": "nanometers"
+        }
+      },
+      {
+        "path": "AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Reflectance_Data",
+        "shape": [
+          2238,
+          3165,
+          10
+        ],
+        "attrs": {
+          "Data_Ignore_Value": "nan",
+          "NoData": "nan",
+          "Scale_Factor": "1.0",
+          "_FillValue": "nan",
+          "no_data": "nan",
+          "spectralbridge_radiometry": "{\"scale\": null, \"offset\": null, \"status\": \"UNSUPPORTED\", \"provenance\": \"Original UInt16 DN; fixed numerical encoding; physical calibration unavailable\", \"convention\": \"physical = scale * stored + offset\", \"encoding\": {\"kind\": \"range_normalized_dn\", \"physical_calibration_status\": \"UNVERIFIED\", \"nodata\": \"NaN\", \"normalization\": {\"stored_min\": 0, \"stored_max\": 10000, \"source_min\": 0, \"source_max\": 65535}, \"quality_mask\": {\"status\": \"DOCUMENTED\", \"provenance\": \"TIFF per-band GDAL masks and declared alpha; finite source samples\", \"convention\": \"true means valid\"}, \"source_spectral_band_indices\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], \"source_alpha_band_indices\": [], \"source_valid_mask_path\": \"/AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask\"}}",
+          "spectralbridge_source_validity_version": "1",
+          "spectralbridge_valid_mask_path": "/AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask"
+        }
+      }
+    ],
+    "wavelengths_nm": [
+      444.0,
+      475.0,
+      531.0,
+      560.0,
+      650.0,
+      668.0,
+      705.0,
+      717.0,
+      740.0,
+      862.0
+    ],
+    "current_radiometry": {
+      "scale": null,
+      "offset": null,
+      "status": "UNSUPPORTED",
+      "provenance": "Original UInt16 DN; fixed numerical encoding; physical calibration unavailable",
+      "convention": "physical = scale * stored + offset",
+      "encoding": {
+        "kind": "range_normalized_dn",
+        "source_units": "unverified source units",
+        "stored_units": "unknown numerical encoding",
+        "scale_direction": "multiplier",
+        "physical_calibration_status": "UNVERIFIED",
+        "valid_numerical_range": null,
+        "source_units_attribute": "not supplied",
+        "source_dtype": "float32",
+        "nodata": "NaN",
+        "saturation": {
+          "status": "NOT_PROVIDED"
+        },
+        "quality_mask": {
+          "status": "DOCUMENTED",
+          "provenance": "TIFF per-band GDAL masks and declared alpha; finite source samples",
+          "convention": "true means valid"
+        },
+        "source_valid_mask_path": "/AOP-GOLDHILL-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask",
+        "normalization": {
+          "stored_min": 0,
+          "stored_max": 10000,
+          "source_min": 0,
+          "source_max": 65535
+        },
+        "source_spectral_band_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "source_alpha_band_indices": []
+      }
+    }
+  },
+  {
+    "flight": "AOP_Ruby_20230814",
+    "path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/outputs/AOP_Ruby_20230814/preparation_pipeline/AOP_Ruby_20230814/AOP_Ruby_20230814__working.h5",
+    "exists": true,
+    "role": "Nov4 TIFF-derived preparation H5; not the original legacy H5",
+    "bytes": 107533400,
+    "shape": [
+      1035,
+      1960,
+      10
+    ],
+    "attrs": {
+      "Data_Ignore_Value": "nan",
+      "NoData": "nan",
+      "Scale_Factor": "1.0",
+      "_FillValue": "nan",
+      "no_data": "nan",
+      "spectralbridge_radiometry": "{\"scale\": null, \"offset\": null, \"status\": \"UNSUPPORTED\", \"provenance\": \"Original UInt16 DN; fixed numerical encoding; physical calibration unavailable\", \"convention\": \"physical = scale * stored + offset\", \"encoding\": {\"kind\": \"range_normalized_dn\", \"physical_calibration_status\": \"UNVERIFIED\", \"nodata\": \"NaN\", \"normalization\": {\"stored_min\": 0, \"stored_max\": 10000, \"source_min\": 0, \"source_max\": 65535}, \"quality_mask\": {\"status\": \"DOCUMENTED\", \"provenance\": \"TIFF per-band GDAL masks and declared alpha; finite source samples\", \"convention\": \"true means valid\"}, \"source_spectral_band_indices\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], \"source_alpha_band_indices\": [], \"source_valid_mask_path\": \"/AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask\"}}",
+      "spectralbridge_source_validity_version": "1",
+      "spectralbridge_valid_mask_path": "/AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask"
+    },
+    "datasets": [
+      {
+        "path": "AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Ancillary_Imagery/Path_Length",
+        "shape": [
+          1035,
+          1960
+        ],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Coordinate_System/Coordinate_System_String",
+        "shape": [],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Coordinate_System/Map_Info",
+        "shape": [],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Solar_Azimuth_Angle",
+        "shape": [
+          1035,
+          1960
+        ],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Solar_Zenith_Angle",
+        "shape": [
+          1035,
+          1960
+        ],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask",
+        "shape": [
+          1035,
+          1960
+        ],
+        "attrs": {}
+      },
+      {
+        "path": "AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Spectral_Data/FWHM",
+        "shape": [
+          10
+        ],
+        "attrs": {
+          "Units": "nanometers"
+        }
+      },
+      {
+        "path": "AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Spectral_Data/Wavelength",
+        "shape": [
+          10
+        ],
+        "attrs": {
+          "Units": "nanometers"
+        }
+      },
+      {
+        "path": "AOP-Ruby-08-14-23-ExportPackage/Reflectance/Reflectance_Data",
+        "shape": [
+          1035,
+          1960,
+          10
+        ],
+        "attrs": {
+          "Data_Ignore_Value": "nan",
+          "NoData": "nan",
+          "Scale_Factor": "1.0",
+          "_FillValue": "nan",
+          "no_data": "nan",
+          "spectralbridge_radiometry": "{\"scale\": null, \"offset\": null, \"status\": \"UNSUPPORTED\", \"provenance\": \"Original UInt16 DN; fixed numerical encoding; physical calibration unavailable\", \"convention\": \"physical = scale * stored + offset\", \"encoding\": {\"kind\": \"range_normalized_dn\", \"physical_calibration_status\": \"UNVERIFIED\", \"nodata\": \"NaN\", \"normalization\": {\"stored_min\": 0, \"stored_max\": 10000, \"source_min\": 0, \"source_max\": 65535}, \"quality_mask\": {\"status\": \"DOCUMENTED\", \"provenance\": \"TIFF per-band GDAL masks and declared alpha; finite source samples\", \"convention\": \"true means valid\"}, \"source_spectral_band_indices\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], \"source_alpha_band_indices\": [], \"source_valid_mask_path\": \"/AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask\"}}",
+          "spectralbridge_source_validity_version": "1",
+          "spectralbridge_valid_mask_path": "/AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask"
+        }
+      }
+    ],
+    "wavelengths_nm": [
+      444.0,
+      475.0,
+      531.0,
+      560.0,
+      650.0,
+      668.0,
+      705.0,
+      717.0,
+      740.0,
+      862.0
+    ],
+    "current_radiometry": {
+      "scale": null,
+      "offset": null,
+      "status": "UNSUPPORTED",
+      "provenance": "Original UInt16 DN; fixed numerical encoding; physical calibration unavailable",
+      "convention": "physical = scale * stored + offset",
+      "encoding": {
+        "kind": "range_normalized_dn",
+        "source_units": "unverified source units",
+        "stored_units": "unknown numerical encoding",
+        "scale_direction": "multiplier",
+        "physical_calibration_status": "UNVERIFIED",
+        "valid_numerical_range": null,
+        "source_units_attribute": "not supplied",
+        "source_dtype": "float32",
+        "nodata": "NaN",
+        "saturation": {
+          "status": "NOT_PROVIDED"
+        },
+        "quality_mask": {
+          "status": "DOCUMENTED",
+          "provenance": "TIFF per-band GDAL masks and declared alpha; finite source samples",
+          "convention": "true means valid"
+        },
+        "source_valid_mask_path": "/AOP-Ruby-08-14-23-ExportPackage/Reflectance/Metadata/Source_Valid_Mask",
+        "normalization": {
+          "stored_min": 0,
+          "stored_max": 10000,
+          "source_min": 0,
+          "source_max": 65535
+        },
+        "source_spectral_band_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "source_alpha_band_indices": []
+      }
+    }
+  }
+]

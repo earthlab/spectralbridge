@@ -1,0 +1,67 @@
+[
+  {
+    "level": 0,
+    "inputs": [
+      "historical H5"
+    ],
+    "status": "HISTORICAL_ONLY",
+    "comparison": "Preserved actual paired-source audits; original temporary H5 files absent"
+  },
+  {
+    "level": 1,
+    "inputs": [
+      "verified calibrated H5 or orthomosaic",
+      "grid/CRS",
+      "wavelengths",
+      "validity",
+      "polygons"
+    ],
+    "status": "CALIBRATED_EXTRACTION_SUPPORTED",
+    "both_corrections": "REQUIRE_SEPARATE_SCIENTIFIC_SUPPORT"
+  },
+  {
+    "level": 2,
+    "inputs": [
+      "L1",
+      "suitable terrain",
+      "solar provenance",
+      "validated nominal assumptions"
+    ],
+    "status": "SITE_SPECIFIC_SUITABILITY_REQUIRED",
+    "public_dem_bytes": 66716
+  },
+  {
+    "level": 3,
+    "inputs": [
+      "L2",
+      "adjusted poses/intrinsics",
+      "source assignment"
+    ],
+    "status": "GEOMETRY_AVAILABLE_BLEND_UNVERIFIED",
+    "ruby_portable_geometry_bytes": 2003728
+  },
+  {
+    "level": 4,
+    "inputs": [
+      "L3 or packet-contained geometry",
+      "repeated calibrated target observations",
+      "quality/provenance"
+    ],
+    "status": "EXPERIMENTAL_CONDITIONAL_BRDF_SUPPORTED_NOT_MOSAIC_APPROVAL",
+    "bytes": 271299,
+    "full_band_fold_models_supported": 40,
+    "small_models_supported": 30,
+    "total_models_per_design": 40
+  },
+  {
+    "level": 5,
+    "inputs": [
+      "L4",
+      "original photographs",
+      "complete project",
+      "licensed remosaic"
+    ],
+    "status": "FULL_CORRECTED_MOSAIC_NOT_EXECUTED",
+    "sampled_photo_bytes": 5590183604
+  }
+]

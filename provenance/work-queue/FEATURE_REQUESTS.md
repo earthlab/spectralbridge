@@ -20,6 +20,122 @@ left incomplete so the next agent can resume immediately.
 
 ## Active Requests
 
+### P186. Quantify drone architecture value and harden production radiometric recognition
+
+- Priority: P0, user-directed required ingestion implementation and design report.
+- Owner: Codex
+- Started: 2026-11-06
+- Status: Completed 2026-11-06; production radiometry implemented and quantitative design report delivered. Full corrected-mosaic approval remains scientifically unsupported.
+- Scope: Reconstruct H5-to-original-photo history; quantitative six-level comparison with geometry/common-support polygon and nested compact-calibration controls; measured cost/capabilities; twelve-figure architecture report. Required: authoritative typed source encoding and trustworthy metadata/fingerprint recognition integrated into production TIFF/H5 ingestion, golden fixtures/tests and calibration documentation.
+- Guardrails: No range-based scale guessing, blind raw-DN division, double calibration, silent NIR changes, unsupported identity correction, speculative orchestrator rewrite, release/upload or alteration of historical products. Encoding verification remains distinct from independent reflectance accuracy.
+- Plan: Audit existing affine contract/readers/history; implement narrow recognition at current boundary with source-binding/metadata validation and restart signatures; targeted integration/golden tests; reuse scientific evidence and execute bounded geometry/nested calibration/polygon comparisons; report capabilities/costs and roadmap.
+- Outcome: Added typed production TIFF/H5 encoding resolution, checksum-bound sidecars and five exact source fingerprints; recognized Ruby/Goldhill originals automatically resolve DN/32768 and 842 nm. Unknown/raw encodings remain unsupported; conflicts and double calibration/scaling reject. Immutable staged H5/ENVI and physical polygon Parquet covered by checksum-protected real Ruby fixture; source masks/affine preserved, cache signatures updated. User docs and changelog updated.
+- Evidence: `provenance/drone-architecture-2026-11-06/REPORT.md` plus twelve figures, source inventories/hashes, six-level matrix and design decisions. Compact 271,299-byte packet reproduces ten-band coefficients within 6.44e-7; nested small subsets fail 10/40 uncertainty gates. Common 86-polygon controls, paired Ruby/Goldhill geometry, public 66,716-byte DEM and matched spatial terrain holdouts separate repairs from new information. Historical reports verified unchanged.
+- Verification: 184 targeted tests passed, zero failures/skips; focused Ruff, docs links, strict MkDocs build and 394 rendered API signatures passed. Wheel package-data inclusion checked; no publication/release. Reproducible comparison assertions and figure visual QA passed. See final_checks.json for exact scope and retained logs.
+- Limitations: Original temporary legacy H5 files absent; use preserved actual paired audits, not a fictitious new L0 run. No independent absolute reflectance validation, no recovered Gordon project, no effective blend weights, no licensed corrected remosaic. One-site public DEM and one-context compact packet do not establish general sufficiency. These are documented scientific limits, not unfinished ingestion work.
+- Next: Unified compact capability/joint-support manifest; versioned portable geometry/calibration schema; independent illumination/ground observations before claiming approved source-first combined correction. No speculative orchestrator rewrite in P186.
+
+### P185. Resolve Ruby topographic instability and evaluate supported alternatives
+
+- Priority: P0, user-directed scientific implementation.
+- Owner: Codex
+- Started: 2026-11-06
+- Status: Implemented and evaluated 2026-11-06; partial numerical correction domain established, production combined correction remains unsupported.
+- Outcome: Reproduced native red C=-0.1734966 and its uncertainty; audited shared formula/angles; recovered ground-classification/interpolated-mesh context; built explicit terrain/shadow/field-stratum characterization; 630 candidates / 2,520 buffered spatial fits; 660 actual-geometry synthetic controls; 720 base plus 600 class-specific original-photo matched fits; all-band full 10cm support statistics and red factor/interval/status TIFFs; twelve figures and REPORT.md.
+- Implemented: Opt-in `drone_topography` terrain derivatives, degree-explicit incidence, finite-radius sun visibility, OLS/balanced/Huber spatial uncertainty, strict positive-interval SCS+C/C/Minnaert domain checks and buffered folds. Corrected the P184 experimental negative-branch ambiguity in isolated P185 helpers; preserved historical outputs and production math.
+- Findings: Correct synthetic estimator recovers C=+0.2, while ecological brightness/illumination confounding yields about -0.45. Ground/canopy shadow predictions differ strongly. Existing field labels validate canopy proxies locally (86 overlapping polygons, 78 sampled); they do not establish reflectance/terrain truth. Screened 3m DTM red numerical support is 76.2%, gains 0.62-2.80 without caps. Identical matched support still has mean CV-squared ratios above one; no complete ten-band original-photo SCS+C branch is established. Minnaert improves availability, not scientific approval. A class-specific follow-up rejects all 80 canopy original-photo SCS+C fits; canopy Minnaert mean CV-squared ratio remains slightly above one.
+- Verification: 53 focused tests pass; all eleven stage checkpoints reused after source-byte verification; source preservation and production hashes checked; twelve figures visually reviewed. Ruff, script compilation, documentation links, strict MkDocs and API checks completed; no full-suite or release claim.
+- Remaining: Independent terrain/normal checks and repeated stable surfaces under distinct sun/calibration conditions; consistent held-out spectral/matched improvement. No corrected orthomosaic or production upload generated. Unsupported regions remain explicit; not every pixel is required to pass.
+- Next recommended task: Acquire a calibrated different-sun repeat on existing labelled stable patches plus terrain checks; two extra illumination conditions would permit a held-out sun-condition test. Continue the explicit-domain SCS+C branch and Minnaert comparison without replacing a failed stage by identity.
+
+
+### P184. Repair Ruby original-image topographic and BRDF workflow
+
+- Priority: P0, user-directed experimental scientific implementation.
+- Owner: Codex
+- Started: 2026-11-06
+- Status: Experimental workflow implemented and evaluated 2026-11-06. Production Ruby correction remains scientifically unsupported; no corrected orthomosaic claimed.
+- Outcome: New immutable explicit-scale 10 cm input with source 842 nm NIR; 64 grid-selected tracked targets, 3,341 observations / 2,267 checksum-verified original photos (5.59 GB); actual calibrated ECEF ray intersections; target-effect and target-amplitude Ross/Li candidates; matched training-only SCS+C/BRDF spatial holdouts; source export helper and gated licensed reconstruction interface; eleven figures and REPORT.md.
+- Important correction: P183 integer datetime grouping assumed nanoseconds despite microsecond parsing. Calendar-minute grouping and regression tests now supersede its blanket temporal insufficiency claim: two Ruby and three Goldhill original target-band fits have four supported minute groups. Historical evidence preserved; recheck recorded separately.
+- Findings: Multiplicative BRDF candidate median held-out variance ratio 0.766, mean 1.158 (mixed benefit); all 10 conditional spatial/wild-time normalization controls supported. Time-pairs bootstrap lacks enough successful replicates and is explicitly not a pass. Recovered DTM red C remains -0.1735 with denominator uncertainty failures; 30/40 matched band/fold fits fail topographic support. No arbitrary caps, identity corrections or acceptance/reference changes.
+- Verification: 49 focused tests pass; full stage run and source-byte-verified checkpoint reuse pass; 2,267 source-photo SHA256/remote MD5 records; unchanged production correction/topographic/drone source hashes; Ruff, script compilation, docs links and strict MkDocs checked. No release/full-suite claim.
+- Remaining: Supported topographic illumination/surface model, independent/stable ecological registration and calibration validation, full-frame spectral/mask/gain support, and licensed copied-project reconstruction. Current workflow correctly stops before unsupported real corrected source/raster export.
+- Next recommended task: Use independently labelled stable ground/canopy/soil controls and independent illumination information to resolve SCS+C confounding/denominators; retain the original-photo BRDF and source-binding improvements and test complete source frames only after matched support is established.
+
+
+### P183. Recover full Metashape projects and physical drone evidence
+
+- Priority: P0, user-directed scientific recovery; Ruby first, Gordon/Goldhill validation.
+- Owner: Codex
+- Started: 2026-11-05
+- Status: Available Ruby/Goldhill investigation and deliverables completed 2026-11-06; three-site recovery remains incomplete because Gordon's project was not found. Production correction approval remains unresolved.
+- Outcome: Inventoried 11,665 remote objects / 96.1 GB; staged checksum-verified source assets and original-photo subsets. Extracted estimated poses, ten separate sensor calibrations and primary mosaic assignments through the official read-only API. Delivered portable tables, isolated reconstruction/overlap tools, inventory, machine evidence, METASHAPE_RECOVERY_REPORT.md and illustrated PDF.
+- Scientific findings: Goldhill's old camera table binds to NOGCPS, while its original mosaic binds to WORKING (about 19 m vertical mismatch). DN/32768 encoding is strongly supported for Ruby/Goldhill, independently validated physical reflectance is not. Source NIR is 842 nm. Ruby repeated observations improve local numerical support, but independent temporal uncertainty is insufficient and the mosaic BRDF fit remains invalid. 99.6% of fixed historical gain edges remain within the same retained primary photo; blending weights are unavailable.
+- Verification: Recorded focused regression run 39 passed; final experimental geometry tests rerun after formatting; Ruff src/tests and script compilation checked. Final cache rechecks recorded separately. Production correction source equality against P182 recorded; no production defaults, prior outputs, remote objects, release identities or NEON behavior changed by P183.
+- Remaining: Gordon project location/upload; independent reflectance/registration/temporal validation; effective blending weights or licensed correction-before-mosaicking experiment; stable topographic denominator support. Full 96.1 GB archive intentionally not materialized; temporary cache must be preserved or rehydrated from manifests.
+- Next recommended task: Bind the export-matching WORKING project and typed terrain/viewing surfaces in a controlled original-photo topographic-plus-BRDF experiment with independent validation. Do not promote local fit support to production approval.
+
+
+### P182. Resolve remaining three-site BRDF and topographic instability
+
+- Priority: P0, user-directed targeted scientific debugging for RC2.
+- Owner: Codex
+- Started: 2026-11-05
+- Status: Completed investigation, targeted numerical/diagnostic improvements and three-site rerun (2026-11-05). Scientifically approved production remains unresolved; all P178/P181 work and original products preserved.
+- Scope: Reproduce P181 baseline; trace Ruby model rejection and Gordon/Goldhill extreme factors; compare geometry, radiometry, fitting/reference uncertainty and combined application; implement only demonstrated defects with regression tests; rerun consistently and deliver DRONE_CORRECTION_STABILITY_REPORT.md plus illustrated PDF.
+- Guardrails: No weakened acceptance, identity fallback, arbitrary clipping, invented calibration or release. Both corrections remain required; unsupported results stay explicit.
+- Plan: Freeze baseline hashes and reproduce verification/restart; standardized bounded native diagnostics and prespecified sensitivity controls; inspect shared code/tests and evidence before changes; validate targeted fixes on all sites and NEON control; classify remaining RC2 issues.
+- Outcome: Fresh frozen-source baseline exactly reproduced; Ruby failures isolate unresolved normalization-reference predictions, with zero locally unresolved observed-angle predictions. Negative-C near-pole SCS+C ratios generate topographic tails, compounded by refitted edge BRDF amplification. Same spatial holdout, alternative fit, vegetation, radiometric, datum/clock/pose and terrain controls do not establish a justified universal replacement.
+- Implemented: Equivalent QR spatial-cluster covariance avoids normal-equation inversion; explicit reference/local rejection components and lower margin. No acceptance, reference, calibration gate or model equations relaxed. Fixed stale TIFF checkpoint test expectation from version 3 to existing runtime 4 without changing spatial behavior.
+- Verification: 225 targeted tests and 13 additional API checks pass; actual NEON BRDF/combined preserve 7.2 million stored values and normal library acceptance. Seven new experimental TIFF/ENVI products preserve all 395,908,190 finite baseline values, masks and grids exactly. Input/baseline hashes and both fresh-run restart paths verified. Ruff, strict MkDocs, links, API/AI freshness and whitespace checks pass. Twenty-page PDF visually inspected; report DRONE_CORRECTION_STABILITY_REPORT.md and compact evidence provenance/drone-correction-stability/2026-11-05/.
+- Remaining scientific limits: Ruby BRDF still unsupported; large gains remain potentially harmful and physically unresolved; calibration and contributor/pose/datum provenance remain unverified. No arbitrary cap, identity substitute, production upload, release/tag/version bump. Full release suite was not rerun or claimed green.
+- Next: RC2 review of repaired numerical/diagnostic code and separate P179 regression gates; independent repeated-target/contributor/calibration evidence before approved drone correction or translation/library promotion. Do not tune site-specific alternatives solely to pass.
+
+
+### P181. Resume Gordon, Goldhill and Ruby with supplied camera locations
+
+- Priority: P0, user-directed continuation overriding the release-test queue.
+- Owner: Codex
+- Started: 2026-11-05
+- Status: Completed conditional rerun (2026-11-05). Seven experimental corrected GeoTIFFs produced; scientifically approved production remains incomplete. Preserved P178 work, original rasters, prior evidence and camera CSVs.
+- Scope: Verify current Data Store camera identities and existing original-source derivatives; associate/validate the three camera tables; reconstruct explicitly experimental geometry using the established Goldhill method and source metadata; rerun supported corrections through existing shared code; preserve raw/topographic/BRDF/combined comparisons, diagnostics and restart evidence.
+- Scientific boundary: Source physical calibration, contributor/pose/clock/vertical conventions remain unverified. Reuse only the already documented conditional DN/32768 experimental interpretation; never promote it to VALID or bypass ordinary production/library gates. Goldhill CRS override requires recorded independent report/footprint evidence; source CSV stays untouched. No invented geometry for missing evidence or automatic experiment upload as production.
+- Plan: Recover and hash source/terrain/preparation assets; inspect actual camera/flight/sensor metadata; implement only reusable missing camera-input validation with focused tests; run comparable bounded geometry/correction stages for all three, report supported/unsupported results and exact production dependencies.
+- Outcome: Gordon and Goldhill completed topographic-only, BRDF-only and combined branches. Ruby completed topographic-only; BRDF-only/combined fail unchanged prediction-uncertainty checks. All camera IDs matched photos; photo-supported 15 August timing retained with explicit unverified UTC scenario. Goldhill CRS override documented; six 10 cm terrain hashes match previous evidence. Goldhill correction tails remain review-worthy.
+- Verification: 49 focused correction tests and an overlapping 28-test API/camera set pass; strict MkDocs, API/AI freshness, links, Ruff and whitespace checks pass. 395,908,190 finite GeoTIFF values exactly match ENVI, missing-data positions/grids and immutable hashes checked; geometry/correction restarts reuse verified checkpoints. Every experimental product is rejected by approved-library acceptance. Report: DRONE_CAMERA_RERUN_REPORT.md and ten-page illustrated PDF; compact evidence in provenance/drone-camera-rerun/2026-11-05/.
+- Remaining: Independent physical calibration/contributor evidence, Ruby BRDF support and Goldhill tail review before approved translation/library or production upload. No production upload or release performed.
+- Next: Resolve these scientific dependencies without relaxing guards; P179 remains the separate release regression queue.
+
+
+### P178. Core functionality and researcher user experience audit
+
+- Priority: P0, user-directed RC2 usability audit; no scientific redevelopment.
+- Owner: Codex
+- Started: 2026-11-04
+- Status: Audit and low-risk improvements completed; RC2 readiness explicitly not established because nine pre-existing broad regression failures remain. Current checkout remains main bb3da46 with version 2.3.0rc1; no release/tag/merge/commit.
+- Delivered: PACKAGE_USABILITY_AUDIT.md, six-task user-facing capability map, full beginner setup/extras, persistent offline lesson/compact summaries, standalone library recipe, primary CLI start/output/restart guidance, explicit run-result interpretation and configuration errors/calibration-timezone pass-through. Preserved all research history and notebook cells.
+- Repairs: Scalar scientific JSON survives target-ENVI serialization; observed topographic bands survive neighboring per-band NoData without changing equations; current DuckDB relation diagnostic drains its single-row result. Updated source-compatible query tests and browser CTA contract. No new dependencies, public renames, calibration promotion or duplicate reporting API.
+- Verification: Clean non-editable and documented standard-venv/pip editable installs; installed synthetic NEON, drone/full/polygon/translation, bulk/restart and compact library workflows pass. All 17 CLI help pages, three remote subcommand helps and four beginner/configuration runs pass. Final focused 48 and additional overlapping 92-test set pass; two browser checks pass; desktop/mobile reader captures inspected. Strict MkDocs, 393 rendered signatures, API/AI freshness, links, Ruff and diff checks pass. Broad source gate: 935 passed, 9 failed, 11 skipped; exact unchanged failure signatures retained in evidence.
+- Camera continuation: User's five AOP camera CSVs in output/summer-2023 were discovered, MD5-verified and inspected without remote edits. Goldhill 5650 rows/565 distinct positions declares EPSG:5070 but all positions match recorded UTM13 footprint only under direct UTM interpretation; Gordon 5,720/572, MRS1 4,500/450, MRS2 4,330/433 and Ruby 5,070/507 declare EPSG:26913. Metashape preambles/rotation fields retained. Timestamps absent; source-contributor, clock/vertical and physical calibration remain separate requirements.
+- Evidence: provenance/package-usability-audit/2026-11-04/ includes test/install/workflow logs, machine-readable checks, camera integrity/validation, link repairs and reader screenshots. No large real imagery campaign or upload was claimed.
+- Next: P179 broad regression/validation contract remediation before RC2, then P180 original-package/camera association using the already supplied tables. Do not ask the user to supply them again or silently relabel Goldhill.
+
+### P179. Reconcile the existing full regression and validation gate
+
+- Priority: P0, remaining RC2 release gate identified by P178.
+- Status: Queued; no blanket acceptance relaxation authorized or appropriate.
+- Evidence: provenance/package-usability-audit/2026-11-04/final_checks.json and tests-final-source.xml/log preserve nine failures. They predate the usability changes: bulk-readiness fixture, stale TIFF stage-version expectation, historical common-module import isolation, polygon mocked/header setup, four QA calibration fixtures and the offline campaign.
+- Plan: Inspect each fixture against current code/contracts; distinguish fixture drift from genuine runtime defects, repair with meaningful assertions and explicit synthetic provenance, preserve scientific gates, then run targeted and full source/validation checks. Do not edit historical scientific results to make tests pass.
+- Release condition: Resolve or explicitly justify every remaining failure before marking the source gate green; rerun the supported-version/exact-artifact release gates separately.
+
+### P180. Associate supplied AOP camera tables with original-package intake
+
+- Priority: P1, usability/integration continuation using user-supplied data.
+- Status: Three-site camera association/validation completed under P181; five files downloaded and integrity-verified in P178. Automatic public production reconstruction remains separate from the advanced experimental adapter. No camera files are missing in the supplied AOP folders.
+- Source: /iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023. Files end -camera-locations.csv; dates differ from folder spelling (8-14-2023 versus08-14-23), and Ruby capitalization differs.
+- Plan: Reuse existing producer/remote modules; explicitly parse the CRS/count/PhotoID Metashape contract, associate by validated site/date identity, verify coordinates against authoritative raster/project metadata, preserve photo/sensor/rotation provenance and fail closed on ambiguity. Resolve Goldhill's declared5070 mismatch with the already documented authoritative evidence; never silently relabel or overwrite source CSVs.
+- Scientific boundary: Availability is not calibration/contributor/clock/vertical approval. Integrate validated geometry only through existing experimental contracts; no automatic promotion to approved physical libraries or full production completion.
+
 ### P175. Repair and validate integrated drone correction reliability
 
 - Priority: P0, user-directed engineering and controlled scientific validation

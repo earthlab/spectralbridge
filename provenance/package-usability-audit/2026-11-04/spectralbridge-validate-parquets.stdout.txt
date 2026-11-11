@@ -1,0 +1,10 @@
+usage: spectralbridge-validate-parquets [-h] [--soft] [path]
+
+Validate Parquet sidecars produced by SpectralBridge.
+
+positional arguments:
+  path        Directory containing Parquet files to validate.
+
+options:
+  -h, --help  show this help message and exit
+  --soft      Report invalid files but exit with status 0 instead of 1.

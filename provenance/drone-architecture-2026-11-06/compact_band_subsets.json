@@ -1,0 +1,23 @@
+[
+  {
+    "bands": "red_only",
+    "n_cases": 60,
+    "cv2_median": 0.8864581658556903,
+    "cv2_mean": 1.0934490478428651,
+    "absolute_variance_median": 0.8795193146751679
+  },
+  {
+    "bands": "five_common_bands",
+    "n_cases": 300,
+    "cv2_median": 0.8064499465253333,
+    "cv2_mean": 1.1961670929131125,
+    "absolute_variance_median": 0.7419294150187234
+  },
+  {
+    "bands": "all_ten",
+    "n_cases": 600,
+    "cv2_median": 0.8376008609607049,
+    "cv2_mean": 1.131867598280653,
+    "absolute_variance_median": 0.7661936775102318
+  }
+]

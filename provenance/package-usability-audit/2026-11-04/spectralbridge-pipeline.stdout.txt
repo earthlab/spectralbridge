@@ -1,0 +1,76 @@
+usage: spectralbridge-pipeline [-h] --base-folder BASE_FOLDER --site-code
+                               SITE_CODE --year-month YEAR_MONTH
+                               --product-code PRODUCT_CODE --flight-lines
+                               FLIGHTLINE [FLIGHTLINE ...]
+                               [--max-workers MAX_WORKERS]
+                               [--resample-method {convolution,legacy,resample}]
+                               [--brightness-offset BRIGHTNESS_OFFSET]
+                               [--use-ndvi-brdf-bins | --no-use-ndvi-brdf-bins]
+                               [--parquet-chunk-size PARQUET_CHUNK_SIZE]
+                               [--merge-memory-limit MERGE_MEMORY_LIMIT]
+                               [--merge-threads MERGE_THREADS]
+                               [--merge-row-group-size MERGE_ROW_GROUP_SIZE]
+                               [--merge-temp-directory MERGE_TEMP_DIRECTORY]
+                               [--engine {thread,process,ray}]
+                               [--topo-fit-mode {scene,tile}]
+                               [--qa-mode {off,standard,deep}]
+
+Run the cross-sensor calibration pipeline on NEON flight lines.
+
+options:
+  -h, --help            show this help message and exit
+  --base-folder BASE_FOLDER
+                        Workspace where downloads and derived products will be
+                        stored.
+  --site-code SITE_CODE
+                        NEON site code (e.g. NIWO).
+  --year-month YEAR_MONTH
+                        Acquisition year-month in YYYY-MM format.
+  --product-code PRODUCT_CODE
+                        NEON product code (e.g. DP1.30006.001).
+  --flight-lines FLIGHTLINE [FLIGHTLINE ...]
+                        One or more NEON flight line identifiers to process.
+  --max-workers MAX_WORKERS
+                        Ray CPU budget (defaults to 8). Used as worker count
+                        for non-Ray engines.
+  --resample-method {convolution,legacy,resample}
+                        Sensor resampling strategy. Defaults to the modern
+                        convolution pipeline.
+  --brightness-offset BRIGHTNESS_OFFSET
+                        Optional brightness offset applied during ENVI export.
+  --use-ndvi-brdf-bins, --no-use-ndvi-brdf-bins
+                        Enable NDVI-stratified BRDF coefficient bins. Defaults
+                        to off.
+  --parquet-chunk-size PARQUET_CHUNK_SIZE
+                        Row group size (rows per chunk) used during Parquet
+                        export to bound memory usage.
+  --merge-memory-limit MERGE_MEMORY_LIMIT
+                        DuckDB memory limit for the merge stage (float GiB,
+                        'auto', or literal).
+  --merge-threads MERGE_THREADS
+                        DuckDB thread count for the merge stage (defaults to
+                        4).
+  --merge-row-group-size MERGE_ROW_GROUP_SIZE
+                        Row group size for merged Parquet output (defaults to
+                        50,000).
+  --merge-temp-directory MERGE_TEMP_DIRECTORY
+                        Custom DuckDB temp directory for merge spill files.
+  --engine {thread,process,ray}
+                        Parallel engine for flightline dispatch. Ray is the
+                        default and initialises automatically.
+  --topo-fit-mode {scene,tile}
+                        Topographic correction fit strategy. 'scene' fits once
+                        over the full flightline (default); 'tile' fits
+                        independently inside 100x100 tiles.
+  --qa-mode {off,standard,deep}
+                        Stage QA level. 'standard' (default) and 'deep' run
+                        after the flightline has finished, reading on-disk
+                        stage products; 'off' skips the new stage reports but
+                        still writes the legacy QA panel.
+
+First run: supply real site/month/flight IDs and NEON_API_TOKEN.
+  spectralbridge-pipeline --base-folder outputs --site-code NIWO --year-month 2023-08 --product-code DP1.30006.001 --flight-lines FLIGHT_ID --engine thread --max-workers 1
+
+Outputs: per-flightline ENVI, requested tables and QA under --base-folder.
+Resume with the same command to reuse valid stages.
+Guide: https://earthlab.github.io/spectralbridge/vignettes/full-pipeline/

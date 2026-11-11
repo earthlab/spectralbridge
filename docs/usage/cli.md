@@ -6,6 +6,29 @@
 <p class="sb-doc-note">Legacy CLI aliases still forward to the same implementation, but the primary command names are <code>spectralbridge-*</code>.</p>
 </section>
 
+## Choose a command by task
+
+| Role | Command | Inputs → outputs |
+| --- | --- | --- |
+| Primary: NEON | `spectralbridge-pipeline` | Site/date/flight IDs → per-flightline ENVI, optional tables and QA |
+| Primary: drone campaign | `spectralbridge-drone-production inventory`, `campaign`, `bulk` | Supported remote HDF5 ExportPackages → inventory, per-flight products or compact bulk closeout |
+| Primary: bulk | `spectralbridge-bulk` | Completed local products → compact statistics and reports; begin with `--preflight-only` |
+| Supporting: acquisition | `spectralbridge-download` | NEON identifiers → source HDF5 |
+| Supporting: QA | `spectralbridge-qa`, `spectralbridge-stage-qa`, `spectralbridge-qa-dashboard`, `spectralbridge-qa-summary` | Existing products/QA → updated diagnostics, dashboards or PDF |
+| Supporting: repair and tables | `spectralbridge-recover-raw`, `spectralbridge-merge-duckdb`, `spectralbridge-validate-parquets` | Existing artifacts → missing raw exports, merged tables or validation findings |
+
+For **local drone TIFF/HDF5**, use the existing Python/JSON entry point in the
+[drone guide](../vignettes/drone-processing.md); the remote campaign command is
+not an automatic original-orthomosaic/camera-table reconstruction service.
+For a **spectral library alone**, use `inspect_spectral_library_preflight()` and
+`run_spectral_library_analysis()` in the [library guide](../vignettes/spectral-library.md).
+The bulk CLI can attach a library to a bulk run; there is no standalone library CLI.
+The `cscal-*` and `csc-merge-duckdb` aliases remain compatible but are not new workflows.
+
+Run any command with `--help` before starting. Full NEON downloads need a token;
+remote campaigns need an initialized GoCommands login. A local CLI help page or
+configuration check does not contact those services.
+
 <section class="sb-doc-section" markdown="1">
 <p class="sb-kicker">Entry points</p>
 <h2>Available commands</h2>

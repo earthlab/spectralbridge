@@ -354,6 +354,52 @@ def _encoding_metadata(dataset, *, kind, verified):
 
 def dataset_radiometry(dataset, *, neon=False):
     """Read explicit calibration or documented NEON divisors, never infer by range."""
+    typed = dataset.attrs.get("spectralbridge_source_encoding")
+    if typed is not None:
+        from .drone_radiometry import (
+            radiometry_from_source_encoding,
+            validate_source_wavelengths,
+        )
+
+        declaration = json.loads(
+            typed.decode() if isinstance(typed, bytes) else str(typed)
+        )
+        resolved = radiometry_from_source_encoding(declaration)
+        spectral = dataset.parent.get("Metadata/Spectral_Data/Wavelength")
+        if spectral is not None:
+            validate_source_wavelengths(declaration, spectral[:])
+        legacy = dataset.attrs.get("spectralbridge_radiometry")
+        if legacy is not None:
+            previous = Radiometry.from_record(
+                json.loads(
+                    legacy.decode() if isinstance(legacy, bytes) else str(legacy)
+                )
+            )
+            if previous.status == "VALID" and (
+                previous.scale != resolved.scale or previous.offset != resolved.offset
+            ):
+                raise ValueError(
+                    "Conflicting typed encoding and affine calibration; possible double scaling"
+                )
+        details = _encoding_metadata(
+            dataset,
+            kind=(resolved.encoding or {})["kind"],
+            verified=resolved.status == "VALID",
+        )
+        incoming = resolved.encoding or {}
+        if incoming.get("nodata") is not None and details.get("nodata") is not None:
+            first, second = incoming["nodata"], details["nodata"]
+            if not (
+                str(first).lower() == str(second).lower()
+                or np.array_equal(np.asarray(first), np.asarray(second), equal_nan=True)
+            ):
+                raise ValueError(
+                    "Radiometry INVALID: source NoData declarations disagree"
+                )
+        if legacy is not None:
+            details.update(previous.encoding or {})
+        details.update(incoming)
+        return replace(resolved, encoding=details)
     record = dataset.attrs.get("spectralbridge_radiometry")
     if record is not None:
         if isinstance(record, bytes):
@@ -459,7 +505,9 @@ def require_library_header(header):
     BRDF requested but unsupported/invalid is not an approved alternative.
     """
     if str(header.get("scientific validation status", "")).upper() == "EXPERIMENTAL":
-        raise ValueError("Experimental correction is not eligible for an approved spectral library")
+        raise ValueError(
+            "Experimental correction is not eligible for an approved spectral library"
+        )
     r = Radiometry.from_header(header).require_valid()
     status = str(header.get("brdf status", "UNSUPPORTED"))
     if status not in {"VALID", "NOT_REQUESTED"}:
@@ -472,10 +520,15 @@ def require_library_header(header):
         )
     if status == "VALID":
         from .corrections import BRDF_KERNEL_MATH_VERSION, BRDF_VALIDATION_POLICY
+
         if header.get("brdf kernel math version") != BRDF_KERNEL_MATH_VERSION:
-            raise ValueError("BRDF UNSUPPORTED: incompatible kernel mathematics; preserve historical products and use a fresh output directory")
+            raise ValueError(
+                "BRDF UNSUPPORTED: incompatible kernel mathematics; preserve historical products and use a fresh output directory"
+            )
         if header.get("brdf validation policy") != BRDF_VALIDATION_POLICY:
-            raise ValueError("BRDF UNSUPPORTED: incompatible validation policy; preserve historical products and use a fresh output directory")
+            raise ValueError(
+                "BRDF UNSUPPORTED: incompatible validation policy; preserve historical products and use a fresh output directory"
+            )
     return r
 
 

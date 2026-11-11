@@ -298,3 +298,24 @@ def test_old_brdf_headers_are_not_approved_library_inputs():
     header["brdf status"] = "NOT_REQUESTED"
     header.pop("brdf validation policy")
     assert require_library_header(header).status == "VALID"
+
+def test_brdf_rejection_reports_reference_separately_from_application(tmp_path):
+    obj, _ = cube()
+    # Reference uncertainty can fail independently from uncertainty at observed angles.
+    path = c.fit_and_save_brdf_model(obj, tmp_path)
+    m = json.loads(path.read_text())
+    for r in m['validation']['fits']:
+        assert r['reference_prediction_resolved']
+        assert r['unresolved_observed_geometry_predictions'] == 0
+        assert r['rejection_components'] == []
+        assert r['reference_prediction_lower_margin'] > 0
+    original = c._reference_design
+    try:
+        c._reference_design = lambda reference, config: np.array([1., -100., -100.])
+        rejected = c.fit_and_save_brdf_model(obj, tmp_path / 'unsupported_reference')
+    finally:
+        c._reference_design = original
+    m = json.loads(rejected.read_text())
+    assert m['validation']['status'] == 'INVALID'
+    assert 'iso' not in m
+    assert any('REFERENCE_PREDICTION_UNRESOLVED' in r['rejection_components'] for r in m['validation']['fits'])

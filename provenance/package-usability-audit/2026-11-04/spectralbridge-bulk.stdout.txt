@@ -1,0 +1,154 @@
+usage: spectralbridge-bulk [-h]
+                           [--input-mode {auto,flightline_outputs,merged_parquet}]
+                           --output-dir OUTPUT_DIR
+                           [--input-kind {full,polygon,both}]
+                           [--analysis ANALYSIS] [--sensor SENSORS]
+                           [--translation-pair TRANSLATION_PAIRS]
+                           [--on-invalid {exclude,error}]
+                           [--minimum-reflectance MINIMUM_REFLECTANCE]
+                           [--allow-no-translation]
+                           [--row-group-size ROW_GROUP_SIZE]
+                           [--materialize-observations]
+                           [--memory-limit MEMORY_LIMIT] [--threads THREADS]
+                           [--extraction-workers EXTRACTION_WORKERS]
+                           [--extraction-chunk-size EXTRACTION_CHUNK_SIZE]
+                           [--diagnostic-sample-size DIAGNOSTIC_SAMPLE_SIZE]
+                           [--diagnostic-seed DIAGNOSTIC_SEED]
+                           [--spectral-library SPECTRAL_LIBRARY]
+                           [--make-summary-plots]
+                           [--make-full-spectral-reports]
+                           [--spectral-stage SPECTRAL_STAGE]
+                           [--species-field SPECIES_FIELD]
+                           [--species-sort {count_desc,alphabetical}]
+                           [--spectral-panels-per-page SPECTRAL_PANELS_PER_PAGE]
+                           [--spectral-trace-batch-size SPECTRAL_TRACE_BATCH_SIZE]
+                           [--spectral-summary-band-batch-size SPECTRAL_SUMMARY_BAND_BATCH_SIZE]
+                           [--spectral-max-traces-per-group SPECTRAL_MAX_TRACES_PER_GROUP]
+                           [--spectral-sampling-seed SPECTRAL_SAMPLING_SEED]
+                           [--spectral-raster-dpi SPECTRAL_RASTER_DPI]
+                           [--spectral-y-scale {global_robust,global_full,per_group_robust}]
+                           [--spectral-plot-y-quantiles LOW HIGH]
+                           [--spectral-plot-minimum-reflectance SPECTRAL_PLOT_MINIMUM_REFLECTANCE]
+                           [--spectral-nodata-value SPECTRAL_NODATA_VALUE]
+                           [--spectral-nodata-tolerance SPECTRAL_NODATA_TOLERANCE]
+                           [--spectral-max-extreme-spectra-per-species SPECTRAL_MAX_EXTREME_SPECTRA_PER_SPECIES]
+                           [--temp-directory TEMP_DIRECTORY] [--force]
+                           [--preflight-only]
+                           input_path
+
+Catalog completed SpectralBridge flightlines and run bounded, read-in-place hierarchical translation analyses.
+
+positional arguments:
+  input_path            A completed-flightline archive, merged Parquet, or
+                        directory tree to discover recursively.
+
+options:
+  -h, --help            show this help message and exit
+  --input-mode {auto,flightline_outputs,merged_parquet}
+                        Input contract. Auto prefers canonical completed-
+                        flightline folders and falls back to merged Parquets.
+  --output-dir OUTPUT_DIR
+                        Fresh bulk output directory outside the read-only
+                        input tree.
+  --input-kind {full,polygon,both}
+                        Merged table type to include. Defaults to full-pixel
+                        tables.
+  --analysis ANALYSIS   Analysis profile name (default: translation).
+  --sensor SENSORS      Limit translation to pairs containing only the named
+                        sensors. Repeat for each sensor in the desired
+                        relationship.
+  --translation-pair TRANSLATION_PAIRS
+                        Built-in translation-pair key to select; may be
+                        repeated.
+  --on-invalid {exclude,error}
+                        Exclude invalid flightlines (default) or report and
+                        raise an error.
+  --minimum-reflectance MINIMUM_REFLECTANCE
+                        Inclusive lower bound for both regression variables
+                        (default: 0).
+  --allow-no-translation
+                        Build the collection even when no requested
+                        translation columns exist.
+  --row-group-size ROW_GROUP_SIZE
+                        Rows per optional materialized observation Parquet row
+                        group (default: 50000).
+  --materialize-observations
+                        Write a portable super-Parquet. Disabled by default
+                        because it may require multi-terabyte disk space.
+  --memory-limit MEMORY_LIMIT
+                        Optional DuckDB memory limit such as 8GB.
+  --threads THREADS     Optional DuckDB worker-thread count.
+  --extraction-workers EXTRACTION_WORKERS
+                        Concurrent flightline readers (default: 1,
+                        conservative for I/O).
+  --extraction-chunk-size EXTRACTION_CHUNK_SIZE
+                        Maximum ENVI streaming-window edge (default: 2048).
+  --diagnostic-sample-size DIAGNOSTIC_SAMPLE_SIZE
+                        Optional global maximum number of sampled pixel pairs
+                        (default: 0).
+  --diagnostic-seed DIAGNOSTIC_SEED
+                        Seed for deterministic bounded diagnostic sampling
+                        (default: 0).
+  --spectral-library SPECTRAL_LIBRARY
+                        Existing merged polygon spectral-library Parquet to
+                        read in place.
+  --make-summary-plots  Create compact species-median and observation-count
+                        PDFs.
+  --make-full-spectral-reports
+                        Explicitly create the expensive multipage trace and
+                        hierarchy PDFs.
+  --spectral-stage SPECTRAL_STAGE
+                        Wavelength-bearing column prefix to plot, such as
+                        corr.
+  --species-field SPECIES_FIELD
+                        Species column override when it cannot be detected
+                        safely.
+  --species-sort {count_desc,alphabetical}
+                        Species panel ordering (default: count_desc).
+  --spectral-panels-per-page SPECTRAL_PANELS_PER_PAGE
+                        Readable panels per multipage PDF page (default: 4).
+  --spectral-trace-batch-size SPECTRAL_TRACE_BATCH_SIZE
+                        Maximum spectra held in one plotting batch (default:
+                        2000).
+  --spectral-summary-band-batch-size SPECTRAL_SUMMARY_BAND_BATCH_SIZE
+                        Maximum bands summarized per DuckDB pass (default:
+                        32).
+  --spectral-max-traces-per-group SPECTRAL_MAX_TRACES_PER_GROUP
+                        Explicit deterministic per-group trace cap; default
+                        renders every trace.
+  --spectral-sampling-seed SPECTRAL_SAMPLING_SEED
+                        Seed used only with an explicit per-group trace cap.
+  --spectral-raster-dpi SPECTRAL_RASTER_DPI
+                        DPI for the rasterized low-alpha trace layer (default:
+                        150).
+  --spectral-y-scale {global_robust,global_full,per_group_robust}
+                        Species report y-axis strategy (default:
+                        global_robust).
+  --spectral-plot-y-quantiles LOW HIGH
+                        Robust graphical bounds as probabilities (default:
+                        0.005 0.995).
+  --spectral-plot-minimum-reflectance SPECTRAL_PLOT_MINIMUM_REFLECTANCE
+                        Optional visualization-only lower threshold; default
+                        keeps finite negatives.
+  --spectral-nodata-value SPECTRAL_NODATA_VALUE
+                        Explicit nodata sentinel; repeat to replace the
+                        default -9999 sentinel set.
+  --spectral-nodata-tolerance SPECTRAL_NODATA_TOLERANCE
+                        Absolute tolerance for matching explicit nodata values
+                        (default: 0.01).
+  --spectral-max-extreme-spectra-per-species SPECTRAL_MAX_EXTREME_SPECTRA_PER_SPECIES
+                        Bounded ranked extreme-spectrum rows retained per
+                        species (default: 100).
+  --temp-directory TEMP_DIRECTORY
+                        Optional DuckDB spill directory.
+  --force               Rebuild outputs even when the source inventory is
+                        unchanged.
+  --preflight-only      Write catalogs and the metadata-only dataset census,
+                        then stop.
+
+Inspect first (no raster pixel scan):
+  spectralbridge-bulk /data/completed --output-dir /data/bulk --preflight-only
+Run the same command without --preflight-only to analyze.
+Outputs: catalog/, compact analyses/, figures/ and reports/ as requested.
+Keep output outside the immutable source tree; valid checkpoints are reused.
+Guide: https://earthlab.github.io/spectralbridge/vignettes/bulk-analysis/

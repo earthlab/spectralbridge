@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "UNSUPPORTED_FOR_FULL_CORRECTED_ORTHOMOSAIC",
+  "radiometric_encoding": "VERIFIED_VENDOR_PROJECT_ENCODING;INDEPENDENT_ACCURACY_PENDING",
+  "both_corrections_required": true,
+  "source_images_exported": false,
+  "orthomosaic_regenerated": false,
+  "blockers": [
+    "Matched original-photo SCS+C uncertainty/application failures remain (see per-band/fold evidence)",
+    "Dense ground-DTM red fit retains negative C and unresolved denominator domain",
+    "Full-frame held-out terrain/shadow, spectral and source-mask support not established",
+    "Licensed Metashape build/export unavailable locally"
+  ],
+  "numerical_summary": "See matched_models.json, bootstrap_uncertainty.json and combined_heldout_validation.csv",
+  "numerical_evidence": {
+    "matched_folds": {
+      "UNSUPPORTED": 30,
+      "NUMERICAL_CANDIDATE_ONLY": 10
+    },
+    "unresolved_bootstrap_normalizations": 0,
+    "heldout_multiplicative_median_variance_ratio": 0.7661936714574092,
+    "dense_ground_red_C": -0.17349661775882688,
+    "dense_ground_red_unsupported": 109
+  },
+  "limitations": [
+    "Physical reflectance accuracy and independent ground registration not established",
+    "Spatial/time validation remains conditional on shared flight calibration",
+    "Trackable feature sample and cross-band registration limit ecological representativeness"
+  ]
+}

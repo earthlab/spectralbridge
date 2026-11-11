@@ -1,0 +1,32 @@
+Gordon conditioned SCS+C fit; 5733669 training pixels
+Gordon SCS+C model VALID [(0, 'VALID'), (1, 'VALID'), (2, 'VALID'), (3, 'VALID'), (4, 'VALID'), (5, 'VALID'), (6, 'VALID'), (7, 'VALID'), (8, 'VALID'), (9, 'VALID')]
+Gordon actual shared drone correction driver: topographic_only
+Gordon topographic_only EXECUTED_EXPERIMENTAL 
+Gordon actual shared drone correction driver: brdf_only
+Gordon brdf_only EXECUTED_EXPERIMENTAL 
+Gordon actual shared drone correction driver: combined
+Gordon combined EXECUTED_EXPERIMENTAL 
+Gordon correction stage complete
+Goldhill conditioned SCS+C fit; 6145543 training pixels
+Goldhill SCS+C model VALID [(0, 'VALID'), (1, 'VALID'), (2, 'VALID'), (3, 'VALID'), (4, 'VALID'), (5, 'VALID'), (6, 'VALID'), (7, 'VALID'), (8, 'VALID'), (9, 'VALID')]
+Goldhill actual shared drone correction driver: topographic_only
+Goldhill topographic_only EXECUTED_EXPERIMENTAL 
+Goldhill actual shared drone correction driver: brdf_only
+Goldhill brdf_only EXECUTED_EXPERIMENTAL 
+Goldhill actual shared drone correction driver: combined
+Goldhill combined EXECUTED_EXPERIMENTAL 
+Traceback (most recent call last):
+  File "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-correction-stability/2026-11-05/rerun.py", line 19, in <module>
+    driver.site(config)
+  File "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-camera-rerun/2026-11-05/correct_sites.py", line 111, in site
+    end=min(y+128,cube.lines);result=support.isolated(support.topo.apply_conditioned_scs_c)(cube,np.asarray(cube.data[y:end]),y,end,0,cube.columns,model=model)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/topographic.py", line 277, in apply_conditioned_scs_c
+    def apply_conditioned_scs_c(cube, chunk, ys, ye, xs, xe, *, model):
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/radiometry.py", line 452, in require_radiometry
+    return r.require_valid()
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/radiometry.py", line 86, in require_valid
+    raise ValueError(
+ValueError: Radiometry HYPOTHETICAL_UNVERIFIED: authoritative physical scale, offset, units and provenance required (P172 isolated MicaSense_Metashape_DN_32768 hypothesis).

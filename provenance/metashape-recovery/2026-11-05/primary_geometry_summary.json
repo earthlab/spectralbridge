@@ -1,0 +1,77 @@
+[
+  {
+    "site": "Ruby",
+    "variant": "WORKING",
+    "project_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/metashape-recovery/2026-11-05/sources/AOP-RUBY-08-14-23/ImageryProcessing/M300/AOP-RUBY-08-14-23-WORKING.psx",
+    "output": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/metashape-recovery/2026-11-05/geometry/ruby_working_primary_geometry_1m.tif",
+    "valid": 19975,
+    "requested": 19975,
+    "source_exposures": 367,
+    "view_zenith_quantiles": [
+      0.015015402808785439,
+      0.20784647166728973,
+      1.4631742238998413,
+      2.5260777568817097,
+      3.015798568725586
+    ],
+    "view_azimuth_quantiles": [
+      0.04792076349258423,
+      6.112477207183838,
+      179.60887145996094,
+      354.1249243164062,
+      359.9731140136719
+    ],
+    "projected_inside_image": 19975,
+    "method": "Official orthomosaic.camera at 1m crop centers; calibrated band-specific projection and true ENU angles; primary assignment does not recover blend weights"
+  },
+  {
+    "site": "Goldhill",
+    "variant": "WORKING",
+    "project_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/metashape-recovery/2026-11-05/sources/AOP-GOLDHILL-08-14-23/ImageryProcessing/M300/AOP-GOLDHILL-08-14-23-WORKING.psx",
+    "output": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/metashape-recovery/2026-11-05/geometry/goldhill_working_primary_geometry_1m.tif",
+    "valid": 66678,
+    "requested": 66773,
+    "source_exposures": 565,
+    "view_zenith_quantiles": [
+      0.009437435306608677,
+      0.2825522392988205,
+      2.3070966005325317,
+      21.365891971588134,
+      31.559642791748047
+    ],
+    "view_azimuth_quantiles": [
+      0.005391594022512436,
+      2.5780764651298522,
+      182.37718963623047,
+      357.03019470214844,
+      359.93646240234375
+    ],
+    "projected_inside_image": 66678,
+    "method": "Official orthomosaic.camera at 1m crop centers; calibrated band-specific projection and true ENU angles; primary assignment does not recover blend weights"
+  },
+  {
+    "site": "Goldhill",
+    "variant": "NOGCPS-WORKING",
+    "project_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/metashape-recovery/2026-11-05/sources/AOP-GOLDHILL-08-14-23/ImageryProcessing/M300/AOP-GOLDHILL-08-14-23-NOGCPS-WORKING.psx",
+    "output": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/metashape-recovery/2026-11-05/geometry/goldhill_nogcps_working_primary_geometry_1m.tif",
+    "valid": 66679,
+    "requested": 66773,
+    "source_exposures": 565,
+    "view_zenith_quantiles": [
+      0.01028971467167139,
+      0.28643381893634795,
+      2.3445475101470947,
+      21.66469333648682,
+      31.10474967956543
+    ],
+    "view_azimuth_quantiles": [
+      0.01954057440161705,
+      2.507334785461426,
+      184.2765655517578,
+      357.4384259033203,
+      359.9687805175781
+    ],
+    "projected_inside_image": 66679,
+    "method": "Official orthomosaic.camera at 1m crop centers; calibrated band-specific projection and true ENU angles; primary assignment does not recover blend weights"
+  }
+]

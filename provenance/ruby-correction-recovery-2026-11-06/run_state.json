@@ -1,0 +1,56 @@
+{
+  "verify_sources": {
+    "status": "COMPLETE",
+    "signature": "dec1f3bb2449c0ecd44ebff845a33d476ef35a0336360b0ce1e5a58aab2e8ad8",
+    "elapsed_seconds": 2.649199207953643,
+    "outputs": {
+      "baseline.json": "b034c73bb6219b74ff84919f99875fa9117035f23c4dc8b723a971e025697de2"
+    }
+  },
+  "exact_rays": {
+    "status": "COMPLETE",
+    "signature": "551f1e3678ba198398376583bdf92a89d641297c1c245a1e4e64bc19d1865b4e",
+    "elapsed_seconds": 2.4640849590068683,
+    "outputs": {
+      "exact_ray_validation.json": "3741b12c139a6d1f7a7c29331c3535548d392be360b2c856567d5c22a16a0d35"
+    }
+  },
+  "calibration_replacement": {
+    "status": "COMPLETE",
+    "signature": "b1f5b41a3f5ae2aea9cd62df8d4ab4075f18a79a38ad91370160d923fc700019",
+    "elapsed_seconds": 1.308851833047811,
+    "outputs": {
+      "calibrated_photo_roundtrip.json": "82f976fa2cfe9f857f5ac2fe250b3f882a1354578fcb7020ae1fb1c9721866e4"
+    }
+  },
+  "sample": {
+    "status": "COMPLETE",
+    "signature": "3362adc938382c271162b5f7cfb6209df3009c0c5743401f98428e15629624ac",
+    "elapsed_seconds": 34.1127792079933,
+    "outputs": {
+      "expanded_observations.csv": "dba7345f758d4e96b05020e5dbb635697a4cfbe79662df73cd61768a35c87083",
+      "expanded_photo_radiometry.json": "cad985c2940969e473a09722a7b284ce59910370ce07dfc70f56eb2c9f686356"
+    }
+  },
+  "analyze": {
+    "status": "COMPLETE",
+    "signature": "7b084cb1a6cc15f9e44b61a94fd23142494b1afac5de077dfa9f76c62f7ca255",
+    "elapsed_seconds": 5.053710874984972,
+    "outputs": {
+      "observations_enriched.csv": "6ac2beb179fd10190bca896c6780c0a7a9934c8659225daf2e6ae89b86cbb420",
+      "heldout_validation.csv": "bdba47fedf662df76f826fa2e7ac166fb8ae94a876e516604127950564c94458",
+      "topographic_models.json": "75d608e16c7ac6e4e7822a048bb1cd71bf8b718f642fadd7b8218f5a3552d46b",
+      "brdf_models.json": "e118ad79ddb02c6cdcd1843b4b8bd9af6567c27b5346dbc61b7df204961c965b"
+    }
+  },
+  "matched": {
+    "status": "COMPLETE",
+    "signature": "c9d4fcdf688765849c52225ab78953a7752cbce91616fbc1200dc120223a2a76",
+    "elapsed_seconds": 1.84162791603012,
+    "outputs": {
+      "correction_status.json": "7076009826ecb247300d0c12e5b9136e853387156e8114619e7e43046550698e",
+      "combined_heldout_validation.csv": "de629324cbbe7c4ee9e33043b22e6f1fed4ef4cadc148116ff9aeaf3b845eb69",
+      "bootstrap_uncertainty.json": "300f80ae55944cdcd1cbf4afbdad8ef8897ab52f397469e455b37265806a672a"
+    }
+  }
+}
