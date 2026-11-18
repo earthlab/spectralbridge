@@ -1,0 +1,362 @@
+{
+  "roots": {
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023": [
+      "AOP-GOLDHILL-08-14-23-ExportPackage",
+      "AOP-GORDON-08-14-23-ExportPackage",
+      "AOP-MRS1-08-14-23-ExportPackage",
+      "AOP-MRS2-08-14-23-ExportPackage",
+      "AOP-Ruby-08-14-23-ExportPackage",
+      "CW1-08-08-23-ExportPackage",
+      "CW2-08-16-23-ExportPackage",
+      "CW3-08-16-23-ExportPackage",
+      "GAH1-07-25-23-ExportPackage",
+      "GAH2-07-25-23-ExportPackage",
+      "JC1-07-11-23-ExportPackage",
+      "OR3-08-16-23-ExportPackage",
+      "SH67W1-07-11-23-ExportPackage",
+      "SH67W2-07-11-23-ExportPackage",
+      "SH67_1-07-07-23-ExportPackage",
+      "SPR1-06-28-23-ExportPackage",
+      "SPR2-06-28-23-ExportPackage"
+    ],
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024": [
+      "beartoothManual_1-07-29-24-ExportPackage",
+      "beartoothManual_2-07-29-24-ExportPackage",
+      "beartoothManual_3-07-29-24-ExportPackage",
+      "beartoothManual_5-07-31-24-ExportPackage",
+      "beartoothManual_6-07-29-24-ExportPackage",
+      "beartoothManual_7-07-29-24-ExportPackage",
+      "hoodRiver_19-07-05-24-ExportPackage",
+      "hoodRiver_4-07-05-24-ExportPackage",
+      "kremmling_10-06-05-24-ExportPackage",
+      "kremmling_2-06-05-24-ExportPackage",
+      "kremmling_22-06-05-24-ExportPackage",
+      "mtst_13-07-16-24-ExportPackage",
+      "mtst_15-07-16-24-ExportPackage",
+      "mtst_26-07-16-24-ExportPackage",
+      "mtst_30-07-17-24-ExportPackage",
+      "mtst_31-07-17-24-ExportPackage",
+      "mtst_35-07-17-24-ExportPackage",
+      "mtst_5-07-17-24-ExportPackage",
+      "sistersRanger_14-06-25-24-ExportPackage",
+      "sistersRanger_19-07-03-24-ExportPackage",
+      "sistersRanger_2-06-28-24-ExportPackage",
+      "sistersRanger_36-06-25-24-ExportPackage",
+      "sistersRanger_37-07-03-24-ExportPackage",
+      "sistersRanger_6-06-25-24-ExportPackage",
+      "sistersRanger_8-06-28-24-ExportPackage",
+      "sistersRanger_9-06-28-24-ExportPackage"
+    ],
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k": [
+      "AOP-GOLDHILL-08-14-23-ExportPackage",
+      "AOP-GORDON-08-14-23-ExportPackage",
+      "AOP-MRS1-08-14-23-ExportPackage",
+      "AOP-MRS2-08-14-23-ExportPackage",
+      "AOP-Ruby-08-14-23-ExportPackage",
+      "CW1-08-08-23-ExportPackage",
+      "CW2-08-16-23-ExportPackage",
+      "CW3-08-16-23-ExportPackage",
+      "GAH1-07-25-23-ExportPackage",
+      "GAH2-07-25-23-ExportPackage",
+      "JC1-07-11-23-ExportPackage",
+      "OR3-08-16-23-ExportPackage",
+      "SH67W1-07-11-23-ExportPackage",
+      "SH67W2-07-11-23-ExportPackage",
+      "SH67_1-07-07-23-ExportPackage",
+      "SPR1-06-28-23-ExportPackage",
+      "SPR2-06-28-23-ExportPackage"
+    ],
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k": [
+      "beartoothManual_1-07-29-24-ExportPackage",
+      "beartoothManual_2-07-29-24-ExportPackage",
+      "beartoothManual_3-07-29-24-ExportPackage",
+      "beartoothManual_5-07-31-24-ExportPackage",
+      "beartoothManual_6-07-29-24-ExportPackage",
+      "beartoothManual_7-07-29-24-ExportPackage",
+      "hoodRiver_19-07-05-24-ExportPackage",
+      "hoodRiver_4-07-05-24-ExportPackage",
+      "kremmling_10-06-05-24-ExportPackage",
+      "kremmling_2-06-05-24-ExportPackage",
+      "kremmling_22-06-05-24-ExportPackage",
+      "mtst_13-07-16-24-ExportPackage",
+      "mtst_15-07-16-24-ExportPackage",
+      "mtst_26-07-16-24-ExportPackage",
+      "mtst_30-07-17-24-ExportPackage",
+      "mtst_31-07-17-24-ExportPackage",
+      "mtst_35-07-17-24-ExportPackage",
+      "mtst_5-07-17-24-ExportPackage",
+      "sistersRanger_14-06-25-24-ExportPackage",
+      "sistersRanger_19-07-03-24-ExportPackage",
+      "sistersRanger_2-06-28-24-ExportPackage",
+      "sistersRanger_36-06-25-24-ExportPackage",
+      "sistersRanger_37-07-03-24-ExportPackage",
+      "sistersRanger_6-06-25-24-ExportPackage",
+      "sistersRanger_8-06-28-24-ExportPackage",
+      "sistersRanger_9-06-28-24-ExportPackage"
+    ]
+  },
+  "files": [
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-GOLDHILL-08-14-23-ExportPackage/AOP-GOLDHILL-8-14-2023-camera-locations.csv",
+      "bytes": 1106508,
+      "modified": "2026-11-04.19:06"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-GORDON-08-14-23-ExportPackage/AOP-GORDON-8-14-2023-camera-locations.csv",
+      "bytes": 1112774,
+      "modified": "2026-11-04.19:06"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-MRS1-08-14-23-ExportPackage/AOP-MRS1-8-14-2023-camera-locations.csv",
+      "bytes": 884386,
+      "modified": "2026-11-04.19:07"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-MRS2-08-14-23-ExportPackage/AOP-MRS2-8-14-2023-camera-locations.csv",
+      "bytes": 849691,
+      "modified": "2026-11-04.19:07"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-8-14-2023-camera-locations.csv",
+      "bytes": 997120,
+      "modified": "2026-11-04.19:07"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/CW1-08-08-23-ExportPackage/CW1-8-16-23-camera-locations.csv",
+      "bytes": 497457,
+      "modified": "2026-11-10.13:58"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/CW2-08-16-23-ExportPackage/CW2-8-16-23-camera-locations.csv",
+      "bytes": 573465,
+      "modified": "2026-11-10.13:58"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/CW3-08-16-23-ExportPackage/CW3-8-16-23-camera-locations.csv",
+      "bytes": 572175,
+      "modified": "2026-11-10.13:59"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/GAH1-07-25-23-ExportPackage/GAH1-07-25-23-camera-locations.csv",
+      "bytes": 585843,
+      "modified": "2026-11-10.13:59"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/GAH2-07-25-23-ExportPackage/GAH2-07-25-23-camera-locations.csv",
+      "bytes": 281075,
+      "modified": "2026-11-10.13:59"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/JC1-07-11-23-ExportPackage/JC1-07-11-23-camera-locations.csv",
+      "bytes": 535149,
+      "modified": "2026-11-10.13:59"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/OR3-08-16-23-ExportPackage/OR3-08-16-23-camera-locations.csv",
+      "bytes": 393136,
+      "modified": "2026-11-10.14:01"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/SH67W1-07-11-23-ExportPackage/SH67W1-07-11-23-camera-locations.csv",
+      "bytes": 483243,
+      "modified": "2026-11-10.14:02"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/SH67W2-07-11-23-ExportPackage/SH67W2-07-11-23-camera-locations.csv",
+      "bytes": 520823,
+      "modified": "2026-11-10.14:02"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/SH67_1-07-07-23-ExportPackage/SH67_1-07-07-23-camera-locations.csv",
+      "bytes": 430336,
+      "modified": "2026-11-10.14:02"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/SPR1-06-28-23-ExportPackage/SPR1-06-28-23-camera-locations.csv",
+      "bytes": 379690,
+      "modified": "2026-11-10.14:02"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023/SPR2-06-28-23-ExportPackage/SPR2-06-28-23-camera-locations.csv",
+      "bytes": 15688,
+      "modified": "2026-11-10.14:02"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/beartoothManual_1-07-29-24-ExportPackage/beartoothManual_1-07-29-24-camera-locations.csv",
+      "bytes": 532551,
+      "modified": "2026-11-11.18:49"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/beartoothManual_2-07-29-24-ExportPackage/beartoothManual_2-07-29-24-camera-locations.csv",
+      "bytes": 538284,
+      "modified": "2026-11-11.18:49"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/beartoothManual_3-07-29-24-ExportPackage/beartoothManual_3-07-29-24-camera-locations.csv",
+      "bytes": 539206,
+      "modified": "2026-11-11.18:49"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/beartoothManual_5-07-31-24-ExportPackage/beartoothManual_5-07-31-24-camera-locations.csv",
+      "bytes": 541010,
+      "modified": "2026-11-11.18:50"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/beartoothManual_6-07-29-24-ExportPackage/beartoothManual_6_07_29_24-camera-locations.csv",
+      "bytes": 544555,
+      "modified": "2026-11-11.18:50"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/beartoothManual_7-07-29-24-ExportPackage/beartoothManual_7_07_29_24-camera-locations.csv",
+      "bytes": 543073,
+      "modified": "2026-11-11.18:50"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/hoodRiver_19-07-05-24-ExportPackage/hoodRiver_19-07-05-24-camera-locations.csv",
+      "bytes": 301992,
+      "modified": "2026-11-11.18:51"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/hoodRiver_4-07-05-24-ExportPackage/hoodRiver_4-07-05-24-camera-locations.csv",
+      "bytes": 300743,
+      "modified": "2026-11-11.18:51"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/kremmling_10-06-05-24-ExportPackage/kremmling_10-06-05-24-camera-locations.csv",
+      "bytes": 34790,
+      "modified": "2026-11-11.18:51"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/kremmling_2-06-05-24-ExportPackage/kremmling_2-06-05-24-camera-locations.csv",
+      "bytes": 523494,
+      "modified": "2026-11-11.18:52"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/kremmling_22-06-05-24-ExportPackage/kremmling_22-06-05-24-camera-locations.csv",
+      "bytes": 540474,
+      "modified": "2026-11-11.18:52"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/mtst_13-07-16-24-ExportPackage/mtst_13-07-16-24-camera-locations.csv",
+      "bytes": 536882,
+      "modified": "2026-11-11.18:52"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/mtst_15-07-16-24-ExportPackage/mtst_15-07-16-24-camera-locations.csv",
+      "bytes": 539482,
+      "modified": "2026-11-11.18:53"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/mtst_26-07-16-24-ExportPackage/mtst_26-07-16-24-camera-locations.csv",
+      "bytes": 536454,
+      "modified": "2026-11-11.18:53"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/mtst_30-07-17-24-ExportPackage/mtst_30-07-17-24-camera-locations.csv",
+      "bytes": 543686,
+      "modified": "2026-11-11.18:54"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/mtst_31-07-17-24-ExportPackage/mtst_31-07-17-24-camera-locations.csv",
+      "bytes": 542857,
+      "modified": "2026-11-11.18:54"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/mtst_35-07-17-24-ExportPackage/mtst_35-07-17-24-camera-locations.csv",
+      "bytes": 535166,
+      "modified": "2026-11-11.18:54"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/mtst_5-07-17-24-ExportPackage/mtst_5-07-17-24-camera-locations.csv",
+      "bytes": 551423,
+      "modified": "2026-11-11.18:55"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/sistersRanger_14-06-25-24-ExportPackage/sistersRanger_14-06-25-24-camera-locations.csv",
+      "bytes": 187949,
+      "modified": "2026-11-11.18:55"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/sistersRanger_19-07-03-24-ExportPackage/sistersRanger_19-07-03-24-camera-locations.csv",
+      "bytes": 275439,
+      "modified": "2026-11-11.18:56"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/sistersRanger_2-06-28-24-ExportPackage/sistersRanger_2-06-28-24-camera-locations.csv",
+      "bytes": 240883,
+      "modified": "2026-11-11.18:56"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/sistersRanger_36-06-25-24-ExportPackage/sistersRanger_36-06-25-24-camera-locations.csv",
+      "bytes": 179050,
+      "modified": "2026-11-11.18:56"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/sistersRanger_37-07-03-24-ExportPackage/sistersRanger_37-07-03-24-camera-locations.csv",
+      "bytes": 235179,
+      "modified": "2026-11-11.18:56"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/sistersRanger_6-06-25-24-ExportPackage/sistersRanger_6-06-25-24-camera-locations.csv",
+      "bytes": 157258,
+      "modified": "2026-11-11.18:57"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/sistersRanger_8-06-28-24-ExportPackage/sistersRanger_8-06-28-24-camera-locations.csv",
+      "bytes": 312665,
+      "modified": "2026-11-11.18:57"
+    },
+    {
+      "path": "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024/sistersRanger_9-06-28-24-ExportPackage/sistersRanger_9-06-28-24-camera-locations.csv",
+      "bytes": 327831,
+      "modified": "2026-11-11.18:57"
+    }
+  ],
+  "folders_without_matches": [
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/AOP-GOLDHILL-08-14-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/AOP-GORDON-08-14-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/AOP-MRS1-08-14-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/AOP-MRS2-08-14-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/AOP-Ruby-08-14-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/CW1-08-08-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/CW2-08-16-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/CW3-08-16-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/GAH1-07-25-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/GAH2-07-25-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/JC1-07-11-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/OR3-08-16-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/SH67W1-07-11-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/SH67W2-07-11-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/SH67_1-07-07-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/SPR1-06-28-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2023-10cm-10k/SPR2-06-28-23-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/beartoothManual_1-07-29-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/beartoothManual_2-07-29-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/beartoothManual_3-07-29-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/beartoothManual_5-07-31-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/beartoothManual_6-07-29-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/beartoothManual_7-07-29-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/hoodRiver_19-07-05-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/hoodRiver_4-07-05-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/kremmling_10-06-05-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/kremmling_2-06-05-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/kremmling_22-06-05-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/mtst_13-07-16-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/mtst_15-07-16-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/mtst_26-07-16-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/mtst_30-07-17-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/mtst_31-07-17-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/mtst_35-07-17-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/mtst_5-07-17-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/sistersRanger_14-06-25-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/sistersRanger_19-07-03-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/sistersRanger_2-06-28-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/sistersRanger_36-06-25-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/sistersRanger_37-07-03-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/sistersRanger_6-06-25-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/sistersRanger_8-06-28-24-ExportPackage",
+    "/iplant/home/shared/earthlab/macrosystems/field-data/output/summer-2024-10cm-10k/sistersRanger_9-06-28-24-ExportPackage"
+  ],
+  "inventory_date": "2026-11-13",
+  "scope": "Live GoCommands listing of direct children of all flight packages under summer-2023, summer-2024 and both 10cm-10k collections. Presence and file metadata only."
+}

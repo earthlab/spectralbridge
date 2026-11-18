@@ -1,0 +1,31 @@
+{
+  "builder_sha256": "85e09d5b8256d99ddf02e8800d34a6a8a89e85061b5d58e2b516760b9039d0ea",
+  "field_source_sha256": {
+    "Datasets/niwot_aop_macrosystems_data_2023_12_8_23.gpkg": "7262b1fdccfaa5b0c2f99e9e767e26f223936eca493cf05ad15bd928d08b9b3a",
+    "archive/research/polygons/merged_all_AOP_polygon_data_2023_2024.geojson": "ae6fde2d7d63e2a6d64c150be818ec664b30425a3b9d1271ccfca0ca5711e878"
+  },
+  "files": {
+    "RESULTS.md": "5ce57b996e4753284bebe928b0f257db30981ec99a2aa45316f49294d968a07d",
+    "annotation-review-01.png": "4ec24583014fa0882249ca705e546cd28b8c8153cf5811ade9b4118738a42f0a",
+    "annotation-review-02.png": "f76612b5ff0675595d2b8a09ddb6d65f1bbc2ad949afe972de4e44940d87a33e",
+    "annotation-review-03.png": "6e1cd8dd705875cafc61cb2fe285e5481aa5bcf4e5fec370d858b1468cd9e5c3",
+    "annotation-review-04.png": "e56945b9adc2e29de763a42b2a352e04c922d5f9c8cdf01452f8bd19305a2106",
+    "annotation-review-05.png": "ea67ef29da41195bfde4199b8cb59a2345c7d36a6af8be893375b27ef08a1234",
+    "annotation_manifest.json": "f4d5a394fd2caec6805e1fccdf78f5f74b785faa9974d96abbf0bc915a66fbb9",
+    "annotation_policy.json": "f9edfebb068b90d65187c374da1d0917d90b18752df6e1c223db981ab62314c9",
+    "annotations.gpkg": "f3cbdda7413171a1643e9be31204b0054dc73dc87c71d71d1e9d091a2f0f51e9",
+    "dated_cover_fractions.csv": "551ec4197f2c244642a5e2bf0a903087444e222eb11502165639e77c130a00b3",
+    "field_anchor_support.csv": "1d3288baa71a927a30d1c83e267a684920e44d45c227c1d03b2e56fc763acd42",
+    "inspection-01.png": "35cd2bc4e74addb17050f808bad459ae92c0c08ff22b763a60cb5970ea0d32fd",
+    "inspection-02.png": "8ed3c0a650b7296c08838a5b73e25a69fc7b5bb07c16c7fb7e9c32ee161518e7",
+    "inspection-03.png": "34a0f8adba3658c289d37b931379e42024a27b2edb66c21093cfbeaef37ae194",
+    "photo_supported_observations.csv": "00eb6d5887e0ad2fe154f0aed0694b7794efc7465f2830f9f7931cce69c3a771",
+    "purity_support.csv": "5233774160892ca6bddacda7a7c8e08f94957178ebae427b08a89ae27767eff6",
+    "separability.csv": "3d838d70a6b94393ef3b9a7ca22cc8fc04668c4f9e999cc0aefd6a2728230886",
+    "test_memberships.csv": "e24069bae75aa3780f60d55e7f4fe70520cfd95e90f73de4355ee667fb837068",
+    "validation.json": "27b204939fca4b6445e2093da06a3b1aa045eb5ba24b32073f91e1ea09129ff8"
+  },
+  "independent_second_interpreter": false,
+  "interpreter": "OpenAI Codex",
+  "seasonal_archive_manifest_sha256": "42c95239d5fe3e529ad2659b7dd3c677563e99ed475f091cff3f5eabd124d492"
+}

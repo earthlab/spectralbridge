@@ -1,0 +1,29 @@
+candidate_id,image_review,proposed_pft,notes,reviewer,purity_fraction_measured
+front_range-10-1,canopy_candidate,Evergreen,Conifer-like canopy. Gaps and shadow require footprint-level delineation.,OpenAI Codex,False
+front_range-10-2,mixed_or_uncertain,,Gray/dead-looking crowns and open ground occur within the mapped tree-cover cell.,OpenAI Codex,False
+front_range-10-3,canopy_candidate,Evergreen,Conifer-like forest. Same-class projected cover remains unmeasured.,OpenAI Codex,False
+front_range-20-1,map_label_uncertain,,Light ground with low vegetation. Woody shrub identity is unresolved.,OpenAI Codex,False
+front_range-20-2,mixed_or_uncertain,,Low vegetation and exposed light ground form a fine mosaic.,OpenAI Codex,False
+front_range-30-1,priority_for_cover_annotation,Herbaceous,Broad fine-textured open-cover patch. Trees occur outside the core. Verify vegetation and soil fractions.,OpenAI Codex,False
+front_range-30-2,mixed_or_uncertain,,Green vegetation and exposed light patches occur together.,OpenAI Codex,False
+front_range-60-1,shadow_or_snow_context,Non-vegetated & dead,Rock beside snow and strong topographic shadow. Quantify components separately.,OpenAI Codex,False
+front_range-60-2,priority_for_cover_annotation,Non-vegetated & dead,Broad exposed-rock patch. Full-reference cover remains unmeasured.,OpenAI Codex,False
+front_range-60-3,shadow_or_snow_context,Non-vegetated & dead,Rock with dark topographic features. Shadow affects interpretability.,OpenAI Codex,False
+cascades-10-1,canopy_candidate,Evergreen,Conifer-like canopy with a strongly shadowed part of the core.,OpenAI Codex,False
+cascades-10-2,canopy_candidate,Evergreen,Conifer-like canopy. Quantify gaps and confirm composition.,OpenAI Codex,False
+cascades-30-1,mixed_or_uncertain,,A road crosses the core cell.,OpenAI Codex,False
+cascades-30-2,map_label_uncertain,,Coarse regrowth and open ground complicate the grassland locator label.,OpenAI Codex,False
+cascades-30-3,priority_for_cover_annotation,Herbaceous,Fine-textured open cover fills the core. Verify low woody cover and substrate.,OpenAI Codex,False
+cascades-60-1,map_label_uncertain,,Dark vegetated-looking context complicates the exposed-ground locator label.,OpenAI Codex,False
+cascades-60-2,anthropogenic_context,,"Engineered-looking ground, structures and shadow require composition review.",OpenAI Codex,False
+yellowstone-30-1,priority_for_cover_annotation,Herbaceous,Large open patch. A narrow drainage-like feature lies near the edge.,OpenAI Codex,False
+yellowstone-30-3,priority_for_cover_annotation,Herbaceous,Broad open patch. RGB alone does not resolve all low-stature growth forms.,OpenAI Codex,False
+yellowstone-60-2,mixed_or_uncertain,,Bright white material and bare substrate occur together.,OpenAI Codex,False
+yellowstone-60-3,priority_for_cover_annotation,Non-vegetated & dead,Light exposed-substrate patch. Measure sparse vegetation fraction.,OpenAI Codex,False
+gunnison_aspen-148-1,forest_type_uncertain,Deciduous,"Aspen locator with brown fine texture, nearby conifer-like crowns and shadow. Living deciduous cover is unresolved.",OpenAI Codex,False
+gunnison_aspen-148-2,forest_type_uncertain,Deciduous,Aspen locator with brown crowns or branches. Resolve leaf-off versus dead material and conifer admixture.,OpenAI Codex,False
+gunnison_aspen-148-3,forest_type_uncertain,Deciduous,Aspen locator with nearby yellow foliage and brown central texture. Full living-deciduous cover is unverified.,OpenAI Codex,False
+california_shrublands-20-1,priority_for_cover_annotation,Woody shrub,Dense small-crown cover extends across the cell. Verify shrub lifeform and canopy fraction.,OpenAI Codex,False
+california_shrublands-20-2,mixed_or_uncertain,,"Woody cover, exposed patches and shadow occur within the cell.",OpenAI Codex,False
+california_shrublands-30-2,mixed_or_uncertain,,Woody crowns and bare patches complicate a herbaceous assignment.,OpenAI Codex,False
+california_shrublands-60-1,map_label_uncertain,,Open grass-like cover and a woody crown occur in the bare/sparse candidate.,OpenAI Codex,False

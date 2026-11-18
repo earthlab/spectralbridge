@@ -10,7 +10,7 @@ AI assistance is part of the development process. Scientific interpretation and 
 
 ## Summary
 
-From 2026-03-21 through 2026-11-06, the log contains **379 prompts** totaling **191,601 words**. The median prompt contains **35 words** and the mean contains **505.5 words**. Under the published keyword rules, the most common primary topic is **Scientific pipeline and corrections**, and the most common request intent is **Implementation or modification**.
+From 2026-03-21 through 2026-11-18, the log contains **389 prompts** totaling **192,061 words**. The median prompt contains **35 words** and the mean contains **493.7 words**. Under the published keyword rules, the most common primary topic is **Scientific pipeline and corrections**, and the most common request intent is **Implementation or modification**.
 
 ![Logged prompts by month](images/ai-transparency/prompts-by-month.svg)
 
@@ -22,7 +22,7 @@ From 2026-03-21 through 2026-11-06, the log contains **379 prompts** totaling **
 
 ## What assistance and methods were discussed
 
-The following figures count **prompts mentioning** each activity, tool or validation method. Each prompt counts at most once within a category and may count in several categories. Bar lengths measure recorded attention, not effort, executed commands or successful checks. All figures use the 379 logged prompts as their denominator.
+The following figures count **prompts mentioning** each activity, tool or validation method. Each prompt counts at most once within a category and may count in several categories. Bar lengths measure recorded attention, not effort, executed commands or successful checks. All figures use the 389 logged prompts as their denominator.
 
 ![Workflows mentioned in logged prompts](images/ai-transparency/workflow-mentions.svg)
 
@@ -44,17 +44,17 @@ The prompt log declares the AI system used for logged work. Model names are repo
 
 | AI system | Logged prompts |
 | --- | ---: |
-| OpenAI Codex | 339 |
+| OpenAI Codex | 349 |
 | Cursor Agent | 40 |
 
 | Model metadata | Logged prompts |
 | --- | ---: |
-| Not recorded | 329 |
+| Not recorded | 332 |
 | GPT-5 | 36 |
+| GPT-6 | 14 |
 | GPT-5 family (exact deployment identifier not exposed) | 7 |
-| GPT-6 | 7 |
 
-Model metadata is recorded for **50 of 379 entries (13.2%)**.
+Model metadata is recorded for **57 of 389 entries (14.7%)**.
 
 ## How AI was used
 

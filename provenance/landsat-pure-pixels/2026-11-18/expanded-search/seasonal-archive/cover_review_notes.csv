@@ -1,0 +1,16 @@
+candidate_id,temporal_cover_flag,aerial_dates_reviewed,notes,reviewer
+front_range-30-1,persistent_open_patch_purity_unresolved,2019-10-03;2021-08-25;2023-08-21,Open fine-textured vegetation persists. Color and texture vary with date and imagery. Measure full PFT fraction.,OpenAI Codex
+front_range-60-2,persistent_exposed_rock_purity_unresolved,2019-09-26;2021-08-11;2023-08-21,Exposed rock persists across the core footprint. A priority for explicit composition annotation.,OpenAI Codex
+front_range-60-1,illumination_limits_review,2019-09-26;2021-08-11;2023-08-21,Strong shadow and nearby snow vary between acquisitions. Class composition remains unresolved in dark portions.,OpenAI Codex
+front_range-10-2,mixed_canopy_condition_unresolved,2019-10-03;2021-07-27;2023-08-21,Open patches and gray-looking canopy occur in the history. Living evergreen fraction remains unmeasured.,OpenAI Codex
+cascades-30-2,apparent_regrowth_requires_year_specific_reference,2019-08-04;2023-07-15,"Open gray/brown ground in 2019 contrasts with substantially greener, coarser vegetation in 2023. Regrowth is a plausible interpretation.",OpenAI Codex
+cascades-60-2,changing_engineered_ground,2019-08-04;2022-07-14;2024-07-08,"Ground piles, structures and surface arrangement vary. The footprint requires year-specific composition interpretation.",OpenAI Codex
+cascades-30-1,persistent_road_mixture,2019-08-04;2022-07-14;2024-07-08,A road crosses the footprint in each reviewed epoch.,OpenAI Codex
+cascades-30-3,persistent_open_patch_purity_unresolved,2019-08-04;2023-07-15,"The core remains an open vegetation patch, with small texture differences and nearby woody crowns.",OpenAI Codex
+gunnison_aspen-148-2,canopy_or_leaf_state_unresolved,2019-09-14;2021-09-07;2023-09-25,Brown and pale branch-like features in the later image contrast with greener earlier images. Phenology and canopy condition both need consideration.,OpenAI Codex
+gunnison_aspen-148-3,mixed_margin_and_leaf_state_unresolved,2019-09-14;2021-09-07;2023-09-25,"A fine-textured central patch and surrounding woody crowns persist, with substantial color variation. Full living-deciduous cover remains unresolved.",OpenAI Codex
+gunnison_aspen-60-3,persistent_exposed_substrate_purity_unresolved,2019-09-14;2021-09-05;2023-09-22,Light exposed substrate persists through the three epochs. Quantify vegetation and snow contributions before accepting a label.,OpenAI Codex
+yellowstone-60-3,persistent_exposed_substrate_purity_unresolved,2019-08-18;2022-07-19;2024-08-01,A broad light substrate patch persists. Sparse vegetation fraction remains unmeasured.,OpenAI Codex
+yellowstone-30-2,single_aerial_epoch_only,2025-08-31,One suitable full-window aerial epoch was found. Cross-year stability remains unresolved.,OpenAI Codex
+california_shrublands-20-1,woody_cover_fraction_varies,2020-05-22;2022-05-18;2024-05-29,"Small-crown woody cover persists, with visible variation in gaps and canopy texture. Per-year PFT fractions require annotation.",OpenAI Codex
+california_shrublands-20-2,woody_cover_fraction_varies,2020-05-23;2022-05-18;2024-05-24,"Woody crowns and exposed ground remain mixed, with variation between years.",OpenAI Codex

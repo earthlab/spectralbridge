@@ -1,0 +1,468 @@
+{
+  "version": 1,
+  "interpreter": "OpenAI Codex",
+  "independent_second_interpreter": false,
+  "reference_definition": "Image-resolved mapped cover classes on the native 30 m Landsat ground footprint. Unknown areas remain unassigned. Fractions are conditional on photo interpretation.",
+  "primary_threshold": 0.95,
+  "sensitivity_thresholds": [
+    0.9,
+    0.95,
+    1.0
+  ],
+  "shift_distances_m": [
+    0,
+    3,
+    5
+  ],
+  "maximum_same_year_aerial_landsat_gap_days": 45,
+  "context_half_width_m": 40,
+  "notes": "Polygon vertices use metres east and north of the fixed footprint centre. Dark-pixel stencils identify unresolved image areas, with explicit image-specific cutoffs in raw display values. They do not classify vegetation from brightness. Target labels use interpreted patch morphology and context. No Landsat response values enter annotation. Botanical and fractional-cover validation by an independent interpreter remain pending. A 0.6 m uncertainty belt is added around manually traced internal boundaries, matching the coarser native aerial resolution used here. Global footprint shifts are assessed separately.",
+  "cases": [
+    {
+      "candidate_id": "front_range-30-1",
+      "target": "Herbaceous",
+      "years": [
+        2021,
+        2023
+      ],
+      "patch": [
+        [
+          -40,
+          -40
+        ],
+        [
+          4,
+          -40
+        ],
+        [
+          10,
+          -32
+        ],
+        [
+          16,
+          -25
+        ],
+        [
+          21,
+          -19
+        ],
+        [
+          29,
+          -19
+        ],
+        [
+          36,
+          -9
+        ],
+        [
+          40,
+          -5
+        ],
+        [
+          40,
+          40
+        ],
+        [
+          -40,
+          40
+        ]
+      ],
+      "note": "Continuous fine-textured open vegetation across the core. The southeastern woody-crown boundary is traced outside the core."
+    },
+    {
+      "candidate_id": "front_range-60-2",
+      "target": "Non-vegetated & dead",
+      "years": [
+        2021,
+        2023
+      ],
+      "patch": [
+        [
+          -40,
+          -40
+        ],
+        [
+          40,
+          -40
+        ],
+        [
+          40,
+          40
+        ],
+        [
+          -40,
+          40
+        ]
+      ],
+      "dark_unknown_ceiling": 110,
+      "note": "Exposed rock is visible throughout the context. Dark unresolved interstices remain unknown, making the mapped target share a conservative lower bound."
+    },
+    {
+      "candidate_id": "gunnison_aspen-60-3",
+      "target": "Non-vegetated & dead",
+      "years": [
+        2021,
+        2023
+      ],
+      "patch": [
+        [
+          -40,
+          -40
+        ],
+        [
+          40,
+          -40
+        ],
+        [
+          40,
+          40
+        ],
+        [
+          -40,
+          40
+        ]
+      ],
+      "dark_unknown_ceiling": 110,
+      "unresolved_years": [
+        2021
+      ],
+      "note": "The later image resolves light exposed blocks and dark interstices. Limited detail and low contrast leave the 2021 image unresolved."
+    },
+    {
+      "candidate_id": "cascades-30-3",
+      "target": "Herbaceous",
+      "years": [
+        2023
+      ],
+      "patch": [
+        [
+          -40,
+          -40
+        ],
+        [
+          5,
+          -40
+        ],
+        [
+          10,
+          -28
+        ],
+        [
+          10,
+          -20
+        ],
+        [
+          22,
+          -20
+        ],
+        [
+          26,
+          -26
+        ],
+        [
+          40,
+          -28
+        ],
+        [
+          40,
+          5
+        ],
+        [
+          25,
+          10
+        ],
+        [
+          22,
+          19
+        ],
+        [
+          18,
+          22
+        ],
+        [
+          8,
+          22
+        ],
+        [
+          5,
+          31
+        ],
+        [
+          -10,
+          40
+        ],
+        [
+          -40,
+          40
+        ]
+      ],
+      "unknown_polygons": [
+        [
+          [
+            12.5,
+            -10
+          ],
+          [
+            17,
+            -10.5
+          ],
+          [
+            18,
+            -6.5
+          ],
+          [
+            14.5,
+            -5
+          ],
+          [
+            12,
+            -7
+          ]
+        ]
+      ],
+      "note": "Open fine-textured vegetation occupies the core. A small gray patch near the southeastern edge is uncertain. Nearby woody crowns define the context boundary."
+    },
+    {
+      "candidate_id": "yellowstone-30-1",
+      "target": "Herbaceous",
+      "years": [
+        2024,
+        2025
+      ],
+      "patch": [
+        [
+          -40,
+          -40
+        ],
+        [
+          40,
+          -40
+        ],
+        [
+          40,
+          40
+        ],
+        [
+          -40,
+          40
+        ]
+      ],
+      "unknown_polygons": [
+        [
+          [
+            -40,
+            -7
+          ],
+          [
+            -40,
+            -1
+          ],
+          [
+            40,
+            33
+          ],
+          [
+            40,
+            27
+          ]
+        ]
+      ],
+      "note": "An open herbaceous patch is crossed near the northern edge by a narrow greener drainage strip. Its exact growth-form composition remains unknown."
+    },
+    {
+      "candidate_id": "yellowstone-30-3",
+      "target": "Herbaceous",
+      "years": [
+        2022,
+        2024
+      ],
+      "patch": [
+        [
+          -40,
+          -40
+        ],
+        [
+          40,
+          -40
+        ],
+        [
+          40,
+          40
+        ],
+        [
+          -40,
+          40
+        ]
+      ],
+      "bright_unknown_floor": 175,
+      "note": "A continuous low-stature, fine-textured vegetation patch occupies the core. Isolated very pale image flecks remain unknown."
+    },
+    {
+      "candidate_id": "yellowstone-60-3",
+      "target": "Non-vegetated & dead",
+      "years": [
+        2022,
+        2024
+      ],
+      "patch": [
+        [
+          -40,
+          -40
+        ],
+        [
+          40,
+          -40
+        ],
+        [
+          40,
+          40
+        ],
+        [
+          -40,
+          40
+        ]
+      ],
+      "dark_unknown_ceiling": 145,
+      "note": "A broad exposed-substrate patch occupies the core and context. Localized darker flecks are retained as unresolved areas."
+    },
+    {
+      "candidate_id": "california_shrublands-20-1",
+      "target": "Woody shrub",
+      "years": [
+        2024
+      ],
+      "unresolved_years": [
+        2024
+      ],
+      "note": "Dense small-crown vegetation is visible. Shrub lifeform and its fractional projected cover cannot be assigned confidently from this RGB view alone."
+    },
+    {
+      "candidate_id": "california_shrublands-30-1",
+      "target": "Herbaceous",
+      "years": [
+        2020,
+        2022,
+        2024
+      ],
+      "patch": [
+        [
+          -40,
+          -40
+        ],
+        [
+          40,
+          -40
+        ],
+        [
+          40,
+          40
+        ],
+        [
+          -40,
+          40
+        ]
+      ],
+      "other_polygons": [
+        [
+          [
+            -2.8,
+            40
+          ],
+          [
+            -4.6,
+            15
+          ],
+          [
+            -5.6,
+            0
+          ],
+          [
+            -7.1,
+            -15
+          ],
+          [
+            -9,
+            -40
+          ],
+          [
+            -7.8,
+            -40
+          ],
+          [
+            -5.9,
+            -15
+          ],
+          [
+            -4.4,
+            0
+          ],
+          [
+            -3.4,
+            15
+          ],
+          [
+            -1.6,
+            40
+          ]
+        ]
+      ],
+      "year_other_polygons": {
+        "2024": [
+          [
+            [
+              -40,
+              -6
+            ],
+            [
+              -40,
+              -9
+            ],
+            [
+              40,
+              -17
+            ],
+            [
+              40,
+              -14
+            ]
+          ]
+        ]
+      },
+      "note": "Fine-textured open vegetation covers the field. A narrow track is excluded in every epoch. A wider curved track entering the southern core is additionally excluded in 2024."
+    },
+    {
+      "candidate_id": "california_shrublands-30-3",
+      "target": "Herbaceous",
+      "years": [
+        2024
+      ],
+      "unresolved_years": [
+        2024
+      ],
+      "note": "Visible coarse clumps and variable exposed material leave growth-form identity unresolved."
+    },
+    {
+      "candidate_id": "front_range-10-1",
+      "target": "Evergreen",
+      "years": [
+        2023
+      ],
+      "unresolved_years": [
+        2023
+      ],
+      "note": "Conifer-like crowns are visible, but complete projected crown cover through the shadows and gaps remains unresolved. The conservative target lower bound is unassigned."
+    },
+    {
+      "candidate_id": "gunnison_aspen-148-2",
+      "target": "Deciduous",
+      "years": [
+        2023
+      ],
+      "unresolved_years": [
+        2023
+      ],
+      "note": "Leaf-off, live versus dead canopy, and admixture with other crowns remain unresolved despite the historical aspen locator."
+    }
+  ],
+  "manual_boundary_uncertainty_m": 0.6
+}
