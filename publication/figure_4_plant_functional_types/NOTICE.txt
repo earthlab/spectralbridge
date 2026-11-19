@@ -1,0 +1,21 @@
+SpectralBridge third-party source notice
+========================================
+
+SpectralBridge includes code adapted from, and one active function substantially
+identical to, HyTools (https://github.com/EnSpec/hytools).
+
+HyTools: Hyperspectral image processing library
+Copyright (C) 2021 University of Wisconsin
+Authors named in the relevant HyTools source notices: Adam Chlus, Zhiwei Ye,
+Philip Townsend.
+
+HyTools is distributed under the GNU General Public License, version 3. The
+HyTools revision used for the reproducible provenance comparison was:
+
+    31286d64541791a9815d29443a33726fa4d54031
+
+SpectralBridge modifications and independently developed components are
+copyright their respective contributors. SpectralBridge is distributed under
+GPL-3.0-or-later. See LICENSE for the license text and HYTOOLS_PROVENANCE.md for
+the component-level audit, scientific references, classifications, and limits
+of this notice.

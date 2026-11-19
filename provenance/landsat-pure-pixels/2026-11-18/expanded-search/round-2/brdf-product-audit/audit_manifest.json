@@ -1,0 +1,54 @@
+{
+  "checked": "2026-11-19",
+  "sources": {
+    "hls_brdf": {
+      "url": "https://hls.gsfc.nasa.gov/algorithms/brdf-adjustment/",
+      "retrieved_text_sha256": "6ffc6ce754455f8c0c894ed827961dd9f57e3bc0e09fbf7be5e6da2eabb025e4"
+    },
+    "hls_products": {
+      "url": "https://hls.gsfc.nasa.gov/products-description/",
+      "retrieved_text_sha256": "78fcc4d08cf3342b30f36235581cf22844d75d4e6f9a05fb0847859176995fb7"
+    },
+    "usgs_c2_sr": {
+      "url": "https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance",
+      "retrieved_text_sha256": "fc14d18c9b0069a7f80b7a52643880a4cd4c464e8c6998583b781aafd1b57a54"
+    }
+  },
+  "hls_guide": {
+    "url": "https://lpdaac.usgs.gov/documents/1698/HLS_User_Guide_V2.pdf",
+    "retrieved_pdf_sha256": "ddd9f2df6a22e85552b87023b987cea4b97f5f47feeee2b69a9cadf90492dafe",
+    "relevant_sections": "Table2;4.3 spatial co-registration;BRDF normalization"
+  },
+  "local_code_sha256": {
+    "examples/publication_figures/landsat_pft_panel.py": "1e8c31519f1b59a4f56174e8cc94f2fa8083d057cfb02955de7ac782d368a117",
+    "examples/publication_figures/landsat_regional_candidates.py": "e5b20f04e8c59feed97e4176fd321f93b72f91b63b5af9c94a226eb163e7879f",
+    "examples/publication_figures/landsat_seasonal_archive.py": "58b1c4ffe762e9ba84cd5d8e87253e7e17edcdac3a288e5de02d6714e760730e"
+  },
+  "grid_comparison": {
+    "crs": "EPSG:32613",
+    "native_landsat_transform": [
+      30,
+      0,
+      317085,
+      0,
+      -30,
+      4583115
+    ],
+    "hls_transform": [
+      30,
+      0,
+      399960,
+      0,
+      -30,
+      4500000
+    ],
+    "lattice_phase_difference_m": [
+      15,
+      15
+    ],
+    "hls_resampling": "cubic convolution; not original native-cell support"
+  },
+  "matching_granule": "HLS.L30.T13TDE.2023232T174317.v2.0",
+  "raster_downloaded": false,
+  "figure_or_test_inputs_changed": false
+}

@@ -1,0 +1,1502 @@
+{
+  "date": "2026-11-19",
+  "reference_status": "single_interpreter_provisional",
+  "files": {
+    "README.md": {
+      "bytes": 7393,
+      "sha256": "46616061e544148deb6d28b82f40cdd0cf8140bee74d41fe4905a5b7dad60dd0"
+    },
+    "annotated-contexts/r2-california_shrublands-woody-005-annotation.png": {
+      "bytes": 2172199,
+      "sha256": "c48c6eb9f17d2cbadfb1f40fc07276af606f70cd9637049931afdf3c49ae9b85"
+    },
+    "annotated-contexts/r2-california_shrublands-woody-006-annotation.png": {
+      "bytes": 2131108,
+      "sha256": "2f7e978ff28de2b53a53614ead8c8cb7eece6fdee71729df65dace26668412f8"
+    },
+    "annotated-contexts/r2-california_shrublands-woody-008-annotation.png": {
+      "bytes": 1981821,
+      "sha256": "15874f415eaa97c1a501a16bedc997430cbb81fac7bc9f47315d97449b2a43ae"
+    },
+    "annotated-contexts/r2-cascades-evergreen-001-annotation.png": {
+      "bytes": 2174864,
+      "sha256": "7766887f7875ed172046023386a61d79e1a03a98e16891fdb9babe7dcf7ba0fc"
+    },
+    "annotated-contexts/r2-cascades-evergreen-005-annotation.png": {
+      "bytes": 2108304,
+      "sha256": "5f5e0262407b045bc18f511292d8af02efd856cd3b5b2f95a7c88a0becdb2f97"
+    },
+    "annotated-contexts/r2-cascades-herbaceous-003-annotation.png": {
+      "bytes": 1692664,
+      "sha256": "39d9711a866baf28e87a07db6550f084d20b5c2fd7978066b1c6399e12b82f92"
+    },
+    "annotated-contexts/r2-cascades-herbaceous-006-annotation.png": {
+      "bytes": 2276579,
+      "sha256": "9bea2890168ce4d3ded43ba995b18fc53004218806b508a51e3f3284e3fd6ae8"
+    },
+    "annotated-contexts/r2-cascades-herbaceous-009-annotation.png": {
+      "bytes": 1553663,
+      "sha256": "16bd9ace3c1457345ebc549b8e932ad93550f29d702972a7032e6ba3727247a9"
+    },
+    "annotated-contexts/r2-front_range-evergreen-006-annotation.png": {
+      "bytes": 3807200,
+      "sha256": "87a1619f3dd30ac8f4935eff85bc9f05656f596335541ab41571d1fa91f0715d"
+    },
+    "annotated-contexts/r2-front_range-evergreen-007-annotation.png": {
+      "bytes": 3768898,
+      "sha256": "088e9642cf2432d545d16218609c418a31833243814429bd9f369e45a401ee62"
+    },
+    "annotated-contexts/r2-front_range-evergreen-009-annotation.png": {
+      "bytes": 3629323,
+      "sha256": "b5937808d547a87a88a161bdf364d063eb8be380027bb51da9d6f4dc73a2268f"
+    },
+    "annotated-contexts/r2-front_range-herbaceous-001-annotation.png": {
+      "bytes": 3016023,
+      "sha256": "60d966a12ec17770cade63b8238d4737a1372e7aa0ac06a8e050f3ed8b5d7bee"
+    },
+    "annotated-contexts/r2-front_range-herbaceous-003-annotation.png": {
+      "bytes": 2877271,
+      "sha256": "25eff7b11ec074413d24020a1bba0086601d661cf2d7637490685c7ec357fe6a"
+    },
+    "annotated-contexts/r2-front_range-non-vegetated-002-annotation.png": {
+      "bytes": 3811243,
+      "sha256": "25ede14625c8c4da25a0228b6dd827c67722401735c8e4d4f9656e6197b4661d"
+    },
+    "annotated-contexts/r2-front_range-non-vegetated-003-annotation.png": {
+      "bytes": 3812067,
+      "sha256": "c9dc7eb52f267dc7955cf6cdfdcce1432aef8a4a75cfa893215930cfe893ed7c"
+    },
+    "annotated-contexts/r2-front_range-non-vegetated-006-annotation.png": {
+      "bytes": 4021800,
+      "sha256": "b0ec30353b3ee77864e006ca1f27650e66115f0eb8c803e9db5f985e732844de"
+    },
+    "annotated-contexts/r2-front_range-non-vegetated-007-annotation.png": {
+      "bytes": 3875334,
+      "sha256": "83881f15a984893c1c0405aca4f608c621a7760d2c8b61a7d69b9b747d79eaf6"
+    },
+    "annotated-contexts/r2-front_range-non-vegetated-008-annotation.png": {
+      "bytes": 4100605,
+      "sha256": "dd1a1601c358d15aab0f62dc736f0ff366075903917b80eca3311e91762a5eb5"
+    },
+    "annotated-contexts/r2-gunnison_aspen-deciduous-001-annotation.png": {
+      "bytes": 3631246,
+      "sha256": "e826b2a093e6b1e46096d99a47565a4a9b4dbfebc7f19c66a6efe720c1327deb"
+    },
+    "annotated-contexts/r2-gunnison_aspen-deciduous-002-annotation.png": {
+      "bytes": 3676375,
+      "sha256": "fed040bad60f536a4cb325334622980c1de965da5c11511d2050c33b011d0f02"
+    },
+    "annotated-contexts/r2-gunnison_aspen-deciduous-005-annotation.png": {
+      "bytes": 3808971,
+      "sha256": "5244b3bddc0df4c549e132d8a817ec6e90e780f5ac8912f5c590eb637894344c"
+    },
+    "annotated-contexts/r2-gunnison_aspen-deciduous-008-annotation.png": {
+      "bytes": 3654508,
+      "sha256": "54056e95af4a5caf5fbd6b680562fc34ee4b31e31c62dac921fa39d00d342844"
+    },
+    "annotated-contexts/r2-gunnison_aspen-deciduous-009-annotation.png": {
+      "bytes": 3511352,
+      "sha256": "2356ef90a151ab342e5cf5f3dbf46350dab1e42140eef6a1ba2b438993cee42a"
+    },
+    "annotated-contexts/r2-gunnison_aspen-deciduous-010-annotation.png": {
+      "bytes": 3473628,
+      "sha256": "3600dc4e554c4ab03521c4b6f06b831cf1b20fdf048919404dea0eed2d6462a3"
+    },
+    "annotated-contexts/r2-gunnison_aspen-evergreen-005-annotation.png": {
+      "bytes": 3763231,
+      "sha256": "4b943d5c34fc109c8f85c64cdf468f5eebbb59af71c70b3b8ee93bd8750ebc75"
+    },
+    "annotated-contexts/r2-gunnison_aspen-evergreen-008-annotation.png": {
+      "bytes": 3518045,
+      "sha256": "23234d6adc80229dbc8962e3d25a46f5b176bbf25b8e968b340739253e2814ec"
+    },
+    "annotated-contexts/r2-gunnison_aspen-non-vegetated-004-annotation.png": {
+      "bytes": 3625462,
+      "sha256": "72ef01dcc9814150cabb9373cac7ec26e4bcaebe9c4534c4d8897490d591aec8"
+    },
+    "annotated-contexts/r2-yellowstone-evergreen-008-annotation.png": {
+      "bytes": 3619272,
+      "sha256": "4288415be84b8563b9d07360d6c0378b2004d22b656b16d8e495d7f6e5dc91c0"
+    },
+    "annotated-contexts/r2-yellowstone-herbaceous-003-annotation.png": {
+      "bytes": 1444945,
+      "sha256": "931df16bef22f08d96c5f5965f9763af401601691d548f2a82a349581c939ca0"
+    },
+    "annotated-contexts/r2-yellowstone-non-vegetated-003-annotation.png": {
+      "bytes": 1504815,
+      "sha256": "09535f03dc9ff8174e89f5de0ccc929418990ce56c696dded9cf92f004264b19"
+    },
+    "annotated-contexts/r2-yellowstone-non-vegetated-005-annotation.png": {
+      "bytes": 2075304,
+      "sha256": "37fe72051c6430dda6773dfdf649a2e8dd8e76861cbb9b372f8367434b308110"
+    },
+    "annotation_manifest.json": {
+      "bytes": 548,
+      "sha256": "9fcc71a3ff69ded0904cf4e46a2f90f5b67c2fcf23d0a411899924535bfd366a"
+    },
+    "brdf-product-audit/README.md": {
+      "bytes": 4306,
+      "sha256": "3bc75220676166e83170a602dcade05160e7ccbdb7f872ad75ec50011ab2fc32"
+    },
+    "brdf-product-audit/audit_manifest.json": {
+      "bytes": 1876,
+      "sha256": "7486b0d11b8a1f4aedef1f38cf153ab69ee205b0cdb7f5bf819ce4224888fce4"
+    },
+    "brdf-product-audit/current_test_scene_product_inventory.csv": {
+      "bytes": 2158,
+      "sha256": "3aec4f08074d199a683cfbc462baf65adbaeedede47761811e2436f11c6d7414"
+    },
+    "brdf-product-audit/hls_brdf_official_description.txt": {
+      "bytes": 1636,
+      "sha256": "6ffc6ce754455f8c0c894ed827961dd9f57e3bc0e09fbf7be5e6da2eabb025e4"
+    },
+    "brdf-product-audit/hls_products_official_description.txt": {
+      "bytes": 1132,
+      "sha256": "78fcc4d08cf3342b30f36235581cf22844d75d4e6f9a05fb0847859176995fb7"
+    },
+    "brdf-product-audit/niwot_hls_l30_cmr_metadata.json": {
+      "bytes": 18066,
+      "sha256": "b05d0fc86ca8cb8e0c23580a55a1cfbd833cd94d0aa240b7c094603b0c6891cf"
+    },
+    "brdf-product-audit/niwot_hls_l30_stac_metadata.json": {
+      "bytes": 8891,
+      "sha256": "f4e4772119864f662aaa01e3f883c7b9eb4aebe22f1837e3f0c41ae48e1925ff"
+    },
+    "brdf-product-audit/usgs_c2_sr_official_description.txt": {
+      "bytes": 24877,
+      "sha256": "fc14d18c9b0069a7f80b7a52643880a4cd4c464e8c6998583b781aafd1b57a54"
+    },
+    "california_shrublands-context-review-01.png": {
+      "bytes": 3789753,
+      "sha256": "d0368988cb633005b7e1a63bcef4df914ead4b8eedd37b1d464091ce13458c6e"
+    },
+    "california_shrublands-context-review-02.png": {
+      "bytes": 3763366,
+      "sha256": "cea4185222984bfaa812045de130d73253119a35bc7b55248fc98f50dbd58fc0"
+    },
+    "california_shrublands-context-review-03.png": {
+      "bytes": 3517263,
+      "sha256": "a113b7e189f92116c417608cd0ce4d57c040b537dbb099ac50f0b3b39a67edad"
+    },
+    "california_shrublands-context-review-04.png": {
+      "bytes": 3246631,
+      "sha256": "0268040bbec77830c8cd6be01d67450031fdc83c2f4c2b00bed38a50b12a3d00"
+    },
+    "california_shrublands-context-review-05.png": {
+      "bytes": 3139006,
+      "sha256": "671ac2c3720a2aa84531c9de0a5c1f2d7c2d68cda2e7499747588dbd22b0a6fd"
+    },
+    "california_shrublands-context-review-06.png": {
+      "bytes": 3626294,
+      "sha256": "69724d3e41a47bcf75d6c62d2ce473cdc92c02c3d813292f01c18beee5ee11b2"
+    },
+    "california_shrublands-context-review-07.png": {
+      "bytes": 3624401,
+      "sha256": "ea6aa4ee217613f788ddd2c7d91818b7c213e454e08353dc841ee3da77a29e83"
+    },
+    "california_shrublands-context-review-08.png": {
+      "bytes": 2849226,
+      "sha256": "c2e5b2817f04825fe5a545046b17b989ea2480336087ff03e203e3cc6e7222f2"
+    },
+    "california_shrublands-contexts.csv": {
+      "bytes": 17270,
+      "sha256": "b2181bf40201d1cd47a52c598a2ed4a6ab41446c739aac6d1ab7234276c2b9d6"
+    },
+    "california_shrublands-gap-catalogue.json": {
+      "bytes": 42353,
+      "sha256": "dccbff77514082f89958c88b753244a0d0c07a52821b04f5832dfbe9069d9d04"
+    },
+    "california_shrublands-landsat_qa_audit.csv": {
+      "bytes": 68738,
+      "sha256": "a0565804bdd2317298995704bb99e98d45feecf54cf6169719c7ed58d386ddef"
+    },
+    "california_shrublands-live-oak-context-review-01.png": {
+      "bytes": 3656025,
+      "sha256": "ae998c241d9bc06b0a1bde53068420f6dd5fb62b32b87a95752e50a90c095d62"
+    },
+    "california_shrublands-live-oak-context-review-02.png": {
+      "bytes": 3631159,
+      "sha256": "c870b397bb1ce998110fe5c788a5aee4fbee543f1301e155d75b8f0191bbf36a"
+    },
+    "california_shrublands-live-oak-context-review-03.png": {
+      "bytes": 2080347,
+      "sha256": "48bcd9f2f651e02a6fc9c5db01db21130b184ac117aec90f9b3a9fb5df16edc9"
+    },
+    "california_shrublands-live-oak-contexts.csv": {
+      "bytes": 5782,
+      "sha256": "7df702565af0da1e49ed3085d612fc17496a20f2de60e26fee24cc0d9befbac4"
+    },
+    "california_shrublands-screened_landsat_observations.csv": {
+      "bytes": 67763,
+      "sha256": "89403684d38e2e7547a2d74e9891a30d0509989273c6888bc413e9752ae82029"
+    },
+    "cascades-context-review-01.png": {
+      "bytes": 3288593,
+      "sha256": "f98855a96b683fb77ca139146eaaf9c2a3fde33a6a1376b49333fcf4cc1490da"
+    },
+    "cascades-context-review-02.png": {
+      "bytes": 3205013,
+      "sha256": "d996f88f6f04a28b7df04ad9568649608dae47590b32759bd49651bed9833bf5"
+    },
+    "cascades-context-review-03.png": {
+      "bytes": 3603939,
+      "sha256": "48c6c85d8d17afa35b9397fb8109fae30b29d91707f80fca7c8339f95ec959c9"
+    },
+    "cascades-context-review-04.png": {
+      "bytes": 3859795,
+      "sha256": "b6ae3ecbea45142442d1f548824c3949b2ab5eab3e4d8be739b46fa7e5ab299d"
+    },
+    "cascades-context-review-05.png": {
+      "bytes": 3857277,
+      "sha256": "7c4ffffa3cee5b061872d11203ab376880d27e67b3df5d280443a5c1b00d718d"
+    },
+    "cascades-context-review-06.png": {
+      "bytes": 2408836,
+      "sha256": "7cc3aa8401f3caa8adb3f95e157f0ade9892e0e77ef8bea4c694821cc2c32287"
+    },
+    "cascades-contexts.csv": {
+      "bytes": 12315,
+      "sha256": "dd5d0bbce6738ee5d7ee783e38845383b0ce893187c6fbc786b2b6ac49a6c4fe"
+    },
+    "cascades-gap-catalogue.json": {
+      "bytes": 42353,
+      "sha256": "cca540c347eea00f1dacd3bce95b54a93705d4d8d1c3fbf5db8f24001786ef14"
+    },
+    "cascades-landsat_qa_audit.csv": {
+      "bytes": 46888,
+      "sha256": "abc7552a5f8f5d5a4c49c890afdee9d459239874a343d506e2cb3c1682b8b543"
+    },
+    "cascades-screened_landsat_observations.csv": {
+      "bytes": 41245,
+      "sha256": "bd81473614cffae5a54bccf4f19c7cb6976fdc181dfda2feaff9899f5b6bf76b"
+    },
+    "conflicting_reference_cells.csv": {
+      "bytes": 461,
+      "sha256": "b6de1884573e0edbbe37ab84856a6968695963cbe570717cc2e4bbf2d8a7d789"
+    },
+    "dated_cell_cover_fractions.csv": {
+      "bytes": 699876,
+      "sha256": "a754eb9c7a8633f3824601845d7546d9cbf83d1a085510a25c7756b8f2547808"
+    },
+    "discovery_policy.json": {
+      "bytes": 1118,
+      "sha256": "d852b96447afeb1c228190c36c37c998004ad723256c474f1cdf13b6c6e52d57"
+    },
+    "evergreen-epochs/cascades-alternate-aerial-epochs.csv": {
+      "bytes": 5545,
+      "sha256": "795b3267d278319a259a108c48384633120b19d6a0ed4a62f8a94b885795063f"
+    },
+    "evergreen-epochs/cascades-alternate-epoch-review-01.png": {
+      "bytes": 3303921,
+      "sha256": "39466de7db51ed16ad456c80b4b5d2393dc467b961740f796a866c2280a6dead"
+    },
+    "evergreen-epochs/cascades-alternate-epoch-review-02.png": {
+      "bytes": 3908994,
+      "sha256": "f4ea2cf21dd0687d7bbf60ab1dd5e61958bf30de2f1aa5c1591572a2d1e91e5e"
+    },
+    "evergreen-epochs/cascades-alternate-epoch-review-03.png": {
+      "bytes": 1113889,
+      "sha256": "b93046cb863988d29fa133f9845861c8db8c9a64bb81b14b682a9b2ff263e9b9"
+    },
+    "evergreen-epochs/front_range-alternate-aerial-epochs.csv": {
+      "bytes": 3879,
+      "sha256": "1743ab04c252a7976a8da377d2a2874152f79e72b53719211a7c14d0a1c794af"
+    },
+    "evergreen-epochs/front_range-alternate-epoch-review-01.png": {
+      "bytes": 3404493,
+      "sha256": "14a79edf22d4afef8cb05a6e52a0c9e1394d4af3aff82e721107d84334beb4ae"
+    },
+    "evergreen-epochs/front_range-alternate-epoch-review-02.png": {
+      "bytes": 1851764,
+      "sha256": "88f55737bb14d407b803d1d2cc001257c9b1a711b489fd98f31b0037bb97621a"
+    },
+    "evergreen-epochs/gunnison_aspen-alternate-aerial-epochs.csv": {
+      "bytes": 2797,
+      "sha256": "a0b717ab425ffe0fb5f451eb741a09af93a812aeed4c0b7101b44b7639f4bf10"
+    },
+    "evergreen-epochs/gunnison_aspen-alternate-epoch-review-01.png": {
+      "bytes": 3653740,
+      "sha256": "0700da3fc2e8e1a454f1a703923b472520dad055f8fe98dd4f45b8155803b7b2"
+    },
+    "evergreen-epochs/yellowstone-alternate-aerial-epochs.csv": {
+      "bytes": 45,
+      "sha256": "4091402ef06a5a73257bb066a2529d0e4c347abcb1165f6c15204d8539d5958f"
+    },
+    "evergreen-pointcloud/README.md": {
+      "bytes": 5670,
+      "sha256": "aac79d79b22af039e8641aa3de66964a295dd9cd791e1a7636abf74f97b980ed"
+    },
+    "evergreen-pointcloud/analysis_provenance.json": {
+      "bytes": 879,
+      "sha256": "5d834f1dc3614fa81da2c441cd89e8ce71f60b7703e8aa70ff26daf758772cc5"
+    },
+    "evergreen-pointcloud/dated_visual_triage.json": {
+      "bytes": 1842,
+      "sha256": "884c3ff13c40f9939bc49d78a5aa118c59d27a0c17618bb05a767d5c96963812"
+    },
+    "evergreen-pointcloud/evergreen_candidate_footprints.geojson": {
+      "bytes": 93341,
+      "sha256": "215d1ef9005c65fd1f023f46e457179b34611dfbf2f689e5f9c6e5a0daefe378"
+    },
+    "evergreen-pointcloud/evergreen_candidate_review_board.png": {
+      "bytes": 3999175,
+      "sha256": "b0216bbb756bb7a925d94ba6d27d5f1763ef36bcaa4316a52a0b133dc9ddbd9a"
+    },
+    "evergreen-pointcloud/landsat_evergreen_structural_candidate_observations.csv": {
+      "bytes": 66552,
+      "sha256": "8d301cb1efdf5faecfd0f7ffa1b9c304cd2f617dbac594c7ee5ce59466d4050e"
+    },
+    "evergreen-pointcloud/native_cell_structural_support.csv": {
+      "bytes": 35635,
+      "sha256": "a48b68d25745ed1f5226d2a9e32a12f2884a7223f1e55e4cb0592d8dfcc9dc11"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-001-USGS_LPC_WA_MountAdams_2016_LAS_2017.json": {
+      "bytes": 1203,
+      "sha256": "85e0366004e3c6aedd30b807d71b0c27e93f60d42d82bbedcc704680d76fb2b4"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-001-USGS_LPC_WA_MountAdams_2016_LAS_2017.npy": {
+      "bytes": 460928,
+      "sha256": "8bee5626f94d2fc9c3181a28fb064ec9cb063d82830c1c155526a2a57a8505fb"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-001-USGS_LPC_WA_MountAdams_2016_LAS_2017.png": {
+      "bytes": 763335,
+      "sha256": "55663ec5bbdb15f8728ce0d3326133b569f33bf1090de7e94d327b7c004736b2"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-001-copc-catalogue.json": {
+      "bytes": 44654,
+      "sha256": "a5165d24da53c896b95d93db9437d00016df7de35f1f510621e84c0edd820ad6"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-002-copc-catalogue.json": {
+      "bytes": 404,
+      "sha256": "70e3334ececd97968ebb20c98df0fe86acaae20f0fdd28b65c882744ee4b6656"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-003-copc-catalogue.json": {
+      "bytes": 404,
+      "sha256": "70e3334ececd97968ebb20c98df0fe86acaae20f0fdd28b65c882744ee4b6656"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-004-copc-catalogue.json": {
+      "bytes": 404,
+      "sha256": "70e3334ececd97968ebb20c98df0fe86acaae20f0fdd28b65c882744ee4b6656"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-005-USGS_LPC_WA_MountAdams_2016_LAS_2017.json": {
+      "bytes": 807,
+      "sha256": "953548d746fd2439cb519ab942f5daa7c72dec6b57a4a9b3e33de3e0ffd1d8d9"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-005-USGS_LPC_WA_MountAdams_2016_LAS_2017.npy": {
+      "bytes": 460928,
+      "sha256": "c982ae15751506be0ec46e6634f191cefb94119f5ad71b8f34b1fa09747b43a0"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-005-USGS_LPC_WA_MountAdams_2016_LAS_2017.png": {
+      "bytes": 1052360,
+      "sha256": "f317e11d3b7b1fe261a71d3688f76548f517286a75ea341d7eeca5d40830c0ea"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-005-copc-catalogue.json": {
+      "bytes": 22243,
+      "sha256": "18fea40fa73a6d367be382390119cc9675b18507de75fa5fe2ef2f1f2b53ec88"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-006-USGS_LPC_WA_MountAdams_2016_LAS_2017.json": {
+      "bytes": 609,
+      "sha256": "c3d27702a5f4ca7fffc2be90da2877b2bf64fce8232522c1af48d1c542dc1c3d"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-006-USGS_LPC_WA_MountAdams_2016_LAS_2017.npy": {
+      "bytes": 460928,
+      "sha256": "75bc89bf5abe640fa0b01c60d22d2e7b3d9abbe294bb3045de3aae402c9f7256"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-006-USGS_LPC_WA_MountAdams_2016_LAS_2017.png": {
+      "bytes": 1028510,
+      "sha256": "5409bac1a2448ab361cd3c3bdf78829ca109c77fe1cad11b872ac9d5df981c2c"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-006-WA_FEMAHQ_B2C_2018.json": {
+      "bytes": 582,
+      "sha256": "4cb8cc849cd4705b4e2b23ede43077def09ce6fb0bde4d414ddf2b15acd44128"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-006-WA_FEMAHQ_B2C_2018.npy": {
+      "bytes": 460928,
+      "sha256": "268034ecf054d61d407b49acbd63012c4cbd00a955c2028da83c30646c555fba"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-006-WA_FEMAHQ_B2C_2018.png": {
+      "bytes": 1080019,
+      "sha256": "84d39d41b3f1a983b8d2c883e2bef6a6fa0e47f3aac9e489ea8df69bb38aacbf"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-006-copc-catalogue.json": {
+      "bytes": 22523,
+      "sha256": "d732a5adbf75b81d655a5e9fb2a90e409baddff30eb699e54e7e62b06d6dddbc"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-007-WA_FEMAHQ_B2C_2018.json": {
+      "bytes": 1149,
+      "sha256": "cd40a562a3a09a49b8c209dbb215f45cc32699c1d19ea97a48574787e3d2d825"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-007-WA_FEMAHQ_B2C_2018.npy": {
+      "bytes": 460928,
+      "sha256": "1906698eb4491110a406af9eda6900816154269ecfb5ba5827669cfed281c49b"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-007-WA_FEMAHQ_B2C_2018.png": {
+      "bytes": 1191064,
+      "sha256": "4dbf7b30d715fe6b9c58ca6da660b311145a6b7e5caf9cea7675d54405b594ac"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-007-copc-catalogue.json": {
+      "bytes": 43528,
+      "sha256": "867a017caaecb044c5527cb9839f091a51a2da2c89ab3cedc592788259a1acab"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-008-copc-catalogue.json": {
+      "bytes": 404,
+      "sha256": "70e3334ececd97968ebb20c98df0fe86acaae20f0fdd28b65c882744ee4b6656"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-009-USGS_LPC_WA_MountAdams_2016_LAS_2017.json": {
+      "bytes": 609,
+      "sha256": "6768a5c0e296e204280fbbeb985907c054d4f81bd8f6afb503e2f0ea578e1fee"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-009-USGS_LPC_WA_MountAdams_2016_LAS_2017.npy": {
+      "bytes": 460928,
+      "sha256": "1b5bba5c38e2bb199e695a4f3dd4fe0c9e5630a816c6793e969c411b9ad310cc"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-009-USGS_LPC_WA_MountAdams_2016_LAS_2017.png": {
+      "bytes": 731377,
+      "sha256": "8d8a2fcd04a89bb9ff9f46c342e0cb5b23201d3c6f447aab883a409532420841"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-009-copc-catalogue.json": {
+      "bytes": 11693,
+      "sha256": "42b8496544a151d50009eb533c5692566a38db511f9b48b2183d8aae6303ac7f"
+    },
+    "evergreen-pointcloud/r2-cascades-evergreen-010-copc-catalogue.json": {
+      "bytes": 404,
+      "sha256": "70e3334ececd97968ebb20c98df0fe86acaae20f0fdd28b65c882744ee4b6656"
+    },
+    "evergreen-pointcloud/structural_candidates_landsat_qa_audit.csv": {
+      "bytes": 73241,
+      "sha256": "56723c555ea8bcce87936d64b633eb0e32a4f1e7c980d8d8f92867105d4aaf39"
+    },
+    "evergreen-pointcloud/structurally_screened_candidate_cells.csv": {
+      "bytes": 43042,
+      "sha256": "61e45f2bdb8d5ef161203db39c7286947ea184e850f88a24484b1e49831b7463"
+    },
+    "evergreen-pointcloud/validation_summary.json": {
+      "bytes": 358,
+      "sha256": "0589703a09ccef5453d4fede89f2dbc3874fc6890844bbd7eed8aa380d352a3e"
+    },
+    "expanded_landsat_reference_footprints.geojson": {
+      "bytes": 835909,
+      "sha256": "ab75ad0fd208d8ffcf72022e2110478a16f802d95ab01eaeafb2b519a18addbd"
+    },
+    "expanded_photo_screened_landsat_dataset.csv": {
+      "bytes": 294519,
+      "sha256": "a679ec3e21c8109f559ec7774543a434a67662d800f5bbcca247661b3bf6b940"
+    },
+    "exploratory-five-pft-tests/README.md": {
+      "bytes": 4207,
+      "sha256": "3e119fff2ea2b3df3025acf9790347e1372dc47fbd86d07d496806dcdaf1eb19"
+    },
+    "exploratory-five-pft-tests/analysis_overview.csv": {
+      "bytes": 1035,
+      "sha256": "7510d92074aa1419a82baac94fb72322779b5269a5176c48648cf1a3cc44fb67"
+    },
+    "exploratory-five-pft-tests/combined_provisional_cohort.csv": {
+      "bytes": 382417,
+      "sha256": "3ab70afadc371cd792006d8e62300d989d2508f81264d5fff07e53942c7d2eec"
+    },
+    "exploratory-five-pft-tests/manifest.json": {
+      "bytes": 4978,
+      "sha256": "664193eab63083ffaa397bdcbae52cd0c9c5913646739f7a95ed0c06a1bda1fb"
+    },
+    "exploratory-five-pft-tests/preferred_aerosol_normalized_seven_bands/geography_only_baseline.csv": {
+      "bytes": 1292,
+      "sha256": "a4ba3b6d17fc02fde231e7481a684949a959f5ea832dd05945e849cc96b840e1"
+    },
+    "exploratory-five-pft-tests/preferred_aerosol_normalized_seven_bands/identifiability_predictions.csv": {
+      "bytes": 58513,
+      "sha256": "26afeb2cf14ec453c883c0b805341c0d9eb1476f26c71b4dcab7fc3fa97d9edd"
+    },
+    "exploratory-five-pft-tests/preferred_aerosol_normalized_seven_bands/identifiability_summary.csv": {
+      "bytes": 1896,
+      "sha256": "02264437329a5476861bf7b9862fcc9fdf92bacb6f2ad0c657d42d4555e55e80"
+    },
+    "exploratory-five-pft-tests/preferred_aerosol_normalized_seven_bands/patch_confusion_matrix.csv": {
+      "bytes": 184,
+      "sha256": "bd4bb1e75d103e5e62610eb3d35dc096674f780b9b24378beaa5dda70af097f4"
+    },
+    "exploratory-five-pft-tests/preferred_aerosol_normalized_seven_bands/patch_median_spectra.csv": {
+      "bytes": 3597,
+      "sha256": "e9c8008280b2870ef35f7589fa386ee14712b73e98b89aa3d3d11c6c1635178a"
+    },
+    "exploratory-five-pft-tests/preferred_aerosol_normalized_seven_bands/separability.csv": {
+      "bytes": 3809,
+      "sha256": "400e37aa6a8d33fa1513717b5cd3f0709f216afd8b99606a28699693b9c7e825"
+    },
+    "exploratory-five-pft-tests/primary_normalized_seven_bands/geography_only_baseline.csv": {
+      "bytes": 1456,
+      "sha256": "af7521250c2c4c5d28aaf3e1737a1db092e1412e3e916a3301a48b2c859b0d78"
+    },
+    "exploratory-five-pft-tests/primary_normalized_seven_bands/identifiability_predictions.csv": {
+      "bytes": 214998,
+      "sha256": "20e5c74a5b3157b69a1a3614e6a7da12497972731adfbeca35571d7adb1eb869"
+    },
+    "exploratory-five-pft-tests/primary_normalized_seven_bands/identifiability_summary.csv": {
+      "bytes": 2017,
+      "sha256": "a7fa08957b33f592fe7f47b858fca4e03ac815b93072a1cb9402820eedc23ca4"
+    },
+    "exploratory-five-pft-tests/primary_normalized_seven_bands/patch_confusion_matrix.csv": {
+      "bytes": 184,
+      "sha256": "3bc593b7fc7480a1e2926b2b620d8594abfb03a093a554a1d27d1f2c70b586a2"
+    },
+    "exploratory-five-pft-tests/primary_normalized_seven_bands/patch_median_spectra.csv": {
+      "bytes": 3994,
+      "sha256": "9547a983fb712694f6daa770f8ad2ce4a73e6417f9f346a45de73bed1fbf1c3f"
+    },
+    "exploratory-five-pft-tests/primary_normalized_seven_bands/separability.csv": {
+      "bytes": 3871,
+      "sha256": "0d18ce6fd5ee4db854dbef2b3b1586d023fbaf42dba1d62b4f38d2715cb66ecb"
+    },
+    "exploratory-five-pft-tests/raw_seven_bands_sensitivity/geography_only_baseline.csv": {
+      "bytes": 1456,
+      "sha256": "af7521250c2c4c5d28aaf3e1737a1db092e1412e3e916a3301a48b2c859b0d78"
+    },
+    "exploratory-five-pft-tests/raw_seven_bands_sensitivity/identifiability_predictions.csv": {
+      "bytes": 214664,
+      "sha256": "53d9005646cd940c76bc6806acbdb9bd04ee22ae894b0bb410790fcb3afd3163"
+    },
+    "exploratory-five-pft-tests/raw_seven_bands_sensitivity/identifiability_summary.csv": {
+      "bytes": 2047,
+      "sha256": "602259edf9a822c3fb4c8fe8b191d4811c3733f0ea2608bff3ea40a8111812d9"
+    },
+    "exploratory-five-pft-tests/raw_seven_bands_sensitivity/patch_confusion_matrix.csv": {
+      "bytes": 184,
+      "sha256": "f9e347a412c055b0868a2d8c926a6ae8028b930c9710ae72b4b64eb03561993a"
+    },
+    "exploratory-five-pft-tests/raw_seven_bands_sensitivity/patch_median_spectra.csv": {
+      "bytes": 3192,
+      "sha256": "625cb3a49b5652d0981e4160500e000d27d869169737b20b2b0d555f62f47835"
+    },
+    "exploratory-five-pft-tests/raw_seven_bands_sensitivity/separability.csv": {
+      "bytes": 3946,
+      "sha256": "5bec37fd58fe214ddf9dafb21c2d4e338781671ca16fa55f7a79a4e6d2609bf2"
+    },
+    "exploratory-five-pft-tests/registration_5m_normalized_seven_bands/geography_only_baseline.csv": {
+      "bytes": 1359,
+      "sha256": "7d846069309855009a9cc5b9f0fd0e25b9a6bceb53757e5795d3352eda35c33f"
+    },
+    "exploratory-five-pft-tests/registration_5m_normalized_seven_bands/identifiability_predictions.csv": {
+      "bytes": 167023,
+      "sha256": "d7f47e96ec5e12dc9d827a829274215c039b6c5bf76ec2162566ba5938cd0d2a"
+    },
+    "exploratory-five-pft-tests/registration_5m_normalized_seven_bands/identifiability_summary.csv": {
+      "bytes": 1984,
+      "sha256": "feb97363d6a8091ba70df9e9e3872f37c30a47d59525cbd6dfe34d4f66d8fc8f"
+    },
+    "exploratory-five-pft-tests/registration_5m_normalized_seven_bands/patch_confusion_matrix.csv": {
+      "bytes": 184,
+      "sha256": "7d412b05ee32ced477f3804be7577060e51c26ff2f9e4b94b5ff455a7eab9b7e"
+    },
+    "exploratory-five-pft-tests/registration_5m_normalized_seven_bands/patch_median_spectra.csv": {
+      "bytes": 3787,
+      "sha256": "f62c8a96456ab6f6844274d0cb0e1eaa2a3004eaa8392fa07c9138a76bfbe981"
+    },
+    "exploratory-five-pft-tests/registration_5m_normalized_seven_bands/separability.csv": {
+      "bytes": 3810,
+      "sha256": "217d44d6072196fc80d23915897fbff45cb10d03dd1780f477cf728a7c228d32"
+    },
+    "exploratory-five-pft-tests/shared_five_bands_normalized/geography_only_baseline.csv": {
+      "bytes": 1456,
+      "sha256": "af7521250c2c4c5d28aaf3e1737a1db092e1412e3e916a3301a48b2c859b0d78"
+    },
+    "exploratory-five-pft-tests/shared_five_bands_normalized/identifiability_predictions.csv": {
+      "bytes": 215058,
+      "sha256": "93b925e1bd47f77a5919cc598f2c98df963bae2434e00e7a69165b534a81084c"
+    },
+    "exploratory-five-pft-tests/shared_five_bands_normalized/identifiability_summary.csv": {
+      "bytes": 1955,
+      "sha256": "e75354d99a2e7ed31a29777959fda57727d164d95820c08b8854ec8c0f58e452"
+    },
+    "exploratory-five-pft-tests/shared_five_bands_normalized/patch_confusion_matrix.csv": {
+      "bytes": 184,
+      "sha256": "3bc593b7fc7480a1e2926b2b620d8594abfb03a093a554a1d27d1f2c70b586a2"
+    },
+    "exploratory-five-pft-tests/shared_five_bands_normalized/patch_median_spectra.csv": {
+      "bytes": 3208,
+      "sha256": "e0d35897e0fdf0c8fb3a9ec4f1a5248e07d4fd3a483cc81811915d8d0db86f6d"
+    },
+    "exploratory-five-pft-tests/shared_five_bands_normalized/separability.csv": {
+      "bytes": 3894,
+      "sha256": "6dc39c8fc8070fd16544e09f1b180bce1ba215ef13a2fc52bbf6ee2e863be590"
+    },
+    "front_range-context-review-01.png": {
+      "bytes": 5596772,
+      "sha256": "b202f46c930bd49b45f236c441cebf3d2343e1362a6bc1f487efc5665765812d"
+    },
+    "front_range-context-review-02.png": {
+      "bytes": 5633538,
+      "sha256": "67059640e19d13d4e52ee9948f8564308c3bec564fd8d273077c2e3360a1aee8"
+    },
+    "front_range-context-review-03.png": {
+      "bytes": 5693451,
+      "sha256": "91a21e4d62d4f91795af923fe81256b326a55d047f99853fbdb092f19e8a2a0d"
+    },
+    "front_range-context-review-04.png": {
+      "bytes": 5931410,
+      "sha256": "0ca6432c7fb198b4797f62881decf62478a7483969f46863355425ce43d140d3"
+    },
+    "front_range-context-review-05.png": {
+      "bytes": 5781490,
+      "sha256": "5894c3a0364ccf2ccf82f063ccc8bfd961bebd89f3c5367b7ac646c346b9d06b"
+    },
+    "front_range-context-review-06.png": {
+      "bytes": 4981742,
+      "sha256": "f353383b68739290d55e768080cde0f557229421170e861aa9610fb9c5303bae"
+    },
+    "front_range-context-review-07.png": {
+      "bytes": 4910475,
+      "sha256": "81bcd894cb46042ab6f66fb34482de802a3986c33bd45841d1d640ee443bf1d9"
+    },
+    "front_range-context-review-08.png": {
+      "bytes": 5443576,
+      "sha256": "4e436989cce7d25f5e6fad51fdcaa7beb7f1366dbd67e72523f887d762bd4e46"
+    },
+    "front_range-context-review-09.png": {
+      "bytes": 5957361,
+      "sha256": "c3ec2e8431b8116aaca20cd9b81662ebd279931802b709a72572efd6867e0781"
+    },
+    "front_range-context-review-10.png": {
+      "bytes": 5869695,
+      "sha256": "8e0652f8407f4d53810fd67588dc375d05f47545fe7f8fe023127ef7deda64c7"
+    },
+    "front_range-context-review-11.png": {
+      "bytes": 5854080,
+      "sha256": "df650514fd56c03b424e648394c7b70bbf073b61101f8e7c0523a5a0ca5184e5"
+    },
+    "front_range-context-review-12.png": {
+      "bytes": 6129901,
+      "sha256": "ed0929d7c133b61ff3e3939775b67b39186013beed0a543d155b039770219baa"
+    },
+    "front_range-context-review-13.png": {
+      "bytes": 3257702,
+      "sha256": "ffe29a6af3d1ff2f67ccf1b9b60cfeba3ec85e1a02887c614e6b08520acc08cd"
+    },
+    "front_range-contexts.csv": {
+      "bytes": 26369,
+      "sha256": "586ad21f731703958fca5b39c86c2e5c388d08f0b686a5aab0eff75a1f5dea0e"
+    },
+    "front_range-gap-catalogue.json": {
+      "bytes": 42337,
+      "sha256": "80100c706fad5e88f921c7751c0ff6ab0c56e39c37348a710d26c08439d005e9"
+    },
+    "front_range-landsat_qa_audit.csv": {
+      "bytes": 44411,
+      "sha256": "cbab2de8b928883ba6aa9c1e70d68be543518ee2c8178620b15d495cfc97ab60"
+    },
+    "front_range-screened_landsat_observations.csv": {
+      "bytes": 41088,
+      "sha256": "6a6f8b90ce2fd0efab789e5d21bb4754c5895982bec25ff5012c497875497da8"
+    },
+    "gunnison_aspen-context-review-01.png": {
+      "bytes": 5715351,
+      "sha256": "c9a68cf1e90af20ed681ce38253147320c45708627a5a3a92efde9e33abcfe6f"
+    },
+    "gunnison_aspen-context-review-02.png": {
+      "bytes": 5761119,
+      "sha256": "9e786c4b44eb34305c7188d0da074a4505e380145835ddaf538a304084619c9b"
+    },
+    "gunnison_aspen-context-review-03.png": {
+      "bytes": 5366020,
+      "sha256": "f34d868247985e9e97f1d5cf48bac2601d9c36149ccbd03f46eef89d2bbffa7c"
+    },
+    "gunnison_aspen-context-review-04.png": {
+      "bytes": 5334029,
+      "sha256": "cc0e769a842810481c73dd5f517d9ddba48e1e0c45e0c30dfece860757bd0759"
+    },
+    "gunnison_aspen-context-review-05.png": {
+      "bytes": 5390862,
+      "sha256": "8935a30f24eddcaaa7c7ba4fa1bee706ecbaec7249ea11ce170760bacbaeb378"
+    },
+    "gunnison_aspen-context-review-06.png": {
+      "bytes": 5341912,
+      "sha256": "61ac133589fcd1fcfcb4dbd823071514c4f74e7f2bb28721f835d7ff47c595aa"
+    },
+    "gunnison_aspen-context-review-07.png": {
+      "bytes": 5343541,
+      "sha256": "1d5d424b36d1bd1874184efc17bd0ce96355c71d6bd7c6c14b5567afe6d62910"
+    },
+    "gunnison_aspen-context-review-08.png": {
+      "bytes": 5542145,
+      "sha256": "a5bcaa4233c98849367f79f569160dda973fe683cdb4771cf044c9ef86948cea"
+    },
+    "gunnison_aspen-context-review-09.png": {
+      "bytes": 5633463,
+      "sha256": "57373c69bc2b94fa7d00991845c1a61f44e63e86cabb319bbd4b2933850743d8"
+    },
+    "gunnison_aspen-context-review-10.png": {
+      "bytes": 5656557,
+      "sha256": "f59cf18ec94abc187f50a82ef25a7832dbcea219cf6f7a23a1bc0ef0b1fd6b8e"
+    },
+    "gunnison_aspen-context-review-11.png": {
+      "bytes": 6068793,
+      "sha256": "27d5f0d40544518e09bf6d7ffee01ea78cd5372038101daebe982dd6d899510e"
+    },
+    "gunnison_aspen-context-review-12.png": {
+      "bytes": 5882185,
+      "sha256": "abdc639bfdcc2853a8be2be517512f52eaa31de923f0cc25303da7a3482a4a6d"
+    },
+    "gunnison_aspen-context-review-13.png": {
+      "bytes": 3250118,
+      "sha256": "80548e948dbbb6acd4fa24b0ed27eca39dc0d44b2e79d5e483e2a9e0ecbb2388"
+    },
+    "gunnison_aspen-contexts.csv": {
+      "bytes": 26859,
+      "sha256": "0ff6d0be17d59d491d1cf79166be472331522c836558f16ed3a5e897535cd124"
+    },
+    "gunnison_aspen-gap-catalogue.json": {
+      "bytes": 42342,
+      "sha256": "2c96795ae0f4500f900db6bf5d1709b944f0e8aa855a0731038f5da8a1a55a9e"
+    },
+    "gunnison_aspen-landsat_qa_audit.csv": {
+      "bytes": 91665,
+      "sha256": "1a536f00f7fefec3a8c365cbc6009d4376b0d348dbea6a9059c67cc0250fb359"
+    },
+    "gunnison_aspen-screened_landsat_observations.csv": {
+      "bytes": 88812,
+      "sha256": "ea034054c89d2bdb60c138ee3c90ecf65f6de14ec05989c14b479083b0f1ac7f"
+    },
+    "hls-l30-expanded-analysis/README.md": {
+      "bytes": 4498,
+      "sha256": "19a88ffbf22ae01e32dfde2393f174601785662b548ab9e5fb46341143adc62f"
+    },
+    "hls-l30-expanded-analysis/analysis_design.json": {
+      "bytes": 847,
+      "sha256": "33f9b3e415028d70c3914914bb9478a307007a5832fe169898e2bac219b84c52"
+    },
+    "hls-l30-expanded-analysis/cohort_comparison.csv": {
+      "bytes": 291,
+      "sha256": "40bc67dbe4420ba8c358d93a7f2a29a62074e4a9680bfa80f30c1483def25eca"
+    },
+    "hls-l30-expanded-analysis/manifest.json": {
+      "bytes": 3236,
+      "sha256": "f7ea32888af70aab885be6392bea46bf137da9db82e5cd038426ce2d4f598db1"
+    },
+    "hls-l30-expanded-analysis/nominal_primary/figure_table_summary.csv": {
+      "bytes": 754,
+      "sha256": "0dd266d7ad852f8a5be683dffb59ee4166c246b1f39f3564edd23b16c5fcc950"
+    },
+    "hls-l30-expanded-analysis/nominal_primary/held_out_predictions.csv": {
+      "bytes": 225752,
+      "sha256": "935cc5c8b80ebd67292c3a163218eab925711b1acff23e80281dedddc26e4d49"
+    },
+    "hls-l30-expanded-analysis/nominal_primary/identifiability_summary.csv": {
+      "bytes": 2048,
+      "sha256": "5796756f7786c0954fa04b1c6f1a968da33b8b9470cce620e2cadc30649e37f1"
+    },
+    "hls-l30-expanded-analysis/nominal_primary/pairwise_balanced_accuracy.csv": {
+      "bytes": 791,
+      "sha256": "29876f2432174824625f2266c163821ecd0bd99448fc7b84b28289980749018d"
+    },
+    "hls-l30-expanded-analysis/nominal_primary/pairwise_held_patch_predictions.csv": {
+      "bytes": 8818,
+      "sha256": "93d8ea55ef47ebec20d4633e490a3392991188f3efae77c5e82217da272b9dfd"
+    },
+    "hls-l30-expanded-analysis/nominal_primary/patch_median_reflectance.csv": {
+      "bytes": 3063,
+      "sha256": "1b156b21523fc5b794e9d64148523eebf1ab4a0f5d82678a9216e6d359c6f839"
+    },
+    "hls-l30-expanded-analysis/nominal_primary/separability.csv": {
+      "bytes": 4042,
+      "sha256": "1120dd806913dcb1be63d9f35a2bd96ccdce52fcd8fba597b510097ddc1291b3"
+    },
+    "hls-l30-expanded-analysis/source_support_sensitivity/figure_table_summary.csv": {
+      "bytes": 768,
+      "sha256": "3551d9e529a8fedfcb9341de63c22f6bdac872ce93541f53115322e4d87575fb"
+    },
+    "hls-l30-expanded-analysis/source_support_sensitivity/held_out_predictions.csv": {
+      "bytes": 74850,
+      "sha256": "02535aecc1b463d36a415ddce3ebe4f4a8abe057e02663767397469d157a9987"
+    },
+    "hls-l30-expanded-analysis/source_support_sensitivity/identifiability_summary.csv": {
+      "bytes": 1924,
+      "sha256": "2621a5a3adc684e3fdd23132cf4fefa5bdbb547581d328831c85c48f06be3cd8"
+    },
+    "hls-l30-expanded-analysis/source_support_sensitivity/pairwise_balanced_accuracy.csv": {
+      "bytes": 760,
+      "sha256": "29af9d812244792d93bde94976b8576ead3386f0dcdbab55c44727148cde2e55"
+    },
+    "hls-l30-expanded-analysis/source_support_sensitivity/pairwise_held_patch_predictions.csv": {
+      "bytes": 3075,
+      "sha256": "c3f64bac96c1f3a5ba9d9a76fed6693bf05d3ac17063ed40465104d8c47706a6"
+    },
+    "hls-l30-expanded-analysis/source_support_sensitivity/patch_median_reflectance.csv": {
+      "bytes": 1716,
+      "sha256": "f262f212b1613c52f0aedfc346ff1edbf82715e40a610fe3dca853a82d6656ab"
+    },
+    "hls-l30-expanded-analysis/source_support_sensitivity/separability.csv": {
+      "bytes": 3041,
+      "sha256": "9b49be0e31616036501a28e87986649f5a168cc6aa13334182b3a37abc9b0424"
+    },
+    "hls-l30-expanded-references/README.md": {
+      "bytes": 3692,
+      "sha256": "0506c2ef1cd9e7efabe744c9bb1c5c440959c06fafe9e3f54de3efaca64c6b1f"
+    },
+    "hls-l30-expanded-references/additional_photo_annotations.gpkg": {
+      "bytes": 454656,
+      "sha256": "c4c62a1fd3c320fde11b1dd195a5cf244acf1e9e49024af1415c6fdb72abf05b"
+    },
+    "hls-l30-expanded-references/additional_review_policy.json": {
+      "bytes": 4504,
+      "sha256": "d6df2807cdc7a625429de33a81120fe4f38e95c4eb53f55e4405d510f626fc11"
+    },
+    "hls-l30-expanded-references/california_shrublands-2024-catalogue.json": {
+      "bytes": 117518,
+      "sha256": "8c77d0af014735889c9074f910ee23b5ffcd6e3d34238218582ffcd580a7c472"
+    },
+    "hls-l30-expanded-references/california_shrublands-all_cover_measurements.csv": {
+      "bytes": 194169,
+      "sha256": "ccf07fce671e3efd04a38ce0a2f40b4315f7b273b29af4fdc01e58857932bad4"
+    },
+    "hls-l30-expanded-references/california_shrublands-hls_qa_audit.csv": {
+      "bytes": 144831,
+      "sha256": "97f4b44c83ab435524b6cbd9f1ab630cc5028c267e5db65dc0ed6fa04a1f5947"
+    },
+    "hls-l30-expanded-references/california_shrublands-nominal_reference_cells.csv": {
+      "bytes": 70751,
+      "sha256": "60dcc8e7f73cca489ebc3c187d49f6556f9e12af0ac75ec98805276b353d0397"
+    },
+    "hls-l30-expanded-references/california_shrublands-selected_observations.csv": {
+      "bytes": 116606,
+      "sha256": "a866b9f05312c63e4518bef3dd15bc630eb2df7a53b656786e609f373bfec6cd"
+    },
+    "hls-l30-expanded-references/cascades-2023-catalogue.json": {
+      "bytes": 233486,
+      "sha256": "afc3087fbd351e6195ad2dcda1fa41caa709263f526b58e959ce530844de7266"
+    },
+    "hls-l30-expanded-references/cascades-all_cover_measurements.csv": {
+      "bytes": 201182,
+      "sha256": "c3587c21e3db8d3a81ee59da6442ce44dcf476fc6b5a93b791abd25d9a32f2f5"
+    },
+    "hls-l30-expanded-references/cascades-hls_qa_audit.csv": {
+      "bytes": 518554,
+      "sha256": "ce4a415ddd7b0e76406be690e62dc7bf7f91693c454095a9a1332987d0b19687"
+    },
+    "hls-l30-expanded-references/cascades-nominal_reference_cells.csv": {
+      "bytes": 68361,
+      "sha256": "6f959c24ef77a3bae8d4d66b1cbca5b8aa25a56e42ac8c7bc1b0efd225891c0c"
+    },
+    "hls-l30-expanded-references/cascades-selected_observations.csv": {
+      "bytes": 109428,
+      "sha256": "26de7e46f78606da468cfafb7b8bf97aaae8b2bdb72040a7d7dcc7c822858a49"
+    },
+    "hls-l30-expanded-references/expansion_provenance.json": {
+      "bytes": 543,
+      "sha256": "5f5d16463a4aac9a3a5734c433978ae5b9b35537895893d3553a513567969df5"
+    },
+    "hls-l30-expanded-references/front_range-2023-catalogue.json": {
+      "bytes": 105431,
+      "sha256": "b566004f6cd5767b64ca49bfe223dea7523d6749687d1337ad333fc62f231b15"
+    },
+    "hls-l30-expanded-references/front_range-all_cover_measurements.csv": {
+      "bytes": 239723,
+      "sha256": "696bc8013ee28c0ffe2fba0acae3c2ca55c9e4dfcd5655ae4ab6aed14c565436"
+    },
+    "hls-l30-expanded-references/front_range-hls_qa_audit.csv": {
+      "bytes": 55965,
+      "sha256": "fa94ed9791edfe83d2f0507e70f0ee81e865bc9264ed55747eea0c7f9e050b66"
+    },
+    "hls-l30-expanded-references/front_range-nominal_reference_cells.csv": {
+      "bytes": 14506,
+      "sha256": "a3c5ffc971107bcb22439586ef7aa1f145d8c14e583e143eb3e683f4272bd05e"
+    },
+    "hls-l30-expanded-references/front_range-selected_observations.csv": {
+      "bytes": 21093,
+      "sha256": "9343015d7e3d30dda651ce18ab5db18d6ef1588e7192abf9456bcc293652d2d3"
+    },
+    "hls-l30-expanded-references/gunnison_aspen-2023-catalogue.json": {
+      "bytes": 233930,
+      "sha256": "b657bde8d93397c61c2e4b02fcd67033758467707d47133fc6d6f764ab8f1d98"
+    },
+    "hls-l30-expanded-references/gunnison_aspen-all_cover_measurements.csv": {
+      "bytes": 210739,
+      "sha256": "586e5506bc274cc217fc6b0d84f9df4efb2d78c81b4dde8df049d7334f82ffc2"
+    },
+    "hls-l30-expanded-references/gunnison_aspen-hls_qa_audit.csv": {
+      "bytes": 265028,
+      "sha256": "acd5e14483814a574a78f4522628393b40d0cc00d9b534aced7f58ca68be08cd"
+    },
+    "hls-l30-expanded-references/gunnison_aspen-nominal_reference_cells.csv": {
+      "bytes": 31646,
+      "sha256": "ac13f0dff2ec1ed5ccb237327e11402244ade5fc8f40664410f53a75b0501889"
+    },
+    "hls-l30-expanded-references/gunnison_aspen-selected_observations.csv": {
+      "bytes": 52457,
+      "sha256": "f927db254567556f5f24272baab62fb9cc8a67bbf8e60b592714758640c43595"
+    },
+    "hls-l30-expanded-references/hls_l30_nominal_95pct_observations.csv": {
+      "bytes": 345043,
+      "sha256": "b3ef6eec2b30f049ceb0389776360e4a35832d313c5e7967572a4e3ba8f3b231"
+    },
+    "hls-l30-expanded-references/hls_l30_strict_source_support_95pct_observations.csv": {
+      "bytes": 111031,
+      "sha256": "0476078b32053d389948ff963d54174a60e26f3a964803cf6e9690204abfe72c"
+    },
+    "hls-l30-expanded-references/hls_native_footprints.geojson": {
+      "bytes": 591250,
+      "sha256": "b6a5c795fa220f58060c90ab23bcfed1f4cf4ae636be8195bc1fb24d944c82e1"
+    },
+    "hls-l30-expanded-references/hls_source_kernel_support.geojson": {
+      "bytes": 591301,
+      "sha256": "60e45ae8b5379dc2146828a77a834cfe4d319c1e1688d93b97c5807cd8bc4895"
+    },
+    "hls-l30-expanded-references/manifest.json": {
+      "bytes": 5392,
+      "sha256": "63da85e4044b59b22470054df3e8cdf695437b7ea11ae0f5c79da62d9fd52eb1"
+    },
+    "hls-l30-expanded-references/parent_identity.json": {
+      "bytes": 194,
+      "sha256": "63b51647e62515673ff92e30dbfbaaa3b2068e1f98052fbf3978f370d866c9d9"
+    },
+    "hls-l30-expanded-references/r2-california_shrublands-non-vegetated-001-cover-review.png": {
+      "bytes": 920141,
+      "sha256": "37680a5984a32bae25093e6f5caf48dd7f026f29f884df9d12949c0f9e9d720a"
+    },
+    "hls-l30-expanded-references/r2-california_shrublands-woody-001-cover-review.png": {
+      "bytes": 1024186,
+      "sha256": "471ecec2037852a61be678ed036e6ade6af4425d457f1ab38ed1613d91a23fc5"
+    },
+    "hls-l30-expanded-references/r2-california_shrublands-woody-002-cover-review.png": {
+      "bytes": 1088499,
+      "sha256": "e9476243ff5ba934c0922eb48ff362d75baf86a04bf077610a5b23be944fd3f9"
+    },
+    "hls-l30-expanded-references/r2-california_shrublands-woody-003-cover-review.png": {
+      "bytes": 1071567,
+      "sha256": "7b9cc4abc645a1232845ae9ac1a89137dd3fcbaf5c849fa38702798ff96a7d4b"
+    },
+    "hls-l30-expanded-references/r2-california_shrublands-woody-010-cover-review.png": {
+      "bytes": 1103116,
+      "sha256": "b8c80da26e564082f4969224123476cbbcfa66711bf5123fd4fe5ad3583b3cfb"
+    },
+    "hls-l30-expanded-references/reference_support.csv": {
+      "bytes": 552,
+      "sha256": "bdcfa169680657197631b95bf8f4da066cbd951a520accb7f0af0a52cbe4bc59"
+    },
+    "hls-l30-expanded-references/validation_summary.json": {
+      "bytes": 287,
+      "sha256": "7449ebffb4dfc5db51de83402e8da0922d31daa17d58277f5c4c66db240fabfb"
+    },
+    "hls-l30-expanded-references/yellowstone-2024-catalogue.json": {
+      "bytes": 291687,
+      "sha256": "ec34e1728d46030bcc6155fc401309b8c750f3c778a59957a6b4547437b4027c"
+    },
+    "hls-l30-expanded-references/yellowstone-2025-catalogue.json": {
+      "bytes": 221841,
+      "sha256": "d692c77763cb0bb2ac2453fcdddf9318342693b795a85c28ec35e3abf5f62210"
+    },
+    "hls-l30-expanded-references/yellowstone-all_cover_measurements.csv": {
+      "bytes": 94442,
+      "sha256": "24fd2291044116fc8f951c79cb61e487ab9d2f8de282057f4f1d94123a5d08b3"
+    },
+    "hls-l30-expanded-references/yellowstone-hls_qa_audit.csv": {
+      "bytes": 293761,
+      "sha256": "6cfeb5e6bf1dc2fb3036748b781c20d33a179a8725d995a65cb539eab9bbe305"
+    },
+    "hls-l30-expanded-references/yellowstone-nominal_reference_cells.csv": {
+      "bytes": 27309,
+      "sha256": "9e9aa254b30d3e3affc89c2931f1f16d358edf6a0bdb94c8ab9a6bdb4c35ad07"
+    },
+    "hls-l30-expanded-references/yellowstone-selected_observations.csv": {
+      "bytes": 45913,
+      "sha256": "1c4219580e09dc04e463b8867f6383ca3196be7cd302ffb51de3e24377adea7c"
+    },
+    "hls-l30-pft-tests/README.md": {
+      "bytes": 4041,
+      "sha256": "1b5eb8fd477087f8c258c9a1c098e1791d030a82cc7b17e19120839adddc4c14"
+    },
+    "hls-l30-pft-tests/cohort_comparison.csv": {
+      "bytes": 350,
+      "sha256": "412e9c03c359ba56d665ff3cef15205aa87e9a485f74db319489116644cabd65"
+    },
+    "hls-l30-pft-tests/manifest.json": {
+      "bytes": 2290,
+      "sha256": "a45ffaff3aa030d46627c18e825fea6aece97abc642e1a51f126cf16ca8a5233"
+    },
+    "hls-l30-pft-tests/nominal_support_sensitivity/figure_table_summary.csv": {
+      "bytes": 522,
+      "sha256": "79eb631d668617006c7a17fbab764900983e90f8bd987074f2fde08d47d48e1a"
+    },
+    "hls-l30-pft-tests/nominal_support_sensitivity/held_out_predictions.csv": {
+      "bytes": 170272,
+      "sha256": "070df6aa9d9e0561e9842ad057297dce594b90f9d723036c95f495cca0c8b0b4"
+    },
+    "hls-l30-pft-tests/nominal_support_sensitivity/identifiability_summary.csv": {
+      "bytes": 2073,
+      "sha256": "5f4f729ef1cdab783944a023500529b848ccb64e1fa80b32962d22d15ecd7ba0"
+    },
+    "hls-l30-pft-tests/nominal_support_sensitivity/patch_median_reflectance.csv": {
+      "bytes": 2377,
+      "sha256": "5eab01c55f0f7e5a3c740e0f01fdad337d11d33313e6086c9d6cbf122c92af15"
+    },
+    "hls-l30-pft-tests/nominal_support_sensitivity/separability.csv": {
+      "bytes": 3810,
+      "sha256": "dc121a4a7048a71feb234e47fad78998f335c7ec5b10f9adfc4b4031ffd815a1"
+    },
+    "hls-l30-pft-tests/strict_source_support/figure_table_summary.csv": {
+      "bytes": 557,
+      "sha256": "c7e0be88031adee05ddee08c4a6020081132e4c017ffb1e6daf5eab70bec5bc5"
+    },
+    "hls-l30-pft-tests/strict_source_support/held_out_predictions.csv": {
+      "bytes": 50978,
+      "sha256": "0d28495bf844bfb53924dbe6bb7d38a0928c0ccb1f98b03de4d31bfa6f18b479"
+    },
+    "hls-l30-pft-tests/strict_source_support/identifiability_summary.csv": {
+      "bytes": 1865,
+      "sha256": "a8577c0603160cf7d53dbb4b3a4a8532fe3c8aa2ec80da88fb7da0af525168c8"
+    },
+    "hls-l30-pft-tests/strict_source_support/patch_median_reflectance.csv": {
+      "bytes": 1174,
+      "sha256": "4ab10165cb87be64df74055e05207c53ec7b728444b08ad961f52e35cea05f1c"
+    },
+    "hls-l30-pft-tests/strict_source_support/separability.csv": {
+      "bytes": 2564,
+      "sha256": "c9988a73a981aa974628a36dbee1a831971ded360a716ba49b5bd2d499ea6166"
+    },
+    "hls-l30-rebuild/README.md": {
+      "bytes": 7817,
+      "sha256": "41dd23f5b75513d1f9a5c280e79969b12dc02af4a8684f313fe081953f860dfd"
+    },
+    "hls-l30-rebuild/california_shrublands-2024-catalogue.json": {
+      "bytes": 117518,
+      "sha256": "8c77d0af014735889c9074f910ee23b5ffcd6e3d34238218582ffcd580a7c472"
+    },
+    "hls-l30-rebuild/california_shrublands-all_cover_measurements.csv": {
+      "bytes": 72348,
+      "sha256": "aba41129d4f76faa22573aecc67af2913e39e9fca17937cd46e22b397e82ebaa"
+    },
+    "hls-l30-rebuild/california_shrublands-hls_qa_audit.csv": {
+      "bytes": 47325,
+      "sha256": "793b50f76774d4b5979c177b48b7e7b51da947a0b25a4af26f2ff9bcee940208"
+    },
+    "hls-l30-rebuild/california_shrublands-nominal_reference_cells.csv": {
+      "bytes": 23367,
+      "sha256": "c0c6ffac0a880c5ddaab5ce0fb2a3182b6df3d4b02fb85e492b097986b373982"
+    },
+    "hls-l30-rebuild/california_shrublands-selected_observations.csv": {
+      "bytes": 38362,
+      "sha256": "1249dd817246148529a57d8094df35bf3ea26d83d346c7e33759f611233f9001"
+    },
+    "hls-l30-rebuild/cascades-2023-catalogue.json": {
+      "bytes": 233486,
+      "sha256": "afc3087fbd351e6195ad2dcda1fa41caa709263f526b58e959ce530844de7266"
+    },
+    "hls-l30-rebuild/cascades-all_cover_measurements.csv": {
+      "bytes": 201182,
+      "sha256": "c3587c21e3db8d3a81ee59da6442ce44dcf476fc6b5a93b791abd25d9a32f2f5"
+    },
+    "hls-l30-rebuild/cascades-hls_qa_audit.csv": {
+      "bytes": 518554,
+      "sha256": "ce4a415ddd7b0e76406be690e62dc7bf7f91693c454095a9a1332987d0b19687"
+    },
+    "hls-l30-rebuild/cascades-nominal_reference_cells.csv": {
+      "bytes": 68361,
+      "sha256": "6f959c24ef77a3bae8d4d66b1cbca5b8aa25a56e42ac8c7bc1b0efd225891c0c"
+    },
+    "hls-l30-rebuild/cascades-selected_observations.csv": {
+      "bytes": 109428,
+      "sha256": "26de7e46f78606da468cfafb7b8bf97aaae8b2bdb72040a7d7dcc7c822858a49"
+    },
+    "hls-l30-rebuild/front_range-2023-catalogue.json": {
+      "bytes": 105431,
+      "sha256": "b566004f6cd5767b64ca49bfe223dea7523d6749687d1337ad333fc62f231b15"
+    },
+    "hls-l30-rebuild/front_range-all_cover_measurements.csv": {
+      "bytes": 239723,
+      "sha256": "696bc8013ee28c0ffe2fba0acae3c2ca55c9e4dfcd5655ae4ab6aed14c565436"
+    },
+    "hls-l30-rebuild/front_range-hls_qa_audit.csv": {
+      "bytes": 55965,
+      "sha256": "fa94ed9791edfe83d2f0507e70f0ee81e865bc9264ed55747eea0c7f9e050b66"
+    },
+    "hls-l30-rebuild/front_range-nominal_reference_cells.csv": {
+      "bytes": 14506,
+      "sha256": "a3c5ffc971107bcb22439586ef7aa1f145d8c14e583e143eb3e683f4272bd05e"
+    },
+    "hls-l30-rebuild/front_range-selected_observations.csv": {
+      "bytes": 21093,
+      "sha256": "9343015d7e3d30dda651ce18ab5db18d6ef1588e7192abf9456bcc293652d2d3"
+    },
+    "hls-l30-rebuild/gunnison_aspen-2023-catalogue.json": {
+      "bytes": 233930,
+      "sha256": "b657bde8d93397c61c2e4b02fcd67033758467707d47133fc6d6f764ab8f1d98"
+    },
+    "hls-l30-rebuild/gunnison_aspen-all_cover_measurements.csv": {
+      "bytes": 210739,
+      "sha256": "586e5506bc274cc217fc6b0d84f9df4efb2d78c81b4dde8df049d7334f82ffc2"
+    },
+    "hls-l30-rebuild/gunnison_aspen-hls_qa_audit.csv": {
+      "bytes": 265028,
+      "sha256": "acd5e14483814a574a78f4522628393b40d0cc00d9b534aced7f58ca68be08cd"
+    },
+    "hls-l30-rebuild/gunnison_aspen-nominal_reference_cells.csv": {
+      "bytes": 31646,
+      "sha256": "ac13f0dff2ec1ed5ccb237327e11402244ade5fc8f40664410f53a75b0501889"
+    },
+    "hls-l30-rebuild/gunnison_aspen-selected_observations.csv": {
+      "bytes": 52457,
+      "sha256": "f927db254567556f5f24272baab62fb9cc8a67bbf8e60b592714758640c43595"
+    },
+    "hls-l30-rebuild/hls_l30_nominal_95pct_observations.csv": {
+      "bytes": 266319,
+      "sha256": "ab67c032a46fd0ce4c8ae232fb2b8fbc439a5a4b8d269afea02fc37464dbef3b"
+    },
+    "hls-l30-rebuild/hls_l30_strict_source_support_95pct_observations.csv": {
+      "bytes": 78683,
+      "sha256": "711de71ec023916edeb73fb012f97b2f57d614033337bf3439908022487bb4e0"
+    },
+    "hls-l30-rebuild/hls_native_footprints.geojson": {
+      "bytes": 455129,
+      "sha256": "9b6296e2e088d7b11f34a7bbd91c6117bddc829a6685810f033ba816e369b8b7"
+    },
+    "hls-l30-rebuild/hls_source_kernel_support.geojson": {
+      "bytes": 455203,
+      "sha256": "3aaa13a46136c4ddb5408ae901e0e31d02fdad16aae00948b986993a3e6c4de7"
+    },
+    "hls-l30-rebuild/independent_source_spot_checks.csv": {
+      "bytes": 725,
+      "sha256": "420faaee09cd02f7236664c75e518cd333ad33a65085007c4bddc91138f2555b"
+    },
+    "hls-l30-rebuild/manifest.json": {
+      "bytes": 5505,
+      "sha256": "5308777e7e67760dc553d3001d9b1abb93854caef307ddc099bc5aad1359e552"
+    },
+    "hls-l30-rebuild/rebuild_policy.json": {
+      "bytes": 828,
+      "sha256": "d3897d597003d40f893419e712762257a09a4cfd901c8de762641c07284ba675"
+    },
+    "hls-l30-rebuild/reference_support.csv": {
+      "bytes": 551,
+      "sha256": "875835ac7adb38b058f727ab669c4ce70530154cb234f1e99ae7aba70c81b0e4"
+    },
+    "hls-l30-rebuild/validation_summary.json": {
+      "bytes": 544,
+      "sha256": "6a94d7b4a4900d25b57d4bfdb726e7a726762b8e81c6943da8e1b992c115162e"
+    },
+    "hls-l30-rebuild/yellowstone-2024-catalogue.json": {
+      "bytes": 291687,
+      "sha256": "ec34e1728d46030bcc6155fc401309b8c750f3c778a59957a6b4547437b4027c"
+    },
+    "hls-l30-rebuild/yellowstone-2025-catalogue.json": {
+      "bytes": 221841,
+      "sha256": "d692c77763cb0bb2ac2453fcdddf9318342693b795a85c28ec35e3abf5f62210"
+    },
+    "hls-l30-rebuild/yellowstone-all_cover_measurements.csv": {
+      "bytes": 94442,
+      "sha256": "24fd2291044116fc8f951c79cb61e487ab9d2f8de282057f4f1d94123a5d08b3"
+    },
+    "hls-l30-rebuild/yellowstone-hls_qa_audit.csv": {
+      "bytes": 293761,
+      "sha256": "6cfeb5e6bf1dc2fb3036748b781c20d33a179a8725d995a65cb539eab9bbe305"
+    },
+    "hls-l30-rebuild/yellowstone-nominal_reference_cells.csv": {
+      "bytes": 27309,
+      "sha256": "9e9aa254b30d3e3affc89c2931f1f16d358edf6a0bdb94c8ab9a6bdb4c35ad07"
+    },
+    "hls-l30-rebuild/yellowstone-selected_observations.csv": {
+      "bytes": 45913,
+      "sha256": "1c4219580e09dc04e463b8867f6383ca3196be7cd302ffb51de3e24377adea7c"
+    },
+    "identifiability_readiness.csv": {
+      "bytes": 639,
+      "sha256": "86fb94d7a7216e97292ea8fd54a60b73a861420adcb11e0ab074ec68747a1388"
+    },
+    "live_oak_discovery_policy.json": {
+      "bytes": 259,
+      "sha256": "c2847d57c254121c679dc635388adcf69d8cb895e7c1f637a35de4b1d1504cba"
+    },
+    "live_oak_patch_proposals.csv": {
+      "bytes": 3492,
+      "sha256": "37493ed4dc890111b24c6b5f7b1195efcb8ee0530cd11e43de165ce798251d07"
+    },
+    "neon-canopy-height-product.json": {
+      "bytes": 63806,
+      "sha256": "afa6f63855ff459f8fcb424f6b95dc37c34ecb611884dc7ba51a58d3bf085756"
+    },
+    "patch_proposals.csv": {
+      "bytes": 61503,
+      "sha256": "8fbdd2736f321f7ab8e1d0498354dd1283a9f6e78789d3198bf577cb22ebea44"
+    },
+    "photo_reference_annotations.gpkg": {
+      "bytes": 44519424,
+      "sha256": "273b5beb6a9b464eb5f5c332524ba8576f9831723ea9e44406d0990f710702d5"
+    },
+    "photo_screened_reference_cells.csv": {
+      "bytes": 206765,
+      "sha256": "b1b14001296b9145958642e75e058a16a126550148997d6cade000d0125ac4d6"
+    },
+    "preferred_aerosol_subset.csv": {
+      "bytes": 67171,
+      "sha256": "840b95709e2a935d02048fc9f77ab4f5c89a8aaae77872d75062aeebf50f937b"
+    },
+    "public-lidar/3dep-dsm-collection.json": {
+      "bytes": 4440,
+      "sha256": "baec55c13b639f4fe0e3d602ebbbb63f39abd6cd287b3c1b3f048d4a606870c3"
+    },
+    "public-lidar/3dep-dtm-collection.json": {
+      "bytes": 4607,
+      "sha256": "efb352e89dc1d0fb64c501c3665ce2c9aa63efc553aa9c9940ceeaa93da3a8b6"
+    },
+    "public-lidar/3dep-height-above-ground-collection.json": {
+      "bytes": 4696,
+      "sha256": "0852c6e9c7c87a08eacaa89d98970f6888001aa60d7340f75791f8e5152982d6"
+    },
+    "public-lidar/cascades-copc-catalogue.json": {
+      "bytes": 1100923,
+      "sha256": "8ce975aecdca3f7d722183d85a177a78d3fe4935e21c847d7f48389848d2a3d0"
+    },
+    "public-lidar/cascades-dsm-catalogue.json": {
+      "bytes": 408160,
+      "sha256": "e45a35e3a5f24e1f75824b260d1371276926898b53e126ebef1197e6e49ba573"
+    },
+    "public-lidar/cascades-dtm-catalogue.json": {
+      "bytes": 426231,
+      "sha256": "dbe08cff62ddf5e22bbdef981c8dead5930dc2a57a2b99330ea6276b2538b6b8"
+    },
+    "public-lidar/cascades-height-above-ground-catalogue.json": {
+      "bytes": 191199,
+      "sha256": "4a6c1cd636450ca01cf384acd8f720c2dfb35bc2cdac8def787cb2ba4a5b12bd"
+    },
+    "public-lidar/cascades-structural-reference-audit.csv": {
+      "bytes": 2151,
+      "sha256": "22dcfffd1af48a2aa9004ac413b2cfac5cb67dbf3776068837dc28788192f141"
+    },
+    "public-lidar/r2-cascades-evergreen-001-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-4-6.json": {
+      "bytes": 797,
+      "sha256": "3bd46e8f939b3d6e4ad45b66b35b064f63520b117e16b4a67fa071a62630b531"
+    },
+    "public-lidar/r2-cascades-evergreen-001-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-4-6.npy": {
+      "bytes": 57728,
+      "sha256": "16351abdc86b9abbdc611f11fd4f267e7c64f94fd1b6f31b96c734df328981d7"
+    },
+    "public-lidar/r2-cascades-evergreen-001-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-4-6.png": {
+      "bytes": 746449,
+      "sha256": "fae1a9fc947bcbff1f6b601de72de9923b7d9966e44b30c2aad643085bb7be8c"
+    },
+    "public-lidar/r2-cascades-evergreen-002-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-6.json": {
+      "bytes": 797,
+      "sha256": "52d43885d19d0ca2556a9c3683b43489547635ff655e04be8ea87214e61dbe58"
+    },
+    "public-lidar/r2-cascades-evergreen-002-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-6.npy": {
+      "bytes": 57728,
+      "sha256": "e0989e5611b7298acf11ec53d178e85e425f4bc829d619165e0ffd2ed6d88587"
+    },
+    "public-lidar/r2-cascades-evergreen-002-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-6.png": {
+      "bytes": 553475,
+      "sha256": "adc3dafa23446fcdccaa98bac8061e2736884a82db1b04f0a955fe238d653f1b"
+    },
+    "public-lidar/r2-cascades-evergreen-004-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-6.json": {
+      "bytes": 797,
+      "sha256": "a29ff96556f56a08ba790853a4e396cecb72e41b09be272b2f53724874f35cd4"
+    },
+    "public-lidar/r2-cascades-evergreen-004-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-6.npy": {
+      "bytes": 57728,
+      "sha256": "e0989e5611b7298acf11ec53d178e85e425f4bc829d619165e0ffd2ed6d88587"
+    },
+    "public-lidar/r2-cascades-evergreen-004-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-6.png": {
+      "bytes": 705987,
+      "sha256": "5180d223e00b7ffde6409f0149af4405fef35fe8e8f8525f1998eff49ed47c7d"
+    },
+    "public-lidar/r2-cascades-evergreen-005-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-8.json": {
+      "bytes": 797,
+      "sha256": "4bd496573218f97d016e7f7ed39b3dc750b6dc08d7977a012d3dc68bdeaa8e57"
+    },
+    "public-lidar/r2-cascades-evergreen-005-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-8.npy": {
+      "bytes": 57728,
+      "sha256": "fe4a15ca86b8871eb9eb139b175988d0dccc9899aac94a427d99ea9d881a7d0b"
+    },
+    "public-lidar/r2-cascades-evergreen-005-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-8.png": {
+      "bytes": 757108,
+      "sha256": "3e1c0e0aa415e41f9213dd61a16c29b1c95b92b5d7176db66b4cabd940b0efc8"
+    },
+    "public-lidar/r2-cascades-evergreen-006-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-8.json": {
+      "bytes": 797,
+      "sha256": "660c2edfac4cd38743cdf1886f7304afd3ef2d15d9bc0b3dbb6db96622bb53df"
+    },
+    "public-lidar/r2-cascades-evergreen-006-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-8.npy": {
+      "bytes": 57728,
+      "sha256": "92efbd5604b72c6a893846443dcce96f2d5a698bbcd403ddb5b356b901c56114"
+    },
+    "public-lidar/r2-cascades-evergreen-006-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-8.png": {
+      "bytes": 606545,
+      "sha256": "f07d01abd9b3e28ea4904dc26edf4156fb6cf6b9bd163ed0ea46da5370f53000"
+    },
+    "public-lidar/r2-cascades-evergreen-006-WA_FEMAHQ_B2C_2018-hag-2m-3-3.json": {
+      "bytes": 743,
+      "sha256": "5b21b451c3d34a812660db962ddeb1de02844adfd34a4d4c6f1edc586c684c2d"
+    },
+    "public-lidar/r2-cascades-evergreen-006-WA_FEMAHQ_B2C_2018-hag-2m-3-3.npy": {
+      "bytes": 57728,
+      "sha256": "8b6d605e0ead5d33d9a30b8844791dce93724eb519b21385f44eb2fad76e4606"
+    },
+    "public-lidar/r2-cascades-evergreen-006-WA_FEMAHQ_B2C_2018-hag-2m-3-3.png": {
+      "bytes": 605771,
+      "sha256": "7ff224938d90b42fc4634336c274b8dd84c2c0823263fb104b725c4d9de719df"
+    },
+    "public-lidar/r2-cascades-evergreen-007-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-8.json": {
+      "bytes": 797,
+      "sha256": "536244b849d5b2403f8ddb2c2c2f6b07cfbb4a54edd1e94d914164134a262754"
+    },
+    "public-lidar/r2-cascades-evergreen-007-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-8.npy": {
+      "bytes": 57728,
+      "sha256": "e0989e5611b7298acf11ec53d178e85e425f4bc829d619165e0ffd2ed6d88587"
+    },
+    "public-lidar/r2-cascades-evergreen-007-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-8.png": {
+      "bytes": 659679,
+      "sha256": "771a7691355104b9891ae3fbe48ebfa7e1e3ef60c01b411f8939de36ed74a429"
+    },
+    "public-lidar/r2-cascades-evergreen-007-WA_FEMAHQ_B2C_2018-hag-2m-3-2.json": {
+      "bytes": 743,
+      "sha256": "e2a2678155422910eea1c5295ff50038b78ece12b79cdc77a6d0708a9b0bb576"
+    },
+    "public-lidar/r2-cascades-evergreen-007-WA_FEMAHQ_B2C_2018-hag-2m-3-2.npy": {
+      "bytes": 57728,
+      "sha256": "ab41a5facc7591d99a3d05246e7e4d0a19e4b414350279c896f980bc1bb918f5"
+    },
+    "public-lidar/r2-cascades-evergreen-007-WA_FEMAHQ_B2C_2018-hag-2m-3-2.png": {
+      "bytes": 717539,
+      "sha256": "027065fa3a4d275f52a9603a81d13ba3322d42a8f26c6518fbea7a8890221cd1"
+    },
+    "public-lidar/r2-cascades-evergreen-008-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-6.json": {
+      "bytes": 797,
+      "sha256": "fd0679263887af1e2df765b69c83043ff6c77d614f0a8edef4c539d83e9c0d79"
+    },
+    "public-lidar/r2-cascades-evergreen-008-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-6.npy": {
+      "bytes": 57728,
+      "sha256": "e0989e5611b7298acf11ec53d178e85e425f4bc829d619165e0ffd2ed6d88587"
+    },
+    "public-lidar/r2-cascades-evergreen-008-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-6.png": {
+      "bytes": 687128,
+      "sha256": "afd5af4485e07c05fbd09f65ccd24521549b117ed8417aa31b11d3691647f2af"
+    },
+    "public-lidar/r2-cascades-evergreen-009-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-6.json": {
+      "bytes": 797,
+      "sha256": "5a31c1c990c3116f5d29480cfc8252bbd26c456da191b1125e754a199e559774"
+    },
+    "public-lidar/r2-cascades-evergreen-009-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-6.npy": {
+      "bytes": 57728,
+      "sha256": "f030dac7861077f7254428defc367fc6380cda391cc4ce1fcadb4d953357dbda"
+    },
+    "public-lidar/r2-cascades-evergreen-009-USGS_LPC_WA_MountAdams_2016_LAS_2017-hag-2m-2-6.png": {
+      "bytes": 786174,
+      "sha256": "cdb453dba0952682d45f78f289953f97fafcd76ee4a3315db3cb5125ea859f73"
+    },
+    "purity_and_registration_sensitivity.csv": {
+      "bytes": 1220,
+      "sha256": "c678c4989c5b55aceab7e155068a3543e5253cf3cd832a74bf2bf05de33eb82a"
+    },
+    "reviewed_native_cells.geojson": {
+      "bytes": 1997918,
+      "sha256": "55ab13633aae7b4a3a4ec5676d798fd325be4e85366324910b16987f057a9a2b"
+    },
+    "reviewed_patch_policy.json": {
+      "bytes": 30291,
+      "sha256": "41236ff6b7a1d3bcafc108c8b342b4060a118c9afce408aa007ed515fe75dd64"
+    },
+    "statistical-design-audit/README.md": {
+      "bytes": 4309,
+      "sha256": "73f0d2ab39181876878b6d15c6c161b3fe163453f093bc212d43d7f555c4db75"
+    },
+    "statistical-design-audit/analysis_design.json": {
+      "bytes": 852,
+      "sha256": "ea62bcf91656ab72dec32ee9fec3a1dbfe09a74e15133eed73ec0180fd260ff7"
+    },
+    "statistical-design-audit/current_independent_patch_support.csv": {
+      "bytes": 204,
+      "sha256": "e68e828205b18adea61f6e1a6a160cc21fef7f15e5eb68bfecc8930c3d1d2f4e"
+    },
+    "statistical-design-audit/geography_conditioned_prediction_test.csv": {
+      "bytes": 372,
+      "sha256": "e5bf0b33e51a8df3c1eda2b0575e617326ebb7e1effbd64dc13365fe523fced7"
+    },
+    "statistical-design-audit/independent_patch_resolution_requirements.csv": {
+      "bytes": 1942,
+      "sha256": "7ea417cc7edd46db48b4ede4bddc93bb8303dc8b114f3076d545beaaa073e851"
+    },
+    "statistical-design-audit/manifest.json": {
+      "bytes": 1125,
+      "sha256": "aeca00eb10eceb16efe5889c9d32b37622d44438371fbf5c5fa18422fa44ef56"
+    },
+    "statistical-design-audit/normalized_existing_figure_exact_prediction_null.csv": {
+      "bytes": 4336,
+      "sha256": "2d60a025227591988afff5aa8c2ec96a0f330368219082bc46bdc0fa8d0430f5"
+    },
+    "statistical-design-audit/prioritized_existing_photo_contexts.csv": {
+      "bytes": 69008,
+      "sha256": "925ac71db4a4c2f39af87632423f2407c8c4c86334b5517c9309fdc45aa9aa25"
+    },
+    "statistical-design-audit/raw_reflectance_protocol_exact_prediction_null.csv": {
+      "bytes": 3855,
+      "sha256": "10ebde2ec8adf9fd0b206cd757a5c9bccfce7a77232b2cd0bc0e264bb4db76fb"
+    },
+    "statistical-design-audit/reference_collection_targets.csv": {
+      "bytes": 1191,
+      "sha256": "30e135c859c5dcfc78c35bc191f7eed2730eb538673b9661285a42dfb789ba6a"
+    },
+    "supplemental_canopy_height_access.json": {
+      "bytes": 417,
+      "sha256": "928c7f563663d064436c94865e35f2c5d5398ea1005cd0aff3081dfc807ae06e"
+    },
+    "yellowstone-context-review-01.png": {
+      "bytes": 5181281,
+      "sha256": "a6c75e926aaeb10b4d965aabd2028b1ef63a75d447448ecf734262d763f9780a"
+    },
+    "yellowstone-context-review-02.png": {
+      "bytes": 4603611,
+      "sha256": "184179a1d7b5ffd8523e7f59e1a0b4356e79ed7de231a4b2a38927ab6e96705c"
+    },
+    "yellowstone-context-review-03.png": {
+      "bytes": 4597652,
+      "sha256": "926e7dfe4d5bada06b8a263852d5b5f530c7ab9f0c9fcb336f67c36e06308a2e"
+    },
+    "yellowstone-context-review-04.png": {
+      "bytes": 4639127,
+      "sha256": "fb227db9208f1dbcc833fea7f7938fe0ae1977b8009cad45363e1efe0d433662"
+    },
+    "yellowstone-context-review-05.png": {
+      "bytes": 3112149,
+      "sha256": "b54005d081b8002407c41f201a16fbd885ceceff25c32ebf4c726821af8ee825"
+    },
+    "yellowstone-context-review-06.png": {
+      "bytes": 2665618,
+      "sha256": "89a625f55f05963a07db8772b14c97cdc21a9737a2e40e0f112c0506658c4b06"
+    },
+    "yellowstone-context-review-07.png": {
+      "bytes": 4108733,
+      "sha256": "3086f2825721746931e47c73bb01af742573551e9a184e9ee3fa0808b0593741"
+    },
+    "yellowstone-context-review-08.png": {
+      "bytes": 3984380,
+      "sha256": "5d5abbbb4a352563e6bd7e9d03de09598019dc1072c5f52c5e5a8255947cfc4a"
+    },
+    "yellowstone-context-review-09.png": {
+      "bytes": 3913545,
+      "sha256": "f7247789efb037cd47bf86f9411cda54cb23e0a1b5e6634f63209222da7dbe69"
+    },
+    "yellowstone-context-review-10.png": {
+      "bytes": 3335035,
+      "sha256": "1e970cd730982e7d336d55103a289104be4d08f44cd8ac95358eac8a65ee33a2"
+    },
+    "yellowstone-context-review-11.png": {
+      "bytes": 3734933,
+      "sha256": "2e820c6eec01e94c522b8667b7bba3ee4f048064316736b6e65d4408ff7d991f"
+    },
+    "yellowstone-context-review-12.png": {
+      "bytes": 926080,
+      "sha256": "52f8f835129428130de59c2a63068e61721c45b4bcc6cb21a9af9f868c4ff652"
+    },
+    "yellowstone-contexts.csv": {
+      "bytes": 23896,
+      "sha256": "bdf8adb77cbf89c080827a2b94cacf36bd79e30817a674681e9267fd04a90a9a"
+    },
+    "yellowstone-gap-catalogue.json": {
+      "bytes": 84143,
+      "sha256": "a89d479fe6ea9595947c8978d262f3862dfc5173a1281f9a8c57d8ecb9518687"
+    },
+    "yellowstone-landsat_qa_audit.csv": {
+      "bytes": 80143,
+      "sha256": "082cd1985ce6095719c88c893f6d11ae902e0b9c1895c00a35d1599134dd4dbd"
+    },
+    "yellowstone-screened_landsat_observations.csv": {
+      "bytes": 69950,
+      "sha256": "2f4094c06cbc114e64b32438d4df25bb8d1e70c2ee8038ee1bf01a7d51046573"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "identification": "fixed five-class logistic leave-one-patch-out; class recall",
+  "interpretation": "pairwise BA is an estimate, not a significance claim or independent reference validation",
+  "predictive_discriminability": "fixed pairwise logistic leave-one-patch-out; balanced accuracy, chance50%",
+  "preprocessing": "training-only StandardScaler; balanced logistic C1; no tuning",
+  "primary_cohort": "nominal HLS footprint >=95% mapped cover; restored original reference definition",
+  "reflectance": "B1\u2013B7 direct NBAR; no plot normalization",
+  "selection": "no rejection of references by spectral fit or test outcome; all reviewed passes retained",
+  "sensitivity": "full 4x4 native source-area >=95%; extra conservative diagnostic",
+  "statistical_separation": "unchanged exact patch-level max/integrated NPC; Holm family10"
+}

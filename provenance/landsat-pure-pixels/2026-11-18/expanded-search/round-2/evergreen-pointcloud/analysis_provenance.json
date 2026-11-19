@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-19",
+  "python_environment": "repository .venv; laspy 2.6.1 and lazrs 0.9.0 installed separately under /tmp",
+  "source_code_sha256": {
+    "landsat_evergreen_pointcloud.py": "b5ac1f7a708a40201b0aa566bdcfd0206ca760b896eac9a49d4f235c2888ff68",
+    "landsat_evergreen_shortlist.py": "70daeda4ae6539b0f5ef13804b858fe5381d27767b0248f38fc2602e075c222e",
+    "landsat_evergreen_review_board.py": "20962cfdc0abca4e728d2ca3bb7edb9aec235f0f71b8e9f99156e7e630f8ef3a",
+    "landsat_evergreen_epochs.py": "0c4a527c8b41017916a7ee07c12ebac4d0967dce34a42b4826cf3b6d82f21dc0",
+    "landsat_seasonal_archive.py": "58b1c4ffe762e9ba84cd5d8e87253e7e17edcdac3a288e5de02d6714e760730e"
+  },
+  "terrain_catalogue_sha256": "dbe08cff62ddf5e22bbdef981c8dead5930dc2a57a2b99330ea6276b2538b6b8",
+  "reference_status": "structural_candidates_pending_current_evergreen_purity_validation"
+}

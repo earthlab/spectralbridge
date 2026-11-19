@@ -1,0 +1,26 @@
+{
+  "aerial_max_gap_days": 45,
+  "aerial_same_year": true,
+  "allowed_grid": "same UTM EPSG as frozen reference; 30 m square north-up",
+  "collection": "hls2-l30",
+  "context_qa": "5x5 HLS pixels (150 m), lower six bits clear, no fill",
+  "fmask_fill": 255,
+  "fmask_rejected_bits": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "high_aerosol_excluded": true,
+  "nominal_cover_threshold": 0.95,
+  "primary_support": "conservative bounding area of 4x4 native Landsat source pixels",
+  "primary_support_threshold": 0.95,
+  "product": "HLS L30 v2",
+  "reference_labels": "single-interpreter provisional; evergreen structural/date uncertainty retained",
+  "reflectance_fill": -9999,
+  "scale": 0.0001,
+  "seasonal_window_days": 21,
+  "source_support_weights": "unweighted area; not signed cubic weights or a confidence bound"
+}

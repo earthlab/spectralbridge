@@ -1,0 +1,27 @@
+{
+  "classifier": "training-only StandardScaler + balanced logistic regression C=1; equally weighted patch medians",
+  "code_sha256": "c2f813e72c7f83f72938333f665a9c507ceddfa527a19c514217334c9a6fd00b",
+  "input_sha256": {
+    "hls_l30_nominal_95pct_observations.csv": "ab67c032a46fd0ce4c8ae232fb2b8fbc439a5a4b8d269afea02fc37464dbef3b",
+    "hls_l30_strict_source_support_95pct_observations.csv": "711de71ec023916edeb73fb012f97b2f57d614033337bf3439908022487bb4e0"
+  },
+  "labels_independently_validated": false,
+  "multiplicity": "Holm across all ten planned pairs separately per cohort/scope; unavailable pairs enter as p=1",
+  "normalization": "none; stored direct HLS NBAR reflectance",
+  "npc_code_sha256": "1366feaea2039ee6276d6dae0f1a7bde704d4101716776c0842c48e9b963c3a6",
+  "output_sha256": {
+    "cohort_comparison.csv": "412e9c03c359ba56d665ff3cef15205aa87e9a485f74db319489116644cabd65",
+    "nominal_support_sensitivity/figure_table_summary.csv": "79eb631d668617006c7a17fbab764900983e90f8bd987074f2fde08d47d48e1a",
+    "nominal_support_sensitivity/held_out_predictions.csv": "070df6aa9d9e0561e9842ad057297dce594b90f9d723036c95f495cca0c8b0b4",
+    "nominal_support_sensitivity/identifiability_summary.csv": "5f4f729ef1cdab783944a023500529b848ccb64e1fa80b32962d22d15ecd7ba0",
+    "nominal_support_sensitivity/patch_median_reflectance.csv": "5eab01c55f0f7e5a3c740e0f01fdad337d11d33313e6086c9d6cbf122c92af15",
+    "nominal_support_sensitivity/separability.csv": "dc121a4a7048a71feb234e47fad78998f335c7ec5b10f9adfc4b4031ffd815a1",
+    "strict_source_support/figure_table_summary.csv": "c7e0be88031adee05ddee08c4a6020081132e4c017ffb1e6daf5eab70bec5bc5",
+    "strict_source_support/held_out_predictions.csv": "0d28495bf844bfb53924dbe6bb7d38a0928c0ccb1f98b03de4d31bfa6f18b479",
+    "strict_source_support/identifiability_summary.csv": "a8577c0603160cf7d53dbb4b3a4a8532fe3c8aa2ec80da88fb7da0af525168c8",
+    "strict_source_support/patch_median_reflectance.csv": "4ab10165cb87be64df74055e05207c53ec7b728444b08ad961f52e35cea05f1c",
+    "strict_source_support/separability.csv": "c9988a73a981aa974628a36dbee1a831971ded360a716ba49b5bd2d499ea6166"
+  },
+  "primary": "strict_source_support",
+  "reused_statistics_code_sha256": "4c069c3ae00f1c6ae1e39fbb9aa6f005d056fd5b4c0d55ce761fdfb8df92efaf"
+}

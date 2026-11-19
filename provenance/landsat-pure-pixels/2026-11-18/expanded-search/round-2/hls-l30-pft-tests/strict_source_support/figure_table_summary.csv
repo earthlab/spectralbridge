@@ -1,0 +1,6 @@
+researcher_category,planned_pairs,tested_pairs,supported_pairs,separability_status,held_patches,supported_test_patches,correct_supported_patches,held_patch_recall,identifiability_status,reference_status
+Deciduous,4,2,0,available,2,2,1,0.5,available,provisional
+Evergreen,4,2,0,available,2,2,2,1.0,available,provisional
+Herbaceous,4,2,0,available,3,3,3,1.0,available,provisional
+Woody shrub,4,0,0,insufficient_patches,1,0,0,,class_absent_from_training,provisional
+Non-vegetated & dead,4,0,0,insufficient_patches,1,0,0,,class_absent_from_training,provisional

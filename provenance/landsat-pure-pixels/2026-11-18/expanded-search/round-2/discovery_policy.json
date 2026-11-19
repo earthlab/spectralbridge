@@ -1,0 +1,80 @@
+{
+  "class_order": [
+    "Deciduous",
+    "Evergreen",
+    "Herbaceous",
+    "Woody shrub",
+    "Non-vegetated & dead"
+  ],
+  "context_m": 240,
+  "evergreen_gap_codes": [
+    137,
+    141,
+    146,
+    151,
+    152,
+    153,
+    158,
+    159,
+    167,
+    168,
+    169,
+    171,
+    172,
+    173
+  ],
+  "label_status": "hypothesis_only",
+  "minimum_locator_interior_m": 60,
+  "patch_spacing_m": 1000,
+  "per_stratum": 10,
+  "pixels": 600,
+  "regions": {
+    "california_shrublands": [
+      -120.0,
+      34.6,
+      -119.6,
+      34.85
+    ],
+    "cascades": [
+      -122.1,
+      45.65,
+      -121.7,
+      45.95
+    ],
+    "front_range": [
+      -105.85,
+      39.85,
+      -105.4,
+      40.45
+    ],
+    "gunnison_aspen": [
+      -107.05,
+      38.7,
+      -106.8,
+      39.0
+    ],
+    "yellowstone": [
+      -110.85,
+      44.6,
+      -110.15,
+      45.1
+    ]
+  },
+  "shrub_gap_codes": [
+    296,
+    297,
+    298,
+    301,
+    302,
+    303,
+    382,
+    488,
+    489,
+    490,
+    491,
+    492,
+    493,
+    495
+  ],
+  "source_code_sha256": "9b803d3857b4ebff290dd27779e1400ed7c3877160ed8221fc25aace67596231"
+}

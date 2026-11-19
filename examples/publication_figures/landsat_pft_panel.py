@@ -8,9 +8,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import rasterio
-from matplotlib.colors import Normalize
+from matplotlib.colors import LinearSegmentedColormap, Normalize, to_hex, to_rgb
 from matplotlib.lines import Line2D
-from matplotlib.patches import FancyBboxPatch
+from matplotlib.patches import FancyBboxPatch, Patch
+from matplotlib.transforms import Bbox
 
 from spectralbridge.landsat_agreement import mask_landsat_qa, scale_landsat_sr
 
@@ -44,10 +45,25 @@ EXTRA_ASSETS = ROOT / "archive/local/landsat-pft-scene"
 PAIR_ROWS = ((0, 2), (1, 2), (0, 1))
 PAIR_LABELS = ("Landsat–drone", "AOP–drone", "Landsat–AOP")
 SENSORS = {
-    "Landsat 9 OLI-2": ("#233247", "-", "o"),
-    "NEON AOP → OLI": ("#007b81", "--", "s"),
-    "Drone → OLI band proxy": ("#b34a1d", ":", "^"),
+    "Landsat 9 OLI-2": ("#263e56", "-", "o"),
+    "NEON AOP → OLI/OLI-2-like": ("#237d83", "-", "o"),
+    "Drone → OLI/OLI-2-like": ("#b56a4c", "-", "o"),
 }
+
+PALETTE = {
+    "ink": "#233444",
+    "muted": "#66747e",
+    "navy": "#263e56",
+    "section": "#e7edef",
+    "neutral": "#f1f4f5",
+    "grid": "#dfe6e9",
+    "axis": "#95a3ac",
+}
+
+
+def tint(color, strength):
+    """Mix a sensor color with white for consistent supporting fills."""
+    return to_hex((1 - strength) + strength * np.asarray(to_rgb(color)))
 
 
 def band_columns(frame, columns):
@@ -96,7 +112,11 @@ def sample_landsat(neon):
                 raise ValueError(f"Landsat {band} grid differs from QA grid")
             samples = np.array([sample[0] for sample in raster.sample(cells.xy)])
         cells[band] = scale_landsat_sr(samples)
-    return cells[[LABEL, *BANDS]]
+    cells["footprint_id"] = cells.cell.map(
+        lambda cell: f"{SCENE.name}:row{cell[0]}:col{cell[1]}"
+    )
+    cells["site"] = "NIWO"
+    return cells[[LABEL, "footprint_id", "site", *BANDS]]
 
 
 def load_spectra():
@@ -106,7 +126,7 @@ def load_spectra():
     neon = pd.read_parquet(NEON / "olioli_undarkened_polygon_year.parquet")
     landsat = sample_landsat(neon)
     neon = band_columns(neon, neon_cols)
-    neon = neon.groupby([LABEL, "GlobalID"], as_index=False)[BANDS].mean()
+    neon = neon.groupby([LABEL, "GlobalID", "site"], as_index=False)[BANDS].mean()
 
     # Documented conceptual OLI mapping for the MicaSense dual camera.
     drone_cols = [
@@ -122,7 +142,9 @@ def load_spectra():
         pixels = pd.read_parquet(path, columns=[LABEL, "GlobalID", *drone_cols])
         pixels = band_columns(pixels, drone_cols)
         polygons.append(
-            pixels.groupby([LABEL, "GlobalID"], as_index=False)[SHARED_BANDS].median()
+            pixels.groupby([LABEL, "GlobalID"], as_index=False)[SHARED_BANDS]
+            .median()
+            .assign(site=site)
         )
     drone = pd.concat(polygons, ignore_index=True)
     if drone.GlobalID.duplicated().any():
@@ -213,10 +235,14 @@ def draw_figure(categories, summary, evidence):
             "font.size": 10,
             "pdf.fonttype": 42,
             "mathtext.fontset": "dejavuserif",
+            "text.color": PALETTE["ink"],
+            "axes.labelcolor": PALETTE["ink"],
+            "xtick.color": PALETTE["ink"],
+            "ytick.color": PALETTE["ink"],
         }
     )
     fig = plt.figure(figsize=(16, 10.5), facecolor="white")
-    navy = "#123247"
+    navy = PALETTE["navy"]
 
     def box(x, y, w, h, color):
         fig.add_artist(
@@ -233,7 +259,7 @@ def draw_figure(categories, summary, evidence):
         )
 
     def section(y, letter, title):
-        box(0.035, y, 0.93, 0.036, "#dce5ee")
+        box(0.035, y, 0.93, 0.036, PALETTE["section"])
         box(0.035, y, 0.032, 0.036, navy)
         fig.text(
             0.051,
@@ -250,10 +276,10 @@ def draw_figure(categories, summary, evidence):
     fig.text(
         0.04,
         0.965,
-        "Plant functional types across three Landsat-mode products",
+        "Figure 4. Plant functional types across three Landsat-mode products",
         weight="bold",
-        fontsize=23,
-        color="#101e30",
+        fontsize=21,
+        color=PALETTE["ink"],
     )
     fig.add_artist(
         Line2D(
@@ -266,19 +292,29 @@ def draw_figure(categories, summary, evidence):
     )
     section(0.895, "A", "Spectral shape and pairwise differences across Landsat bands")
     handles = [
-        Line2D([], [], color=c, linestyle=ls, marker=m, label=sensor, lw=2)
+        Line2D(
+            [], [], color=c, linestyle=ls, marker=m, label=sensor, lw=1, markersize=6.5
+        )
         for sensor, (c, ls, m) in SENSORS.items()
     ]
+    handles.append(
+        Patch(
+            facecolor=navy,
+            edgecolor="none",
+            alpha=0.18,
+            label="Shading: interquartile range (25th–75th percentile)",
+        )
+    )
     fig.legend(
         handles=handles,
         loc="center",
-        bbox_to_anchor=(0.53, 0.866),
-        ncol=3,
+        bbox_to_anchor=(0.5, 0.866),
+        ncol=4,
         frameon=True,
         edgecolor=navy,
-        fontsize=11,
+        fontsize=10,
         handlelength=2.7,
-        columnspacing=3,
+        columnspacing=1.6,
     )
     grid = fig.add_gridspec(
         2,
@@ -294,7 +330,9 @@ def draw_figure(categories, summary, evidence):
     upper = max(float(item.q75.max().max()) for item in summary.values())
     lower = min(0, min(float(item.q25.min().min()) for item in summary.values()))
     gaps = band_gaps(summary)
-    cmap = plt.get_cmap("Blues").with_extremes(bad="#dfe3e9")
+    cmap = LinearSegmentedColormap.from_list(
+        "slate_gap", ["#f3f6f7", "#d0dde3", "#89a6b5", "#4c7089", PALETTE["navy"]]
+    ).with_extremes(bad="#000000")
     scale = Normalize(0, max(5, 5 * np.ceil(np.nanmax(gaps) / 5)))
     for index, category in enumerate(categories):
         ax = fig.add_subplot(grid[0, index])
@@ -310,7 +348,7 @@ def draw_figure(categories, summary, evidence):
             weight="bold",
             fontsize=11,
         )
-        box(position.x0, 0.774, position.width, 0.023, "#e9edf3")
+        box(position.x0, 0.774, position.width, 0.023, PALETTE["neutral"])
         counts = " / ".join(f"{item.count[category]:,}" for item in summary.values())
         fig.text(
             position.x0 + position.width / 2,
@@ -329,7 +367,7 @@ def draw_figure(categories, summary, evidence):
                 item.q25.loc[category].to_numpy(dtype=float),
                 item.q75.loc[category].to_numpy(dtype=float),
                 color=color,
-                alpha=0.13,
+                alpha=0.18,
                 linewidth=0,
             )
             ax.plot(
@@ -338,18 +376,19 @@ def draw_figure(categories, summary, evidence):
                 color=color,
                 linestyle=style,
                 marker=marker,
-                markersize=4,
-                linewidth=1.8,
+                markersize=6.5,
+                markeredgewidth=0,
+                linewidth=1.0,
             )
         ax.set(ylim=(lower, upper * 1.06), xlim=(-0.5, 6.5))
         ax.set_xticks(range(7), BANDS, fontsize=9)
         ax.spines[["top", "right"]].set_visible(False)
-        ax.spines[["left", "bottom"]].set_color("#7c838b")
-        ax.grid(axis="y", color="#dce2e9", linewidth=0.7)
+        ax.spines[["left", "bottom"]].set_color(PALETTE["axis"])
+        ax.grid(axis="y", color=PALETTE["grid"], linewidth=0.7)
         ax.set_axisbelow(True)
         ax.tick_params(length=3, pad=4, labelleft=index == 0)
         if index == 0:
-            ax.set_ylabel("Normalized band value", fontsize=11)
+            ax.set_ylabel("Normalized spectral reflectance", fontsize=11)
         strip = fig.add_subplot(grid[1, index])
         heatmap = strip.imshow(
             gaps[index], cmap=cmap, norm=scale, aspect="auto", interpolation="none"
@@ -370,34 +409,16 @@ def draw_figure(categories, summary, evidence):
     fig.text(
         0.108,
         0.436,
-        "Pairwise gap: |difference in category medians| × 100   •   Gray = no shared band",
+        "Pairwise gap: |difference in category medians| × 100   •   Black = no shared band",
         fontsize=9,
     )
-    fig.text(
-        0.068,
-        0.395,
-        "Lines: medians; shading: interquartile range across footprints. Each spectrum is divided by its B1–B5 sum. Counts follow legend order.",
-        fontsize=9,
-    )
-    fig.text(
-        0.068,
-        0.376,
-        "Spectra: Niwot Landsat 9 (20 Aug 2023), NEON polygons, and Goldhill/Ruby drone polygons. Gaps compare different samples and footprint sizes.",
-        fontsize=9,
-    )
-    fig.text(
-        0.068,
-        0.357,
-        "The descriptive Landsat curves above and the provisional photo-screened Landsat test below (†) use different cohorts.",
-        fontsize=9,
-    )
-    section(0.305, "B", "Separability and held-out identification")
-    table_ax = fig.add_axes([0.035, 0.105, 0.93, 0.188])
+    section(0.363, "B", "Separability and held-out identifiability")
+    table_ax = fig.add_axes([0.035, 0.128, 0.93, 0.223])
     table_ax.axis("off")
     widths = [0.205, 0.165, 0.10, 0.145, 0.12, 0.135, 0.13]
     edges = np.r_[0, np.cumsum(widths)]
-    for group, (sensor, tint) in enumerate(
-        zip(SENSORS, ["#d6dfea", "#c7e9e2", "#f7dfd1"], strict=True)
+    for group, (sensor, header_fill) in enumerate(
+        ((sensor, tint(style[0], 0.18)) for sensor, style in SENSORS.items())
     ):
         first = 1 + 2 * group
         table_ax.add_patch(
@@ -406,7 +427,7 @@ def draw_figure(categories, summary, evidence):
                 edges[first + 2] - edges[first],
                 0.14,
                 boxstyle="round,pad=0,rounding_size=0.014",
-                facecolor=tint,
+                facecolor=header_fill,
                 linewidth=0,
             )
         )
@@ -421,14 +442,17 @@ def draw_figure(categories, summary, evidence):
             fontsize=11,
         )
     landsat = load_landsat_evidence(categories)
+    drone = pd.read_csv(OUTPUT / "drone_library_tests/class_summary.csv").set_index(
+        "category"
+    )
     rows = [
         [
             category,
             landsat[category],
             "Untested",
             *evidence[category],
-            "Untested",
-            "Untested",
+            drone.loc[category, "separability"],
+            drone.loc[category, "identification"],
         ]
         for category in categories
     ]
@@ -436,47 +460,58 @@ def draw_figure(categories, summary, evidence):
         cellText=rows,
         cellLoc="center",
         colWidths=widths,
-        colLabels=["Researcher category", *["S", "I"] * 3],
+        colLabels=["Researcher category", *["Separability", "Identifiability"] * 3],
         bbox=[0, 0, 1, 0.85],
     )
     table.auto_set_font_size(False)
     table.set_fontsize(10)
     for (row, col), cell in table.get_celld().items():
         cell.set_edgecolor("white")
-        cell.set_facecolor(
-            "#e1e7ef" if row == 0 else "#f3f5f8" if row % 2 else "#e9edf3"
-        )
-        if col in (3, 4) and row:
-            cell.set_facecolor("#e0f3ed" if row % 2 else "#d5ece6")
+        if col == 0:
+            cell.set_facecolor(
+                PALETTE["section"]
+                if row == 0
+                else tint(navy, 0.025 if row % 2 else 0.055)
+            )
+        else:
+            sensor_color = list(SENSORS.values())[(col - 1) // 2][0]
+            cell.set_facecolor(
+                tint(sensor_color, 0.12 if row == 0 else 0.035 if row % 2 else 0.075)
+            )
+        cell.set_text_props(color=PALETTE["ink"])
         if col == 0 or row == 0:
             cell.set_text_props(weight="bold")
         if col == 0:
             cell.set_text_props(ha="left")
-        elif row and col in (2, 5, 6):
-            cell.set_text_props(style="italic", color="#526071")
+        elif row and col == 2:
+            cell.set_text_props(style="italic", color=PALETTE["muted"])
         elif row and col == 1:
             cell.set_text_props(fontsize=9)
-    fig.text(
-        0.035,
-        0.078,
-        "S: NEON reports supported pair-by-cohort tests (four site-years; Holm-adjusted p ≤ 0.05). Landsat reports matched n per class and adjusted p.",
-        fontsize=9,
-    )
-    fig.text(
-        0.035,
-        0.058,
-        "I: Mean recall on unseen polygons / held-out sites. † Both entries refer to one herbaceous–non-vegetated contrast in Yellowstone (18 Aug 2024).",
-        fontsize=9,
-    )
-    fig.text(
-        0.035,
-        0.038,
-        "† Photo-interpreted labels; one footprint per class, two exact permutations. Replication is insufficient to establish separability. Identification remains untested.",
-        fontsize=9,
-    )
     OUTPUT.mkdir(parents=True, exist_ok=True)
+    records = []
+    for sensor, item in summary.items():
+        for category in categories:
+            for band in BANDS:
+                records.append(
+                    dict(
+                        sensor=sensor,
+                        category=category,
+                        band=band,
+                        n=int(item.count[category]),
+                        median=item.median.loc[category, band],
+                        q25=item.q25.loc[category, band],
+                        q75=item.q75.loc[category, band],
+                    )
+                )
+    pd.DataFrame(records).to_csv(
+        OUTPUT / "landsat_mode_pft_panel_summaries.csv", index=False
+    )
     for suffix in ("pdf", "png"):
-        fig.savefig(OUTPUT / f"landsat_mode_pft_panel.{suffix}", dpi=300)
+        fig.savefig(
+            OUTPUT / f"landsat_mode_pft_panel.{suffix}",
+            dpi=300,
+            bbox_inches=Bbox.from_bounds(0, 1, 16, 9.5),
+        )
     plt.close(fig)
 
 

@@ -17,7 +17,7 @@ sys.modules[SPEC.name] = panel
 SPEC.loader.exec_module(panel)
 
 
-def test_ribbons_use_per_spectrum_normalization_and_preserve_missing_swir():
+def test_variability_uses_normalized_footprints_and_preserves_missing_swir():
     # Unequal brightness must not change footprint weights in the quantiles.
     source = pd.DataFrame(
         {
@@ -101,3 +101,37 @@ def test_landsat_table_uses_primary_matched_test_and_never_fills_missing_tests(
         == evidence["Woody shrub"]
         == "No matched reference"
     )
+
+
+def test_drone_evaluation_holds_out_identities_and_flags_untrainable_classes():
+    directory = str(PATH.parent)
+    sys.path.insert(0, directory)
+    try:
+        import drone_library_evidence as drone
+    finally:
+        sys.path.remove(directory)
+    rows = []
+    for category, sites, base in [
+        ("D", ["a"] * 6, 1),
+        ("E", ["b"] * 6, 8),
+        ("H", ["a"] * 3 + ["b"] * 3, 4),
+    ]:
+        for index, site in enumerate(sites):
+            rows.append(
+                {
+                    "GlobalID": f"{category}{index}",
+                    "site": site,
+                    panel.LABEL: category,
+                    **{band: base + 0.01 * index for band in panel.SHARED_BANDS},
+                }
+            )
+    frame = pd.DataFrame(rows)
+    predictions = drone.classify(frame)
+    assert len(predictions) == 2 * len(frame)
+    assert not predictions.duplicated(["scheme", "GlobalID"]).any()
+    held = predictions.loc[predictions.scheme.eq("held_out_site")]
+    assert not held.loc[held.truth.isin(["D", "E"]), "truth_in_training"].any()
+    assert held.loc[held.truth.eq("H"), "truth_in_training"].all()
+    assert predictions.loc[
+        predictions.scheme.eq("unseen_polygon"), "truth_in_training"
+    ].all()

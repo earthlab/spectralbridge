@@ -1,0 +1,16 @@
+sensor,category,separability_status,supported_tests,total_tests,matched_n,adjusted_p,identifiability_status,unseen_polygon_recall,held_out_site_recall,held_out_patch_recall,held_out_patch_correct,held_out_patch_total,supported_test_patches,planned_pairs,evidence_product
+HLS L30 NBAR,Deciduous,supported_test_counts,1.0,4.0,,,provisional_patch_recall,,,0.8,4.0,5.0,5.0,4.0,HLS L30 v2 NBAR expanded nominal95% footprint cohort
+HLS L30 NBAR,Evergreen,supported_test_counts,0.0,4.0,,,provisional_patch_recall,,,1.0,3.0,3.0,3.0,4.0,HLS L30 v2 NBAR expanded nominal95% footprint cohort
+HLS L30 NBAR,Herbaceous,supported_test_counts,1.0,4.0,,,provisional_patch_recall,,,1.0,5.0,5.0,5.0,4.0,HLS L30 v2 NBAR expanded nominal95% footprint cohort
+HLS L30 NBAR,Woody shrub,supported_test_counts,3.0,4.0,,,provisional_patch_recall,,,0.8571428571428571,6.0,7.0,7.0,4.0,HLS L30 v2 NBAR expanded nominal95% footprint cohort
+HLS L30 NBAR,Non-vegetated & dead,supported_test_counts,1.0,4.0,,,provisional_patch_recall,,,0.75,3.0,4.0,4.0,4.0,HLS L30 v2 NBAR expanded nominal95% footprint cohort
+NEON AOP → OLI/OLI-2-like,Deciduous,supported_test_counts,16.0,16.0,,,available,0.6400066810566348,0.4011150057347439,,,,,,
+NEON AOP → OLI/OLI-2-like,Evergreen,supported_test_counts,16.0,16.0,,,available,0.9164134827795896,0.8420980110527564,,,,,,
+NEON AOP → OLI/OLI-2-like,Herbaceous,supported_test_counts,16.0,16.0,,,available,0.4698976838042621,0.4254014281769045,,,,,,
+NEON AOP → OLI/OLI-2-like,Woody shrub,supported_test_counts,16.0,16.0,,,available,0.3661736744029216,0.4512398593762932,,,,,,
+NEON AOP → OLI/OLI-2-like,Non-vegetated & dead,supported_test_counts,16.0,16.0,,,available,0.93640939811029,0.8428436375081233,,,,,,
+Drone → OLI/OLI-2-like,Deciduous,supported_test_counts,1.0,3.0,,,available,1.0,,,,,,,
+Drone → OLI/OLI-2-like,Evergreen,supported_test_counts,3.0,4.0,,,available,0.7295597484276729,0.5220125786163522,,,,,,
+Drone → OLI/OLI-2-like,Herbaceous,supported_test_counts,4.0,4.0,,,available,0.6129032258064516,0.8709677419354839,,,,,,
+Drone → OLI/OLI-2-like,Woody shrub,supported_test_counts,2.0,4.0,,,available,0.40625,0.03125,,,,,,
+Drone → OLI/OLI-2-like,Non-vegetated & dead,supported_test_counts,2.0,3.0,,,available,0.875,,,,,,,

@@ -1,0 +1,21 @@
+scope,a,b,n_patch_a,n_patch_b,regions,p_npc,status,p_max,p_integrated,permutations,effect,observed_max,observed_integrated,best_case_two_sided_p_lower_bound,p_npc_holm
+pooled_patches_region_confounded,Deciduous,Evergreen,5,3,2,0.017857142857142856,exploratory_provisional_references,0.017857142857142856,0.017857142857142856,56.0,1.587401988680029,2.537950406005881,4.724709513122457,0.017857142857142856,0.1607142857142857
+pooled_patches_region_confounded,Deciduous,Herbaceous,5,5,4,0.007936507936507936,exploratory_provisional_references,0.007936507936507936,0.007936507936507936,252.0,1.5570911110365933,2.900029075913844,6.06133182017293,0.007936507936507936,0.07936507936507936
+pooled_patches_region_confounded,Deciduous,Woody shrub,5,3,2,0.03571428571428571,exploratory_provisional_references,0.03571428571428571,0.017857142857142856,56.0,1.5646882783546685,2.523612586071573,4.59046764078843,0.017857142857142856,0.17857142857142855
+pooled_patches_region_confounded,Deciduous,Non-vegetated & dead,5,3,3,0.017857142857142856,exploratory_provisional_references,0.017857142857142856,0.017857142857142856,56.0,1.8157690285591812,2.6303967306227554,6.181907184515162,0.017857142857142856,0.1607142857142857
+pooled_patches_region_confounded,Evergreen,Herbaceous,3,5,3,0.017857142857142856,exploratory_provisional_references,0.017857142857142856,0.017857142857142856,56.0,1.841930559578787,2.5947581661708505,6.361327849331668,0.017857142857142856,0.1607142857142857
+pooled_patches_region_confounded,Evergreen,Woody shrub,3,3,2,0.1,exploratory_provisional_references,0.1,0.1,20.0,1.719638616264268,2.2241775909327655,4.43573545582093,0.1,0.30000000000000004
+pooled_patches_region_confounded,Evergreen,Non-vegetated & dead,3,3,3,0.1,exploratory_provisional_references,0.1,0.1,20.0,1.8044241384095268,2.2348793493404844,4.883919706912445,0.1,0.30000000000000004
+pooled_patches_region_confounded,Herbaceous,Woody shrub,5,3,4,0.05357142857142857,exploratory_provisional_references,0.03571428571428571,0.05357142857142857,56.0,1.4470054457989143,2.295589605207222,3.9259214253219654,0.017857142857142856,0.21428571428571427
+pooled_patches_region_confounded,Herbaceous,Non-vegetated & dead,5,3,3,0.017857142857142856,exploratory_provisional_references,0.017857142857142856,0.017857142857142856,56.0,1.6530223246018318,2.590936437867823,5.123405260560083,0.017857142857142856,0.1607142857142857
+pooled_patches_region_confounded,Woody shrub,Non-vegetated & dead,3,3,3,0.1,exploratory_provisional_references,0.1,0.1,20.0,1.6394238788732092,2.231037811963974,4.031565981929519,0.1,0.30000000000000004
+within_region_mixed_support,Deciduous,Evergreen,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Deciduous,Herbaceous,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Deciduous,Woody shrub,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Deciduous,Non-vegetated & dead,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Evergreen,Herbaceous,3,2,1,0.1,exploratory_provisional_references,0.1,0.1,10.0,1.8158119268684756,1.9975141999635881,3.9566075445093674,,1.0
+within_region_mixed_support,Evergreen,Woody shrub,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Evergreen,Non-vegetated & dead,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Herbaceous,Woody shrub,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Herbaceous,Non-vegetated & dead,3,3,2,0.1111111111111111,exploratory_provisional_references,0.1111111111111111,0.1111111111111111,9.0,1.6160678772705037,1.991023195702963,3.4822338452607897,,1.0
+within_region_mixed_support,Woody shrub,Non-vegetated & dead,0,0,0,,insufficient_matched_patch_support,,,,,,,,

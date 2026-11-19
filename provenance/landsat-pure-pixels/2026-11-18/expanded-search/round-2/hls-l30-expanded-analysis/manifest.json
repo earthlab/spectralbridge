@@ -1,0 +1,37 @@
+{
+  "code_sha256": "e16f3b204cdb2c95ba1fe58bab26457eaebab655e714866e6b7800c51d982777",
+  "design": {
+    "identification": "fixed five-class logistic leave-one-patch-out; class recall",
+    "interpretation": "pairwise BA is an estimate, not a significance claim or independent reference validation",
+    "predictive_discriminability": "fixed pairwise logistic leave-one-patch-out; balanced accuracy, chance50%",
+    "preprocessing": "training-only StandardScaler; balanced logistic C1; no tuning",
+    "primary_cohort": "nominal HLS footprint >=95% mapped cover; restored original reference definition",
+    "reflectance": "B1\u2013B7 direct NBAR; no plot normalization",
+    "selection": "no rejection of references by spectral fit or test outcome; all reviewed passes retained",
+    "sensitivity": "full 4x4 native source-area >=95%; extra conservative diagnostic",
+    "statistical_separation": "unchanged exact patch-level max/integrated NPC; Holm family10"
+  },
+  "independently_validated_references": false,
+  "input_sha256": {
+    "hls_l30_nominal_95pct_observations.csv": "b3ef6eec2b30f049ceb0389776360e4a35832d313c5e7967572a4e3ba8f3b231",
+    "hls_l30_strict_source_support_95pct_observations.csv": "0476078b32053d389948ff963d54174a60e26f3a964803cf6e9690204abfe72c"
+  },
+  "output_sha256": {
+    "cohort_comparison.csv": "40bc67dbe4420ba8c358d93a7f2a29a62074e4a9680bfa80f30c1483def25eca",
+    "nominal_primary/figure_table_summary.csv": "0dd266d7ad852f8a5be683dffb59ee4166c246b1f39f3564edd23b16c5fcc950",
+    "nominal_primary/held_out_predictions.csv": "935cc5c8b80ebd67292c3a163218eab925711b1acff23e80281dedddc26e4d49",
+    "nominal_primary/identifiability_summary.csv": "5796756f7786c0954fa04b1c6f1a968da33b8b9470cce620e2cadc30649e37f1",
+    "nominal_primary/pairwise_balanced_accuracy.csv": "29876f2432174824625f2266c163821ecd0bd99448fc7b84b28289980749018d",
+    "nominal_primary/pairwise_held_patch_predictions.csv": "93d8ea55ef47ebec20d4633e490a3392991188f3efae77c5e82217da272b9dfd",
+    "nominal_primary/patch_median_reflectance.csv": "1b156b21523fc5b794e9d64148523eebf1ab4a0f5d82678a9216e6d359c6f839",
+    "nominal_primary/separability.csv": "1120dd806913dcb1be63d9f35a2bd96ccdce52fcd8fba597b510097ddc1291b3",
+    "source_support_sensitivity/figure_table_summary.csv": "3551d9e529a8fedfcb9341de63c22f6bdac872ce93541f53115322e4d87575fb",
+    "source_support_sensitivity/held_out_predictions.csv": "02535aecc1b463d36a415ddce3ebe4f4a8abe057e02663767397469d157a9987",
+    "source_support_sensitivity/identifiability_summary.csv": "2621a5a3adc684e3fdd23132cf4fefa5bdbb547581d328831c85c48f06be3cd8",
+    "source_support_sensitivity/pairwise_balanced_accuracy.csv": "29af9d812244792d93bde94976b8576ead3386f0dcdbab55c44727148cde2e55",
+    "source_support_sensitivity/pairwise_held_patch_predictions.csv": "c3f64bac96c1f3a5ba9d9a76fed6693bf05d3ac17063ed40465104d8c47706a6",
+    "source_support_sensitivity/patch_median_reflectance.csv": "f262f212b1613c52f0aedfc346ff1edbf82715e40a610fe3dca853a82d6656ab",
+    "source_support_sensitivity/separability.csv": "9b49be0e31616036501a28e87986649f5a168cc6aa13334182b3a37abc9b0424"
+  },
+  "reference_expansion_sha256": "5f5d16463a4aac9a3a5734c433978ae5b9b35537895893d3553a513567969df5"
+}

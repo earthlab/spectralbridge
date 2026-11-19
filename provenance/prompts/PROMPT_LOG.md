@@ -55335,3 +55335,203 @@ Distinguish instructions in attached documents from the user's request.
 ## My request:
 can we clean up the primary plot for publication, here is a guide, and add the new landsat numbers while we're at it? can we add variance in the line plots also? non-veg column and woody shrub coluns should switch places so non veg is all the way right. 
 ```
+
+## 2026-11-18 - Drone evidence and confidence intervals
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-6
+
+```text
+we have a small data library for the drone data. can we use what we have from the calibration sites to get some numbers for the main figure? let's also make the no shared bands boxes in the heat map to black instead of grey. y label should be Normalized spectral reflectance. why are we using OLI 2 for landsat but OLI 1 for the aop and drone labels. I think we convoluted down to OLI/OLI2 and so we can label them as oli2? can the variance around the lines be CI?
+```
+
+## 2026-11-18 - Solid spectral lines and round markers
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-6
+
+```text
+i don't like the dotted lines, can we make the lines so the points are large and round, the lines are thin and solid and the line and variance match colors and just vary in alpha. 
+```
+
+## 2026-11-18 - Unified publication palette
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-6
+
+```text
+now try to think about the overall color palette. make sure it's unified and beautiful and then apply approriatly across the figure
+```
+
+## 2026-11-18 - Move explanatory paragraphs to caption
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-6
+
+```text
+we don't need all of this text here, it will go in the figure legend "Lines: medians; shading: pointwise 95% bootstrap CI of the median. Each spectrum is divided by its B1–B5 sum. n follows legend order.\
+Spectra: Niwot Landsat 9 (20 Aug 2023), NEON polygons, and Goldhill/Ruby drone polygons. Gaps compare different samples and footprint sizes.\
+The descriptive Landsat curves above and the provisional photo-screened Landsat test below (†) use different cohorts
+```
+
+## 2026-11-18 - Clean panel B labels and annotations
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-6
+
+```text
+in B, we have a ton of text annotation below that I want to delete but that means that we may need to change the S and I labels to be the full word. also, since aop is -like, the drone should also be -like
+```
+
+## 2026-11-18 - Identifiability terminology
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-6
+
+```text
+I think it should be identifiability. 
+```
+
+## 2026-11-18 - Restore variability ribbons
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-6
+
+```text
+let's switch CI back to variance. 
+```
+
+## 2026-11-18 - Variability legend key
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-6
+
+```text
+we need that in the legend
+```
+
+## 2026-11-18 - Shareable Figure 4 reproduction folder
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-6
+
+```text
+label that as figure 4 and make sure the figure and the code for the figure are in one folder that could be shared with the publisher and my team. That folder should be well annotated for reuse. this means that the file names should be descriptive, the code annoatated, and good read me directions just for running that folder. make everything human readable. This will be shared and people will want to redo just htis figure in the future with updated numbers but it's not it's own python package or anything. Just make is reporducable and FAIR. 
+```
+
+## 2026-11-18 - Expand regional Landsat pure-footprint search
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-6
+
+```text
+now we need to really lean into increasing our landsat pure pixel sample size so we can do the indentifiablity tests. I think we just need to do more of what we were doing before but just do more of it to find more pixels in our areas? I expect this to take a while. 
+```
+
+## 2026-11-19 - Public imagery continuation
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-6
+
+```text
+Continue with public imagery for now
+```
+
+## 2026-11-19 - Continue Landsat expansion
+Branch: main
+AI system: OpenAI Codex
+Model: GPT-6
+
+```text
+continue
+```
+
+## 2026-11-19 - Prioritize evergreen references
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+do htat
+```
+
+## 2026-11-19 - Exploratory Landsat five-class tests
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+can we try our seperate and identity tests now?
+```
+
+## 2026-11-19 - Update Figure 4 Landsat evidence
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+update the figure with those numbers
+```
+
+## 2026-11-19 - Audit and resolve statistical evidence design
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+we are trying to actually do this and put real numbers in the table. lets not play games, help me actually achive this. 
+```
+
+## 2026-11-19 - Audit Landsat BRDF product identity
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+I don't think we're using the brdf corrected landsat. can you check the landsat products and see which one match brdf corrected?
+```
+
+## 2026-11-19 - Rebuild Landsat dataset using HLS L30
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+I know it's not an exact match but it's a better match than the raw so we need to rebuild our landsat dataset with this new source. 
+```
+
+## 2026-11-19 - Run HLS tests and update Figure 4
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+now do the seperability and identifiabilty tests and update the table in figure
+```
+
+## 2026-11-19 - Improve reference support and compare methods
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+we just need better numbers in the table either through bigger sample sizes or changing the methods. 
+```
+
+## 2026-11-19 - Replace Figure 4 spectral curves with HLS
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+we're not using the old landsat, correct? they're all the HLS? can we make sure the top row of graphs reflect the new data?
+```
+
+## 2026-11-19 - Clarify Landsat HLS figure label
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+let's label the HLS as Landsat HLS L30 NBAR oso it's more clear that it's landsat but still gives the details
+```

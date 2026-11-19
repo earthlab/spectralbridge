@@ -1,0 +1,21 @@
+scheme,unit,researcher_category,n,supported_n,recall_all,recall_supported,status
+leave_one_patch_out,patch,Deciduous,2,2,0.5,0.5,exploratory_provisional_references
+leave_one_patch_out,patch,Evergreen,2,2,1.0,1.0,exploratory_provisional_references
+leave_one_patch_out,patch,Herbaceous,3,3,1.0,1.0,exploratory_provisional_references
+leave_one_patch_out,patch,Non-vegetated & dead,1,0,0.0,,conditional_on_training_class_presence
+leave_one_patch_out,patch,Woody shrub,5,5,0.8,0.8,exploratory_provisional_references
+leave_one_patch_out,pixel,Deciduous,32,32,0.5,0.5,exploratory_provisional_references
+leave_one_patch_out,pixel,Evergreen,20,20,0.95,0.95,exploratory_provisional_references
+leave_one_patch_out,pixel,Herbaceous,30,30,0.9666666666666667,0.9666666666666667,exploratory_provisional_references
+leave_one_patch_out,pixel,Non-vegetated & dead,16,0,0.0,,conditional_on_training_class_presence
+leave_one_patch_out,pixel,Woody shrub,63,63,0.7619047619047619,0.7619047619047619,exploratory_provisional_references
+leave_one_region_out,patch,Deciduous,2,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,patch,Evergreen,2,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,patch,Herbaceous,3,3,1.0,1.0,exploratory_provisional_references
+leave_one_region_out,patch,Non-vegetated & dead,1,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,patch,Woody shrub,5,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,pixel,Deciduous,32,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,pixel,Evergreen,20,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,pixel,Herbaceous,30,30,0.9666666666666667,0.9666666666666667,exploratory_provisional_references
+leave_one_region_out,pixel,Non-vegetated & dead,16,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,pixel,Woody shrub,63,0,0.0,,conditional_on_training_class_presence

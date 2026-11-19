@@ -1,0 +1,32 @@
+{
+  "identity": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-brightness-baseline/2026-11-13/goldhill/AOP_GOLDHILL_20230814/AOP_GOLDHILL_20230814__polygons.parquet": "4eff890be1e7a3b64e49b9f355a86f9415839091c176854eb78cfe05d5bbf589",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-brightness-baseline/2026-11-13/ruby/AOP_Ruby_20230814/AOP_Ruby_20230814__polygons.parquet": "890b9ac5d6118889699d3e6e87637d0376b8e8681522bff23f4284907e817225",
+    "builder": "fb8c22439c17884b88611a2a554dce018c66974d3d0c31ff3172a1f4b6a7b1bf",
+    "figure_loader": "a95504cb48777e332be1e68b65ccd22e21ece704d5fa147803ec75d1b3b2e0df",
+    "statistic_code": "458018dbfff411710ef2eea62a2698f8bcc86121bca0905fbf5bd0c2e88fc3df"
+  },
+  "outputs": {
+    "separability.csv": "cd7641f8ee522df1c23acb4f6bef9c3182cdf0e8d1d8aafadda159a8bd5be4d7",
+    "polygon_spectra.csv": "c580048aa8f926729ed0c2d97876282027547d31c6a8f36732aff987ac26578c",
+    "identification_predictions.csv": "adf9c50d806251651bf985d9f1287459a9e2b66a4d7fd5b33ba6a00a23307300",
+    "class_summary.csv": "7237be1d758425a2a54a8c91e17d81765110643c17ca082083e718235aacd4f9"
+  },
+  "seed": 20261118,
+  "permutations": 9999,
+  "bands": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5"
+  ],
+  "scale": "physical reflectance polygon medians; tests unnormalized",
+  "model": "StandardScaler + balanced logistic C=1; five stratified polygon folds and two leave-site-out folds",
+  "limitations": "Two calibration sites; conditional site exchangeability; no independent external validation. Different protocol from archived NEON classification. When a class is absent from the training site, its held-site recall is unavailable (NA); predictions and support flags remain archived.",
+  "versions": {
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "sklearn": "1.9.1"
+  }
+}

@@ -1,0 +1,6 @@
+researcher_category,planned_pairs,tested_pairs,supported_pairs,separability_status,held_patches,supported_test_patches,correct_supported_patches,held_patch_recall,identifiability_status,reference_status,pairwise_mean_ba,pairwise_min_ba,pairwise_max_ba,pairwise_estimated_pairs
+Deciduous,4,3,0,available,2,2,1,0.5,available,provisional,0.6611111111111111,0.3333333333333333,1.0,3.0
+Evergreen,4,3,0,available,2,2,2,1.0,available,provisional,0.9666666666666667,0.9,1.0,3.0
+Herbaceous,4,3,0,available,3,3,3,1.0,available,provisional,0.7222222222222222,0.3333333333333333,1.0,3.0
+Woody shrub,4,3,0,available,5,5,4,0.8,available,provisional,0.7944444444444444,0.65,0.9,3.0
+Non-vegetated & dead,4,0,0,insufficient_patches,1,0,0,,class_absent_from_training,provisional,,,,0.0

@@ -140,7 +140,7 @@ def open_asset(item, key):
     return rasterio.open(planetary_computer.sign(item["assets"][key]["href"]))
 
 
-def map_grid(region, collection="esa-worldcover"):
+def map_grid(region, collection="esa-worldcover", catalogue_features=None):
     CACHE.mkdir(parents=True, exist_ok=True)
     transformer = Transformer.from_crs(4326, EPSGS[region], always_xy=True)
     left, bottom, right, top = transformer.transform_bounds(*REGIONS[region])
@@ -163,7 +163,9 @@ def map_grid(region, collection="esa-worldcover"):
             raise ValueError("Cached WorldCover grid differs from requested region")
         return grid, transform
     grid = np.zeros((height, width), dtype=np.uint16)
-    for item in items(region, collection):
+    for item in (
+        items(region, collection) if catalogue_features is None else catalogue_features
+    ):
         print(region, "reading", item["id"], flush=True)
         with (
             open_asset(
@@ -188,7 +190,7 @@ def map_grid(region, collection="esa-worldcover"):
     return grid, transform
 
 
-def interior_centers(mask, count=PER_CLASS):
+def interior_centers(mask, count=PER_CLASS, spacing_m=SPACING_METERS):
     """Rank coarse map interiors with a minimum separation between proposals."""
     padded = np.pad(mask, 1, constant_values=False)
     distances = distance_transform_edt(padded)[1:-1, 1:-1] * DISCOVERY_GRID_METERS
@@ -199,7 +201,7 @@ def interior_centers(mask, count=PER_CLASS):
         if score < MIN_MAP_INTERIOR_METERS:
             return
         yield row, col, score
-        radius = int(np.ceil(SPACING_METERS / DISCOVERY_GRID_METERS))
+        radius = int(np.ceil(spacing_m / DISCOVERY_GRID_METERS))
         r0, r1 = max(0, row - radius), min(mask.shape[0], row + radius + 1)
         c0, c1 = max(0, col - radius), min(mask.shape[1], col + radius + 1)
         dy, dx = np.ogrid[r0 - row : r1 - row, c0 - col : c1 - col]
@@ -326,7 +328,8 @@ def landsat_sample(candidate, scenes):
     return candidate | {"scene_id": None, "screening_status": "no_clear_scene"}
 
 
-def aerial_chip(candidate, aerials):
+def aerial_chip(candidate, aerials, context_m=80, pixels=200):
+    half = context_m / 2
     point = Point(candidate["longitude"], candidate["latitude"])
     scenes = [item for item in aerials if shape(item["geometry"]).covers(point)]
     scenes.sort(
@@ -351,13 +354,15 @@ def aerial_chip(candidate, aerials):
         ):
             east, north = candidate["easting"], candidate["northing"]
             if not box(*aerial.bounds).covers(
-                box(east - 40, north - 40, east + 40, north + 40)
+                box(east - half, north - half, east + half, north + half)
             ):
                 continue
-            col, row = ~aerial.transform * (east - 40, north + 40)
-            window = Window(col, row, 80 / aerial.res[0], 80 / aerial.res[1])
+            col, row = ~aerial.transform * (east - half, north + half)
+            window = Window(
+                col, row, context_m / aerial.res[0], context_m / aerial.res[1]
+            )
             rgb = aerial.read(
-                (1, 2, 3), window=window, out_shape=(3, 200, 200), masked=True
+                (1, 2, 3), window=window, out_shape=(3, pixels, pixels), masked=True
             )
             rgb = rgb.astype(float).filled(np.nan)
             if not np.isfinite(rgb).all() or np.any(np.all(rgb == 0, axis=0)):

@@ -1,0 +1,38 @@
+{
+  "array_sha256": "1906698eb4491110a406af9eda6900816154269ecfb5ba5827669cfed281c49b",
+  "identity": {
+    "catalogue_sha256": "867a017caaecb044c5527cb9839f091a51a2da2c89ab3cedc592788259a1acab",
+    "method": "first_return_1m_no_fill_v1",
+    "project": "WA_FEMAHQ_B2C_2018"
+  },
+  "pft_purity_verified": false,
+  "source_intervals": [
+    {
+      "datetime": null,
+      "end_datetime": "2018-12-31T00:00:00.000000Z",
+      "start_datetime": "2018-01-01T00:00:00.000000Z"
+    },
+    {
+      "datetime": null,
+      "end_datetime": "2018-12-31T00:00:00.000000Z",
+      "start_datetime": "2018-01-01T00:00:00.000000Z"
+    },
+    {
+      "datetime": null,
+      "end_datetime": "2018-12-31T00:00:00.000000Z",
+      "start_datetime": "2018-01-01T00:00:00.000000Z"
+    },
+    {
+      "datetime": null,
+      "end_datetime": "2018-12-31T00:00:00.000000Z",
+      "start_datetime": "2018-01-01T00:00:00.000000Z"
+    }
+  ],
+  "source_items": [
+    "USGS_LPC_WA_FEMAHQ_2018_D18_10TER7866",
+    "USGS_LPC_WA_FEMAHQ_2018_D18_10TER7865",
+    "USGS_LPC_WA_FEMAHQ_2018_D18_10TER7766",
+    "USGS_LPC_WA_FEMAHQ_2018_D18_10TER7765"
+  ],
+  "structural_only": true
+}

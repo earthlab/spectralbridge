@@ -1,0 +1,154 @@
+{
+  "boundary_uncertainty_m": 0.6,
+  "cases": [
+    {
+      "aerial_datetime": "2024-05-29T16:00:00.000000Z",
+      "aerial_year": 2024,
+      "bright_unknown_floor": 120,
+      "context_patch_id": "r2-california_shrublands-woody-001",
+      "dark_unknown_max_ceiling": 45,
+      "image_sha256": "26f18f3ae680223592b9d378cc80565ba7160c29c88eb5597b3ad70ea88aec3c",
+      "interpretation": "Low dense chaparral-form woody cover; pale soil and deep darkness remain unknown. Single-interpreter growth-form label, not height-verified.",
+      "metadata_sha256": "025917acbab8cb66827a2573e839b51572ce2896e65727973ca4f8f11d5a55c4",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "target": "Woody shrub"
+    },
+    {
+      "aerial_datetime": "2024-06-11T16:00:00.000000Z",
+      "aerial_year": 2024,
+      "bright_unknown_floor": 120,
+      "context_patch_id": "r2-california_shrublands-woody-002",
+      "dark_unknown_max_ceiling": 45,
+      "image_sha256": "8c3e43146669b26c872288443bd432a6dced3e033a3483a440ffc6392a64b34d",
+      "interpretation": "Low dense chaparral-form woody cover; pale soil and deep darkness remain unknown. Single-interpreter growth-form label, not height-verified.",
+      "metadata_sha256": "e87d57d443204f3004b1dcda8ec646eb5ed19e9d24748905ed707e162673feef",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "target": "Woody shrub"
+    },
+    {
+      "aerial_datetime": "2024-05-29T16:00:00.000000Z",
+      "aerial_year": 2024,
+      "bright_unknown_floor": 120,
+      "context_patch_id": "r2-california_shrublands-woody-003",
+      "dark_unknown_max_ceiling": 45,
+      "image_sha256": "d26a7e82533bcd9b224f9cec2ce656a29cdb32fd35b83cb3e92643dc54680828",
+      "interpretation": "Low dense chaparral-form woody cover; pale soil and deep darkness remain unknown. Single-interpreter growth-form label, not height-verified.",
+      "metadata_sha256": "66897da9bd8cdaa522c2938047c5c69fd4ef58e1f25f0170065189c0f80ec681",
+      "patch": [
+        [
+          -105,
+          -105
+        ],
+        [
+          15,
+          -105
+        ],
+        [
+          15,
+          45
+        ],
+        [
+          -105,
+          45
+        ]
+      ],
+      "target": "Woody shrub"
+    },
+    {
+      "aerial_datetime": "2024-05-29T16:00:00.000000Z",
+      "aerial_year": 2024,
+      "bright_unknown_floor": 120,
+      "context_patch_id": "r2-california_shrublands-woody-010",
+      "dark_unknown_max_ceiling": 45,
+      "image_sha256": "7efd92d3ed8bc020fc275185bc98f309147960eaffb44f613a2572b06f4e122a",
+      "interpretation": "Low dense chaparral-form woody cover; pale soil and deep darkness remain unknown. Single-interpreter growth-form label, not height-verified.",
+      "metadata_sha256": "439091366086818685f856a092e9d2c81e934978b9df69ab6c5d06c474ee207a",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "target": "Woody shrub"
+    },
+    {
+      "aerial_datetime": "2024-06-11T16:00:00.000000Z",
+      "aerial_year": 2024,
+      "context_patch_id": "r2-california_shrublands-non-vegetated-001",
+      "dark_unknown_ceiling": 100,
+      "image_sha256": "6d9a8727fa85af689f7cfdac1a58143ec94d74dc4660730c6f260940995b6971",
+      "interpretation": "Eastern exposed grey rock slab; adjacent sparse shrubland excluded by geometry; dark cracks/vegetation remain unknown.",
+      "metadata_sha256": "7a8b014534119cf1a702a241a525d97b58e956448f1ee57e4ebcda2eeeda3da1",
+      "patch": [
+        [
+          40,
+          -90
+        ],
+        [
+          110,
+          -90
+        ],
+        [
+          110,
+          60
+        ],
+        [
+          40,
+          60
+        ]
+      ],
+      "target": "Non-vegetated & dead"
+    }
+  ],
+  "date": "2026-11-19",
+  "independently_verified": false,
+  "interpreter": "single Codex aerial interpretation",
+  "selection": "growth form and cover only; no new Landsat values consulted",
+  "working_cohort": "nominal 30 m >=95%; additional 120 m source-area requirement is sensitivity"
+}

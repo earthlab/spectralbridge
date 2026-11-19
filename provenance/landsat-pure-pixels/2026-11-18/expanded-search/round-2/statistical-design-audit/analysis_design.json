@@ -1,0 +1,16 @@
+{
+  "comparisons": [
+    "normalized shared B1-B5 sum; existing figure input",
+    "raw reflectance; matching archived sensor input convention"
+  ],
+  "input_sha256": {
+    "evergreen": "8d301cb1efdf5faecfd0f7ffa1b9c304cd2f617dbac594c7ee5ce59466d4050e",
+    "photo": "a679ec3e21c8109f559ec7774543a434a67662d800f5bbcca247661b3bf6b940"
+  },
+  "interpretation": "incremental spectral prediction conditional on observed region/class counts",
+  "label_randomization": "all unique whole-patch label assignments within existing regions",
+  "limitations": "Pure-class regions cannot contribute within-region exchangeability; not a five-class geographic transfer test",
+  "multiplicity": "Holm across the two representation diagnostics",
+  "primary_prediction_score": "macro recall on held-out patch medians",
+  "secondary_prediction_score": "patch accuracy"
+}

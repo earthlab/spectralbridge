@@ -1,0 +1,21 @@
+scope,a,b,n_patch_a,n_patch_b,regions,p_npc,status,p_max,p_integrated,permutations,effect,observed_max,observed_integrated,best_case_two_sided_p_lower_bound,p_npc_holm
+pooled_patches_region_confounded,Deciduous,Evergreen,2,2,2,0.3333333333333333,exploratory_provisional_references,0.3333333333333333,0.3333333333333333,6.0,1.3659657558460456,1.6350902173016906,1.8658624461440592,0.3333333333333333,1.0
+pooled_patches_region_confounded,Deciduous,Herbaceous,2,3,4,0.3,exploratory_provisional_references,0.2,0.2,10.0,1.3178317798881485,1.860942264235432,2.084016720099799,0.1,1.0
+pooled_patches_region_confounded,Deciduous,Woody shrub,2,1,2,,insufficient_matched_patch_support,,,,,,,,
+pooled_patches_region_confounded,Deciduous,Non-vegetated & dead,2,1,2,,insufficient_matched_patch_support,,,,,,,,
+pooled_patches_region_confounded,Evergreen,Herbaceous,2,3,3,0.1,exploratory_provisional_references,0.1,0.1,10.0,1.655725993901556,1.9260159593727737,3.289714280257555,0.1,1.0
+pooled_patches_region_confounded,Evergreen,Woody shrub,2,1,2,,insufficient_matched_patch_support,,,,,,,,
+pooled_patches_region_confounded,Evergreen,Non-vegetated & dead,2,1,2,,insufficient_matched_patch_support,,,,,,,,
+pooled_patches_region_confounded,Herbaceous,Woody shrub,3,1,4,,insufficient_matched_patch_support,,,,,,,,
+pooled_patches_region_confounded,Herbaceous,Non-vegetated & dead,3,1,3,,insufficient_matched_patch_support,,,,,,,,
+pooled_patches_region_confounded,Woody shrub,Non-vegetated & dead,1,1,2,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Deciduous,Evergreen,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Deciduous,Herbaceous,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Deciduous,Woody shrub,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Deciduous,Non-vegetated & dead,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Evergreen,Herbaceous,2,1,1,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Evergreen,Woody shrub,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Evergreen,Non-vegetated & dead,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Herbaceous,Woody shrub,0,0,0,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Herbaceous,Non-vegetated & dead,1,1,1,,insufficient_matched_patch_support,,,,,,,,
+within_region_mixed_support,Woody shrub,Non-vegetated & dead,0,0,0,,insufficient_matched_patch_support,,,,,,,,

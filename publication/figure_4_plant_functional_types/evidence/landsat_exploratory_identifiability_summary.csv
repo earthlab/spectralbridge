@@ -1,0 +1,21 @@
+scheme,unit,researcher_category,n,supported_n,recall_all,recall_supported,status
+leave_one_patch_out,patch,Deciduous,5,5,0.8,0.8,exploratory_provisional_references
+leave_one_patch_out,patch,Evergreen,3,3,1.0,1.0,exploratory_provisional_references
+leave_one_patch_out,patch,Herbaceous,5,5,1.0,1.0,exploratory_provisional_references
+leave_one_patch_out,patch,Non-vegetated & dead,4,4,0.75,0.75,exploratory_provisional_references
+leave_one_patch_out,patch,Woody shrub,7,7,0.8571428571428571,0.8571428571428571,exploratory_provisional_references
+leave_one_patch_out,pixel,Deciduous,77,77,0.6103896103896104,0.6103896103896104,exploratory_provisional_references
+leave_one_patch_out,pixel,Evergreen,110,110,1.0,1.0,exploratory_provisional_references
+leave_one_patch_out,pixel,Herbaceous,99,99,0.9494949494949495,0.9494949494949495,exploratory_provisional_references
+leave_one_patch_out,pixel,Non-vegetated & dead,45,45,0.5555555555555556,0.5555555555555556,exploratory_provisional_references
+leave_one_patch_out,pixel,Woody shrub,165,165,0.7636363636363637,0.7636363636363637,exploratory_provisional_references
+leave_one_region_out,patch,Deciduous,5,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,patch,Evergreen,3,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,patch,Herbaceous,5,5,1.0,1.0,exploratory_provisional_references
+leave_one_region_out,patch,Non-vegetated & dead,4,4,1.0,1.0,exploratory_provisional_references
+leave_one_region_out,patch,Woody shrub,7,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,pixel,Deciduous,77,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,pixel,Evergreen,110,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,pixel,Herbaceous,99,99,0.9595959595959596,0.9595959595959596,exploratory_provisional_references
+leave_one_region_out,pixel,Non-vegetated & dead,45,45,0.6444444444444445,0.6444444444444445,exploratory_provisional_references
+leave_one_region_out,pixel,Woody shrub,165,0,0.0,,conditional_on_training_class_presence

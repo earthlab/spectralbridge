@@ -1,0 +1,1096 @@
+{
+  "created": "2026-11-18",
+  "interpreter": "OpenAI Codex, single interpreter",
+  "independent_second_interpreter": false,
+  "field_verified": false,
+  "primary_target_fraction": 0.95,
+  "sensitivity_target_fractions": [
+    0.9,
+    0.95,
+    1.0
+  ],
+  "boundary_uncertainty_m": 0.6,
+  "context_m": 240,
+  "cell_size_m": 30,
+  "cell_center_offsets_m": [
+    -90,
+    -60,
+    -30,
+    0,
+    30,
+    60,
+    90
+  ],
+  "registration_sensitivity_m": [
+    0,
+    3,
+    5
+  ],
+  "max_aerial_landsat_gap_days": 45,
+  "annotation_scope": "Dated aerial-image-resolved projected cover. Image-specific raw RGB cutoffs flag unresolved dark/bright cover only; they are not calibrated PFT classifiers. No independent purity certification.",
+  "cases": [
+    {
+      "context_patch_id": "r2-gunnison_aspen-deciduous-005",
+      "target": "Deciduous",
+      "aerial_year": 2023,
+      "image_sha256": "ce3531de196c203da5b2a382d616f5716678bcf7ef9c867bd16529f59c382675",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Dense golden broadleaf crowns consistent with aspen; no visible conifer admixture in inner view. Deep unresolved shade excluded.",
+      "dark_unknown_max_ceiling": 65,
+      "bright_unknown_floor": 185,
+      "context_metadata_sha256": "307a1fc82d762ab0442063b00bebd62e2437dd2685488f3d22ac221a2d1ee85e",
+      "aerial_id": "co_m_3810601_sw_13_030_20230925_20240104",
+      "aerial_datetime": "2023-09-25T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-gunnison_aspen-deciduous-008",
+      "target": "Deciduous",
+      "aerial_year": 2023,
+      "image_sha256": "0d17695920c479982dd87de677139843e73ca89fdab593a523bd9228fd283448",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Contiguous rounded broadleaf canopy; autumn yellow/green crowns and dated aspen locator. Shaded interstices remain uncertain.",
+      "dark_unknown_max_ceiling": 65,
+      "bright_unknown_floor": 185,
+      "context_metadata_sha256": "66119ca1e9bb2b86989ad63c45567c5798250349ed87d1c05b2de4ce019eb96e",
+      "aerial_id": "co_m_3810601_sw_13_030_20230925_20240104",
+      "aerial_datetime": "2023-09-25T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-gunnison_aspen-deciduous-002",
+      "target": "Deciduous",
+      "aerial_year": 2023,
+      "image_sha256": "ebb88487835a6181472a7f0312eb756b495f1f91c4ffb272abbfad08b0be2fc4",
+      "patch": [
+        [
+          40,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          -10
+        ],
+        [
+          40,
+          -10
+        ]
+      ],
+      "notes": "Limit annotation to dense golden broadleaf crowns in southeast; exclude mixed/shadowed western stand.",
+      "dark_unknown_max_ceiling": 65,
+      "bright_unknown_floor": 185,
+      "context_metadata_sha256": "bb5419a3bc90002605e62e092cdfb5d69edb1387b958c76ce998666b04e3ad65",
+      "aerial_id": "co_m_3810609_sw_13_030_20230925_20240104",
+      "aerial_datetime": "2023-09-25T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-gunnison_aspen-deciduous-009",
+      "target": "Deciduous",
+      "aerial_year": 2023,
+      "image_sha256": "238152dc79142097da7c3c99ebaa083cb6d318be4bb06b05ff0b4bdba82d5f92",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          -45,
+          -110
+        ],
+        [
+          -45,
+          -55
+        ],
+        [
+          -110,
+          -55
+        ]
+      ],
+      "notes": "Small golden broadleaf canopy patch in southwest; remainder has shadow and mixed crown structure.",
+      "dark_unknown_max_ceiling": 65,
+      "bright_unknown_floor": 185,
+      "context_metadata_sha256": "41c86413fe48821e92639597a7d08ae6413c7dd0f7dfda92e8798fab4e24f5d6",
+      "aerial_id": "co_m_3810708_se_13_030_20230925_20240104",
+      "aerial_datetime": "2023-09-25T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-gunnison_aspen-deciduous-010",
+      "target": "Deciduous",
+      "aerial_year": 2023,
+      "image_sha256": "ab9f979c5fff4ee230f65ee1438811d8264b1ed31c64c461c95b677cb68855fd",
+      "patch": [
+        [
+          -110,
+          20
+        ],
+        [
+          -50,
+          20
+        ],
+        [
+          -20,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Northwest broadleaf canopy only; diagonal pale/open corridor and southeast shade excluded.",
+      "dark_unknown_max_ceiling": 65,
+      "bright_unknown_floor": 185,
+      "context_metadata_sha256": "bdf584507a1f8ce62bb2560de89272502ee41f17609c7e47ca3f89e94e13f1e4",
+      "aerial_id": "co_m_3810609_ne_13_030_20230925_20240104",
+      "aerial_datetime": "2023-09-25T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-gunnison_aspen-deciduous-001",
+      "target": "Deciduous",
+      "aerial_year": 2023,
+      "image_sha256": "1b18c7c9961f7575a56f0f95aebb93244e90b59776f018ce930596c20d4f5805",
+      "patch": [
+        [
+          -60,
+          75
+        ],
+        [
+          60,
+          75
+        ],
+        [
+          60,
+          110
+        ],
+        [
+          -60,
+          110
+        ]
+      ],
+      "notes": "Golden northern canopy strip only; large inter-crown shadows elsewhere excluded.",
+      "dark_unknown_max_ceiling": 65,
+      "bright_unknown_floor": 185,
+      "context_metadata_sha256": "a3a060d3b4bc4fb4d3e78a3ca2d85c57a548a6b55ece66d698968bc7dbdfbeee",
+      "aerial_id": "co_m_3810609_sw_13_030_20230925_20240104",
+      "aerial_datetime": "2023-09-25T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-cascades-evergreen-001",
+      "target": "Evergreen",
+      "aerial_year": 2023,
+      "image_sha256": "bdd25c56e40664e7190d667f7b6269056280119b668d5f02df96da8541f73b26",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Dense conifer-crown texture; deep shadow is unresolved and excluded by display-darkness stencil. A forest map alone does not establish 95% cover.",
+      "dark_unknown_max_ceiling": 40,
+      "bright_unknown_floor": 185,
+      "context_metadata_sha256": "3e5b4c2b3e19e5c2b4120935451f92e97576eb1ab3e3ff4632f4cb039888ab0a",
+      "aerial_id": "wa_m_4512102_se_10_060_20230714_20240209",
+      "aerial_datetime": "2023-07-14T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-front_range-evergreen-006",
+      "target": "Evergreen",
+      "aerial_year": 2023,
+      "image_sha256": "147dc41d2fcce434ce78337741afb8aa7708731e08c20c359203ecb0f6bdc36d",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Conifer crowns dominate inner view; unresolved crown gaps/shadow excluded. No pass is presumed.",
+      "dark_unknown_max_ceiling": 65,
+      "bright_unknown_floor": 185,
+      "context_metadata_sha256": "8da017b76a34023735069c490e2c74aabaeb05cb9f64562ffd50791bd2552cae",
+      "aerial_id": "co_m_4010552_nw_13_030_20230821_20240104",
+      "aerial_datetime": "2023-08-21T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-front_range-herbaceous-001",
+      "target": "Herbaceous",
+      "aerial_year": 2023,
+      "image_sha256": "31d3c760c6b06294af51a6316786e75e9a34a7ca882677ebdf3d6fddd6291c47",
+      "patch": [
+        [
+          -105,
+          20
+        ],
+        [
+          105,
+          20
+        ],
+        [
+          105,
+          105
+        ],
+        [
+          -105,
+          105
+        ]
+      ],
+      "notes": "Meadow north of track and isolated tree clump; isolated pale rock is an uncertainty stencil.",
+      "dark_unknown_max_ceiling": 50,
+      "bright_unknown_floor": 180,
+      "context_metadata_sha256": "1840b9cec1408d65ee82762b6bd5f0806a043dbc2fbe548e12a9bdf77488ff2e",
+      "aerial_id": "co_m_3910502_ne_13_030_20230821_20240104",
+      "aerial_datetime": "2023-08-21T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-front_range-herbaceous-003",
+      "target": "Herbaceous",
+      "aerial_year": 2023,
+      "image_sha256": "78a256152a97a07b5e461736a73a36559b270a9575fa785d1b067a08a140741c",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          15,
+          -110
+        ],
+        [
+          15,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Continuous low herbaceous texture west of woody drainage belt; exclude the entire eastern woody strip.",
+      "dark_unknown_max_ceiling": 50,
+      "bright_unknown_floor": 180,
+      "context_metadata_sha256": "a81f7ba034fe68bfda4bbe8e625224732fd6e3eb7f4d2304f263a5ab2a1d9859",
+      "aerial_id": "co_m_3910502_nw_13_030_20230821_20240104",
+      "aerial_datetime": "2023-08-21T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-california_shrublands-woody-005",
+      "target": "Woody shrub",
+      "aerial_year": 2024,
+      "image_sha256": "a786375ddf6d3f5dd7c3a1d28bb93673844a85cac4c688e0d0430d421006db57",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Low rounded dense chaparral texture; pale soil gaps and dark unresolved areas excluded.",
+      "dark_unknown_max_ceiling": 45,
+      "bright_unknown_floor": 120,
+      "context_metadata_sha256": "455d5625ae7aee22692ad01c6df8ffcb641cfa96e19868842f408c57ac1484e1",
+      "aerial_id": "ca_m_3411910_sw_11_060_20240529",
+      "aerial_datetime": "2024-05-29T16:00:00.000000Z"
+    },
+    {
+      "context_patch_id": "r2-california_shrublands-woody-006",
+      "target": "Woody shrub",
+      "aerial_year": 2024,
+      "image_sha256": "3c951962ccde128ac75461a4b21f71355b79e48d4e9009f0a96adc2d33c30b84",
+      "patch": [
+        [
+          15,
+          -105
+        ],
+        [
+          105,
+          -105
+        ],
+        [
+          105,
+          45
+        ],
+        [
+          15,
+          45
+        ]
+      ],
+      "notes": "Dense low chaparral east of track; northern disturbed strip and west track excluded.",
+      "dark_unknown_max_ceiling": 45,
+      "bright_unknown_floor": 120,
+      "context_metadata_sha256": "269c57016e3c69be6506e67373215e308bf7b549e3027521f2cf881adb13f284",
+      "aerial_id": "ca_m_3411910_sw_11_060_20240529",
+      "aerial_datetime": "2024-05-29T16:00:00.000000Z"
+    },
+    {
+      "context_patch_id": "r2-california_shrublands-woody-008",
+      "target": "Woody shrub",
+      "aerial_year": 2024,
+      "image_sha256": "2130220d3f4866b7d69b077cd9edb59899b91988804ff4791b19b583361d5a65",
+      "patch": [
+        [
+          -105,
+          15
+        ],
+        [
+          105,
+          15
+        ],
+        [
+          105,
+          105
+        ],
+        [
+          -105,
+          105
+        ]
+      ],
+      "notes": "Northern dense low chaparral; larger dark crowns in southern half excluded. Soil flecks retained as uncertainty.",
+      "dark_unknown_max_ceiling": 45,
+      "bright_unknown_floor": 120,
+      "context_metadata_sha256": "b5cd4b37407961843928fa0b56f2d6ade3425b7ed7ff1bef418aa162b081d1a5",
+      "aerial_id": "ca_m_3411918_ne_11_060_20240529",
+      "aerial_datetime": "2024-05-29T16:00:00.000000Z"
+    },
+    {
+      "context_patch_id": "r2-front_range-non-vegetated-002",
+      "target": "Non-vegetated & dead",
+      "aerial_year": 2023,
+      "image_sha256": "afc12adfcebee4f58073e058dd8902a2ad5be22b3b7152a0f86c885b4c8a3790",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Exposed alpine rock/scree. Dark crevices and possible interstitial cover remain unknown; mapped snow/large shaded corner excluded where present.",
+      "dark_unknown_ceiling": 100,
+      "other_polygons": [
+        [
+          [
+            65,
+            55
+          ],
+          [
+            100,
+            55
+          ],
+          [
+            100,
+            85
+          ],
+          [
+            65,
+            85
+          ]
+        ]
+      ],
+      "context_metadata_sha256": "d41574ab2e31cf676f8fe2b639ff2eef7912e3c688c8b7fa8451bad9b4bd85bb",
+      "aerial_id": "co_m_4010544_sw_13_030_20230821_20240104",
+      "aerial_datetime": "2023-08-21T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-front_range-non-vegetated-003",
+      "target": "Non-vegetated & dead",
+      "aerial_year": 2023,
+      "image_sha256": "b544e440ceb10c3d40015a22bd2c73b797ae3b28d52f2676e325d2a43e68f107",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Exposed alpine rock/scree. Dark crevices and possible interstitial cover remain unknown; mapped snow/large shaded corner excluded where present.",
+      "dark_unknown_ceiling": 100,
+      "other_polygons": [],
+      "context_metadata_sha256": "8f8f13baa84fd1fd45e2887c9c9508899d3329c9ab04a353355d7f995dafff47",
+      "aerial_id": "co_m_4010552_nw_13_030_20230821_20240104",
+      "aerial_datetime": "2023-08-21T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-front_range-non-vegetated-006",
+      "target": "Non-vegetated & dead",
+      "aerial_year": 2023,
+      "image_sha256": "7ce030eaa68dcd37f5e8ceb5ac9228d61a94c83231870678eb7bbe00cd3c5234",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Exposed alpine rock/scree. Dark crevices and possible interstitial cover remain unknown; mapped snow/large shaded corner excluded where present.",
+      "dark_unknown_ceiling": 100,
+      "other_polygons": [],
+      "context_metadata_sha256": "872203977a2d51cc0e1b0d607a302dacc7c0ccbd30bbcaef870d213e98d4ae7d",
+      "aerial_id": "co_m_4010559_ne_13_030_20230821_20240104",
+      "aerial_datetime": "2023-08-21T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-front_range-non-vegetated-007",
+      "target": "Non-vegetated & dead",
+      "aerial_year": 2023,
+      "image_sha256": "3d48607175311f7c015df9207524bb9194ff5233b7b4cbdbd06604ac68102f2d",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Exposed alpine rock/scree. Dark crevices and possible interstitial cover remain unknown; mapped snow/large shaded corner excluded where present.",
+      "dark_unknown_ceiling": 100,
+      "other_polygons": [
+        [
+          [
+            30,
+            0
+          ],
+          [
+            115,
+            0
+          ],
+          [
+            115,
+            115
+          ],
+          [
+            30,
+            115
+          ]
+        ]
+      ],
+      "context_metadata_sha256": "8347aa50b8891bd77296cf2ff5908b5cc68fd483f84a24ae5f5a18509014c19a",
+      "aerial_id": "co_m_4010559_se_13_030_20230821_20240104",
+      "aerial_datetime": "2023-08-21T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-front_range-non-vegetated-008",
+      "target": "Non-vegetated & dead",
+      "aerial_year": 2023,
+      "image_sha256": "d6280c86632db01c6daf0b06611905b4a430ac76cd6b8c3acba51f7eb927e8c8",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Exposed alpine rock/scree. Dark crevices and possible interstitial cover remain unknown; mapped snow/large shaded corner excluded where present.",
+      "dark_unknown_ceiling": 100,
+      "other_polygons": [],
+      "context_metadata_sha256": "4372770a125025f2108790c85301743cee4c3eeeb55f11c6b26eb7bc33b9e403",
+      "aerial_id": "co_m_4010543_se_13_030_20230821_20240104",
+      "aerial_datetime": "2023-08-21T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-gunnison_aspen-non-vegetated-004",
+      "target": "Non-vegetated & dead",
+      "aerial_year": 2023,
+      "image_sha256": "65346bf4d724d75fbde1f2873e37459dd301a9cbf611f9d5dbada11ddee81ed2",
+      "patch": [
+        [
+          45,
+          -105
+        ],
+        [
+          105,
+          -105
+        ],
+        [
+          105,
+          105
+        ],
+        [
+          45,
+          105
+        ]
+      ],
+      "notes": "East-facing exposed rock/scree strip; large western shadows excluded.",
+      "dark_unknown_ceiling": 100,
+      "context_metadata_sha256": "d13d5834588c31f3bf54aabd9178875489c36e4eec8ffe7327d3c29888ca2aae",
+      "aerial_id": "co_m_3810602_nw_13_030_20230925_20240104",
+      "aerial_datetime": "2023-09-25T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-yellowstone-non-vegetated-003",
+      "target": "Non-vegetated & dead",
+      "aerial_year": 2024,
+      "image_sha256": "af51136ccc80e2a49c84ead23ed1af27b867e3b13f2e146cbca7588ee0da15ff",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Pale mineral substrate with small dark/green flecks; flecks remain uncertain. Historical GAP turf locator disagrees with current bare imagery and is not a purity label.",
+      "dark_unknown_ceiling": 100,
+      "context_metadata_sha256": "44ba945fd7e7589e5bf386f431ca174f6b8eee63895ac4fae063983c2663e5ee",
+      "aerial_id": "wy_m_4411010_nw_12_060_20240801",
+      "aerial_datetime": "2024-08-01T16:00:00.000000Z"
+    },
+    {
+      "context_patch_id": "r2-yellowstone-non-vegetated-005",
+      "target": "Non-vegetated & dead",
+      "aerial_year": 2024,
+      "image_sha256": "da4a47317b6cf6bcc35a36256b2d27368fca5b36e3ff4ac09601a0b727be67d4",
+      "patch": [
+        [
+          -110,
+          -105
+        ],
+        [
+          -50,
+          -105
+        ],
+        [
+          -50,
+          75
+        ],
+        [
+          -110,
+          75
+        ]
+      ],
+      "notes": "Western exposed-substrate strip only, avoiding isolated conifers/shadows in east and snow at north edge.",
+      "dark_unknown_ceiling": 100,
+      "context_metadata_sha256": "4f1319453d102a90e195c54a8a4e51aa13ed616645184cb9c2a1df71e42cb2bd",
+      "aerial_id": "wy_m_4411010_nw_12_060_20240801",
+      "aerial_datetime": "2024-08-01T16:00:00.000000Z"
+    },
+    {
+      "context_patch_id": "r2-yellowstone-herbaceous-003",
+      "target": "Herbaceous",
+      "aerial_year": 2024,
+      "image_sha256": "284f0b00cb0f068bbc85357f0276c2ab62f067d0c48af59ec63cd1982282d56f",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Continuous low meadow texture; local pale bare holes explicitly excluded, rather than treated as herbaceous.",
+      "dark_unknown_max_ceiling": 50,
+      "bright_unknown_floor": 180,
+      "other_polygons": [
+        [
+          [
+            -35,
+            70
+          ],
+          [
+            -20,
+            70
+          ],
+          [
+            -20,
+            87
+          ],
+          [
+            -35,
+            87
+          ]
+        ],
+        [
+          [
+            -65,
+            52
+          ],
+          [
+            -52,
+            52
+          ],
+          [
+            -52,
+            68
+          ],
+          [
+            -65,
+            68
+          ]
+        ],
+        [
+          [
+            -8,
+            25
+          ],
+          [
+            3,
+            25
+          ],
+          [
+            3,
+            38
+          ],
+          [
+            -8,
+            38
+          ]
+        ],
+        [
+          [
+            -57,
+            -31
+          ],
+          [
+            -42,
+            -31
+          ],
+          [
+            -42,
+            -14
+          ],
+          [
+            -57,
+            -14
+          ]
+        ]
+      ],
+      "context_metadata_sha256": "61df81129cda4c50fd0f27aeb72521d14bb5cac5ea882a3b758b6d0604bc94cf",
+      "aerial_id": "wy_m_4411029_nw_12_060_20240801",
+      "aerial_datetime": "2024-08-01T16:00:00.000000Z"
+    },
+    {
+      "context_patch_id": "r2-cascades-herbaceous-009",
+      "target": "Herbaceous",
+      "aerial_year": 2023,
+      "image_sha256": "f34bfc7b23418e034c21ae20b279186d2e6438e7395cd318fadef99688cfff45",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "notes": "Managed continuous low grass cover; isolated northwest woody crown excluded. No claim of natural meadow origin.",
+      "dark_unknown_max_ceiling": 50,
+      "bright_unknown_floor": 185,
+      "other_polygons": [
+        [
+          [
+            -110,
+            70
+          ],
+          [
+            -75,
+            70
+          ],
+          [
+            -75,
+            110
+          ],
+          [
+            -110,
+            110
+          ]
+        ]
+      ],
+      "context_metadata_sha256": "8b2381d3deb7f01adfceb14745bfe05988dd9be69f3523afd57f6ade35dcd4e1",
+      "aerial_id": "wa_m_4512110_sw_10_060_20230714_20240209",
+      "aerial_datetime": "2023-07-14T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-cascades-herbaceous-003",
+      "target": "Herbaceous",
+      "aerial_year": 2023,
+      "image_sha256": "d6432ef915b3ec7060296d22a11b45b81d244ec9aa5fc7715d46b645cadcb78f",
+      "patch": [
+        [
+          -105,
+          -10
+        ],
+        [
+          -70,
+          -10
+        ],
+        [
+          15,
+          75
+        ],
+        [
+          15,
+          105
+        ],
+        [
+          -105,
+          105
+        ]
+      ],
+      "notes": "Managed herbaceous strip northwest of paved lane; entire southwest grid of small rectangular objects excluded with remaining outside-polygon area. Grass growth form only, not an assertion of natural habitat.",
+      "dark_unknown_max_ceiling": 50,
+      "bright_unknown_floor": 185,
+      "context_metadata_sha256": "ee562d511314bf7bcc9f1c059b979602e4565761997572519721d96ccff0f237",
+      "aerial_id": "wa_m_4512109_nw_10_060_20230715_20240209",
+      "aerial_datetime": "2023-07-15T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-cascades-herbaceous-006",
+      "target": "Evergreen",
+      "aerial_year": 2023,
+      "image_sha256": "7ecf906d557594b3e82dc2ff4ffe2700fc5be06e93363d56e804a3c4cb89248d",
+      "patch": [
+        [
+          35,
+          -105
+        ],
+        [
+          105,
+          -105
+        ],
+        [
+          105,
+          105
+        ],
+        [
+          35,
+          105
+        ]
+      ],
+      "notes": "Photo-supported conifer regeneration east of road; reclassified from locator grass hypothesis. Conservative dark-gap stencil applied; growth form remains provisional pending independent review.",
+      "dark_unknown_max_ceiling": 95,
+      "bright_unknown_floor": 185,
+      "context_metadata_sha256": "56cc5e02936d29ccac4cf200381b5b17b7763a89ff79483ec3ad9b10db8c5323",
+      "aerial_id": "wa_m_4512118_nw_10_060_20230714_20240209",
+      "aerial_datetime": "2023-07-14T16:00:00Z"
+    },
+    {
+      "context_patch_id": "r2-gunnison_aspen-evergreen-005",
+      "target": "Evergreen",
+      "aerial_year": 2023,
+      "image_sha256": "2142d860d1e6fc75c24bb1c17bca89d4cc73449adeca2d5f95f7e65fd2044a06",
+      "context_metadata_sha256": "448f51d17b2402649f6f6f716381978964bdcf9b72cd9d82893379a0442052d4",
+      "aerial_id": "co_m_3810708_se_13_030_20230925_20240104",
+      "aerial_datetime": "2023-09-25T16:00:00Z",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "dark_unknown_max_ceiling": 65,
+      "bright_unknown_floor": 185,
+      "notes": "Conifer crown morphology visible throughout candidate stand; inter-crown dark area remains unresolved. Image-specific darkness stencil marks uncertainty, not absence of evergreen. This case is retained even if no cell passes the primary screen."
+    },
+    {
+      "context_patch_id": "r2-gunnison_aspen-evergreen-008",
+      "target": "Evergreen",
+      "aerial_year": 2023,
+      "image_sha256": "2f4d945ef55ee5491e77246ec37547138dc1178955fc045a3fbeb11591f3e7bd",
+      "context_metadata_sha256": "4647e206fd6db70c88e2ea4b86a2150126044022e25452fa915ddea9904d370a",
+      "aerial_id": "co_m_3810610_nw_13_030_20230925_20240104",
+      "aerial_datetime": "2023-09-25T16:00:00Z",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "dark_unknown_max_ceiling": 65,
+      "bright_unknown_floor": 185,
+      "notes": "Conifer crown morphology visible throughout candidate stand; inter-crown dark area remains unresolved. Image-specific darkness stencil marks uncertainty, not absence of evergreen. This case is retained even if no cell passes the primary screen."
+    },
+    {
+      "context_patch_id": "r2-front_range-evergreen-007",
+      "target": "Evergreen",
+      "aerial_year": 2023,
+      "image_sha256": "7e2d6d08fdf1174e484ba119383afbf7f44b4193a7602b84b63c8d2136e40381",
+      "context_metadata_sha256": "c8eafda3e19228cda0194591d775a60d0a07291ee4d1315369b54931f5fdec4f",
+      "aerial_id": "co_m_3910511_nw_13_030_20230821_20240104",
+      "aerial_datetime": "2023-08-21T16:00:00Z",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "dark_unknown_max_ceiling": 65,
+      "bright_unknown_floor": 185,
+      "notes": "Conifer crown morphology visible throughout candidate stand; inter-crown dark area remains unresolved. Image-specific darkness stencil marks uncertainty, not absence of evergreen. This case is retained even if no cell passes the primary screen."
+    },
+    {
+      "context_patch_id": "r2-front_range-evergreen-009",
+      "target": "Evergreen",
+      "aerial_year": 2023,
+      "image_sha256": "4277bf21c550aed4fbe94265ed3484f30b14da3e3416cb883038e64fa15acba4",
+      "context_metadata_sha256": "8f322cf78872b6427dfca2a85964b4d4d4425109a9223e88f0fdc681e30cb566",
+      "aerial_id": "co_m_3910510_ne_13_030_20230821_20240104",
+      "aerial_datetime": "2023-08-21T16:00:00Z",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "dark_unknown_max_ceiling": 65,
+      "bright_unknown_floor": 185,
+      "notes": "Conifer crown morphology visible throughout candidate stand; inter-crown dark area remains unresolved. Image-specific darkness stencil marks uncertainty, not absence of evergreen. This case is retained even if no cell passes the primary screen."
+    },
+    {
+      "context_patch_id": "r2-cascades-evergreen-005",
+      "target": "Evergreen",
+      "aerial_year": 2023,
+      "image_sha256": "ed863d2008e5c101d1fdbf51c3f5ee56c928226c910e92c4d6534f2e6e6e8a0a",
+      "context_metadata_sha256": "d4d9c29152ce59a0ec3ec2c3638b66c12dc13ef08028c827c60a81aa18c9c30d",
+      "aerial_id": "wa_m_4512109_sw_10_060_20230715_20240209",
+      "aerial_datetime": "2023-07-15T16:00:00Z",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "dark_unknown_max_ceiling": 70,
+      "bright_unknown_floor": 185,
+      "notes": "Conifer crown morphology visible throughout candidate stand; inter-crown dark area remains unresolved. Image-specific darkness stencil marks uncertainty, not absence of evergreen. This case is retained even if no cell passes the primary screen."
+    },
+    {
+      "context_patch_id": "r2-yellowstone-evergreen-008",
+      "target": "Evergreen",
+      "aerial_year": 2025,
+      "image_sha256": "de2268b08974f01514af83bdc38c6f96d5808df9bb11cc52788913210f89dbe9",
+      "context_metadata_sha256": "caf6a6a172c832175df202e5d469c267a527b0e2e9e2a0336e4886de8eed040d",
+      "aerial_id": "mt_m_4511060_se_12_030_20250831",
+      "aerial_datetime": "2025-08-31T16:00:00.000000Z",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "dark_unknown_max_ceiling": 65,
+      "bright_unknown_floor": 185,
+      "notes": "Conifer crown morphology visible throughout candidate stand; inter-crown dark area remains unresolved. Image-specific darkness stencil marks uncertainty, not absence of evergreen. This case is retained even if no cell passes the primary screen."
+    }
+  ]
+}

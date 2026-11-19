@@ -52,20 +52,25 @@ CELL = box(-15, -15, 15, 15)
 DOMAIN = box(-40, -40, 40, 40)
 
 
-def image_classes(case, image, year, boundary_uncertainty=0):
+def image_classes(case, image, year, boundary_uncertainty=0, domain=DOMAIN):
     """Partition the reference view into target, known other, and uncertain cover."""
     if year in case.get("unresolved_years", []):
-        return dict(target=Polygon(), other=Polygon(), uncertain=DOMAIN)
-    patch = Polygon(case["patch"]).intersection(DOMAIN)
+        return dict(target=Polygon(), other=Polygon(), uncertain=domain)
+    patch = Polygon(case["patch"]).intersection(domain)
     manual = [Polygon(points) for points in case.get("unknown_polygons", [])]
     flagged = np.zeros(image.shape[1:], dtype=bool)
     if "dark_unknown_ceiling" in case:
         flagged |= image.min(axis=0) < case["dark_unknown_ceiling"]
+    if "dark_unknown_max_ceiling" in case:
+        flagged |= image.max(axis=0) < case["dark_unknown_max_ceiling"]
     if "bright_unknown_floor" in case:
         flagged |= image.min(axis=0) > case["bright_unknown_floor"]
     if flagged.any():
         height, width = flagged.shape
-        transform = from_origin(-40, 40, 80 / width, 80 / height)
+        left, bottom, right, top = domain.bounds
+        transform = from_origin(
+            left, top, (right - left) / width, (top - bottom) / height
+        )
         manual.extend(
             shape(geometry)
             for geometry, value in shapes(
@@ -84,18 +89,18 @@ def image_classes(case, image, year, boundary_uncertainty=0):
             Polygon(points).boundary.buffer(boundary_uncertainty)
             for points in case.get("unknown_polygons", [])
         )
-    other = union_all([Polygon(points) for points in others]).intersection(DOMAIN)
+    other = union_all([Polygon(points) for points in others]).intersection(domain)
     uncertain = (
-        DOMAIN.difference(patch)
+        domain.difference(patch)
         .union(union_all(manual))
-        .intersection(DOMAIN)
+        .intersection(domain)
         .difference(other)
     )
     target = patch.difference(uncertain).difference(other)
     result = dict(target=target, other=other, uncertain=uncertain)
     if not all(geometry.is_valid for geometry in result.values()):
         raise ValueError("Invalid annotation geometry")
-    if abs(sum(geometry.area for geometry in result.values()) - DOMAIN.area) > 1e-6:
+    if abs(sum(geometry.area for geometry in result.values()) - domain.area) > 1e-6:
         raise ValueError("Annotation classes do not partition the reference view")
     return result
 

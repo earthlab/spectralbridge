@@ -1,0 +1,21 @@
+scheme,unit,researcher_category,n,supported_n,recall_all,recall_supported,status
+leave_one_patch_out,patch,Deciduous,5,5,1.0,1.0,exploratory_provisional_references
+leave_one_patch_out,patch,Evergreen,3,3,1.0,1.0,exploratory_provisional_references
+leave_one_patch_out,patch,Herbaceous,5,5,0.8,0.8,exploratory_provisional_references
+leave_one_patch_out,patch,Non-vegetated & dead,4,4,1.0,1.0,exploratory_provisional_references
+leave_one_patch_out,patch,Woody shrub,3,3,1.0,1.0,exploratory_provisional_references
+leave_one_patch_out,pixel,Deciduous,109,109,0.8623853211009175,0.8623853211009175,exploratory_provisional_references
+leave_one_patch_out,pixel,Evergreen,88,88,1.0,1.0,exploratory_provisional_references
+leave_one_patch_out,pixel,Herbaceous,141,141,0.7588652482269503,0.7588652482269503,exploratory_provisional_references
+leave_one_patch_out,pixel,Non-vegetated & dead,61,61,0.9672131147540983,0.9672131147540983,exploratory_provisional_references
+leave_one_patch_out,pixel,Woody shrub,82,82,0.9634146341463414,0.9634146341463414,exploratory_provisional_references
+leave_one_region_out,patch,Deciduous,5,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,patch,Evergreen,3,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,patch,Herbaceous,5,5,0.8,0.8,exploratory_provisional_references
+leave_one_region_out,patch,Non-vegetated & dead,4,4,1.0,1.0,exploratory_provisional_references
+leave_one_region_out,patch,Woody shrub,3,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,pixel,Deciduous,109,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,pixel,Evergreen,88,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,pixel,Herbaceous,141,141,0.7375886524822695,0.7375886524822695,exploratory_provisional_references
+leave_one_region_out,pixel,Non-vegetated & dead,61,61,0.9344262295081968,0.9344262295081968,exploratory_provisional_references
+leave_one_region_out,pixel,Woody shrub,82,0,0.0,,conditional_on_training_class_presence
