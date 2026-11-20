@@ -9,6 +9,8 @@ edit_uri: edit/main/docs/
 
 theme:
   name: material
+  font: false
+  custom_dir: docs/overrides
   logo: asset/img/spectralbridge_favicon.png
   favicon: asset/img/spectralbridge_favicon.ico
   palette:

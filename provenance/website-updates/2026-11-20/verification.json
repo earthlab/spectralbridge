@@ -22,5 +22,10 @@
     "question": "May I publish the pixel-level review PDFs and Figure4 reproductionZIP publicly? They include imagery and individual reference locations.",
     "answer": "Publish detailed files publicly",
     "scope": "User explicit approval after automatic review rejected initial atlas public egress; no artifact had been published by that rejected call."
+  },
+  "deployment_followup": {
+    "initial_remote_workflow": "https://github.com/earthlab/spectralbridge/actions/runs/44780831145",
+    "failure": "Browser console reported twoHTTP403 resource failures after source/build checks passed",
+    "fix": "Use existing system fonts and a static GitHub repository link; remove optional font/live-metadata requests; assert these runtime dependencies are absent without ignoring console errors"
   }
 }

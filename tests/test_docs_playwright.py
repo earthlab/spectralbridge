@@ -51,6 +51,17 @@ def _collect_page_health(page, base_url: str) -> tuple[list[str], list[str], lis
         )
 
     page.on("pageerror", lambda exc: page_errors.append(str(exc)))
+    # Reading local documentation must not depend on font or repository APIs.
+    # Keep the existing console/resource failures strict; do not mock failures away.
+    page.on(
+        "request",
+        lambda request: (
+            failed_assets.append("Unneeded external runtime dependency: " + request.url)
+            if urlparse(request.url).hostname
+            in {"api.github.com", "fonts.googleapis.com", "fonts.gstatic.com"}
+            else None
+        ),
+    )
     page.on(
         "console",
         lambda msg: console_errors.append(msg.text) if msg.type == "error" else None,
@@ -117,7 +128,12 @@ def test_docs_site_core_pages_render_in_browser() -> None:
             assert page.get_by_role(
                 "link", name="Run your first example", exact=True
             ).is_visible()
-            assert urljoin(base_url, page.get_by_role("link", name="Run your first example", exact=True).get_attribute("href")) == urljoin(base_url, "getting-started/")
+            assert urljoin(
+                base_url,
+                page.get_by_role(
+                    "link", name="Run your first example", exact=True
+                ).get_attribute("href"),
+            ) == urljoin(base_url, "getting-started/")
             product_image = page.locator(".sb-product-example img")
             assert product_image.count() == 1
             assert product_image.evaluate("img => img.naturalWidth") > 0
@@ -347,7 +363,10 @@ def test_spectral_library_science_pages_and_figures_render() -> None:
             "spectral-library/mesma-readiness/",
             "Can researcher-category fractions be estimated reliably?",
         ),
-        ("validation/drone-findings/", "Drone Processing: Validation Findings and Current Limitations"),
+        (
+            "validation/drone-findings/",
+            "Drone Processing: Validation Findings and Current Limitations",
+        ),
         ("api/scientific-analysis/", "Scientific analysis API and maturity"),
     ]
     with sync_playwright() as playwright:
