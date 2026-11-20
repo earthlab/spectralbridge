@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 from pathlib import Path
 
 import duckdb
@@ -67,6 +68,12 @@ def test_extract_polygon_parquet_from_envi_stabilizes_null_only_metadata_chunks(
     )
     _write_parquet(polygon_index_df, polygon_index_path)
 
+    (tmp_path / "dummy.hdr").write_text(
+        "ENVI\nradiometry status = VALID\n"
+        "physical reflectance multiplier = 1\nphysical reflectance offset = 0\n"
+        "radiometry provenance = Synthetic polygon fixture\nbrdf status = NOT_REQUESTED\n",
+        encoding="utf-8",
+    )
     chunk_iter = _ChunkIter(
         [
             pd.DataFrame(
@@ -99,12 +106,13 @@ def test_extract_polygon_parquet_from_envi_stabilizes_null_only_metadata_chunks(
         assert stage_key == "raw"
         captured_chunks.extend(filtered_iter)
 
+    parquet_export = importlib.import_module("cross_sensor_cal.parquet_export")
     monkeypatch.setattr(
-        "cross_sensor_cal.parquet_export.read_envi_in_chunks",
+        parquet_export, "read_envi_in_chunks",
         lambda *args, **kwargs: chunk_iter,
     )
     monkeypatch.setattr(
-        "cross_sensor_cal.parquet_export._write_parquet_chunks",
+        parquet_export, "_write_parquet_chunks",
         _capture_chunks,
     )
 

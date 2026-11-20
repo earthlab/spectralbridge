@@ -50,7 +50,7 @@ def test_metrics_arrays_are_serialisable(qa_fixture_dir: Path) -> None:
     }
 
 
-def test_aop_qa_uses_header_scale_and_excludes_nodata(
+def test_aop_qa_uses_explicit_multiplier_and_excludes_nodata(
     qa_fixture_dir: Path,
 ) -> None:
     for image in qa_fixture_dir.glob("*.img"):
@@ -62,6 +62,7 @@ def test_aop_qa_uses_header_scale_and_excludes_nodata(
         with image.with_suffix(".hdr").open("a", encoding="utf-8") as header:
             header.write(
                 "\nreflectance scale factor = 10000"
+                "\nphysical reflectance multiplier = 0.0001"
                 "\ndata ignore value = -9999\n"
             )
 
@@ -130,3 +131,26 @@ def test_aop_qa_png_shows_raw_corrected_and_diagnostics(
     assert axes[1, 2].get_title() == "QA Summary And Flags"
 
     plt.close(captured["fig"])
+
+
+def test_qa_requires_explicit_radiometry() -> None:
+    with pytest.raises(ValueError, match="Radiometry UNSUPPORTED"):
+        qa_plots._unit_reflectance_cube(
+            np.full((2, 2, 1), 0.2, dtype=np.float32),
+            {"reflectance scale factor": 1.0},
+        )
+
+
+def test_qa_applies_declared_affine_and_preserves_nodata() -> None:
+    physical, valid = qa_plots._unit_reflectance_cube(
+        np.array([[[2000.0], [-9999.0]]], dtype=np.float32),
+        {
+            "physical reflectance multiplier": 0.0001,
+            "physical reflectance offset": -0.1,
+            "radiometry status": "VALID",
+            "radiometry provenance": "Synthetic affine calibration",
+            "data ignore value": -9999.0,
+        },
+    )
+    np.testing.assert_allclose(physical[valid], [0.1], atol=1e-7)
+    assert np.isnan(physical[~valid]).all()

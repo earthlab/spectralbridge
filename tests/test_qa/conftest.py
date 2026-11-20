@@ -20,6 +20,10 @@ def _write_envi_pair(base_path: Path, data: np.ndarray, wavelengths: list[float]
         "interleave = bsq",
         "byte order = 0",
         "wavelength units = Nanometers",
+        "radiometry status = VALID",
+        "radiometry provenance = Synthetic QA fixture in fractional reflectance",
+        "physical reflectance multiplier = 1",
+        "physical reflectance offset = 0",
         "fwhm = {" + ", ".join("10" for _ in wavelengths) + "}",
         "wavelength = {" + ", ".join(f"{w}" for w in wavelengths) + "}",
     ]

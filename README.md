@@ -60,7 +60,7 @@ patch units and provisional-label limits. The
 cover camera-position correction, shade-mask tests, unit-audited translations
 and the distinction between numerical QA and independent scientific validation.
 
-The [drone architecture study](provenance/drone-architecture-2026-11-06/REPORT.md)
+The [drone architecture study](https://github.com/earthlab/spectralbridge/blob/main/provenance/drone-architecture-2026-11-06/REPORT.md)
 compares verified H5 inputs, camera geometry, compact calibration and original
 photographs, with measured benefits and remaining correction limitations.
 

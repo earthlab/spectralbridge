@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from scripts.run_validation_campaign import MODULE_LABELS, build_offline_cases
+from scripts.run_validation_campaign import MODULE_LABELS, _brdf_cases, build_offline_cases
 from spectralbridge.validation import (
     ValidationCase,
     ValidationObservation,
@@ -120,3 +120,10 @@ def test_offline_validation_smoke_exercises_every_module(tmp_path: Path) -> None
         "failed": 0,
         "skipped": 0,
     }
+
+
+def test_isotropic_brdf_campaign_controls_cover_physical_and_scaled_units(tmp_path: Path) -> None:
+    results = [run_case(case) for case in _brdf_cases(tmp_path, count=10)]
+    assert {result.inputs["scale_factor"] for result in results} == {1.0, 1e-4}
+    assert all(result.status == "passed" for result in results), results
+    assert all(result.checks["neutral_model_is_identity"] for result in results)

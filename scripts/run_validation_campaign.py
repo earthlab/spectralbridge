@@ -25,6 +25,7 @@ from spectralbridge.corrections import (
     apply_brdf_correct,
     apply_topo_correct,
     calc_cosine_i,
+    fit_and_save_brdf_model,
 )
 from spectralbridge.envi_writer import EnviWriter
 from spectralbridge.neon_to_envi import neon_to_envi_no_hytools
@@ -32,6 +33,7 @@ from spectralbridge.parquet_export import build_parquet_from_envi
 from spectralbridge.pipelines.drone import _export_csv_copy_from_parquet
 from spectralbridge.pipelines.pipeline import stage_download_h5
 from spectralbridge.qa_plots import render_flightline_panel
+from spectralbridge.radiometry import Radiometry
 from spectralbridge.resample import resample_chunk_to_sensor
 from spectralbridge.validation import (
     ValidationCase,
@@ -126,6 +128,7 @@ class _SyntheticCorrectionCube:
     ) -> None:
         self.data = np.asarray(data, dtype=np.float32)
         self.scale_factor = float(scale_factor)
+        self.radiometry = Radiometry(scale_factor, 0.0, "VALID", "Synthetic campaign calibration")
         self.lines, self.columns, self.bands = self.data.shape
         self.wavelengths = np.linspace(620.0, 880.0, self.bands, dtype=np.float32)
         self.mask_no_data = np.ones((self.lines, self.columns), dtype=bool)
@@ -341,25 +344,33 @@ def _topographic_cases(root: Path, count: int) -> list[ValidationCase]:
 
 
 def _brdf_cases(root: Path, count: int) -> list[ValidationCase]:
-    del root
     cases = []
     for index in range(count):
         scale_factor = 1e-4 if index % 2 else 1.0
         view_zenith = float((index % 5) * 7)
         rng = np.random.default_rng(2000 + index)
-        unitless = (0.05 + rng.random((5 + index % 4, 6 + index % 3, 2 + index % 4)) * 0.6).astype(np.float32)
+        # Isotropic surfaces have a known neutral BRDF, independent of angle.
+        shape = (8 + index % 4, 9 + index % 3, 2 + index % 4)
+        unitless = np.broadcast_to(
+            0.1 + rng.random(shape[-1]) * 0.4, shape
+        ).astype(np.float32)
 
-        def runner(unitless=unitless, scale_factor=scale_factor, view_zenith=view_zenith):
+        def runner(unitless=unitless, scale_factor=scale_factor, view_zenith=view_zenith, index=index):
             stored = unitless / np.float32(scale_factor)
             cube = _SyntheticCorrectionCube(
                 stored, scale_factor=scale_factor, slope_max_deg=10.0, view_zenith_deg=view_zenith
             )
-            cube.brdf_coefficients = {
-                "iso": np.ones((1, cube.bands), dtype=np.float32),
-                "vol": np.zeros((1, cube.bands), dtype=np.float32),
-                "geo": np.zeros((1, cube.bands), dtype=np.float32),
-            }
-            corrected = apply_brdf_correct(cube, stored, 0, cube.lines, 0, cube.columns)
+            # A fitted model requires real angular diversity, including for a
+            # synthetic isotropic identity control. Never inject legacy coefficients.
+            yy, xx = np.mgrid[:cube.lines, :cube.columns]
+            cube._ancillary["sensor_zn"] = np.deg2rad(
+                view_zenith + 2.0 + xx * 2.0 + yy
+            ).astype(np.float32)
+            cube._ancillary["sensor_az"] = (xx * 0.3 + yy * 0.1).astype(np.float32)
+            model = fit_and_save_brdf_model(cube, root / f"brdf-{index:03d}")
+            corrected = apply_brdf_correct(
+                cube, stored, 0, cube.lines, 0, cube.columns, coeff_path=model
+            )
             max_error = float(np.max(np.abs(corrected - stored)))
             return ValidationObservation(
                 diagnostics={
@@ -379,8 +390,13 @@ def _brdf_cases(root: Path, count: int) -> list[ValidationCase]:
             _case(
                 "brdf_correction",
                 index,
-                f"Neutral BRDF model at {view_zenith:.0f}° view zenith.",
-                {"scale_factor": scale_factor, "view_zenith_degrees": view_zenith, "shape_y_x_b": list(unitless.shape)},
+                f"Fitted isotropic BRDF control with view zenith starting at {view_zenith + 2:.0f}°.",
+                {
+                    "scale_factor": scale_factor,
+                    "view_zenith_start_degrees": view_zenith + 2.0,
+                    "view_zenith_end_degrees": view_zenith + 2.0 + 2 * (shape[1] - 1) + shape[0] - 1,
+                    "shape_y_x_b": list(unitless.shape),
+                },
                 {"neutral_model_is_identity": True, "dtype": "float32"},
                 runner,
             )
@@ -459,6 +475,9 @@ def _write_rasterio_envi(path: Path, data: np.ndarray, wavelengths: list[float])
         destination.write(data)
     hdr = path.with_suffix(".hdr")
     with hdr.open("a", encoding="utf-8") as stream:
+        for key, value in Radiometry(1.0, 0.0, "VALID", "Synthetic campaign fixture").header().items():
+            stream.write(f"\n{key} = {value}")
+        stream.write("\nbrdf status = NOT_REQUESTED\n")
         stream.write("\nwavelength units = Nanometers\n")
         stream.write("wavelength = {" + ", ".join(str(value) for value in wavelengths) + "}\n")
     return path, hdr
@@ -609,6 +628,9 @@ def _write_qa_pair(base: Path, data: np.ndarray, wavelengths: list[float]) -> No
         "interleave = bsq",
         "byte order = 0",
         "data ignore value = -9999",
+        *[f"{key} = {value}" for key, value in Radiometry(
+            1.0, 0.0, "VALID", "Synthetic QA campaign fixture"
+        ).header().items()],
         "wavelength units = Nanometers",
         "fwhm = {" + ", ".join("10" for _ in wavelengths) + "}",
         "wavelength = {" + ", ".join(str(value) for value in wavelengths) + "}",

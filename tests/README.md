@@ -9,6 +9,11 @@ does not break existing functionality.
 - Python 3.10+
 - Install the test dependencies with `python -m pip install -e '.[tests]'`.
   This installs the `tomli` backport on Python 3.10; Python 3.11+ uses `tomllib`.
+- CI collects the research example tests as well as package tests, including
+  before lite-marker selection. Install
+  `python -m pip install -e '.[tests,analytics,landsat]'` to reproduce that
+  environment. The QA quick check
+  additionally installs `pillow imagehash` for its image comparison.
 - Optional analytics and boosted-quantile tests require their corresponding extras:
   `python -m pip install -e '.[tests,analytics,quantile-models]'`.
   Without XGBoost, the year/cohort tests still run and only the actual boosted
@@ -63,6 +68,9 @@ The offline campaign uses synthetic and already-present inputs. A 100-case
 offline run is useful for state and numerical variation, but it is not evidence
 that 100 distinct NEON downloads or flightlines succeeded. Live campaigns must
 use a pinned inventory and explicit network, storage, and compute approval.
+Synthetic correction fixtures declare physical radiometry explicitly. The neutral
+BRDF control fits an isotropic surface over diverse view angles and applies the
+validated saved model; it does not bypass model eligibility checks.
 
 ## Reference
 - `test_pipeline_convolution.py` – verifies the NEON pipeline ordering and resampling behavior

@@ -59,6 +59,10 @@ jobs:
                   'interleave = bsq',
                   'byte order = 0',
                   'wavelength units = Nanometers',
+                  'radiometry status = VALID',
+                  'radiometry provenance = Synthetic QA fixture in fractional reflectance',
+                  'physical reflectance multiplier = 1',
+                  'physical reflectance offset = 0',
                   'fwhm = {' + ', '.join('10' for _ in wavelengths) + '}',
                   'wavelength = {' + ', '.join(str(w) for w in wavelengths) + '}',
               ]
