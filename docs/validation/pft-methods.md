@@ -19,6 +19,35 @@ unrecorded acquisition confounding.
 | Energy sensitivity | Within-block multivariate distribution-distance statistic | Can detect distribution/dispersion changes without a mean shift |
 | FPCA sensitivity | Test in a fixed label-independent spectral principal-component subspace | Retained rank/variance choices can affect power; not proof from a PCA picture |
 
+## Current five-category HLS and drone studies
+
+The [HLS pure-pixel study](landsat-pilot.md#which-tests-verify-what) and
+[drone calibration comparisons](drone-findings.md#did-masking-reduce-pft-information)
+use the recorded five researcher categories. Their sampling units and families
+are study-specific; they do not inherit the historical 21 inferred-PFT family
+below. A significant difference is a lower evidential requirement than accurate
+recognition, but the actual finite-sample tests and power need not be nested.
+They can give different outcomes without a contradiction.
+
+For Figure 4 HLS, seven direct-reflectance patch medians feed whole-patch NPC
+and fixed-classifier LOPO. Cells in the same patch do not become independent
+replicates. Holm covers ten planned pairs; exact enumeration is used up to
+100,000 assignments, otherwise observed + 99,999 reproducible assignments. Pooled and
+within-region support are reported separately; missing mixed-region support
+cannot be fixed by changing a p-value threshold.
+
+The masked/null drone study uses five translated channels, original polygon
+identities, site blocking and paired folds. The separate BRDF-benefit audit uses
+identity-grouped histories and matched stage comparisons, with separate Holm
+families of 10 recognition, 96 arm-specific NPC and 48 separation-change contrasts.
+Conditional identity-bootstrap intervals keep fitted models fixed; whole-site
+swaps separately expose the limited independent-site count. No significance,
+failed-class score or independent validation is manufactured for unsupported
+comparisons. Full protocols accompany each linked study.
+
+The following exact-history/species-derived account remains a historical method
+record; it is not the definition of the current five-category Figure 4 table.
+
 ## Permute the right unit
 
 Labels move as whole polygon/year curves within exact flight/source-history

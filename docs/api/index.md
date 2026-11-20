@@ -6,7 +6,7 @@ The reference is generated without importing scientific dependencies. Each defin
 
 Workflow guides explain **how to accomplish a task**; these entries explain **how to call a particular object**. See the [scientific API maturity guide](scientific-analysis.md) before interpreting research outputs.
 
-This revision documents **84 public functions/classes** and **428 advanced functions/classes**. Names that merely look public are not a stability guarantee. Private helpers and CLI/compatibility plumbing are listed separately in the inventory.
+This revision documents **84 public functions/classes** and **453 advanced functions/classes**. Names that merely look public are not a stability guarantee. Private helpers and CLI/compatibility plumbing are listed separately in the inventory.
 
 ## Package exports
 
@@ -68,7 +68,7 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`required_drone_outputs`](generated/pipelines-drone.md#spectralbridge.pipelines.drone.required_drone_outputs) | Describe the per-flight artifacts required by the requested workflow. | advanced |
 | [`summarize_drone_h5_solar_geometry`](generated/pipelines-drone.md#spectralbridge.pipelines.drone.summarize_drone_h5_solar_geometry) | Return solar geometry provenance and summary stats for a drone working H5. | advanced |
 | [`diagnose_drone_h5_solar_geometry`](generated/pipelines-drone.md#spectralbridge.pipelines.drone.diagnose_drone_h5_solar_geometry) | Compare source H5 angles with scene-center solar position, read-only. | advanced |
-| [`convert_drone_tiff_to_h5`](generated/pipelines-drone.md#spectralbridge.pipelines.drone.convert_drone_tiff_to_h5) | Convert a supported georeferenced multiband reflectance TIFF and aligned ancillary inputs to the drone HDF5 contract. | advanced |
+| [`convert_drone_tiff_to_h5`](generated/pipelines-drone.md#spectralbridge.pipelines.drone.convert_drone_tiff_to_h5) | Convert a georeferenced reflectance TIFF to the drone HDF5 contract. | advanced |
 | [`resolve_band_map`](generated/pipelines-drone.md#spectralbridge.pipelines.drone.resolve_band_map) | Map conceptual drone band names to nearest wavelength coordinates, recording selected indices and distances. | advanced |
 | [`validate_drone_h5_metadata`](generated/pipelines-drone.md#spectralbridge.pipelines.drone.validate_drone_h5_metadata) | Validate minimally required drone H5 metadata and return a structured summary. | advanced |
 | [`export_h5_to_envi`](generated/pipelines-drone.md#spectralbridge.pipelines.drone.export_h5_to_envi) | Export a local H5 cube to ENVI using a drone-native filename stem. | advanced |
@@ -101,6 +101,18 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 
 | Object | Purpose | Audience |
 | --- | --- | --- |
+| [`calibrated_integer_to_fraction`](generated/drone_original.md#spectralbridge.drone_original.calibrated_integer_to_fraction) | Convert already vendor-calibrated DN, preserving negative and >1 values. | advanced |
+| [`ross_li_design`](generated/drone_original.md#spectralbridge.drone_original.ross_li_design) | Shared production RossThick/LiDenseR kernels; inputs are degrees. | advanced |
+| [`reference_design`](generated/drone_original.md#spectralbridge.drone_original.reference_design) | Unchanged 45 degree solar zenith / nadir package reference. | advanced |
+| [`reference_in_hull`](generated/drone_original.md#spectralbridge.drone_original.reference_in_hull) | Joint kernel-space support, stronger than separate marginal ranges. | advanced |
+| [`fit_target_effects`](generated/drone_original.md#spectralbridge.drone_original.fit_target_effects) | Additive target intercepts estimated by within-target residualization. | advanced |
+| [`fit_target_amplitudes`](generated/drone_original.md#spectralbridge.drone_original.fit_target_amplitudes) | Exploratory shared Ross/Li shape times target-specific amplitude. | advanced |
+| [`apply_supported_factors`](generated/drone_original.md#spectralbridge.drone_original.apply_supported_factors) | Both stages must be supported; failed observations are NaN, never identity. | advanced |
+| [`prepare_calibrated_orthomosaic`](generated/drone_original.md#spectralbridge.drone_original.prepare_calibrated_orthomosaic) | Immutable explicit-scale 10-band+alpha export to float fraction*10000. | advanced |
+| [`reconstruct_pixel_geometry`](generated/drone_original.md#spectralbridge.drone_original.reconstruct_pixel_geometry) | Adjusted-calibration ray and absolute-surface hit through official API. | advanced |
+| [`intersect_ecef_ray`](generated/drone_original.md#spectralbridge.drone_original.intersect_ecef_ray) | First bracketed absolute DEM intersection on the actual ECEF ray. | advanced |
+| [`write_corrected_photo`](generated/drone_original.md#spectralbridge.drone_original.write_corrected_photo) | Export a new float source plane with both explicit stage masks. | advanced |
+| [`temporal_minute_groups`](generated/drone_original.md#spectralbridge.drone_original.temporal_minute_groups) | UTC minute labels without assuming pandas' integer datetime resolution. | advanced |
 | [`RemoteDronePackage`](generated/drone_production.md#spectralbridge.drone_production.RemoteDronePackage) | One candidate ExportPackage discovered without downloading its H5. | public |
 | [`DroneYearSource`](generated/drone_production.md#spectralbridge.drone_production.DroneYearSource) | Resolved remote source and manifest expectation for one requested year. | public |
 | [`DroneCollectionInventory`](generated/drone_production.md#spectralbridge.drone_production.DroneCollectionInventory) | Serializable remote collection inventory and campaign expectation set. | public |
@@ -122,6 +134,19 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 | [`render_drone_translation_qa`](generated/drone_qa.md#spectralbridge.drone_qa.render_drone_translation_qa) | Render native-corrected versus Landsat-like translated band QA. | advanced |
 | [`render_common_support_comparison`](generated/drone_qa.md#spectralbridge.drone_qa.render_common_support_comparison) | Render compact actual-Landsat and optional three-way metric summaries. | advanced |
 | [`render_drone_translation_publication`](generated/drone_qa.md#spectralbridge.drone_qa.render_drone_translation_publication) | Render a compact three-panel translation figure from QA JSON values. | advanced |
+| [`DroneEncoding`](generated/drone_radiometry.md#spectralbridge.drone_radiometry.DroneEncoding) | Documentation gap: see source and audit before direct use. | advanced |
+| [`radiometry_from_source_encoding`](generated/drone_radiometry.md#spectralbridge.drone_radiometry.radiometry_from_source_encoding) | Resolve a declared representation, preserving independent-accuracy limits. | advanced |
+| [`validate_source_wavelengths`](generated/drone_radiometry.md#spectralbridge.drone_radiometry.validate_source_wavelengths) | Documentation gap: see source and audit before direct use. | advanced |
+| [`DroneSourceResolution`](generated/drone_radiometry.md#spectralbridge.drone_radiometry.DroneSourceResolution) | Documentation gap: see source and audit before direct use. | advanced |
+| [`resolve_drone_source`](generated/drone_radiometry.md#spectralbridge.drone_radiometry.resolve_drone_source) | One recognition boundary for production TIFF/H5 staging. | advanced |
+| [`source_registry_identity`](generated/drone_radiometry.md#spectralbridge.drone_radiometry.source_registry_identity) | Compact cache identity for curated source evidence, not a data-range guess. | advanced |
+| [`terrain_geometry`](generated/drone_topography.md#spectralbridge.drone_topography.terrain_geometry) | North-up metric DEM derivatives; aspect is downslope clockwise from north. | advanced |
+| [`solar_incidence`](generated/drone_topography.md#spectralbridge.drone_topography.solar_incidence) | Shared package incidence formula, explicit degree inputs and broadcast shape. | advanced |
+| [`solar_visibility`](generated/drone_topography.md#spectralbridge.drone_topography.solar_visibility) | Finite-radius geometric sun obstruction; darkness is not used. | advanced |
+| [`weighted_cluster_fit`](generated/drone_topography.md#spectralbridge.drone_topography.weighted_cluster_fit) | OLS or equal-spatial-block WLS with fixed-weight cluster covariance. | advanced |
+| [`fit_topographic_model`](generated/drone_topography.md#spectralbridge.drone_topography.fit_topographic_model) | Fit declared correction model with source-domain and uncertainty evidence. | advanced |
+| [`topographic_factors`](generated/drone_topography.md#spectralbridge.drone_topography.topographic_factors) | Positive resolved domain and exact parameter-endpoint factor uncertainty. | advanced |
+| [`spatial_training_mask`](generated/drone_topography.md#spectralbridge.drone_topography.spatial_training_mask) | Exclude a held-out spatial region and its declared pixel-cell buffer. | advanced |
 | [`DroneTranslationBand`](generated/drone_translation.md#spectralbridge.drone_translation.DroneTranslationBand) | One validated source-band to target-band affine relationship. | advanced |
 | [`DroneTranslationPlan`](generated/drone_translation.md#spectralbridge.drone_translation.DroneTranslationPlan) | Validated coefficients and band mapping for one Landsat target sensor. | advanced |
 | [`load_drone_translation_plans`](generated/drone_translation.md#spectralbridge.drone_translation.load_drone_translation_plans) | Load and scientifically validate bulk coefficients for drone application. | advanced |

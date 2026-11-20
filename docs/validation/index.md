@@ -6,7 +6,7 @@ title: Validation evidence
 
 This section records how SpectralBridge functions behave across explicit input variations. Each row comes from a machine-readable campaign result rather than a hand-written success claim.
 
-For the investigated Gordon/Goldhill/Ruby drone products, see [validation findings and current limitations](drone-findings.md). Spatial repair does not establish physical calibration or supported BRDF; unrelated NEON libraries are not automatically affected. Drone status links updated 2026-11-02; the recorded campaign dates below remain unchanged.
+For the investigated Gordon/Goldhill/Ruby drone products, see [validation findings and current limitations](drone-findings.md). Spatial repair does not establish physical calibration or supported BRDF; unrelated NEON libraries are not automatically affected. The November20 camera-position, shade-mask and translation update retains explicit experimental status. See also [HLS L30 references and pure-pixel tests](landsat-pilot.md). These studies do not change the recorded campaign dates/counts below.
 
 ## How to use this section
 

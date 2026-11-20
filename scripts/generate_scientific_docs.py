@@ -108,6 +108,7 @@ These are dependent contrast/cohort summaries, not independent trials or classif
     outputs[root / "docs/images/spectral-library/real-landsat-pilot.png"] = raw
     outputs.update(closure_generated_files(root))
     outputs.update(researcher_generated_files(root))
+    outputs.update(recent_validation_generated_files(root))
     for relative in [
         "docs/spectral-library/_snapshot.md",
         "docs/spectral-library/_transfer.md",
@@ -289,6 +290,34 @@ def researcher_generated_files(root=ROOT):
         ).encode(),
         root / "docs/images/spectral-library/researcher-information-primary.png": image,
     }
+
+
+def recent_validation_generated_files(root=ROOT):
+    """Publish dated HLS/drone evidence without accessing imagery or refitting.
+
+    The small snapshot is committed with website changes. Its source-byte hashes
+    reject accidental edits; a new scientific run requires a new snapshot version.
+    No local archive or installed GIS/analytics dependency is needed in CI.
+    """
+    root = Path(root)
+    base = root / "provenance/website-updates/2026-11-20"
+    manifest = json.loads((base / "manifest.json").read_text())
+    outputs = {}
+    for record in manifest["files"]:
+        source = base / record["source"]
+        target = root / record["destination"]
+        if not source.resolve().is_relative_to(base.resolve()):
+            raise ValueError("Evidence source must stay inside its snapshot")
+        if not target.resolve().is_relative_to((root / "docs").resolve()):
+            raise ValueError("Evidence output must stay inside docs")
+        content = source.read_bytes()
+        if hashlib.sha256(content).hexdigest() != record["sha256"]:
+            raise ValueError("Changed recent validation evidence: " + record["source"])
+        outputs[target] = content
+    outputs[root / "docs/validation/recent-evidence/manifest.json"] = (
+        json.dumps(manifest, indent=2) + "\n"
+    ).encode()
+    return outputs
 
 
 def main():

@@ -341,12 +341,13 @@ def test_spectral_library_science_pages_and_figures_render() -> None:
         ),
         (
             "validation/landsat-pilot/",
-            "How does synthetic OLI compare with real Landsat?",
+            "Landsat HLS references, pure pixels and independent comparisons",
         ),
         (
             "spectral-library/mesma-readiness/",
             "Can researcher-category fractions be estimated reliably?",
         ),
+        ("validation/drone-findings/", "Drone Processing: Validation Findings and Current Limitations"),
         ("api/scientific-analysis/", "Scientific analysis API and maturity"),
     ]
     with sync_playwright() as playwright:

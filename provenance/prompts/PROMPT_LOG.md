@@ -55535,3 +55535,284 @@ Model: Not recorded
 ```text
 let's label the HLS as Landsat HLS L30 NBAR oso it's more clear that it's landsat but still gives the details
 ```
+
+## 2026-11-19 - Expand HLS sampling toward power targets
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+try to increase those sample sizes until we have enough power to do what we're trying to do. 
+```
+
+## 2026-11-19 - Calibration upload filename question during sampling
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+when we pushed the calibration files up to the data store, what is the post brdf corrected file called?
+```
+
+## 2026-11-19 - Resume HLS pure-pixel build
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+what about the drone that's converted to landsat after correction? what's it's file name?
+```
+
+## 2026-11-19 - Resume HLS pure-pixel build
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+you can resume the landsat data build again.
+```
+
+## 2026-11-19 - Resume HLS pure-pixel build
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue
+```
+
+## 2026-11-19 - Translate calibration drone products and upload
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+we ran part of the drone pipeline but didn't translate to the other sensors to make the micasense tranlated to OLI files. can we make those now and push them to the datastore with the other calibration runs?
+```
+
+## 2026-11-19 - Select camera-position correction run
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+we did a lot of testing to try to get the brdf working correctly. we want to use the version after all of that were we use the camera positions but not all the original images.
+```
+
+## 2026-11-19 - Drone shade-mask preview
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+i want to do the translation but I want to mask out shade.
+```
+
+## 2026-11-19 - Drone shade-mask preview
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Preview image-based shade masks for review
+```
+
+## 2026-11-19 - Test conservative shade mask against translation QA
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+lets try the conservative choice and see if it get's us past the qa block. 
+```
+
+## 2026-11-19 - Refit corrections excluding candidate shade
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+try that test
+```
+
+## 2026-11-19 - Shade-mask QA question preceding refit
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+does a more aggressive mask make them pass?
+```
+
+## 2026-11-19 - Test lighter shade exclusions
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+now that we know that, can we scale back the masking at all and still pass tests?
+```
+
+## 2026-11-19 - Apply refitted calibration corrections and attempt translation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+so we can run the three calibration sites all the way through translation? let's do it
+```
+
+## 2026-11-19 - Audit AOP-derived MicaSense-to-Landsat translation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+go check on the translation. we built this from our full extrations from the aop and so they're based on aop but they're ment to show us how to translate from micasense to landsat. 
+```
+
+## 2026-11-19 - Audit drone and AOP scales through translation
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+we did try to scale everything to 1000 but remember some of the lessons we learned about the drone, that it is on at 65K scale where 65K is 200%. we then did some radiomentric scaling before brdf. let's make sure all the scales are correct for translation.
+```
+
+## 2026-11-19 - Fix and run drone translations
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+Can you fix the translation code and run the translations for me?
+```
+
+## 2026-11-19 - Continue translations
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue
+```
+
+## 2026-11-19 - Simplify translated product names
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+i think we want something more straightforward like micasense_translated_to_oli_envi and just try to make sure all the scale and other data is in the metadata for the envi when possible. 
+```
+
+## 2026-11-19 - Upload translated calibration products
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+if you think those are ready for brightness correction, then send them to the data store with the other files we already ran. 
+```
+
+## 2026-11-19 - Unmasked translated null comparison
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+I want you to make me a batch of translation calibrations without the mask. I know it doesn't pass the tests, but I want to do it so I can compare it as a null compared to the 10%. but I want to compare them at the translated stage. 
+```
+
+## 2026-11-19 - Upload unmasked null batch
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+push to the data store
+```
+
+## 2026-11-19 - Test PFT information under shade masking
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+there is a hypothesis in our group that the 10% mask will make things less seperatable and identifiable. can we run those tests on the null vs 10% calibration runs?
+```
+
+## 2026-11-19 - PDF report of shade-mask PFT comparison
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+can you give me a pdf report on that?
+```
+
+## 2026-11-19 - Landsat pure-pixel team validation report
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+we're pausing on this side mission for a little bit and I want you to go back to a previous task of working on the landsat pure pixel dataset. before we proceed, can you make a pdf report for the team to validate teh pure pixel search? The need to see individual pixels and how they were classified and why and they'll need to be able to see the problematic edge cases vs the easy ones. This should be very human readable with good definitions and narrative and lots and lots of visuals for confirmations and to put minds at ease
+```
+
+## 2026-11-19 - Queue formal BRDF benefit analysis after PDF validation pack
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+que this until you're done with your current task. then do this: I've started to become skeptical that BRDF is worth it given how sensitive it is to stuff. On one hand, that sensitivity is useful for fine tuning the data to be perfect but on the other hand, it's so sensitive that it requires a ton of work to get right and probably has errors most of the time because people are not getting it right. So I guess the question is does it add that much to the actual result or is it just scientist trying to find ways to make things more complicated in the hope of better precision but it's just complication for marginal gains. I want to know if we are putting in huge effort for marginal gains or huge effort for huge gains. can you try to run a formal analysis on this using our aop results and our drone analysis? BRDF seems to have take the community by hold and they think it's essential but is it just trendy? help me actually put some numbers to the benifit of not of BRDF across these sensors. Note that we have a brdf vs not in landsat too. 
+```
+
+## 2026-11-20 - Continue formal BRDF benefit report
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue
+```
+
+## 2026-11-20 - Refresh Figure 4 with expanded pure-pixel HLS results
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+can you make an updated version of figure 4 with the new landsat values we found in our pure pixel expantion
+```
+
+## 2026-11-20 - Confirm Figure 4 spectral-row refresh
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+did you update the top row also?
+```
+
+## 2026-11-20 - Document HLS pure-pixel and drone validation work on website
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+can you update the documentation and website with the new work we've been doing. we want to talk about which landsat we're using, how we're using those data to find pure pixels and what tests we're using to verify. we also want to update the drone things we've done.
+```
+
+## 2026-11-20 - Explicit approval for public detailed evidence publication
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+<send_user_message_question_reply>
+[{"questionItemId":"[\"request_user_input_async\",\"call_b26dc6c698d54054aafe677cc335ebfe\",0]","question":"May I publish the pixel-level review PDFs and Figure 4 reproduction ZIP publicly? They include reference imagery and individual pixel locations. I can publish the methods, aggregate results and figures while keeping those detailed files team-only.","answer":"Publish detailed files publicly"}]
+</send_user_message_question_reply>
+```

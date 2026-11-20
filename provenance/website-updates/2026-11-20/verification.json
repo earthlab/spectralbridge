@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-20",
+  "phase": "Verified local documentation-only revision before publication",
+  "source_base": "349cb3a7bdf1d8dffbde879b600d682ee9abc82e",
+  "scientific_code_changes_included": false,
+  "strict_mkdocs_build": "PASS",
+  "internal_links_and_anchors": "PASS:0errors",
+  "api_reference_checks": 417,
+  "documentation_tests": 49,
+  "browser_smoke_tests": 2,
+  "new_evidence_integrity_tests": 5,
+  "mobile_body_overflow": false,
+  "desktop_mobile_visual_review": "PASS: HLS and drone pages, source figures, tables and reports",
+  "regenerated_missing_api_pages": [
+    "drone_original",
+    "drone_radiometry",
+    "drone_topography"
+  ],
+  "data_scope": "Dated local cohort and experimental products; no independent purity or absolute-reflectance certification",
+  "public_artifact_authorization": {
+    "date": "2026-11-20",
+    "question": "May I publish the pixel-level review PDFs and Figure4 reproductionZIP publicly? They include imagery and individual reference locations.",
+    "answer": "Publish detailed files publicly",
+    "scope": "User explicit approval after automatic review rejected initial atlas public egress; no artifact had been published by that rejected call."
+  }
+}

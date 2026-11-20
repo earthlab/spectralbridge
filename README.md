@@ -53,6 +53,13 @@ credentials. It verifies software use, not scientific accuracy.
 | Inspect a library or evaluate spectral differences, recognition and mixtures | [Library reporting](https://earthlab.github.io/spectralbridge/vignettes/spectral-library/) and [analysis methods](https://earthlab.github.io/spectralbridge/api/scientific-analysis/) |
 | Analyze many completed flightline products | [Bulk analysis](https://earthlab.github.io/spectralbridge/vignettes/bulk-analysis/) |
 
+Current [Landsat HLS reference documentation](https://earthlab.github.io/spectralbridge/validation/landsat-pilot/)
+explains the L30 v2 NBAR product, nominal 95% mapped-cover screening, independent
+patch units and provisional-label limits. The
+[current drone findings](https://earthlab.github.io/spectralbridge/validation/drone-findings/)
+cover camera-position correction, shade-mask tests, unit-audited translations
+and the distinction between numerical QA and independent scientific validation.
+
 The [drone architecture study](provenance/drone-architecture-2026-11-06/REPORT.md)
 compares verified H5 inputs, camera geometry, compact calibration and original
 photographs, with measured benefits and remaining correction limitations.

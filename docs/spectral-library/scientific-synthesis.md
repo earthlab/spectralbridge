@@ -34,6 +34,25 @@ repeated acquisitions and only four site/year cells.
 **What it does not mean:** pixels, repeated years or generated mixtures are new
 independent biological samples; category labels do not certify material purity.
 
+## Actual HLS references and current drone experiments
+
+[The expanded HLS L30 NBAR reference study](../validation/landsat-pilot.md)
+uses 1,241 cells in 61 spatial patches, with nominal 95% mapped cover, date/grid/Fmask
+screens and explicit provisional labels. Its Figure 4 pooled NPC supports 10/10
+pairs and whole-patch identification is 58/61. Only 2/3 within-region pairs pass;
+seven lack mixed-region support. These are not purity percentages, arbitrary
+new-region accuracy or controlled comparisons against the synthetic-library
+scores above. Both Figure 4 spectral and table panels use the expanded HLS cohort.
+
+[New drone work](../validation/drone-findings.md) documents camera-position
+correction, the frozen10% shade rule, unit-audited OLI/OLI-2-like translations and
+an unmasked null retaining failed QA. Passing numerical correction checks did not
+establish physical calibration or a consistent recognition benefit. The
+[matched BRDF-benefit audit](../validation/drone-findings.md#does-brdf-improve-the-result)
+keeps drone incremental BRDF, bundled AOP correction and reconstructed HLS
+controls separate. More significant pairs, smoother spectra and successful
+uploads are not interchangeable scientific endpoints.
+
 ## The abundance fairness result changes the interpretation
 
 The larger Ridge120 model improves expected synthetic fraction error relative

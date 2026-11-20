@@ -420,4 +420,100 @@ Landsat grid with valid-data-aware averaging; the high-resolution source
 products are unchanged. Missing scenes, excessive cloud, or insufficient
 overlap limit only the optional comparison, not the completed drone workflow.
 
-Last updated: 2026-11-02
+Last updated: 2026-11-20
+
+### Explicit experimental raster translation and storage scale
+
+This section describes the recorded research checkout. Availability of these
+experimental options in a released package is not verified; check your installed
+API signature and keep the run provenance. The standard approved-input path
+remains the default.
+
+`apply_drone_translation()` defaults to approved-library input validation and
+fractional output storage. An explicitly experimental corrected raster may be
+translated with `experimental_input=True` and a nonempty
+`experimental_input_provenance` explaining its declared affine calibration.
+This path requires supported BRDF mathematics/policy and valid correction status,
+finite positive scalar or per-band scale, compatible offsets, and a coefficient
+plan declaring `physical_reflectance_v1`. It does not make unknown coefficient
+units acceptable. Missing source BRDF schema metadata is tolerated only on this
+experimental path; supplied incompatible schemas are rejected. Preserve the
+saved model evidence in the application rationale.
+
+The result retains `EXPERIMENTAL` scientific status and the input radiometry
+status, including `HYPOTHETICAL_UNVERIFIED`. It remains ineligible for approved
+library processing. `output_scale_factor=1000` stores fractional reflectance ×1000
+(100% reflectance = 1000); the output decoder is 0.001. NoData is preserved,
+finite negative values and high-reflectance tails are retained, and changing
+scale or experimental rationale invalidates the restart signature.
+
+For the November 19 calibration run, use
+`examples/run_shade_masked_drone_translations.py` from the repository root. It
+selects the separately audited fractional AOP-derived registry, not the unchanged
+historical packaged count-scale registry. The 72 original training headers
+establish a divisor of 10000: the derived registry keeps slopes fixed and divides
+intercepts, ranges and RMSE by 10000. Historical prepared drone inputs instead
+use their explicit decoder `65535/(10000*32768)`. Translation decodes once to
+fractions, applies the fractional affine mapping, then encodes once to ×1000.
+These same-AOP passband relationships are spectral-response translations, not
+independent empirical drone/Landsat calibration. The script verifies every output
+pixel, grid, mask, source hash and restart, and writes its report under
+`provenance/drone-calibration-translation/2026-11-19/translated-products/`.
+
+
+For concise delivery names, call `translated_output_stem(...,
+naming_style="micasense")` with a site/date flight stem, for example
+`ruby_20230814_micasense_translated_to_oli_envi`. The existing default naming
+contract is unchanged. Scale and scientific status remain in the ENVI header.
+The `translation metadata` field contains prefixed JSON with input/output
+radiometry, band mappings and coefficients, coefficient identity and evidence.
+Optional `translation_metadata={...}` run details (such as correction order,
+shade policy and mask/model digests) are embedded under `run_metadata` and
+participate in the restart signature. The November 19 runner uses this concise
+naming and embeds the correction and mask identities for all six products.
+
+### Explicit failed-BRDF null comparisons
+
+For an explicitly authorized research null, `experimental_failed_brdf_qa=True`
+allows translation of an EXPERIMENTAL corrected input retaining `brdf status =
+INVALID`. This additionally requires `experimental_input=True`, an application
+rationale, and a nonempty `translation_metadata['failed_brdf_qa']` record. It does
+not waive physical-unit coefficient validation, affine declarations, supported
+kernel mathematics/policy, or default approved-library eligibility. The failed
+status is inherited by the output rather than changed to VALID.
+
+`examples/run_unmasked_drone_translation_null.py` is the November 19 research
+harness: it uses saved baseline no-brightness-mask fits, explicitly evaluates
+finite full-rank diagnostic BRDF estimates despite failed uncertainty acceptance,
+and retains source/geometry/topographic and positive numerical denominator
+exclusions. It writes separate `unmasked_null` ENVI products and compares them
+with the 10% arm on shared translated pixels. Full baseline QA is saved beside
+the compact metadata summary. This is an experimental processing sensitivity
+analysis, not independent calibration validation. See its provenance README
+under `provenance/drone-calibration-translation/2026-11-19/unmasked-null-products/`.
+
+
+### Compare PFT information between shade-mask arms
+
+`examples/compare_drone_mask_pft_information.py` evaluates the translated null
+and10% calibration products using original polygon labels/indices, physical
+five-band polygon medians, site-blocked NPC tests and paired classifier folds.
+It separates shared-pixel and each-arm retained-pixel analyses, saves all fold
+memberships/predictions and reports multiplicity-adjusted paired changes.
+`examples/summarize_drone_mask_pft_information.py` reads only the compact completed
+outputs to create the report and diagnostic figure. The frozen policy, cohort,
+coverage, assumptions and results are documented under
+`provenance/drone-calibration-translation/2026-11-19/pft-mask-comparison/`.
+The comparison includes correction refitting; it does not isolate a causal
+mask-only effect or independently validate reflectance calibration.
+
+## Current results and interpretation
+
+The [current drone findings](../validation/drone-findings.md) explain why the
+camera-position/10% combined fits pass 10/10 bands while physical accuracy remains
+unverified. They distinguish two experiments: refitted masked versus unmasked
+translated products, and incremental BRDF after the same topographic model.
+These compare different contrasts; their recognition scores are not interchangeable.
+See the [HLS reference study](../validation/landsat-pilot.md) for actual
+Landsat-derived NBAR observations and pure-pixel screening, distinct from
+Landsat-like translated drone products.

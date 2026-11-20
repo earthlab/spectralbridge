@@ -85,7 +85,7 @@ hide:
       <span>Correction and QA</span><b aria-hidden="true">→</b><span>Spectral library</span><b aria-hidden="true">→</b><span>Biological variation</span><b aria-hidden="true">→</b><span>Sensor translation</span><b aria-hidden="true">→</b><span>Independent comparison</span><b aria-hidden="true">→</b><span>Experimental mixture readiness</span>
     </div>
     <p>Drone users: review <a href="validation/drone-findings/">validation findings and current limitations</a> and <a href="concepts/correction-eligibility/">choose supported corrections</a> before processing.</p>
-    <p>Follow optional downstream analyses without changing the core NEON, drone and bulk processing routes. <a href="spectral-library/sensor-transfer/">Sensor information retention</a> and <a href="validation/landsat-pilot/">one real-Landsat pilot</a> supply different evidence; <a href="spectral-library/mesma-readiness/">operational abundance validation remains incomplete</a>.</p>
+    <p>The <a href="validation/landsat-pilot/">Landsat HLS L30 NBAR reference study</a> explains 1,241 candidate cells, footprint purity screens and patch-level tests, alongside the separate historical sensor pilot. <a href="validation/drone-findings/">Current drone findings</a> cover camera-position corrections, shade-mask comparisons and traceable Landsat-like translation. <a href="spectral-library/mesma-readiness/">Operational abundance validation remains incomplete</a>.</p>
   </section>
 
   <details class="sb-advanced-views">
@@ -113,7 +113,7 @@ hide:
               <image xlink:href="images/homepage/spectralbridge-technical-overview.png" width="1536" height="1024"></image>
             </svg>
           </a>
-          <figcaption>Enlarged from the supplied technical figure. Open for the full-resolution overview.</figcaption>
+          <figcaption>Enlarged from the supplied technical figure, retaining its historical Collection 2 labels. The current PFT reference study uses <a href="validation/landsat-pilot/">Landsat HLS L30 NBAR</a>. Open for the full-resolution overview.</figcaption>
         </figure>
       </div>
     </article>

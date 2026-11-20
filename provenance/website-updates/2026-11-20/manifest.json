@@ -1,0 +1,143 @@
+{
+  "date": "2026-11-20",
+  "scope": "Frozen website evidence snapshot, not a new analysis or independent calibration/purity certification",
+  "files": [
+    {
+      "source": "files/hls_class_summary.csv",
+      "destination": "docs/validation/recent-evidence/hls_class_summary.csv",
+      "origin": "provenance/landsat-pure-pixels/2026-11-18/expanded-search/round-2/power-directed-expansion/review-batch-2/analysis/nominal_primary/figure_table_summary.csv",
+      "sha256": "46f49163f1e19fb762eb02778fcc3aabb8362bea6ba3c46970789270a3beca73",
+      "bytes": 763
+    },
+    {
+      "source": "files/hls_pairwise_tests.csv",
+      "destination": "docs/validation/recent-evidence/hls_pairwise_tests.csv",
+      "origin": "provenance/landsat-pure-pixels/2026-11-18/expanded-search/round-2/power-directed-expansion/review-batch-2/analysis/nominal_primary/separability.csv",
+      "sha256": "6e135dc7ce069ce9ae93806ab5faa6afb6a8f731b6ad53143a9a83aa13269fa4",
+      "bytes": 4507
+    },
+    {
+      "source": "files/hls_cohort_comparison.csv",
+      "destination": "docs/validation/recent-evidence/hls_cohort_comparison.csv",
+      "origin": "provenance/landsat-pure-pixels/2026-11-18/expanded-search/round-2/power-directed-expansion/review-batch-2/analysis/cohort_comparison.csv",
+      "sha256": "d3f633fe64ffb37ea34ea97b1bc4ae3a6676609d0731c9fbab4200a63cda2a63",
+      "bytes": 325
+    },
+    {
+      "source": "files/drone_model_support.csv",
+      "destination": "docs/validation/recent-evidence/drone_model_support.csv",
+      "origin": "provenance/drone-calibration-translation/2026-11-19/shade-excluded-refit-v2/all_variant_fit_support.csv",
+      "sha256": "1f825810add6753918d53153d511d87d52548f1d7839e428b6f5de52fb4a9f5b",
+      "bytes": 2302
+    },
+    {
+      "source": "files/drone_mask_identifiability_change.csv",
+      "destination": "docs/validation/recent-evidence/drone_mask_identifiability_change.csv",
+      "origin": "provenance/drone-calibration-translation/2026-11-19/pft-mask-comparison/identifiability_change.csv",
+      "sha256": "a91cf9e6b0f4a6fe9d2b6fa5986c6cff95983530c26271ad036aad9c61dbb9fa",
+      "bytes": 1396
+    },
+    {
+      "source": "files/brdf_identifiability.csv",
+      "destination": "docs/validation/recent-evidence/brdf_identifiability.csv",
+      "origin": "provenance/brdf-benefit-audit/2026-11-19/statistics/identifiability.csv",
+      "sha256": "2e2c58399fa9291ce7783c7246e720b20913464e68c588b41e7f83bc534acbb7",
+      "bytes": 2133
+    },
+    {
+      "source": "files/figure-4.png",
+      "destination": "docs/images/validation-updates/figure-4.png",
+      "origin": "publication/figure_4_plant_functional_types/figure_4_plant_functional_types.png",
+      "sha256": "daad546a71e0011895990ef4dd01f5c5b35ae273c6cf2f9f56cd25d4c129f01c",
+      "bytes": 864587
+    },
+    {
+      "source": "files/pure-pixel-workflow.jpg",
+      "destination": "docs/images/validation-updates/pure-pixel-workflow.jpg",
+      "origin": "provenance/landsat-pure-pixels/2026-11-19/team-validation/summary/workflow.jpg",
+      "sha256": "0367d5289a61eea293b70a6d22b456222a650c6c4791a389e0927ed8e4a52ae2",
+      "bytes": 106148
+    },
+    {
+      "source": "files/pixel-support-definitions.jpg",
+      "destination": "docs/images/validation-updates/pixel-support-definitions.jpg",
+      "origin": "provenance/landsat-pure-pixels/2026-11-19/team-validation/summary/footprints.jpg",
+      "sha256": "96f0e49a5198d3f847360e09862a30f0431a607ecfb09952e9e0953851865c9b",
+      "bytes": 183881
+    },
+    {
+      "source": "files/brdf-recognition-effects.png",
+      "destination": "docs/images/validation-updates/brdf-recognition-effects.png",
+      "origin": "provenance/brdf-benefit-audit/2026-11-19/summary/recognition_effects.png",
+      "sha256": "bfdb988fbb7347e7aca071e6b4cffdc1ebfeb38666bd95d1a20a9089a0b053de",
+      "bytes": 104313
+    },
+    {
+      "source": "files/landsat-pure-pixel-review-guide.pdf",
+      "destination": "docs/downloads/landsat-pure-pixel-review-guide.pdf",
+      "origin": "output/pdf/landsat_pure_pixel_team_review_guide.pdf",
+      "sha256": "8f76596160224fd156d0927fc2bf45e011f15abc12d90fdb68a83e4682714898",
+      "bytes": 4975561
+    },
+    {
+      "source": "files/landsat-pure-pixel-complete-atlas.pdf",
+      "destination": "docs/downloads/landsat-pure-pixel-complete-atlas.pdf",
+      "origin": "output/pdf/landsat_pure_pixel_complete_atlas.pdf",
+      "sha256": "5c50b019ce733910fd887144938fbadf0ac650e4ac74641e892142416c8b07c4",
+      "bytes": 26590084
+    },
+    {
+      "source": "files/brdf-benefit-report.pdf",
+      "destination": "docs/downloads/brdf-benefit-report.pdf",
+      "origin": "output/pdf/brdf_benefit_across_aop_drone_landsat_report.pdf",
+      "sha256": "0e1a2760b97f1ea7e50112c21156a4499f9f121e16d7cfdf412cc453d2e53c31",
+      "bytes": 688759
+    },
+    {
+      "source": "files/drone-shade-mask-comparison.pdf",
+      "destination": "docs/downloads/drone-shade-mask-comparison.pdf",
+      "origin": "output/pdf/drone_shade_mask_pft_comparison_report.pdf",
+      "sha256": "46255029199b139858bef34d115e5955f9c16c60db816d8e9bd2f6db61fe0dce",
+      "bytes": 200965
+    },
+    {
+      "source": "files/figure-4-reproduction.zip",
+      "destination": "docs/downloads/figure-4-reproduction.zip",
+      "origin": "publication/figure_4_plant_functional_types.zip",
+      "sha256": "9b6d7e388d5e57a793c2116f838cf07405b653dfe62c04bb8692f4ca12d5134b",
+      "bytes": 1492766
+    },
+    {
+      "source": "files/figure-4.pdf",
+      "destination": "docs/downloads/figure-4.pdf",
+      "origin": "publication/figure_4_plant_functional_types/figure_4_plant_functional_types.pdf",
+      "sha256": "87b04b3bce33048d12b123c586e5aab130760992b3e1cb78050f32e641d51fe4",
+      "bytes": 64616
+    },
+    {
+      "source": "files/figure-4-caption.md",
+      "destination": "docs/validation/recent-evidence/figure-4-caption.md",
+      "origin": "publication/figure_4_plant_functional_types/figure_4_caption.md",
+      "sha256": "3a1944b70f0b34d014fab8f5fa9896e01913a93d19c1949dad7fc571cf8511f6",
+      "bytes": 8497
+    },
+    {
+      "source": "files/hls_held_patch_predictions.csv",
+      "destination": "docs/validation/recent-evidence/hls_held_patch_predictions.csv",
+      "origin": "provenance/landsat-pure-pixels/2026-11-18/expanded-search/round-2/power-directed-expansion/review-batch-2/analysis/nominal_primary/held_out_predictions.csv",
+      "derivation": "patch units/leave_one_patch_out only; no changes to values",
+      "sha256": "88924cc1d02e9c584ebf0b43a7918c7b3891d5257b464e3ea0cba5c068cf7d69",
+      "bytes": 12657
+    },
+    {
+      "source": "files/figure-4-provenance.json",
+      "destination": "docs/validation/recent-evidence/figure-4-provenance.json",
+      "origin": "publication/figure_4_plant_functional_types/provenance.json",
+      "sha256": "0569e4b63904116c98c29ca4057f907cb00cebb064ac4da8771e6e67f5254f61",
+      "bytes": 13216
+    }
+  ],
+  "source_reference_manifest_sha256": "20b3e5a5eeb893877b441c76d96ad64fc6834538bf74316f2f708058abd4a107",
+  "labels_independently_validated": false,
+  "figure4_protocol": "seven direct-NBAR bands, pooled patch NPC and whole-patch LOPO; distinct from BRDF audit"
+}

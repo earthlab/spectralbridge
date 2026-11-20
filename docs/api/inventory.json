@@ -4143,6 +4143,7 @@
           "docs_references": [],
           "docstring": "",
           "examples": [
+            "examples/publication_figures/landsat_purity_audit.py",
             "examples/validate_spectral_library_analytics.py"
           ],
           "exports": [],
@@ -4479,6 +4480,7 @@
           "docs_references": [],
           "docstring": "",
           "examples": [
+            "examples/publication_figures/landsat_purity_audit.py",
             "examples/validate_spectral_library_analytics.py"
           ],
           "exports": [],
@@ -5059,7 +5061,9 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_photo_annotation.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 388,
@@ -5255,7 +5259,9 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_design_audit.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 616,
@@ -6146,6 +6152,7 @@
           "docs_references": [],
           "docstring": "",
           "examples": [
+            "examples/publication_figures/landsat_design_audit.py",
             "examples/publication_figures/validate_figures.py",
             "examples/spectral_library_analytics_results.py"
           ],
@@ -6933,7 +6940,11 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 192,
@@ -10607,7 +10618,10 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_seasonal_archive.py"
+          ],
           "exports": [
             "spectralbridge.bulk.provenance.signature_sha256"
           ],
@@ -10635,6 +10649,20 @@
           "docs_references": [],
           "docstring": "",
           "examples": [
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/spectral_library_analytics_results.py",
             "examples/validate_spectral_library_analytics.py"
           ],
@@ -10670,7 +10698,21 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py"
+          ],
           "exports": [
             "spectralbridge.bulk.provenance.write_text_atomic"
           ],
@@ -11307,7 +11349,9 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_evergreen_pointcloud.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 35,
@@ -12031,7 +12075,10 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 662,
@@ -12081,7 +12128,10 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_spatial_expansion.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 679,
@@ -12107,6 +12157,12 @@
           "docs_references": [],
           "docstring": "",
           "examples": [
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
             "examples/spectral_library_analytics_results.py",
             "examples/validate_spectral_library_analytics.py"
           ],
@@ -12292,6 +12348,12 @@
           "docstring": "",
           "examples": [
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
             "examples/run_neon_pipeline.py"
           ],
           "exports": [],
@@ -12512,7 +12574,10 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 1006,
@@ -12665,7 +12730,9 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_exploratory_pft_tests.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 1357,
@@ -12760,7 +12827,12 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_spatial_expansion.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 1464,
@@ -13896,6 +13968,24 @@
             "examples/plant_spectral_regions.py",
             "examples/plant_spectral_years.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/publication_figures/validate_figures.py",
             "examples/real_landsat_validation.py",
             "examples/release_candidate_smoke.py",
@@ -14054,6 +14144,24 @@
             "examples/plant_spectral_regions.py",
             "examples/plant_spectral_years.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/publication_figures/validate_figures.py",
             "examples/real_landsat_validation.py",
             "examples/release_candidate_smoke.py",
@@ -14157,6 +14265,24 @@
             "examples/plant_spectral_regions.py",
             "examples/plant_spectral_years.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/publication_figures/validate_figures.py",
             "examples/real_landsat_validation.py",
             "examples/release_candidate_smoke.py",
@@ -14286,6 +14412,24 @@
             "examples/plant_spectral_regions.py",
             "examples/plant_spectral_years.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/publication_figures/validate_figures.py",
             "examples/real_landsat_validation.py",
             "examples/release_candidate_smoke.py",
@@ -14389,6 +14533,24 @@
             "examples/plant_spectral_regions.py",
             "examples/plant_spectral_years.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/publication_figures/validate_figures.py",
             "examples/real_landsat_validation.py",
             "examples/release_candidate_smoke.py",
@@ -14470,6 +14632,24 @@
             "examples/plant_spectral_regions.py",
             "examples/plant_spectral_years.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/publication_figures/validate_figures.py",
             "examples/real_landsat_validation.py",
             "examples/release_candidate_smoke.py",
@@ -14570,6 +14750,24 @@
             "examples/plant_spectral_regions.py",
             "examples/plant_spectral_years.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/publication_figures/validate_figures.py",
             "examples/real_landsat_validation.py",
             "examples/release_candidate_smoke.py",
@@ -16118,6 +16316,545 @@
       ],
       "path": "src/spectralbridge/deprecated/hytools.py",
       "sha256": "a16fe080273bb2b155edbdab9d92ecd749686c96761abf49465a2b1064d47a0c"
+    },
+    {
+      "area": "drone",
+      "constants": [],
+      "declared_exports": [],
+      "docstring": "Opt-in original-photo research helpers; never called by production pipelines.\n\nVendor-calibrated values are distinct from raw sensor DN. Target-aware fits are\nexperimental diagnostics and do not constitute independent physical validation.",
+      "export_expressions": [],
+      "imports": {
+        "Affine": "affine.Affine",
+        "Delaunay": "scipy.spatial.Delaunay",
+        "Path": "pathlib.Path",
+        "QhullError": "scipy.spatial.QhullError",
+        "Resampling": "rasterio.warp.Resampling",
+        "annotations": "__future__.annotations",
+        "brentq": "scipy.optimize.brentq",
+        "cluster_covariance": "spectralbridge.topographic.cluster_covariance",
+        "least_squares": "scipy.optimize.least_squares",
+        "reproject": "rasterio.warp.reproject"
+      },
+      "module": "spectralbridge.drone_original",
+      "objects": [
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Convert already vendor-calibrated DN, preserving negative and >1 values.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 19,
+          "methods": [],
+          "name": "calibrated_integer_to_fraction",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "values"
+            },
+            {
+              "annotation": null,
+              "default": "1 / 32768",
+              "kind": "keyword-only",
+              "name": "scale"
+            },
+            {
+              "annotation": null,
+              "default": "0.0",
+              "kind": "keyword-only",
+              "name": "offset"
+            }
+          ],
+          "path": "spectralbridge.drone_original.calibrated_integer_to_fraction",
+          "signature": "calibrated_integer_to_fraction(values, *, scale=1 / 32768, offset=0.0)",
+          "summary": "Convert already vendor-calibrated DN, preserving negative and >1 values.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Shared production RossThick/LiDenseR kernels; inputs are degrees.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 26,
+          "methods": [],
+          "name": "ross_li_design",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "solar_azimuth"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "solar_zenith"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "view_azimuth"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "view_zenith"
+            }
+          ],
+          "path": "spectralbridge.drone_original.ross_li_design",
+          "signature": "ross_li_design(solar_azimuth, solar_zenith, view_azimuth, view_zenith)",
+          "summary": "Shared production RossThick/LiDenseR kernels; inputs are degrees.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Unchanged 45 degree solar zenith / nadir package reference.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 37,
+          "methods": [],
+          "name": "reference_design",
+          "parameters": [],
+          "path": "spectralbridge.drone_original.reference_design",
+          "signature": "reference_design()",
+          "summary": "Unchanged 45 degree solar zenith / nadir package reference.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Joint kernel-space support, stronger than separate marginal ranges.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 42,
+          "methods": [],
+          "name": "reference_in_hull",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "design"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "reference"
+            }
+          ],
+          "path": "spectralbridge.drone_original.reference_in_hull",
+          "signature": "reference_in_hull(design, reference)",
+          "summary": "Joint kernel-space support, stronger than separate marginal ranges.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Additive target intercepts estimated by within-target residualization.\n\nReturned angular differences are additive. They must not be interpreted as\nmultiplicative correction factors. Cluster covariance uses absorbed-target\ndegrees of freedom. Group labels describe dependence, not independence proof.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 54,
+          "methods": [],
+          "name": "fit_target_effects",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "design"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "response"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "target_ids"
+            },
+            {
+              "annotation": null,
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "uncertainty_groups"
+            }
+          ],
+          "path": "spectralbridge.drone_original.fit_target_effects",
+          "signature": "fit_target_effects(design, response, target_ids, *, uncertainty_groups=None)",
+          "summary": "Additive target intercepts estimated by within-target residualization.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Exploratory shared Ross/Li shape times target-specific amplitude.\n\nVariable projection fits y_ij = a_i * (1 + b_vol*Kvol + b_geo*Kgeo).\nFixing the isotropic shape coefficient to one identifies the scale. This is\na candidate model, not accepted production normalization or uncertainty.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 105,
+          "methods": [],
+          "name": "fit_target_amplitudes",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "design"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "response"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "target_ids"
+            }
+          ],
+          "path": "spectralbridge.drone_original.fit_target_amplitudes",
+          "signature": "fit_target_amplitudes(design, response, target_ids)",
+          "summary": "Exploratory shared Ross/Li shape times target-specific amplitude.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Both stages must be supported; failed observations are NaN, never identity.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 154,
+          "methods": [],
+          "name": "apply_supported_factors",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "values"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "topo_factor"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "brdf_factor"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "topo_supported"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "brdf_supported"
+            }
+          ],
+          "path": "spectralbridge.drone_original.apply_supported_factors",
+          "signature": "apply_supported_factors(values, topo_factor, brdf_factor, *, topo_supported, brdf_supported)",
+          "summary": "Both stages must be supported; failed observations are NaN, never identity.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Immutable explicit-scale 10-band+alpha export to float fraction*10000.\n\nCaller supplies the established processing grid and source calibration.\nAlpha is interpreted by the existing ten-spectral-plus-alpha contract.\nOne band is warped at a time; source-invalid pixels cannot bleed into output.\nRestart requires matching input/configuration and output checksum.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 179,
+          "methods": [],
+          "name": "prepare_calibrated_orthomosaic",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "source"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "destination"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "wavelengths_nm"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "source_scale"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "source_offset"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "provenance"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "target_transform"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "target_shape"
+            }
+          ],
+          "path": "spectralbridge.drone_original.prepare_calibrated_orthomosaic",
+          "signature": "prepare_calibrated_orthomosaic(source, destination, *, wavelengths_nm, source_scale, source_offset, provenance, target_transform, target_shape)",
+          "summary": "Immutable explicit-scale 10-band+alpha export to float fraction*10000.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Adjusted-calibration ray and absolute-surface hit through official API.\n\n``absolute_surface`` must be explicitly selected by the caller, never the\nproject's active (possibly relative canopy-height) surface. ``api`` is the\ninstalled Metashape module; this helper does not import or activate it.\nGround-terrain slope/aspect remains a separate input to correction.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 319,
+          "methods": [],
+          "name": "reconstruct_pixel_geometry",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "chunk"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "camera"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "pixel"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "absolute_surface"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "api"
+            }
+          ],
+          "path": "spectralbridge.drone_original.reconstruct_pixel_geometry",
+          "signature": "reconstruct_pixel_geometry(chunk, camera, pixel, absolute_surface, *, api)",
+          "summary": "Adjusted-calibration ray and absolute-surface hit through official API.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "First bracketed absolute DEM intersection on the actual ECEF ray.\n\n``to_project`` maps Nx3 ECEF coordinates to the DEM CRS and ``sample_height``\nbilinearly samples absolute elevation at Nx2 coordinates. Missing surface\nsamples before the crossing are unresolved, not treated as empty space.\nThe finite step is an explicit surface-resolution/occlusion limitation.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 375,
+          "methods": [],
+          "name": "intersect_ecef_ray",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "origin"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "direction"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "to_project"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "sample_height"
+            },
+            {
+              "annotation": null,
+              "default": "1000.0",
+              "kind": "keyword-only",
+              "name": "maximum_distance"
+            },
+            {
+              "annotation": null,
+              "default": "0.5",
+              "kind": "keyword-only",
+              "name": "step_metres"
+            }
+          ],
+          "path": "spectralbridge.drone_original.intersect_ecef_ray",
+          "signature": "intersect_ecef_ray(origin, direction, *, to_project, sample_height, maximum_distance=1000.0, step_metres=0.5)",
+          "summary": "First bracketed absolute DEM intersection on the actual ECEF ray.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Export a new float source plane with both explicit stage masks.\n\nThis low-level experimental writer does not approve a model. Caller must\nsupply matched-stage, source-bound factors. No geometry/XMP calibration tags\nare copied: these values are already calibrated fractions. Invalid pixels\nremain NaN plus an explicit mask; the original source image is never opened\nfor writing. A licensed mosaic consumer must disable prior calibration.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 432,
+          "methods": [],
+          "name": "write_corrected_photo",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "destination"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "values"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "topographic_factor"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "brdf_factor"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "topographic_supported"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "brdf_supported"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "provenance"
+            }
+          ],
+          "path": "spectralbridge.drone_original.write_corrected_photo",
+          "signature": "write_corrected_photo(destination, values, topographic_factor, brdf_factor, *, topographic_supported, brdf_supported, provenance)",
+          "summary": "Export a new float source plane with both explicit stage masks.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "UTC minute labels without assuming pandas' integer datetime resolution.\n\nPandas may parse timestamps as microseconds or nanoseconds. Dividing an\nunqualified integer timestamp by a nanosecond constant collapses real groups.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 512,
+          "methods": [],
+          "name": "temporal_minute_groups",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "timestamps"
+            }
+          ],
+          "path": "spectralbridge.drone_original.temporal_minute_groups",
+          "signature": "temporal_minute_groups(timestamps)",
+          "summary": "UTC minute labels without assuming pandas' integer datetime resolution.",
+          "summary_basis": "source docstring"
+        }
+      ],
+      "path": "src/spectralbridge/drone_original.py",
+      "sha256": "74ddd0d3b90b1cbff2446ba6d9a58d1972abf33a583e8e76ffaa609af9d1fee8"
     },
     {
       "area": "drone",
@@ -18374,6 +19111,649 @@
     },
     {
       "area": "drone",
+      "constants": [],
+      "declared_exports": [],
+      "docstring": "Typed recognition of calibrated drone storage at the existing affine boundary.\n\nRecognize explicit metadata, checksum-bound sidecars or curated source identities.\nNever infer calibration from a range, filename, camera model or TIFF scale alone.\nThis module does not calibrate raw sensor imagery or modify source pixels.",
+      "export_expressions": [],
+      "imports": {
+        "Enum": "enum.Enum",
+        "Path": "pathlib.Path",
+        "Radiometry": "spectralbridge.radiometry.Radiometry",
+        "annotations": "__future__.annotations",
+        "dataclass": "dataclasses.dataclass",
+        "files": "importlib.resources.files"
+      },
+      "module": "spectralbridge.drone_radiometry",
+      "objects": [
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "",
+          "examples": [],
+          "exports": [],
+          "kind": "class",
+          "line": 21,
+          "methods": [],
+          "name": "DroneEncoding",
+          "parameters": [],
+          "path": "spectralbridge.drone_radiometry.DroneEncoding",
+          "signature": null,
+          "summary": "",
+          "summary_basis": "not documented"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Resolve a declared representation, preserving independent-accuracy limits.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 30,
+          "methods": [],
+          "name": "radiometry_from_source_encoding",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "record"
+            }
+          ],
+          "path": "spectralbridge.drone_radiometry.radiometry_from_source_encoding",
+          "signature": "radiometry_from_source_encoding(record)",
+          "summary": "Resolve a declared representation, preserving independent-accuracy limits.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 109,
+          "methods": [],
+          "name": "validate_source_wavelengths",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "record"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "wavelengths"
+            }
+          ],
+          "path": "spectralbridge.drone_radiometry.validate_source_wavelengths",
+          "signature": "validate_source_wavelengths(record, wavelengths)",
+          "summary": "",
+          "summary_basis": "not documented"
+        },
+        {
+          "attributes": [],
+          "audience": "internal",
+          "classification_reason": "Private/compatibility/CLI module or implementation utility",
+          "docs_references": [],
+          "docstring": "",
+          "examples": [
+            "examples/manuscript_synthesis/build_figure.py",
+            "examples/manuscript_synthesis/figure_data.py",
+            "examples/manuscript_synthesis/validate_data.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
+            "examples/publication_figures/validate_figures.py",
+            "examples/spectral_library_analytics_results.py",
+            "examples/validate_spectral_library_analytics.py"
+          ],
+          "exports": [],
+          "kind": "function",
+          "line": 119,
+          "methods": [],
+          "name": "_sha256",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "path"
+            }
+          ],
+          "path": "spectralbridge.drone_radiometry._sha256",
+          "signature": "_sha256(path)",
+          "summary": "",
+          "summary_basis": "not documented"
+        },
+        {
+          "attributes": [],
+          "audience": "internal",
+          "classification_reason": "Private/compatibility/CLI module or implementation utility",
+          "docs_references": [],
+          "docstring": "",
+          "examples": [
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
+            "examples/spectral_library_analytics_results.py",
+            "examples/validate_spectral_library_analytics.py"
+          ],
+          "exports": [],
+          "kind": "function",
+          "line": 127,
+          "methods": [],
+          "name": "_json",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "value"
+            }
+          ],
+          "path": "spectralbridge.drone_radiometry._json",
+          "signature": "_json(value)",
+          "summary": "",
+          "summary_basis": "not documented"
+        },
+        {
+          "attributes": [
+            {
+              "annotation": "Radiometry | None",
+              "default": null,
+              "name": "radiometry"
+            },
+            {
+              "annotation": "dict | None",
+              "default": null,
+              "name": "declaration"
+            },
+            {
+              "annotation": "str",
+              "default": null,
+              "name": "recognition"
+            }
+          ],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "",
+          "examples": [],
+          "exports": [],
+          "kind": "class",
+          "line": 134,
+          "methods": [],
+          "name": "DroneSourceResolution",
+          "parameters": [],
+          "path": "spectralbridge.drone_radiometry.DroneSourceResolution",
+          "signature": null,
+          "summary": "",
+          "summary_basis": "not documented"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "One recognition boundary for production TIFF/H5 staging.\n\nA sibling ``filename.ext.radiometry.json`` must bind the exact source SHA256.\nRegistry hashes are tried only for matching byte sizes. Explicit old affine\nrecords remain supported, but cannot contradict a recognized representation.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 140,
+          "methods": [],
+          "name": "resolve_drone_source",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "path"
+            },
+            {
+              "annotation": null,
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "metadata"
+            },
+            {
+              "annotation": null,
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "explicit"
+            }
+          ],
+          "path": "spectralbridge.drone_radiometry.resolve_drone_source",
+          "signature": "resolve_drone_source(path, *, metadata=None, explicit=None)",
+          "summary": "One recognition boundary for production TIFF/H5 staging.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Compact cache identity for curated source evidence, not a data-range guess.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 211,
+          "methods": [],
+          "name": "source_registry_identity",
+          "parameters": [],
+          "path": "spectralbridge.drone_radiometry.source_registry_identity",
+          "signature": "source_registry_identity()",
+          "summary": "Compact cache identity for curated source evidence, not a data-range guess.",
+          "summary_basis": "source docstring"
+        }
+      ],
+      "path": "src/spectralbridge/drone_radiometry.py",
+      "sha256": "e78287e29cb8d30243c608f590bc7486bc75ebca0021787266ba23b6f8f30973"
+    },
+    {
+      "area": "drone",
+      "constants": [],
+      "declared_exports": [],
+      "docstring": "Experimental terrain/illumination research; production defaults are unchanged.\n\nSCS+C/C-correction require a positive, uncertainty-resolved denominator. Minnaert\nis a separately named model with different assumptions, never an identity fallback.",
+      "export_expressions": [],
+      "imports": {
+        "SCSCPolicy": "spectralbridge.topographic.SCSCPolicy",
+        "annotations": "__future__.annotations",
+        "binary_dilation": "scipy.ndimage.binary_dilation",
+        "calc_cosine_i": "spectralbridge.corrections.calc_cosine_i",
+        "cluster_covariance": "spectralbridge.topographic.cluster_covariance",
+        "fieller_interval": "spectralbridge.topographic.fieller_interval",
+        "gaussian_filter": "scipy.ndimage.gaussian_filter",
+        "least_squares": "scipy.optimize.least_squares"
+      },
+      "module": "spectralbridge.drone_topography",
+      "objects": [
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "North-up metric DEM derivatives; aspect is downslope clockwise from north.\n\nSmoothing is normalized only over observed cells; original holes and a\nderivative edge around them remain unavailable rather than being infilled.\nSigma is a declared physical scale, not a fitted model parameter.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 15,
+          "methods": [],
+          "name": "terrain_geometry",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "elevation"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "pixel_size"
+            },
+            {
+              "annotation": null,
+              "default": "0.0",
+              "kind": "keyword-only",
+              "name": "smoothing_sigma_m"
+            }
+          ],
+          "path": "spectralbridge.drone_topography.terrain_geometry",
+          "signature": "terrain_geometry(elevation, *, pixel_size, smoothing_sigma_m=0.0)",
+          "summary": "North-up metric DEM derivatives; aspect is downslope clockwise from north.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Shared package incidence formula, explicit degree inputs and broadcast shape.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 62,
+          "methods": [],
+          "name": "solar_incidence",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "slope_deg"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "aspect_deg"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "solar_zenith_deg"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "solar_azimuth_deg"
+            }
+          ],
+          "path": "spectralbridge.drone_topography.solar_incidence",
+          "signature": "solar_incidence(slope_deg, aspect_deg, solar_zenith_deg, solar_azimuth_deg)",
+          "summary": "Shared package incidence formula, explicit degree inputs and broadcast shape.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Finite-radius geometric sun obstruction; darkness is not used.\n\nReturns shadow, covered and maximum obstruction. Covered means all sampled\nrays have terrain support inside the declared radius; it does not establish\nabsence of obstruction outside that radius. NoData is unknown, not sunlight.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 76,
+          "methods": [],
+          "name": "solar_visibility",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "x"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "y"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "height"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "solar_zenith_deg"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "solar_azimuth_deg"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "sample_surface"
+            },
+            {
+              "annotation": null,
+              "default": "100.0",
+              "kind": "keyword-only",
+              "name": "maximum_distance"
+            },
+            {
+              "annotation": null,
+              "default": "1.0",
+              "kind": "keyword-only",
+              "name": "step_metres"
+            },
+            {
+              "annotation": null,
+              "default": "0.0",
+              "kind": "keyword-only",
+              "name": "height_tolerance"
+            }
+          ],
+          "path": "spectralbridge.drone_topography.solar_visibility",
+          "signature": "solar_visibility(x, y, height, *, solar_zenith_deg, solar_azimuth_deg, sample_surface, maximum_distance=100.0, step_metres=1.0, height_tolerance=0.0)",
+          "summary": "Finite-radius geometric sun obstruction; darkness is not used.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "OLS or equal-spatial-block WLS with fixed-weight cluster covariance.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 124,
+          "methods": [],
+          "name": "weighted_cluster_fit",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "design"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "response"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "groups"
+            },
+            {
+              "annotation": null,
+              "default": "False",
+              "kind": "keyword-only",
+              "name": "balanced"
+            }
+          ],
+          "path": "spectralbridge.drone_topography.weighted_cluster_fit",
+          "signature": "weighted_cluster_fit(design, response, groups, *, balanced=False)",
+          "summary": "OLS or equal-spatial-block WLS with fixed-weight cluster covariance.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Fit declared correction model with source-domain and uncertainty evidence.\n\nRobust Huber fits use a cluster-sandwich estimating-equation covariance;\nthey are experimental sensitivities. No coefficient sign is constrained.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 159,
+          "methods": [],
+          "name": "fit_topographic_model",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "incidence"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "response"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "groups"
+            },
+            {
+              "annotation": null,
+              "default": "'scsc'",
+              "kind": "keyword-only",
+              "name": "method"
+            },
+            {
+              "annotation": null,
+              "default": "False",
+              "kind": "keyword-only",
+              "name": "balanced"
+            },
+            {
+              "annotation": null,
+              "default": "False",
+              "kind": "keyword-only",
+              "name": "robust"
+            },
+            {
+              "annotation": null,
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "policy"
+            }
+          ],
+          "path": "spectralbridge.drone_topography.fit_topographic_model",
+          "signature": "fit_topographic_model(incidence, response, groups, *, method='scsc', balanced=False, robust=False, policy=None)",
+          "summary": "Fit declared correction model with source-domain and uncertainty evidence.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Positive resolved domain and exact parameter-endpoint factor uncertainty.\n\nA finite positive quotient of two negative terms is NOT accepted. Unsupported\nfactors remain NaN. Large supported values are preserved without clipping.\nMinnaert's log-power relation has different assumptions from SCS+C.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 277,
+          "methods": [],
+          "name": "topographic_factors",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "incidence"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "slope_deg"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "solar_zenith_deg"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "model"
+            },
+            {
+              "annotation": null,
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "geometric_sunlit"
+            },
+            {
+              "annotation": null,
+              "default": "True",
+              "kind": "keyword-only",
+              "name": "restrict_domain"
+            }
+          ],
+          "path": "spectralbridge.drone_topography.topographic_factors",
+          "signature": "topographic_factors(incidence, slope_deg, solar_zenith_deg, model, *, geometric_sunlit=None, restrict_domain=True)",
+          "summary": "Positive resolved domain and exact parameter-endpoint factor uncertainty.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Exclude a held-out spatial region and its declared pixel-cell buffer.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 355,
+          "methods": [],
+          "name": "spatial_training_mask",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "folds"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "heldout_fold"
+            },
+            {
+              "annotation": null,
+              "default": "2",
+              "kind": "keyword-only",
+              "name": "buffer_cells"
+            }
+          ],
+          "path": "spectralbridge.drone_topography.spatial_training_mask",
+          "signature": "spatial_training_mask(folds, heldout_fold, *, buffer_cells=2)",
+          "summary": "Exclude a held-out spatial region and its declared pixel-cell buffer.",
+          "summary_basis": "source docstring"
+        }
+      ],
+      "path": "src/spectralbridge/drone_topography.py",
+      "sha256": "c07fd482e3190fd96bb9eec62c96c2f215af4c9839307f5e47b8ece4df99cdb4"
+    },
+    {
+      "area": "drone",
       "constants": [
         {
           "annotation": null,
@@ -18707,6 +20087,21 @@
             "examples/manuscript_synthesis/build_figure.py",
             "examples/manuscript_synthesis/figure_data.py",
             "examples/manuscript_synthesis/validate_data.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/publication_figures/validate_figures.py",
             "examples/spectral_library_analytics_results.py",
             "examples/validate_spectral_library_analytics.py"
@@ -19405,6 +20800,21 @@
             "examples/manuscript_synthesis/build_figure.py",
             "examples/manuscript_synthesis/figure_data.py",
             "examples/manuscript_synthesis/validate_data.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/publication_figures/validate_figures.py",
             "examples/spectral_library_analytics_results.py",
             "examples/validate_spectral_library_analytics.py"
@@ -19433,7 +20843,10 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 118,
@@ -19501,7 +20914,10 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_spatial_expansion.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 138,
@@ -26521,6 +27937,14 @@
             "examples/manuscript_synthesis/write_caption.py",
             "examples/plant_spectral_regions.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
             "examples/publication_figures/validate_figures.py",
             "examples/researcher_evidence_validation.py",
             "examples/researcher_pft_information.py",
@@ -26667,7 +28091,12 @@
           "classification_reason": "Direct module API; no package-level stability guarantee",
           "docs_references": [],
           "docstring": "L8/9: reject flags 0-5, B1-B7 saturation and terrain occlusion.",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 39,
@@ -26698,7 +28127,12 @@
           "classification_reason": "Direct module API; no package-level stability guarantee",
           "docs_references": [],
           "docstring": "Official Collection 2 Level-2 DN contract; never guess from magnitudes.",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 55,
@@ -27537,7 +28971,9 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_spatial_expansion.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 748,
@@ -28519,6 +29955,7 @@
           "examples": [
             "examples/publication_figures/build_spectral_library_figures.py",
             "examples/publication_figures/figure_panels.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
             "examples/spectral_library_analytics_results.py"
           ],
           "exports": [],
@@ -28589,6 +30026,10 @@
           "docs_references": [],
           "docstring": "",
           "examples": [
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
             "examples/validate_spectral_library_analytics.py"
           ],
           "exports": [],
@@ -28622,6 +30063,8 @@
           "docs_references": [],
           "docstring": "",
           "examples": [
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
             "examples/spectral_library_methods.py",
             "examples/validate_spectral_library_analytics.py"
           ],
@@ -29214,7 +30657,10 @@
           "docs_references": [],
           "docstring": "",
           "examples": [
+            "examples/publication_figures/drone_library_evidence.py",
             "examples/publication_figures/figure_data.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_purity_audit.py",
             "examples/publication_figures/validate_figures.py"
           ],
           "exports": [],
@@ -30635,6 +32081,24 @@
             "examples/plant_spectral_regions.py",
             "examples/plant_spectral_years.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/publication_figures/validate_figures.py",
             "examples/real_landsat_validation.py",
             "examples/release_candidate_smoke.py",
@@ -31056,7 +32520,9 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "Explicit candidate budget, one record/identity, class/site/year stratified.",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_hls_pft_tests.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 358,
@@ -31275,6 +32741,7 @@
           "examples": [
             "examples/publication_figures/build_spectral_library_figures.py",
             "examples/publication_figures/figure_panels.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
             "examples/spectral_library_analytics_results.py"
           ],
           "exports": [],
@@ -32246,6 +33713,23 @@
             "examples/plant_spectral_regions.py",
             "examples/plant_spectral_years.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/publication_figures/validate_figures.py",
             "examples/real_landsat_validation.py",
             "examples/release_candidate_smoke.py",
@@ -33072,6 +34556,13 @@
             "examples/plant_spectral_regions.py",
             "examples/plant_spectral_years.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
             "examples/real_landsat_validation.py",
             "examples/release_candidate_smoke.py",
             "examples/researcher_evidence_validation.py",
@@ -33130,6 +34621,24 @@
             "examples/plant_spectral_regions.py",
             "examples/plant_spectral_years.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/publication_figures/validate_figures.py",
             "examples/real_landsat_validation.py",
             "examples/release_candidate_smoke.py",
@@ -33645,6 +35154,8 @@
           "docstring": "Configure the historical whole-spectrum PFT method audit and its explicit resampling budgets.",
           "examples": [
             "examples/pft_method_audit.py",
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_purity_audit.py",
             "examples/researcher_pft_statistics.py",
             "examples/sensor_pft_transfer.py"
           ],
@@ -33733,7 +35244,9 @@
           "classification_reason": "Direct module API; no package-level stability guarantee",
           "docs_references": [],
           "docstring": "Synchronized Tippett combination; calibrate min partial p on same ensemble.",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_photo_annotation.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 70,
@@ -33791,7 +35304,10 @@
             "docs/api/scientific-analysis.md"
           ],
           "docstring": "Evaluate synchronized conditional whole-spectrum permutation statistics.\n\nArgs:\n    values (array-like): Stored reflectance matrix (N polygon/year curves, B\n        wavelengths). Units remain unchanged; finite common variable columns\n        within eligible mixed blocks are used, without imputation.\n    labels (array-like): Binary 0/1 group labels, shape (N,).\n    blocks (array-like): Nonmissing exact-history block labels, shape (N,).\n    wavelengths (array-like): Increasing coordinates in nm, shape (B,).\n    config (AuditConfig, optional): Permutations, rank and gap settings.\n    seed (int, optional): Overrides the config seed.\n    integration_weights (array-like, optional): Nonnegative weights (B,).\n        Default is disconnected wavelength quadrature; use explicit discrete\n        sensor weights for widely spaced channels.\n\nReturns:\n    dict: Observed/permuted curves and four statistics, component/NPC p-values,\n        rows/columns retained, scale, SE, normalized weights and FPCA diagnostics.\n\nRaises:\n    ValueError: Invalid dimensions/labels/blocks/weights or insufficient\n        complete variable support / exchangeable mixed blocks.\n\nLabels move as whole curves within blocks. Conditional exchangeability is an\nassumption; results do not establish causal PFT mechanisms. NPC calibrates a\njoint probability combination, not an uncorrected minimum p. Multiplicity\nadjustment and family envelopes belong to the calling analysis.",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_purity_audit.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 86,
@@ -34464,6 +35980,7 @@
           "docs_references": [],
           "docstring": "",
           "examples": [
+            "examples/publication_figures/landsat_photo_annotation.py",
             "examples/release_candidate_smoke.py",
             "examples/researcher_pft_information.py",
             "examples/spectral_library_analytics_results.py"
@@ -34925,6 +36442,7 @@
         "memmap_bsq": "spectralbridge.envi.memmap_bsq",
         "packaged_drone_translation_coefficients_path": "spectralbridge.drone_translation_registry.packaged_drone_translation_coefficients_path",
         "parquet_exists_and_valid": "spectralbridge.parquet_export.parquet_exists_and_valid",
+        "radiometry_from_source_encoding": "spectralbridge.drone_radiometry.radiometry_from_source_encoding",
         "raster_acquisition_datetime": "spectralbridge.landsat_validation.raster_acquisition_datetime",
         "raster_bounds_wgs84": "spectralbridge.landsat_validation.raster_bounds_wgs84",
         "rasterize": "rasterio.features.rasterize",
@@ -34935,10 +36453,13 @@
         "replace": "dataclasses.replace",
         "require_physical_table": "spectralbridge.radiometry.require_physical_table",
         "require_radiometry": "spectralbridge.radiometry.require_radiometry",
+        "resolve_drone_source": "spectralbridge.drone_radiometry.resolve_drone_source",
+        "source_registry_identity": "spectralbridge.drone_radiometry.source_registry_identity",
         "timezone": "datetime.timezone",
         "tqdm": "tqdm.auto.tqdm",
         "translated_output_stem": "spectralbridge.drone_translation.translated_output_stem",
         "validate_coordinate_match": "spectralbridge.polygons.validate_coordinate_match",
+        "validate_source_wavelengths": "spectralbridge.drone_radiometry.validate_source_wavelengths",
         "warp_transform": "rasterio.warp.transform",
         "xy": "rasterio.transform.xy"
       },
@@ -36639,7 +38160,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1783,
+          "line": 1784,
           "methods": [],
           "name": "_read_drone_reflectance_tiff",
           "parameters": [
@@ -36648,10 +38169,16 @@
               "default": null,
               "kind": "positional-or-keyword",
               "name": "path"
+            },
+            {
+              "annotation": null,
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "source_declaration"
             }
           ],
           "path": "spectralbridge.pipelines.drone._read_drone_reflectance_tiff",
-          "signature": "_read_drone_reflectance_tiff(path)",
+          "signature": "_read_drone_reflectance_tiff(path, *, source_declaration=None)",
           "summary": "Read declared spectral bands/alpha without guessing unnamed extra bands.",
           "summary_basis": "source docstring"
         },
@@ -36660,13 +38187,13 @@
           "audience": "advanced",
           "classification_reason": "Direct module API; no package-level stability guarantee",
           "docs_references": [],
-          "docstring": "Convert a supported georeferenced multiband reflectance TIFF and aligned ancillary inputs to the drone HDF5 contract.",
+          "docstring": "Convert a georeferenced reflectance TIFF to the drone HDF5 contract.\n\nRadiometry accepts an explicit affine record or verified typed source\nencoding. Embedded declarations, checksum-bound sidecars and exact known\nsource fingerprints are resolved automatically, never inferred by range.\nStored pixels remain unchanged; the contract supplies physical units.",
           "examples": [],
           "exports": [
             "spectralbridge.pipelines.drone.convert_drone_tiff_to_h5"
           ],
           "kind": "function",
-          "line": 1807,
+          "line": 1821,
           "methods": [],
           "name": "convert_drone_tiff_to_h5",
           "parameters": [
@@ -36781,7 +38308,38 @@
           ],
           "path": "spectralbridge.pipelines.drone.convert_drone_tiff_to_h5",
           "signature": "convert_drone_tiff_to_h5(reflectance_tiff_path: str | Path, *, output_h5_path: str | Path, wavelengths_nm: Sequence[float] | np.ndarray | None=None, fwhm_nm: Sequence[float] | np.ndarray | None=None, sensor_zenith_tiff: str | Path | None=None, sensor_azimuth_tiff: str | Path | None=None, slope_tiff: str | Path | None=None, aspect_tiff: str | Path | None=None, solar_zenith_tiff: str | Path | None=None, solar_azimuth_tiff: str | Path | None=None, solar_zenith_deg: float | None=None, solar_azimuth_deg: float | None=None, sensor_zenith_deg: float | None=None, sensor_azimuth_deg: float | None=None, acquisition_datetime: datetime | str | None=None, require_solar_geometry: bool=False, radiometry: dict[str, Any] | None=None, overwrite: bool=False) -> Path",
-          "summary": "Convert a supported georeferenced multiband reflectance TIFF and aligned ancillary inputs to the drone HDF5 contract.",
+          "summary": "Convert a georeferenced reflectance TIFF to the drone HDF5 contract.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "internal",
+          "classification_reason": "Private/compatibility/CLI module or implementation utility",
+          "docs_references": [],
+          "docstring": "Inspect authoritative encoding before staging; never alter source metadata.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 2074,
+          "methods": [],
+          "name": "_resolve_drone_h5_source_encoding",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "source_path"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "radiometry"
+            }
+          ],
+          "path": "spectralbridge.pipelines.drone._resolve_drone_h5_source_encoding",
+          "signature": "_resolve_drone_h5_source_encoding(source_path, radiometry)",
+          "summary": "Inspect authoritative encoding before staging; never alter source metadata.",
           "summary_basis": "source docstring"
         },
         {
@@ -36793,7 +38351,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2041,
+          "line": 2087,
           "methods": [],
           "name": "_prepare_drone_source_working_h5",
           "parameters": [
@@ -36908,7 +38466,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2202,
+          "line": 2264,
           "methods": [],
           "name": "_find_drone_reflectance_dataset",
           "parameters": [
@@ -36933,7 +38491,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2252,
+          "line": 2314,
           "methods": [],
           "name": "_dataset_has_recognised_nodata",
           "parameters": [
@@ -36958,7 +38516,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2256,
+          "line": 2318,
           "methods": [],
           "name": "_prepare_drone_h5_working_copy",
           "parameters": [
@@ -36997,7 +38555,7 @@
             "spectralbridge.pipelines.drone.resolve_band_map"
           ],
           "kind": "function",
-          "line": 2287,
+          "line": 2349,
           "methods": [],
           "name": "resolve_band_map",
           "parameters": [
@@ -37030,7 +38588,7 @@
             "spectralbridge.pipelines.drone.validate_drone_h5_metadata"
           ],
           "kind": "function",
-          "line": 2306,
+          "line": 2368,
           "methods": [],
           "name": "validate_drone_h5_metadata",
           "parameters": [
@@ -37055,7 +38613,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2341,
+          "line": 2403,
           "methods": [],
           "name": "_validate_drone_h5_spatial_metadata",
           "parameters": [
@@ -37080,7 +38638,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2380,
+          "line": 2442,
           "methods": [],
           "name": "_drone_envi_header",
           "parameters": [
@@ -37107,7 +38665,7 @@
             "spectralbridge.pipelines.drone.export_h5_to_envi"
           ],
           "kind": "function",
-          "line": 2399,
+          "line": 2465,
           "methods": [],
           "name": "export_h5_to_envi",
           "parameters": [
@@ -37158,7 +38716,7 @@
             "spectralbridge.pipelines.drone.build_drone_config"
           ],
           "kind": "function",
-          "line": 2481,
+          "line": 2547,
           "methods": [],
           "name": "build_drone_config",
           "parameters": [
@@ -37243,7 +38801,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2516,
+          "line": 2582,
           "methods": [],
           "name": "_has_required_ancillary",
           "parameters": [
@@ -37274,7 +38832,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2527,
+          "line": 2593,
           "methods": [],
           "name": "_chunk_has_any_valid_reflectance",
           "parameters": [
@@ -37305,7 +38863,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2538,
+          "line": 2604,
           "methods": [],
           "name": "_load_existing_drone_correction_flags",
           "parameters": [
@@ -37330,7 +38888,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2572,
+          "line": 2638,
           "methods": [],
           "name": "_call_with_supported_kwargs",
           "parameters": [
@@ -37367,7 +38925,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2598,
+          "line": 2664,
           "methods": [],
           "name": "apply_drone_corrections",
           "parameters": [
@@ -37458,7 +39016,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2907,
+          "line": 2973,
           "methods": [],
           "name": "_write_json",
           "parameters": [
@@ -37489,7 +39047,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2913,
+          "line": 2979,
           "methods": [],
           "name": "_remove_file_if_exists",
           "parameters": [
@@ -37514,7 +39072,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2921,
+          "line": 2987,
           "methods": [],
           "name": "_cleanup_envi_pair",
           "parameters": [
@@ -37545,7 +39103,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2926,
+          "line": 2992,
           "methods": [],
           "name": "_write_drone_audit_json",
           "parameters": [
@@ -37570,7 +39128,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2938,
+          "line": 3004,
           "methods": [],
           "name": "_normalise_bounds",
           "parameters": [
@@ -37595,7 +39153,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2945,
+          "line": 3011,
           "methods": [],
           "name": "_normalise_transform",
           "parameters": [
@@ -37620,7 +39178,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2954,
+          "line": 3020,
           "methods": [],
           "name": "_crs_to_string",
           "parameters": [
@@ -37647,7 +39205,7 @@
             "spectralbridge.pipelines.drone.collect_drone_spatial_diagnostics"
           ],
           "kind": "function",
-          "line": 2965,
+          "line": 3031,
           "methods": [],
           "name": "collect_drone_spatial_diagnostics",
           "parameters": [
@@ -37680,7 +39238,7 @@
             "spectralbridge.pipelines.drone.save_drone_overlay_debug_plot"
           ],
           "kind": "function",
-          "line": 3030,
+          "line": 3096,
           "methods": [],
           "name": "save_drone_overlay_debug_plot",
           "parameters": [
@@ -37723,7 +39281,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3089,
+          "line": 3155,
           "methods": [],
           "name": "_build_polygon_pixel_index_for_raster",
           "parameters": [
@@ -37778,7 +39336,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3187,
+          "line": 3253,
           "methods": [],
           "name": "_merge_drone_polygon_outputs",
           "parameters": [
@@ -37815,7 +39373,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3216,
+          "line": 3282,
           "methods": [],
           "name": "_enrich_drone_polygon_parquet_with_index",
           "parameters": [
@@ -37852,7 +39410,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3286,
+          "line": 3352,
           "methods": [],
           "name": "_export_csv_copy_from_parquet",
           "parameters": [
@@ -37889,7 +39447,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3321,
+          "line": 3387,
           "methods": [],
           "name": "_try_export_csv_copy_from_parquet",
           "parameters": [
@@ -37932,7 +39490,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3349,
+          "line": 3415,
           "methods": [],
           "name": "_drone_status_color",
           "parameters": [
@@ -37957,7 +39515,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3361,
+          "line": 3427,
           "methods": [],
           "name": "_supports_ansi",
           "parameters": [
@@ -37982,7 +39540,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3365,
+          "line": 3431,
           "methods": [],
           "name": "_colorize_drone_message",
           "parameters": [
@@ -38013,7 +39571,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3374,
+          "line": 3440,
           "methods": [],
           "name": "_drone_emit",
           "parameters": [
@@ -38044,7 +39602,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3385,
+          "line": 3451,
           "methods": [],
           "name": "_format_elapsed",
           "parameters": [
@@ -38069,7 +39627,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3395,
+          "line": 3461,
           "methods": [],
           "name": "_format_eta",
           "parameters": [
@@ -38100,7 +39658,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3402,
+          "line": 3468,
           "methods": [],
           "name": "_classify_drone_exception",
           "parameters": [
@@ -38125,7 +39683,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3409,
+          "line": 3475,
           "methods": [],
           "name": "_scientific_qa_status",
           "parameters": [
@@ -38150,7 +39708,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3426,
+          "line": 3492,
           "methods": [],
           "name": "_has_drone_qa_inputs",
           "parameters": [
@@ -38175,7 +39733,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3432,
+          "line": 3498,
           "methods": [],
           "name": "_reconcile_drone_completion",
           "parameters": [
@@ -38232,7 +39790,7 @@
           "audience": "public",
           "classification_reason": "Explicit package/subpackage export",
           "docs_references": [],
-          "docstring": "Run the drone pipeline from local HDF5 or reflectance TIFF sources.\n\nParameters\n----------\ninput_h5_dir : str | Path\n    Existing local supported HDF5/TIFF file or directory; discovery recurses through source packages.\npolygon_path : str | Path | None, default=None\n    Existing polygon vector dataset for extraction; coordinates are handled by the established polygon workflow.\noutput_dir : str | Path, default='.'\n    Directory for generated products; bulk outputs must be outside the read-only input tree.\napply_topo : bool, default=True\n    Request topographic correction with verified physical radiometry and required terrain/solar geometry. Applied status is not independent physical validation.\napply_brdf : bool, default=True\n    Request BRDF correction with verified radiometry and supported angular rank, conditioning and predictions. Unsupported requests are scientifically blocked; False explicitly records NOT_REQUESTED.\nuse_ndvi_brdf_bins : bool, default=False\n    Opt into the existing NDVI-stratified BRDF fitting behavior rather than the default fit.\napply_brightness_adjustment : bool, default=False\n    Opt into the established brightness adjustment; does not change the packaged coefficients.\nradiometry : dict[str, Any] | None, default=None\n    Authoritative affine record with scale, offset, status='VALID' and calibration provenance. No calibration is inferred from TIFF identity tags or value ranges. A source H5 may already carry this record; provide different flight calibrations in separate calls.\noverwrite : bool, default=False\n    Replace existing requested products; False preserves reusable products or rejects a conflicting destination.\ntiff_wavelengths_nm : Sequence[float] | np.ndarray | None, default=None\n    Explicit per-band center wavelengths in nanometers for TIFF inputs lacking embedded spectral metadata; must match band order/count.\ntiff_fwhm_nm : Sequence[float] | np.ndarray | None, default=None\n    Per-band full widths at half maximum in nanometers, aligned with TIFF bands; None uses supported metadata.\ntiff_solar_zenith_deg : float | None, default=None\n    Explicit TIFF solar zenith in degrees when valid embedded metadata are unavailable.\ntiff_solar_azimuth_deg : float | None, default=None\n    Explicit TIFF solar azimuth in degrees when valid embedded metadata are unavailable.\ntiff_sensor_zenith_deg : float | None, default=None\n    Explicit TIFF view zenith in degrees when valid embedded metadata are unavailable.\ntiff_sensor_azimuth_deg : float | None, default=None\n    Explicit TIFF view azimuth in degrees when valid embedded metadata are unavailable.\ndrone_manifest_path : str | Path | None, default=None\n    Existing flight manifest providing acquisition identity/time; None uses supported discovery or embedded metadata.\ndrone_manifest_timezone : str | None, default='UTC'\n    Timezone used to interpret manifest acquisition times; the default is UTC.\nrequire_solar_geometry : bool, default=True\n    Require scientifically usable solar geometry before correction rather than silently proceeding without it.\nextraction_mode : str | None, default=None\n    'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.\nparquet_chunk_size : int, default=2048\n    Positive pixel/window processing budget for bounded extraction; the default and interpretation follow the selected producer.\nmerge_extractions : bool, default=False\n    Explicit opt-in to legacy campaign-wide pixel-table merging; normal bulk consumers use separate completed flights.\napply_translation : bool, default=False\n    Create separate Landsat-like application products using the reviewed coefficient registry; does not overwrite corrected native MicaSense.\ntranslation_coefficients : str | Path | None, default=None\n    Optional reviewed registry JSON path; None uses the packaged static coefficient set.\ntranslation_weighting : str | None, default=None\n    Optional reviewed weighting selection; normal production uses the predetermined site-balanced weighting.\ntranslation_strict : bool, default=False\n    Treat unsupported/flagged translation conditions as blocking rather than returning the configured non-strict status.\nlandsat_qa : bool, default=False\n    Enable actual Landsat comparison QA for translated products; requires apply_translation=True and appropriate data/dependencies.\nlandsat_product : str | Path | None, default=None\n    Optional existing actual Landsat product for independent comparison; None permits the documented search path.\nlandsat_search_days : int, default=16\n    Nonnegative acquisition-date search radius in days for actual Landsat comparison.\ncomparison_neon_product : str | Path | None, default=None\n    Optional independent NEON product for common-support comparison QA.\nraise_on_incomplete : bool, default=True\n    Raise DronePipelineIncompleteError when flights fail or are scientifically blocked; its results attribute retains structured status.\nsolar_qa_timezone : str | None, default=None\n    Optional timezone override for solar-geometry QA; None follows the existing metadata/timezone resolution.\n\nReturns\n-------\ndict[str, Any]\n    Per-flight processed/reused/failed/blocked outcomes and QA/output paths; incomplete runs normally raise with this payload attached.\n\nRaises\n------\nDroneCorrectionUnavailableError\n    If scientifically required correction inputs cannot be validated.\nDronePipelineIncompleteError\n    If any requested flight is incomplete and raise_on_incomplete is True; inspect the attached results.\nValueError\n    If the supplied options, dimensions, support or provenance violate the input contract.\n\nNotes\n-----\n``extraction_mode=\"full\"`` writes a full-pixel Parquet table from the\ncorrected drone ENVI product. ``\"polygon\"`` uses ``polygon_path`` and the\nexisting polygon extraction path. The default preserves historical\nbehavior: polygon mode when polygons are supplied, otherwise QA-only.\nPer-flight extraction products remain separate by default;\n``merge_extractions=True`` opts into legacy campaign-wide pixel-table\nmaterialization. Bulk analysis does not require that merge.\nTranslation is opt-in and consumes a versioned packaged registry by default,\nor an explicitly supplied reviewed bulk artifact. The predetermined\nproduction weighting is site-balanced. It creates separate Landsat-like\nproducts; corrected native MicaSense is never overwritten.\nBy default an incomplete run raises :class:`DronePipelineIncompleteError`\nwith the structured result available as ``exc.results``.\n\nSee Also\n--------\nspectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.\n\nExamples\n--------\nRequires an existing supported source tree with usable spectral/spatial/solar metadata. Choose a separate output directory.\n\n>>> from spectralbridge import run_drone_pipeline\n>>> result = run_drone_pipeline(input_h5_dir=source_dir, output_dir=output_dir)  # doctest: +SKIP",
+          "docstring": "Run the drone pipeline from local HDF5 or reflectance TIFF sources.\n\nParameters\n----------\ninput_h5_dir : str | Path\n    Existing local supported HDF5/TIFF file or directory; discovery recurses through source packages.\npolygon_path : str | Path | None, default=None\n    Existing polygon vector dataset for extraction; coordinates are handled by the established polygon workflow.\noutput_dir : str | Path, default='.'\n    Directory for generated products; bulk outputs must be outside the read-only input tree.\napply_topo : bool, default=True\n    Request topographic correction with verified physical radiometry and required terrain/solar geometry. Applied status is not independent physical validation.\napply_brdf : bool, default=True\n    Request BRDF correction with verified radiometry and supported angular rank, conditioning and predictions. Unsupported requests are scientifically blocked; False explicitly records NOT_REQUESTED.\nuse_ndvi_brdf_bins : bool, default=False\n    Opt into the existing NDVI-stratified BRDF fitting behavior rather than the default fit.\napply_brightness_adjustment : bool, default=False\n    Opt into the established brightness adjustment; does not change the packaged coefficients.\nradiometry : dict[str, Any] | None, default=None\n    Authoritative affine record or verified typed source encoding. Embedded declarations, checksum-bound sidecars and exact known source fingerprints are recognized automatically; value ranges and identity TIFF scale tags are insufficient. Source H5 records remain immutable; provide different flight calibrations in separate calls.\noverwrite : bool, default=False\n    Replace existing requested products; False preserves reusable products or rejects a conflicting destination.\ntiff_wavelengths_nm : Sequence[float] | np.ndarray | None, default=None\n    Explicit per-band center wavelengths in nanometers for TIFF inputs lacking embedded spectral metadata; must match band order/count.\ntiff_fwhm_nm : Sequence[float] | np.ndarray | None, default=None\n    Per-band full widths at half maximum in nanometers, aligned with TIFF bands; None uses supported metadata.\ntiff_solar_zenith_deg : float | None, default=None\n    Explicit TIFF solar zenith in degrees when valid embedded metadata are unavailable.\ntiff_solar_azimuth_deg : float | None, default=None\n    Explicit TIFF solar azimuth in degrees when valid embedded metadata are unavailable.\ntiff_sensor_zenith_deg : float | None, default=None\n    Explicit TIFF view zenith in degrees when valid embedded metadata are unavailable.\ntiff_sensor_azimuth_deg : float | None, default=None\n    Explicit TIFF view azimuth in degrees when valid embedded metadata are unavailable.\ndrone_manifest_path : str | Path | None, default=None\n    Existing flight manifest providing acquisition identity/time; None uses supported discovery or embedded metadata.\ndrone_manifest_timezone : str | None, default='UTC'\n    Timezone used to interpret manifest acquisition times; the default is UTC.\nrequire_solar_geometry : bool, default=True\n    Require scientifically usable solar geometry before correction rather than silently proceeding without it.\nextraction_mode : str | None, default=None\n    'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.\nparquet_chunk_size : int, default=2048\n    Positive pixel/window processing budget for bounded extraction; the default and interpretation follow the selected producer.\nmerge_extractions : bool, default=False\n    Explicit opt-in to legacy campaign-wide pixel-table merging; normal bulk consumers use separate completed flights.\napply_translation : bool, default=False\n    Create separate Landsat-like application products using the reviewed coefficient registry; does not overwrite corrected native MicaSense.\ntranslation_coefficients : str | Path | None, default=None\n    Optional reviewed registry JSON path; None uses the packaged static coefficient set.\ntranslation_weighting : str | None, default=None\n    Optional reviewed weighting selection; normal production uses the predetermined site-balanced weighting.\ntranslation_strict : bool, default=False\n    Treat unsupported/flagged translation conditions as blocking rather than returning the configured non-strict status.\nlandsat_qa : bool, default=False\n    Enable actual Landsat comparison QA for translated products; requires apply_translation=True and appropriate data/dependencies.\nlandsat_product : str | Path | None, default=None\n    Optional existing actual Landsat product for independent comparison; None permits the documented search path.\nlandsat_search_days : int, default=16\n    Nonnegative acquisition-date search radius in days for actual Landsat comparison.\ncomparison_neon_product : str | Path | None, default=None\n    Optional independent NEON product for common-support comparison QA.\nraise_on_incomplete : bool, default=True\n    Raise DronePipelineIncompleteError when flights fail or are scientifically blocked; its results attribute retains structured status.\nsolar_qa_timezone : str | None, default=None\n    Optional timezone override for solar-geometry QA; None follows the existing metadata/timezone resolution.\n\nReturns\n-------\ndict[str, Any]\n    Per-flight processed/reused/failed/blocked outcomes and QA/output paths; incomplete runs normally raise with this payload attached.\n\nRaises\n------\nDroneCorrectionUnavailableError\n    If scientifically required correction inputs cannot be validated.\nDronePipelineIncompleteError\n    If any requested flight is incomplete and raise_on_incomplete is True; inspect the attached results.\nValueError\n    If the supplied options, dimensions, support or provenance violate the input contract.\n\nNotes\n-----\n``extraction_mode=\"full\"`` writes a full-pixel Parquet table from the\ncorrected drone ENVI product. ``\"polygon\"`` uses ``polygon_path`` and the\nexisting polygon extraction path. The default preserves historical\nbehavior: polygon mode when polygons are supplied, otherwise QA-only.\nPer-flight extraction products remain separate by default;\n``merge_extractions=True`` opts into legacy campaign-wide pixel-table\nmaterialization. Bulk analysis does not require that merge.\nTranslation is opt-in and consumes a versioned packaged registry by default,\nor an explicitly supplied reviewed bulk artifact. The predetermined\nproduction weighting is site-balanced. It creates separate Landsat-like\nproducts; corrected native MicaSense is never overwritten.\nBy default an incomplete run raises :class:`DronePipelineIncompleteError`\nwith the structured result available as ``exc.results``.\n\nSee Also\n--------\nspectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.\n\nExamples\n--------\nRequires an existing supported source tree with usable spectral/spatial/solar metadata. Choose a separate output directory.\n\n>>> from spectralbridge import run_drone_pipeline\n>>> result = run_drone_pipeline(input_h5_dir=source_dir, output_dir=output_dir)  # doctest: +SKIP",
           "examples": [
             "examples/release_candidate_smoke.py",
             "examples/run_drone_pipeline.py"
@@ -38243,7 +39801,7 @@
             "spectralbridge.pipelines.drone.run_drone_pipeline"
           ],
           "kind": "function",
-          "line": 3549,
+          "line": 3615,
           "methods": [],
           "name": "run_drone_pipeline",
           "parameters": [
@@ -38441,7 +39999,7 @@
         }
       ],
       "path": "src/spectralbridge/pipelines/drone.py",
-      "sha256": "51e9555256397cd88346b41f1e211361d9e2fa1e1b6ae0250d22f4a1582b6a82"
+      "sha256": "f6e3e50fc93e1ca6accc0351e82619ba0057d2277f8a79c085f388f8b8ca6ee8"
     },
     {
       "area": "pipelines",
@@ -41190,6 +42748,13 @@
             "examples/plant_spectral_regions.py",
             "examples/plant_spectral_years.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
             "examples/real_landsat_validation.py",
             "examples/release_candidate_smoke.py",
             "examples/researcher_evidence_validation.py",
@@ -41334,7 +42899,15 @@
           "docs_references": [],
           "docstring": "Holm family-wise adjustment; valid under arbitrary dependence.",
           "examples": [
-            "examples/manuscript_synthesis/figure_data.py"
+            "examples/manuscript_synthesis/figure_data.py",
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_purity_audit.py"
           ],
           "exports": [],
           "kind": "function",
@@ -41363,6 +42936,9 @@
           "examples": [
             "examples/publication_figures/figure_data.py",
             "examples/publication_figures/figure_panels.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
             "examples/validate_spectral_library_analytics.py"
           ],
           "exports": [],
@@ -41439,6 +43015,11 @@
             "examples/publication_figures/build_spectral_library_figures.py",
             "examples/publication_figures/figure_data.py",
             "examples/publication_figures/figure_panels.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_purity_audit.py",
             "examples/spectral_library_analytics_results.py"
           ],
           "exports": [],
@@ -41931,6 +43512,9 @@
           "docs_references": [],
           "docstring": "",
           "examples": [
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
             "examples/publication_figures/validate_figures.py"
           ],
           "exports": [],
@@ -42368,6 +43952,7 @@
           "docs_references": [],
           "docstring": "",
           "examples": [
+            "examples/publication_figures/landsat_design_audit.py",
             "examples/publication_figures/validate_figures.py",
             "examples/spectral_library_analytics_results.py"
           ],
@@ -42941,7 +44526,11 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "One PFT per row; each column selects exactly one scope and sensor.",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_purity_audit.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 194,
@@ -47072,7 +48661,9 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_pft_panel.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 164,
@@ -47490,7 +49081,17 @@
             "examples/manuscript_synthesis/build_figure.py",
             "examples/manuscript_synthesis/figure_data.py",
             "examples/manuscript_synthesis/validate_data.py",
+            "examples/publication_figures/drone_library_evidence.py",
             "examples/publication_figures/figure_data.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
             "examples/scientific_workflows_offline.py",
             "examples/spectral_library_analytics_results.py"
           ],
@@ -49662,6 +51263,24 @@
             "examples/plant_spectral_regions.py",
             "examples/plant_spectral_years.py",
             "examples/publication_figures/build_spectral_library_figures.py",
+            "examples/publication_figures/drone_library_evidence.py",
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_review_board.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_pft_panel.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_purity_audit.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/publication_figures/validate_figures.py",
             "examples/real_landsat_validation.py",
             "examples/release_candidate_smoke.py",
@@ -50059,6 +51678,20 @@
           "docs_references": [],
           "docstring": "Serialize legacy QAMetrics to JSON, creating the destination parent directory.",
           "examples": [
+            "examples/publication_figures/landsat_design_audit.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_pointcloud.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_seasonal_archive.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/spectral_library_analytics_results.py",
             "examples/validate_spectral_library_analytics.py"
           ],
@@ -51080,7 +52713,11 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_hls_method_comparison.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_photo_annotation.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 1373,
@@ -52702,7 +54339,9 @@
         "asdict": "dataclasses.asdict",
         "dataclass": "dataclasses.dataclass",
         "hdr_to_dict": "spectralbridge.envi.hdr_to_dict",
-        "replace": "dataclasses.replace"
+        "radiometry_from_source_encoding": "spectralbridge.drone_radiometry.radiometry_from_source_encoding",
+        "replace": "dataclasses.replace",
+        "validate_source_wavelengths": "spectralbridge.drone_radiometry.validate_source_wavelengths"
       },
       "module": "spectralbridge.radiometry",
       "objects": [
@@ -53093,7 +54732,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 446,
+          "line": 492,
           "methods": [],
           "name": "require_radiometry",
           "parameters": [
@@ -53118,7 +54757,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 455,
+          "line": 501,
           "methods": [],
           "name": "require_library_header",
           "parameters": [
@@ -53143,7 +54782,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 482,
+          "line": 535,
           "methods": [],
           "name": "library_radiometry",
           "parameters": [
@@ -53168,7 +54807,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 489,
+          "line": 542,
           "methods": [],
           "name": "require_physical_table",
           "parameters": [
@@ -53193,7 +54832,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 499,
+          "line": 552,
           "methods": [],
           "name": "physical_copy_metadata",
           "parameters": [
@@ -53211,7 +54850,7 @@
         }
       ],
       "path": "src/spectralbridge/radiometry.py",
-      "sha256": "c02f261941388261023965789e65ace7ae4b3c1cbc5fd31b4b3bc64634b139a3"
+      "sha256": "eeb72705241f9f0756fe5378a73cdedc951ad60b1141b33c15627768e9212c5c"
     },
     {
       "area": "utilities",
@@ -54551,6 +56190,7 @@
           "examples": [
             "examples/manuscript_synthesis/figure_data.py",
             "examples/manuscript_synthesis/validate_data.py",
+            "examples/publication_figures/landsat_hls_method_comparison.py",
             "examples/spectral_library_analytics_results.py",
             "examples/spectral_library_methods.py"
           ],
@@ -55958,6 +57598,11 @@
           "docstring": "Publish a stage ledger last; reject altered completed outputs.",
           "examples": [
             "examples/plant_spectral_regions.py",
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_regional_candidates.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
+            "examples/publication_figures/landsat_structural_reference.py",
             "examples/spectral_library_analytics_results.py",
             "examples/validate_spectral_library_analytics.py"
           ],
@@ -58525,6 +60170,10 @@
           "docs_references": [],
           "docstring": "",
           "examples": [
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_photo_annotation.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
             "examples/run_drone_pipeline.py"
           ],
           "exports": [],
@@ -58558,6 +60207,12 @@
           "docs_references": [],
           "docstring": "",
           "examples": [
+            "examples/publication_figures/landsat_evergreen_epochs.py",
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_exploratory_pft_tests.py",
+            "examples/publication_figures/landsat_hls_reference_expansion.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py",
+            "examples/publication_figures/landsat_spatial_expansion.py",
             "examples/spectral_library_analytics_results.py",
             "examples/validate_spectral_library_analytics.py"
           ],
@@ -59143,7 +60798,10 @@
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
           "docstring": "",
-          "examples": [],
+          "examples": [
+            "examples/publication_figures/landsat_evergreen_shortlist.py",
+            "examples/publication_figures/landsat_hls_reference_rebuild.py"
+          ],
           "exports": [],
           "kind": "function",
           "line": 39,

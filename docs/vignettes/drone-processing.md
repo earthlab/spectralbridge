@@ -8,6 +8,13 @@ physical-unit and geometry requirements are satisfied. Start with
 [correction eligibility](../concepts/correction-eligibility.md) and the
 [three-flight findings](../validation/drone-findings.md).
 
+!!! note "November 2026 calibration research is a separate experimental branch"
+    The camera-position correction, relative-visible10% shade mask, audited
+    fractional translation and unmasked diagnostic runs are documented in
+    [current calibration findings](../validation/drone-findings.md#camera-position-correction-and-translation-update-20-november-2026).
+    Those three-site products retain experimental/unverified-radiometry status;
+    their upload and model QA do not change normal production eligibility.
+
 ## Scientific branches
 
 ```text
@@ -35,6 +42,28 @@ reviewed affine coefficients derived by the independent bulk workflow. NEON
 hyperspectral data use spectral convolution. The corrected native MicaSense
 raster remains a first-class output and is never overwritten. A translated
 product is Landsat-like; it is not an actual Landsat observation.
+
+## Reuse the current calibration experiments deliberately
+
+The November 19 run uses camera-position-derived geometry from the stability
+investigation, rather than reprocessing all original photographs. It applies
+conditioned topography then BRDF on its declared mask, followed by a separate
+fractional AOP-derived affine registry. It is not the November 13 brightness
+baseline, and it does not replace the unchanged packaged registry.
+
+The [translation tutorial](../tutorials/micasense-to-landsat.md#explicit-experimental-raster-translation-and-storage-scale)
+records the explicit experimental arguments, unit guards, metadata and research
+scripts. `experimental_input=True` and a documented provenance record are
+required; failed-BRDF nulls additionally require their explicit failed-QA research
+option and evidence. Do not copy those exceptions into ordinary production.
+The output remains experimental and is not admitted to approved libraries.
+
+Native prepared values decode by 0.0001999969482421875 for these particular
+conditional inputs; translated delivery values decode by 0.001 (stored × 1,000).
+Neither number is a universal MicaSense input convention. The
+[scale-chain and delivery explanation](../validation/drone-findings.md#keep-the-reflectance-scales-explicit)
+shows the boundaries, filenames and verified datastore collections.
+For an ordinary new flight, use authoritative calibration as described below.
 
 ## Prepare inputs and coefficients
 
