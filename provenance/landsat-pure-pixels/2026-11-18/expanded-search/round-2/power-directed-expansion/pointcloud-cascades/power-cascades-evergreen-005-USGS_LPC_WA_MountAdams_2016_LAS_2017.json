@@ -1,0 +1,32 @@
+{
+  "array_sha256": "577953ef33568580ee9f72db1532dd8be0a3d5698071d1573603333b015b172d",
+  "identity": {
+    "catalogue_sha256": "cd78a2729a2fac3a2cc0485a19844321c0ebc18d7deaeee1535018b9ec6bf236",
+    "method": "first_return_1m_no_fill_v1",
+    "project": "USGS_LPC_WA_MountAdams_2016_LAS_2017",
+    "reference_cutoff": "2023-07-14T16:00:00Z",
+    "source_items": [
+      "USGS_LPC_WA_MountAdams_2016_10TER9286_LAS_2017",
+      "USGS_LPC_WA_MountAdams_2016_10TER9287_LAS_2017"
+    ],
+    "terrain_catalogue_sha256": "c06ccc08f6772837dc932bb9d5ec047027a7e0de2aa2f6f1687edab436464397"
+  },
+  "pft_purity_verified": false,
+  "source_intervals": [
+    {
+      "datetime": null,
+      "end_datetime": "2016-09-26T00:00:00.000000Z",
+      "start_datetime": "2016-08-15T00:00:00.000000Z"
+    },
+    {
+      "datetime": null,
+      "end_datetime": "2016-09-26T00:00:00.000000Z",
+      "start_datetime": "2016-08-15T00:00:00.000000Z"
+    }
+  ],
+  "source_items": [
+    "USGS_LPC_WA_MountAdams_2016_10TER9287_LAS_2017",
+    "USGS_LPC_WA_MountAdams_2016_10TER9286_LAS_2017"
+  ],
+  "structural_only": true
+}

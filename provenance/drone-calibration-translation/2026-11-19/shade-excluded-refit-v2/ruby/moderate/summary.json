@@ -1,0 +1,223 @@
+{
+  "branches": {
+    "brdf_only": {
+      "fits": [
+        {
+          "band": 0,
+          "bin": 0,
+          "eligible": 1237445,
+          "reasons": null,
+          "reference_prediction": 0.021098188784500593,
+          "reference_standard_error": 0.005365537106903734,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 1,
+          "bin": 0,
+          "eligible": 1237445,
+          "reasons": null,
+          "reference_prediction": 0.024822300974389686,
+          "reference_standard_error": 0.006144600271249672,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 2,
+          "bin": 0,
+          "eligible": 1237445,
+          "reasons": null,
+          "reference_prediction": 0.04328031385308399,
+          "reference_standard_error": 0.00643611880887377,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 3,
+          "bin": 0,
+          "eligible": 1237445,
+          "reasons": null,
+          "reference_prediction": 0.04969569825349365,
+          "reference_standard_error": 0.0073204381430557325,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 4,
+          "bin": 0,
+          "eligible": 1237445,
+          "reasons": null,
+          "reference_prediction": 0.031392736019496714,
+          "reference_standard_error": 0.011255252930743375,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 5,
+          "bin": 0,
+          "eligible": 1237445,
+          "reasons": null,
+          "reference_prediction": 0.0272894934279172,
+          "reference_standard_error": 0.01223015764162267,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 6,
+          "bin": 0,
+          "eligible": 1237445,
+          "reasons": null,
+          "reference_prediction": 0.07154095917110921,
+          "reference_standard_error": 0.00936346288314076,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 7,
+          "bin": 0,
+          "eligible": 1237445,
+          "reasons": null,
+          "reference_prediction": 0.11004224712018615,
+          "reference_standard_error": 0.00931270398238676,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 8,
+          "bin": 0,
+          "eligible": 1237445,
+          "reasons": null,
+          "reference_prediction": 0.1780422077993035,
+          "reference_standard_error": 0.016331756601604814,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 9,
+          "bin": 0,
+          "eligible": 1237445,
+          "reasons": null,
+          "reference_prediction": 0.2272663091671906,
+          "reference_standard_error": 0.020386732291138823,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        }
+      ],
+      "status": "VALID"
+    },
+    "combined": {
+      "fits": [
+        {
+          "band": 0,
+          "bin": 0,
+          "eligible": 1235673,
+          "reasons": null,
+          "reference_prediction": 0.019924232326728575,
+          "reference_standard_error": 0.004989983760740202,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 1,
+          "bin": 0,
+          "eligible": 1235673,
+          "reasons": null,
+          "reference_prediction": 0.02338795715037019,
+          "reference_standard_error": 0.005561564012969929,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 2,
+          "bin": 0,
+          "eligible": 1235673,
+          "reasons": null,
+          "reference_prediction": 0.0417315418377134,
+          "reference_standard_error": 0.006375225777926873,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 3,
+          "bin": 0,
+          "eligible": 1235673,
+          "reasons": null,
+          "reference_prediction": 0.04800347468917292,
+          "reference_standard_error": 0.007372677372282701,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 4,
+          "bin": 0,
+          "eligible": 1234410,
+          "reasons": null,
+          "reference_prediction": 0.028783341189645983,
+          "reference_standard_error": 0.01005561317837376,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 5,
+          "bin": 0,
+          "eligible": 1233395,
+          "reasons": null,
+          "reference_prediction": 0.02431610752240153,
+          "reference_standard_error": 0.010750448536352458,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 6,
+          "bin": 0,
+          "eligible": 1235673,
+          "reasons": null,
+          "reference_prediction": 0.0691720002428311,
+          "reference_standard_error": 0.00951994343017644,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 7,
+          "bin": 0,
+          "eligible": 1235673,
+          "reasons": null,
+          "reference_prediction": 0.1081499488238205,
+          "reference_standard_error": 0.010346418664843777,
+          "status": "VALID",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 8,
+          "bin": 0,
+          "eligible": 0,
+          "reasons": null,
+          "reference_prediction": null,
+          "reference_standard_error": null,
+          "status": "NOT_APPLICABLE",
+          "unresolved_prediction_count": null
+        },
+        {
+          "band": 9,
+          "bin": 0,
+          "eligible": 0,
+          "reasons": null,
+          "reference_prediction": null,
+          "reference_standard_error": null,
+          "status": "NOT_APPLICABLE",
+          "unresolved_prediction_count": null
+        }
+      ],
+      "status": "VALID"
+    }
+  },
+  "experimental": true,
+  "physical_calibration_verified": false,
+  "production_approved": false,
+  "site": "ruby",
+  "spatial_pixels": 1350065,
+  "threshold": 0.2,
+  "topographic_status": "PARTIAL",
+  "training_pixels": 1237445,
+  "variant": "moderate"
+}

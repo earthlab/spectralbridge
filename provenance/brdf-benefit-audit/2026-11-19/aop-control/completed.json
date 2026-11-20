@@ -1,0 +1,21 @@
+{
+  "identity": {
+    "code": "dc49aff288e896305e4fd95a0f7af8e462027e0e1bce3ea43e80edb3ce6458a0",
+    "corrections": "44b2d7e53c4bc77c4d93c3e1f95b252d321d4d9868d55cdaad465e2ada7346b8",
+    "source": "7ad8032cbfca6879b38bf854640031b6fb2547f792e93bc9e915b3633345a8ff"
+  },
+  "status": "VALID",
+  "fit_seconds": 0.6281801250006538,
+  "train_groups": 720,
+  "held_groups": 180,
+  "model_path": "provenance/brdf-benefit-audit/2026-11-19/aop-control/model/model_brdf_model.json",
+  "model_sha256": "b117be1066dfe051bffd3d68deb2f26acf6d3c15161d1859f84862efe97bdf67",
+  "supported_bands": 10,
+  "application_seconds": 1.6303817500011064,
+  "elapsed_seconds": 15.101658500003396,
+  "outputs": {
+    "heldout_band_diagnostics.csv": "49d0506c4eac22208a7b2824768db1a3eeb99d8230b5b8b874df76d2cd414565",
+    "heldout_block_diagnostics.csv": "01c21d5bd5ee57d818563ed4981eb48c06413e059e1516beb4945d8a8c972198"
+  },
+  "limitation": "One real R10C scene,120x3000 bounded window, no PFT or absolute truth. Same20mblock residual angular R2 diagnostic; spatial landcover-angle confounding remains. No masks/refits selected by endpoint."
+}

@@ -1,0 +1,19 @@
+{
+  "all18_translation_unit_conversions_equivalent": true,
+  "all30_source_bands_exact": true,
+  "all3_correction_radiometry_chains_consistent": true,
+  "all3_native_fit_caches_exact": true,
+  "all72_AOP_training_headers_divisor_10000": true,
+  "code_sha256": "ef32a1590b625067deba3feec059ee93c9401d838bef1d495bc9de7274d6a8bf",
+  "drone_encoding": "DN/32768;65535approximately200percent",
+  "independent_correction_samples_verified": 1920,
+  "no_double_scaling_detected": true,
+  "outputs": {
+    "all_30_band_source_preparation_checks.csv": "5d11ecf1ea7da3b468fad2c2c0b0dec4c85f3543cd3d6791bc72e75c081285dd",
+    "drone_scale_chain.csv": "46495f2fb29c3f84eba2a27a360e2ef350a188363fd4aa4985e2d89d788be9b0",
+    "drone_scale_examples.csv": "2bb1a0e2dc97edc917371d3c6500e852e415996afd622ecaff403d26b20ab6b8",
+    "translation_intercepts_by_storage_scale.csv": "fa2d01ce7b62731f2f15890b38a3ccfdc599aecf02c5c2d154592f45fcc7bab4"
+  },
+  "physical_accuracy_or_production_approval_claimed": false,
+  "requested_1000_is_not_current_storage": true
+}

@@ -1,0 +1,90 @@
+{
+  "code_sha256": "18427139605a5f73844acb2e7571f982fc1b01aaf3325ad25d33723be2f0ed84",
+  "correction_model_refitted": false,
+  "mask": "user-selected conservative <10% of pre-correction visible-brightness p95",
+  "sites": [
+    {
+      "all_retained_values_exact": true,
+      "correction_refitted": false,
+      "identity": {
+        "coefficient_sha256": "44d164ae50de17fee98f139a546f28efb06c8966649c98247e0178f5d12e1024",
+        "correction_refitted": false,
+        "criteria_changed": false,
+        "header_sha256": "d09feefdbbc89c64ba79ddc3671fbc9d7fff297d9b0b92ff493e1040d4fdc4b8",
+        "mask_sha256": "b12f4059ec8cbfdfcc078e25110e08d3ebf6583c7d17de3d9af8c0ff8221c050",
+        "source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/combined/AOP_GORDON_20230814__combined_EXPERIMENTAL.img",
+        "source_sha256": "d0c6acc8f008697c928d4d0346e6a75441c7a0569b953af2a1d9331edc1cd63f",
+        "threshold": 0.1
+      },
+      "masked_input": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/conservative-trial/gordon/AOP_GORDON_20230814__combined_conservative_shade_masked_EXPERIMENTAL.img",
+      "site": "gordon",
+      "source_unchanged": true,
+      "status": "UNSUPPORTED",
+      "translations": [
+        {
+          "coefficient_units": null,
+          "reason": "Experimental correction is not eligible for an approved spectral library",
+          "status": "UNSUPPORTED",
+          "target": "Landsat_8_OLI"
+        },
+        {
+          "coefficient_units": null,
+          "reason": "Experimental correction is not eligible for an approved spectral library",
+          "status": "UNSUPPORTED",
+          "target": "Landsat_9_OLI-2"
+        }
+      ],
+      "uploaded": false
+    },
+    {
+      "all_retained_values_exact": true,
+      "correction_refitted": false,
+      "identity": {
+        "coefficient_sha256": "44d164ae50de17fee98f139a546f28efb06c8966649c98247e0178f5d12e1024",
+        "correction_refitted": false,
+        "criteria_changed": false,
+        "header_sha256": "67844f1302a25ee40bdfca382e0741dd69ba3dcc6add94ae0315e9c369a4b15e",
+        "mask_sha256": "467607d9cc0b45a8cbbcb9de58a5bcb18862b5c3d54782d4b884858ce0ab15c9",
+        "source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/goldhill/combined/AOP_GOLDHILL_20230814__combined_EXPERIMENTAL.img",
+        "source_sha256": "a6ac5089d9d21ac546f23d54ebed19497e229d8253273b0a4d2eea3f26298845",
+        "threshold": 0.1
+      },
+      "masked_input": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/conservative-trial/goldhill/AOP_GOLDHILL_20230814__combined_conservative_shade_masked_EXPERIMENTAL.img",
+      "site": "goldhill",
+      "source_unchanged": true,
+      "status": "UNSUPPORTED",
+      "translations": [
+        {
+          "coefficient_units": null,
+          "reason": "Experimental correction is not eligible for an approved spectral library",
+          "status": "UNSUPPORTED",
+          "target": "Landsat_8_OLI"
+        },
+        {
+          "coefficient_units": null,
+          "reason": "Experimental correction is not eligible for an approved spectral library",
+          "status": "UNSUPPORTED",
+          "target": "Landsat_9_OLI-2"
+        }
+      ],
+      "uploaded": false
+    },
+    {
+      "identity": {
+        "coefficient_sha256": "44d164ae50de17fee98f139a546f28efb06c8966649c98247e0178f5d12e1024",
+        "correction_refitted": false,
+        "criteria_changed": false,
+        "mask_sha256": "364e2aa0de03e51c835c187c442c7730d6a0790361b0f3e84dc0afe7a4342c3f",
+        "source": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/ruby/combined/AOP_Ruby_20230814__combined_EXPERIMENTAL.img",
+        "threshold": 0.1
+      },
+      "reason": "Ruby combined BRDF rejected in the selected run; no usable corrected input exists. A shade mask does not create that input.",
+      "site": "ruby",
+      "status": "NO_ACCEPTED_COMBINED_CORRECTION",
+      "translations": [],
+      "uploaded": false
+    }
+  ],
+  "thresholds_or_scientific_statuses_changed": false,
+  "upload_performed": false
+}

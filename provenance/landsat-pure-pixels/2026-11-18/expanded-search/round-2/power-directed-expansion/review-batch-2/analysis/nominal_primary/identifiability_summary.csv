@@ -1,0 +1,21 @@
+scheme,unit,researcher_category,n,supported_n,recall_all,recall_supported,status
+leave_one_patch_out,patch,Deciduous,12,12,0.9166666666666666,0.9166666666666666,exploratory_provisional_references
+leave_one_patch_out,patch,Evergreen,11,11,1.0,1.0,exploratory_provisional_references
+leave_one_patch_out,patch,Herbaceous,14,14,1.0,1.0,exploratory_provisional_references
+leave_one_patch_out,patch,Non-vegetated & dead,9,9,1.0,1.0,exploratory_provisional_references
+leave_one_patch_out,patch,Woody shrub,15,15,0.8666666666666667,0.8666666666666667,exploratory_provisional_references
+leave_one_patch_out,pixel,Deciduous,165,165,0.9151515151515152,0.9151515151515152,exploratory_provisional_references
+leave_one_patch_out,pixel,Evergreen,364,364,0.9945054945054945,0.9945054945054945,exploratory_provisional_references
+leave_one_patch_out,pixel,Herbaceous,288,288,0.9791666666666666,0.9791666666666666,exploratory_provisional_references
+leave_one_patch_out,pixel,Non-vegetated & dead,85,85,0.9647058823529412,0.9647058823529412,exploratory_provisional_references
+leave_one_patch_out,pixel,Woody shrub,339,339,0.8259587020648967,0.8259587020648967,exploratory_provisional_references
+leave_one_region_out,patch,Deciduous,12,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,patch,Evergreen,11,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,patch,Herbaceous,14,14,0.9285714285714286,0.9285714285714286,exploratory_provisional_references
+leave_one_region_out,patch,Non-vegetated & dead,9,9,1.0,1.0,exploratory_provisional_references
+leave_one_region_out,patch,Woody shrub,15,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,pixel,Deciduous,165,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,pixel,Evergreen,364,0,0.0,,conditional_on_training_class_presence
+leave_one_region_out,pixel,Herbaceous,288,288,0.9444444444444444,0.9444444444444444,exploratory_provisional_references
+leave_one_region_out,pixel,Non-vegetated & dead,85,85,0.9764705882352941,0.9764705882352941,exploratory_provisional_references
+leave_one_region_out,pixel,Woody shrub,339,0,0.0,,conditional_on_training_class_presence

@@ -1,0 +1,28 @@
+{
+  "sites": [
+    {
+      "full_resolution_counts_match": true,
+      "grid_match": true,
+      "nested_masks": true,
+      "nodata_identical": true,
+      "site": "gordon"
+    },
+    {
+      "full_resolution_counts_match": true,
+      "grid_match": true,
+      "nested_masks": true,
+      "nodata_identical": true,
+      "site": "goldhill"
+    },
+    {
+      "full_resolution_counts_match": true,
+      "grid_match": true,
+      "nested_masks": true,
+      "nodata_identical": true,
+      "site": "ruby"
+    }
+  ],
+  "tests_passed": 3,
+  "translation_performed": false,
+  "visual_review": "Comparison overview checked after correcting row-title spacing."
+}

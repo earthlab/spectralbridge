@@ -1,0 +1,121 @@
+a,b,patch_group_id,truth,prediction,train_patches,held_patch_in_training
+Deciduous,Evergreen,power-cascades-evergreen-008,Evergreen,Evergreen,10,False
+Deciduous,Evergreen,power-cascades-evergreen-011,Evergreen,Evergreen,10,False
+Deciduous,Evergreen,power-cascades-evergreen-013,Evergreen,Evergreen,10,False
+Deciduous,Evergreen,power-cascades-evergreen-015,Evergreen,Evergreen,10,False
+Deciduous,Evergreen,power-cascades-evergreen-018,Evergreen,Evergreen,10,False
+Deciduous,Evergreen,power-gunnison_aspen-deciduous-001,Deciduous,Deciduous,10,False
+Deciduous,Evergreen,power-gunnison_aspen-deciduous-004,Deciduous,Deciduous,10,False
+Deciduous,Evergreen,r2-cascades-evergreen-006,Evergreen,Evergreen,10,False
+Deciduous,Evergreen,r2-cascades-evergreen-007,Evergreen,Evergreen,10,False
+Deciduous,Evergreen,r2-gunnison_aspen-deciduous-005,Deciduous,Deciduous,10,False
+Deciduous,Evergreen,r2-gunnison_aspen-deciduous-008,Deciduous,Deciduous,10,False
+Deciduous,Herbaceous,power-gunnison_aspen-deciduous-001,Deciduous,Deciduous,11,False
+Deciduous,Herbaceous,power-gunnison_aspen-deciduous-004,Deciduous,Deciduous,11,False
+Deciduous,Herbaceous,power-yellowstone-herbaceous-002,Herbaceous,Herbaceous,11,False
+Deciduous,Herbaceous,power-yellowstone-herbaceous-003,Herbaceous,Herbaceous,11,False
+Deciduous,Herbaceous,power-yellowstone-herbaceous-004,Herbaceous,Herbaceous,11,False
+Deciduous,Herbaceous,power-yellowstone-herbaceous-006,Herbaceous,Herbaceous,11,False
+Deciduous,Herbaceous,power-yellowstone-herbaceous-008,Herbaceous,Herbaceous,11,False
+Deciduous,Herbaceous,r2-cascades-herbaceous-009,Herbaceous,Herbaceous,11,False
+Deciduous,Herbaceous,r2-front_range-herbaceous-003,Herbaceous,Herbaceous,11,False
+Deciduous,Herbaceous,r2-gunnison_aspen-deciduous-005,Deciduous,Herbaceous,11,False
+Deciduous,Herbaceous,r2-gunnison_aspen-deciduous-008,Deciduous,Deciduous,11,False
+Deciduous,Herbaceous,r2-yellowstone-herbaceous-003,Herbaceous,Herbaceous,11,False
+Deciduous,Woody shrub,power-california_shrublands-woody-001,Woody shrub,Woody shrub,12,False
+Deciduous,Woody shrub,power-california_shrublands-woody-003,Woody shrub,Woody shrub,12,False
+Deciduous,Woody shrub,power-california_shrublands-woody-004,Woody shrub,Woody shrub,12,False
+Deciduous,Woody shrub,power-california_shrublands-woody-006,Woody shrub,Woody shrub,12,False
+Deciduous,Woody shrub,power-gunnison_aspen-deciduous-001,Deciduous,Woody shrub,12,False
+Deciduous,Woody shrub,power-gunnison_aspen-deciduous-004,Deciduous,Deciduous,12,False
+Deciduous,Woody shrub,r2-california_shrublands-woody-001,Woody shrub,Woody shrub,12,False
+Deciduous,Woody shrub,r2-california_shrublands-woody-002,Woody shrub,Woody shrub,12,False
+Deciduous,Woody shrub,r2-california_shrublands-woody-003,Woody shrub,Woody shrub,12,False
+Deciduous,Woody shrub,r2-california_shrublands-woody-005,Woody shrub,Woody shrub,12,False
+Deciduous,Woody shrub,r2-california_shrublands-woody-010,Woody shrub,Deciduous,12,False
+Deciduous,Woody shrub,r2-gunnison_aspen-deciduous-005,Deciduous,Deciduous,12,False
+Deciduous,Woody shrub,r2-gunnison_aspen-deciduous-008,Deciduous,Deciduous,12,False
+Deciduous,Non-vegetated & dead,power-gunnison_aspen-deciduous-001,Deciduous,Deciduous,5,False
+Deciduous,Non-vegetated & dead,power-gunnison_aspen-deciduous-004,Deciduous,Deciduous,5,False
+Deciduous,Non-vegetated & dead,power-gunnison_aspen-non-vegetated-003,Non-vegetated & dead,Non-vegetated & dead,5,False
+Deciduous,Non-vegetated & dead,r2-gunnison_aspen-deciduous-005,Deciduous,Deciduous,5,False
+Deciduous,Non-vegetated & dead,r2-gunnison_aspen-deciduous-008,Deciduous,Deciduous,5,False
+Deciduous,Non-vegetated & dead,r2-yellowstone-non-vegetated-003,Non-vegetated & dead,Non-vegetated & dead,5,False
+Evergreen,Herbaceous,power-cascades-evergreen-008,Evergreen,Evergreen,14,False
+Evergreen,Herbaceous,power-cascades-evergreen-011,Evergreen,Evergreen,14,False
+Evergreen,Herbaceous,power-cascades-evergreen-013,Evergreen,Evergreen,14,False
+Evergreen,Herbaceous,power-cascades-evergreen-015,Evergreen,Evergreen,14,False
+Evergreen,Herbaceous,power-cascades-evergreen-018,Evergreen,Evergreen,14,False
+Evergreen,Herbaceous,power-yellowstone-herbaceous-002,Herbaceous,Herbaceous,14,False
+Evergreen,Herbaceous,power-yellowstone-herbaceous-003,Herbaceous,Herbaceous,14,False
+Evergreen,Herbaceous,power-yellowstone-herbaceous-004,Herbaceous,Herbaceous,14,False
+Evergreen,Herbaceous,power-yellowstone-herbaceous-006,Herbaceous,Herbaceous,14,False
+Evergreen,Herbaceous,power-yellowstone-herbaceous-008,Herbaceous,Herbaceous,14,False
+Evergreen,Herbaceous,r2-cascades-evergreen-006,Evergreen,Evergreen,14,False
+Evergreen,Herbaceous,r2-cascades-evergreen-007,Evergreen,Evergreen,14,False
+Evergreen,Herbaceous,r2-cascades-herbaceous-009,Herbaceous,Herbaceous,14,False
+Evergreen,Herbaceous,r2-front_range-herbaceous-003,Herbaceous,Herbaceous,14,False
+Evergreen,Herbaceous,r2-yellowstone-herbaceous-003,Herbaceous,Herbaceous,14,False
+Evergreen,Woody shrub,power-california_shrublands-woody-001,Woody shrub,Woody shrub,15,False
+Evergreen,Woody shrub,power-california_shrublands-woody-003,Woody shrub,Woody shrub,15,False
+Evergreen,Woody shrub,power-california_shrublands-woody-004,Woody shrub,Woody shrub,15,False
+Evergreen,Woody shrub,power-california_shrublands-woody-006,Woody shrub,Woody shrub,15,False
+Evergreen,Woody shrub,power-cascades-evergreen-008,Evergreen,Evergreen,15,False
+Evergreen,Woody shrub,power-cascades-evergreen-011,Evergreen,Evergreen,15,False
+Evergreen,Woody shrub,power-cascades-evergreen-013,Evergreen,Evergreen,15,False
+Evergreen,Woody shrub,power-cascades-evergreen-015,Evergreen,Evergreen,15,False
+Evergreen,Woody shrub,power-cascades-evergreen-018,Evergreen,Evergreen,15,False
+Evergreen,Woody shrub,r2-california_shrublands-woody-001,Woody shrub,Woody shrub,15,False
+Evergreen,Woody shrub,r2-california_shrublands-woody-002,Woody shrub,Woody shrub,15,False
+Evergreen,Woody shrub,r2-california_shrublands-woody-003,Woody shrub,Woody shrub,15,False
+Evergreen,Woody shrub,r2-california_shrublands-woody-005,Woody shrub,Woody shrub,15,False
+Evergreen,Woody shrub,r2-california_shrublands-woody-010,Woody shrub,Evergreen,15,False
+Evergreen,Woody shrub,r2-cascades-evergreen-006,Evergreen,Evergreen,15,False
+Evergreen,Woody shrub,r2-cascades-evergreen-007,Evergreen,Evergreen,15,False
+Evergreen,Non-vegetated & dead,power-cascades-evergreen-008,Evergreen,Evergreen,8,False
+Evergreen,Non-vegetated & dead,power-cascades-evergreen-011,Evergreen,Evergreen,8,False
+Evergreen,Non-vegetated & dead,power-cascades-evergreen-013,Evergreen,Evergreen,8,False
+Evergreen,Non-vegetated & dead,power-cascades-evergreen-015,Evergreen,Evergreen,8,False
+Evergreen,Non-vegetated & dead,power-cascades-evergreen-018,Evergreen,Evergreen,8,False
+Evergreen,Non-vegetated & dead,power-gunnison_aspen-non-vegetated-003,Non-vegetated & dead,Non-vegetated & dead,8,False
+Evergreen,Non-vegetated & dead,r2-cascades-evergreen-006,Evergreen,Evergreen,8,False
+Evergreen,Non-vegetated & dead,r2-cascades-evergreen-007,Evergreen,Evergreen,8,False
+Evergreen,Non-vegetated & dead,r2-yellowstone-non-vegetated-003,Non-vegetated & dead,Non-vegetated & dead,8,False
+Herbaceous,Woody shrub,power-california_shrublands-woody-001,Woody shrub,Woody shrub,16,False
+Herbaceous,Woody shrub,power-california_shrublands-woody-003,Woody shrub,Woody shrub,16,False
+Herbaceous,Woody shrub,power-california_shrublands-woody-004,Woody shrub,Woody shrub,16,False
+Herbaceous,Woody shrub,power-california_shrublands-woody-006,Woody shrub,Woody shrub,16,False
+Herbaceous,Woody shrub,power-yellowstone-herbaceous-002,Herbaceous,Herbaceous,16,False
+Herbaceous,Woody shrub,power-yellowstone-herbaceous-003,Herbaceous,Herbaceous,16,False
+Herbaceous,Woody shrub,power-yellowstone-herbaceous-004,Herbaceous,Herbaceous,16,False
+Herbaceous,Woody shrub,power-yellowstone-herbaceous-006,Herbaceous,Herbaceous,16,False
+Herbaceous,Woody shrub,power-yellowstone-herbaceous-008,Herbaceous,Herbaceous,16,False
+Herbaceous,Woody shrub,r2-california_shrublands-woody-001,Woody shrub,Woody shrub,16,False
+Herbaceous,Woody shrub,r2-california_shrublands-woody-002,Woody shrub,Woody shrub,16,False
+Herbaceous,Woody shrub,r2-california_shrublands-woody-003,Woody shrub,Woody shrub,16,False
+Herbaceous,Woody shrub,r2-california_shrublands-woody-005,Woody shrub,Woody shrub,16,False
+Herbaceous,Woody shrub,r2-california_shrublands-woody-010,Woody shrub,Woody shrub,16,False
+Herbaceous,Woody shrub,r2-cascades-herbaceous-009,Herbaceous,Herbaceous,16,False
+Herbaceous,Woody shrub,r2-front_range-herbaceous-003,Herbaceous,Herbaceous,16,False
+Herbaceous,Woody shrub,r2-yellowstone-herbaceous-003,Herbaceous,Herbaceous,16,False
+Herbaceous,Non-vegetated & dead,power-gunnison_aspen-non-vegetated-003,Non-vegetated & dead,Herbaceous,9,False
+Herbaceous,Non-vegetated & dead,power-yellowstone-herbaceous-002,Herbaceous,Herbaceous,9,False
+Herbaceous,Non-vegetated & dead,power-yellowstone-herbaceous-003,Herbaceous,Herbaceous,9,False
+Herbaceous,Non-vegetated & dead,power-yellowstone-herbaceous-004,Herbaceous,Herbaceous,9,False
+Herbaceous,Non-vegetated & dead,power-yellowstone-herbaceous-006,Herbaceous,Herbaceous,9,False
+Herbaceous,Non-vegetated & dead,power-yellowstone-herbaceous-008,Herbaceous,Herbaceous,9,False
+Herbaceous,Non-vegetated & dead,r2-cascades-herbaceous-009,Herbaceous,Herbaceous,9,False
+Herbaceous,Non-vegetated & dead,r2-front_range-herbaceous-003,Herbaceous,Herbaceous,9,False
+Herbaceous,Non-vegetated & dead,r2-yellowstone-herbaceous-003,Herbaceous,Herbaceous,9,False
+Herbaceous,Non-vegetated & dead,r2-yellowstone-non-vegetated-003,Non-vegetated & dead,Non-vegetated & dead,9,False
+Woody shrub,Non-vegetated & dead,power-california_shrublands-woody-001,Woody shrub,Woody shrub,10,False
+Woody shrub,Non-vegetated & dead,power-california_shrublands-woody-003,Woody shrub,Woody shrub,10,False
+Woody shrub,Non-vegetated & dead,power-california_shrublands-woody-004,Woody shrub,Woody shrub,10,False
+Woody shrub,Non-vegetated & dead,power-california_shrublands-woody-006,Woody shrub,Woody shrub,10,False
+Woody shrub,Non-vegetated & dead,power-gunnison_aspen-non-vegetated-003,Non-vegetated & dead,Non-vegetated & dead,10,False
+Woody shrub,Non-vegetated & dead,r2-california_shrublands-woody-001,Woody shrub,Woody shrub,10,False
+Woody shrub,Non-vegetated & dead,r2-california_shrublands-woody-002,Woody shrub,Woody shrub,10,False
+Woody shrub,Non-vegetated & dead,r2-california_shrublands-woody-003,Woody shrub,Woody shrub,10,False
+Woody shrub,Non-vegetated & dead,r2-california_shrublands-woody-005,Woody shrub,Woody shrub,10,False
+Woody shrub,Non-vegetated & dead,r2-california_shrublands-woody-010,Woody shrub,Woody shrub,10,False
+Woody shrub,Non-vegetated & dead,r2-yellowstone-non-vegetated-003,Non-vegetated & dead,Non-vegetated & dead,10,False

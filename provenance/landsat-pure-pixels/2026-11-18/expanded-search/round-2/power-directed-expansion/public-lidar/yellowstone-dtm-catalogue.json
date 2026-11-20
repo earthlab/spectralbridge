@@ -1,0 +1,29 @@
+{
+  "features": [],
+  "links": [
+    {
+      "href": "https://planetarycomputer.microsoft.com/api/stac/v1/",
+      "rel": "root",
+      "type": "application/json"
+    },
+    {
+      "href": "https://planetarycomputer.microsoft.com/api/stac/v1/search?collections=3dep-lidar-dtm",
+      "rel": "self",
+      "type": "application/geo+json"
+    }
+  ],
+  "numberReturned": 0,
+  "spectralbridge:query": {
+    "bbox": [
+      -110.85,
+      44.6,
+      -110.15,
+      45.1
+    ],
+    "collections": [
+      "3dep-lidar-dtm"
+    ],
+    "limit": 100
+  },
+  "type": "FeatureCollection"
+}

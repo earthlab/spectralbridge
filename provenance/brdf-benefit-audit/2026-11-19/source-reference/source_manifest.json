@@ -1,0 +1,27 @@
+{
+  "repository": "NASA-IMPACT/hls-landsat-tile",
+  "commit": "8620ed613b7250149c29dbffb19e9f947e235871",
+  "files": {
+    "derive_l8nbar.c": {
+      "upstream_path": "hls_libs/nbar/derive_l8nbar.c",
+      "sha256": "9ea941d46c8091413421002204414e64cbfab44bf8a2d040ef2802bb2e9e35a3"
+    },
+    "modis_brdf_coeff.h": {
+      "upstream_path": "hls_libs/common/modis_brdf_coeff.h",
+      "sha256": "c9a72892583e08cf4ccd9b1aba380d73bcc70e83083f3504dac4903bc9fe5505"
+    },
+    "mean_solarzen.c": {
+      "upstream_path": "hls_libs/common/mean_solarzen.c",
+      "sha256": "5e37e6c2e6324f4e6d1cfc87bd04b6113085b805a56f713b8ced2a54a912891e"
+    },
+    "rtls.c": {
+      "upstream_path": "hls_libs/common/rtls.c",
+      "sha256": "6cf8da8a6a2678f5f4bcb92e2fec08ee422b617df4fadfb085c35ce4a6691d2b"
+    },
+    "rtls.h": {
+      "upstream_path": "hls_libs/common/rtls.h",
+      "sha256": "1e46702370ceb10041d892a962b5bb1807e301411df32680806b7de8c40a8d3e"
+    }
+  },
+  "scope": "Reference evidence and unmodified RTLS kernels compiled for a separate research counterfactual; no production package code or coefficient defaults changed"
+}

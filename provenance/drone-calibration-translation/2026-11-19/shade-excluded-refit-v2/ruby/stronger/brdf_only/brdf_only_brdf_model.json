@@ -1,0 +1,1010 @@
+{
+  "source_identity": "ff28e5970ee4165d10ce42b38966754306debd2e213c0006459b47dfd2f47c43",
+  "radiometry": {
+    "scale": 0.0001999969482421875,
+    "offset": 0.0,
+    "status": "HYPOTHETICAL_UNVERIFIED",
+    "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+    "convention": "physical = scale * stored + offset"
+  },
+  "kernel_config": {
+    "volume_kernel": "RossThick",
+    "geom_kernel": "LiDenseR",
+    "b_r": 10.0,
+    "h_b": 2.0,
+    "solar_zn_type": "scene"
+  },
+  "ndvi_config": {
+    "enabled": false,
+    "ndvi_min": 0.05,
+    "ndvi_max": 1.0,
+    "n_bins": 25,
+    "perc_min": 10.0,
+    "perc_max": 95.0
+  },
+  "rho_min": 0.0,
+  "rho_max": 2.0,
+  "schema_version": 2,
+  "kernel_math_version": "ross-li-reciprocal-f64-v1",
+  "validation_policy": "source-footprint-resolved-predictions-v1",
+  "wavelengths_nm": [
+    444.0,
+    475.0,
+    531.0,
+    560.0,
+    650.0,
+    668.0,
+    705.0,
+    717.0,
+    740.0,
+    862.0
+  ],
+  "apply_topography": false,
+  "fitting_mask_sha256": "7881b6c5ef1aef9d062406b86e9a59ee657d1172ac10506770855861f076f09b",
+  "uncertainty_groups_sha256": "0cc1eab8a0d6f3d19e826239da1ad920191bb028430f1fc56316df8e61a75168",
+  "fitting_provenance": {
+    "experiment": "shade-excluded native refit",
+    "variant": "stronger",
+    "original_training_sha256": "35d0050be0271f3fd96386df4666c70c1eecfc815a5744204caab8d4a069f000",
+    "candidate_mask_sha256": "66a40a561a9103bd4157e447134558180eb99e9bd25572c7141057a366d303d4",
+    "calibration": "original conditional unverified hypothesis retained"
+  },
+  "source_path": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-three-site-integration/2026-11-04/prepared/AOP-Ruby-08-14-23-ExportPackage/AOP-RUBY-08-14-23-ORTHO_CLIPPED__processing_10cm_10k.tif",
+  "source_shape": [
+    1035,
+    1960,
+    10
+  ],
+  "reference_geometry": {
+    "solar_zenith_deg": 45.0,
+    "view_zenith_deg": 0.0,
+    "relative_azimuth_deg": 0.0
+  },
+  "coefficient_provenance": "scene ordinary least squares; shared Ross-Li v2; coefficients absent unless VALID",
+  "fitting_population": {
+    "total_image_pixels": 2028600,
+    "available_spatial": 1019399,
+    "explicit_source_footprint_pixels": 1993472,
+    "source_footprint_status": "DOCUMENTED_MASK",
+    "eligibility_units": "verified fractional physical reflectance only",
+    "eligible": null,
+    "status": "EVALUATED_PER_BAND_STRATUM",
+    "source_footprint_valid": 1019399,
+    "numerical_angular_valid": 1019399
+  },
+  "angular_support": {
+    "solar_zn": {
+      "count": 1019399,
+      "min_rad": 0.45381462574005127,
+      "max_rad": 0.45383426547050476,
+      "std_rad": 4.822690384986736e-06
+    },
+    "solar_az": {
+      "count": 1019399,
+      "min_rad": 3.008104085922241,
+      "max_rad": 3.0081965923309326,
+      "std_rad": 2.367999651445678e-05
+    },
+    "sensor_zn": {
+      "count": 1019399,
+      "min_rad": 8.571369107812643e-07,
+      "max_rad": 0.053349271416664124,
+      "std_rad": 0.009352348930649268
+    },
+    "sensor_az": {
+      "count": 1019399,
+      "min_rad": 1.8664267145140911e-06,
+      "max_rad": 6.2831549644470215,
+      "std_rad": 1.75998944577789
+    }
+  },
+  "rank_conditioning_status": "EVALUATED_PER_BAND_STRATUM",
+  "correction_factor_diagnostics_status": "EVALUATED_PER_SUPPORTED_FIT",
+  "validation": {
+    "status": "VALID",
+    "fits": [
+      {
+        "band": 0,
+        "bin": 0,
+        "available": 1019399,
+        "source_nodata_quality_valid": 1019399,
+        "radiometrically_eligible_before_geometry": 1019399,
+        "eligible": 935891,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "excluded_source_footprint": 0,
+        "rank": 3,
+        "stable_rank": 3,
+        "status": "VALID",
+        "effective_independent_sample_size": null,
+        "effective_sample_size_status": "NOT_ESTIMATED; pixel counts are not independent angular or ecological observations",
+        "excluded_by_fitting_subset": 83508,
+        "diagnostic_coefficient_estimate": [
+          0.01645984789418856,
+          -1.5475681960593113,
+          0.06168245105657244
+        ],
+        "singular_values": [
+          994.935009700282,
+          141.34558969212824,
+          2.164727153614286
+        ],
+        "condition_number": 459.6122001052706,
+        "stable_rank_tolerance": 0.34351821496059354,
+        "uncertainty_method": "spatial_cluster_sandwich_v1",
+        "uncertainty_groups": 60,
+        "reference_prediction": 0.025752015690046065,
+        "reference_standard_error": 0.006036852002990763,
+        "coefficient_covariance": [
+          [
+            0.00013007214406844653,
+            0.0070450248110627235,
+            -0.0002323190459721572
+          ],
+          [
+            0.0070450248110627235,
+            0.39961578614666043,
+            -0.013946776838032724
+          ],
+          [
+            -0.0002323190459721572,
+            -0.013946776838032724,
+            0.000526664428055696
+          ]
+        ],
+        "residual_rmse": 0.023802959366237494,
+        "unsupported_application_predictions": 0,
+        "predicted_standard_error_quantiles": [
+          0.0011261973968545538,
+          0.0021003039067775038,
+          0.004837224821970646
+        ],
+        "coefficient_standard_errors": [
+          0.011404917538870964,
+          0.6321517113372869,
+          0.022949170530886208
+        ],
+        "reference_leverage": 4.176560250041439e-05,
+        "reference_outside_kernel_bounds": true,
+        "reference_prediction_resolved": true,
+        "reference_prediction_lower_margin": 0.013919643555209518,
+        "unresolved_observed_geometry_predictions": 0,
+        "rejection_components": [],
+        "predicted_quantiles": [
+          0.031804387661936176,
+          0.0340382133845054,
+          0.043759556575302144,
+          0.0479098870727256,
+          0.048776248373324387
+        ],
+        "factor_quantiles": [
+          0.5279622059684643,
+          0.5375094216138596,
+          0.5884889543094795,
+          0.7565619087918687,
+          0.8097000943321524
+        ]
+      },
+      {
+        "band": 1,
+        "bin": 0,
+        "available": 1019399,
+        "source_nodata_quality_valid": 1019399,
+        "radiometrically_eligible_before_geometry": 1019399,
+        "eligible": 935891,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "excluded_source_footprint": 0,
+        "rank": 3,
+        "stable_rank": 3,
+        "status": "VALID",
+        "effective_independent_sample_size": null,
+        "effective_sample_size_status": "NOT_ESTIMATED; pixel counts are not independent angular or ecological observations",
+        "excluded_by_fitting_subset": 83508,
+        "diagnostic_coefficient_estimate": [
+          0.019587384918407315,
+          -1.7615534633936285,
+          0.07023359672652556
+        ],
+        "singular_values": [
+          994.935009700282,
+          141.34558969212824,
+          2.164727153614286
+        ],
+        "condition_number": 459.6122001052706,
+        "stable_rank_tolerance": 0.34351821496059354,
+        "uncertainty_method": "spatial_cluster_sandwich_v1",
+        "uncertainty_groups": 60,
+        "reference_prediction": 0.030142205769150873,
+        "reference_standard_error": 0.006830901894995135,
+        "coefficient_covariance": [
+          [
+            0.00017201216514679758,
+            0.009238799799051614,
+            -0.0003037619176791356
+          ],
+          [
+            0.009238799799051614,
+            0.5187328279903246,
+            -0.01801382972556783
+          ],
+          [
+            -0.0003037619176791356,
+            -0.01801382972556783,
+            0.0006757829068529493
+          ]
+        ],
+        "residual_rmse": 0.0265554539554227,
+        "unsupported_application_predictions": 0,
+        "predicted_standard_error_quantiles": [
+          0.0012900641000856247,
+          0.0023541202035248787,
+          0.005606021993550718
+        ],
+        "coefficient_standard_errors": [
+          0.0131153408322772,
+          0.7202310934625945,
+          0.02599582479655049
+        ],
+        "reference_leverage": 4.176560250041439e-05,
+        "reference_outside_kernel_bounds": true,
+        "reference_prediction_resolved": true,
+        "reference_prediction_lower_margin": 0.016753475349158234,
+        "unresolved_observed_geometry_predictions": 0,
+        "rejection_components": [],
+        "predicted_quantiles": [
+          0.03704760532575628,
+          0.03958709004317287,
+          0.05065662574107508,
+          0.05538180504144632,
+          0.05636910247725522
+        ],
+        "factor_quantiles": [
+          0.5347292123608527,
+          0.544261887935817,
+          0.5950298767079145,
+          0.7614150405167958,
+          0.8136073979441627
+        ]
+      },
+      {
+        "band": 2,
+        "bin": 0,
+        "available": 1019399,
+        "source_nodata_quality_valid": 1019399,
+        "radiometrically_eligible_before_geometry": 1019399,
+        "eligible": 935891,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "excluded_source_footprint": 0,
+        "rank": 3,
+        "stable_rank": 3,
+        "status": "VALID",
+        "effective_independent_sample_size": null,
+        "effective_sample_size_status": "NOT_ESTIMATED; pixel counts are not independent angular or ecological observations",
+        "excluded_by_fitting_subset": 83508,
+        "diagnostic_coefficient_estimate": [
+          0.04100229253677997,
+          -1.7817171350496122,
+          0.07234529339598085
+        ],
+        "singular_values": [
+          994.935009700282,
+          141.34558969212824,
+          2.164727153614286
+        ],
+        "condition_number": 459.6122001052706,
+        "stable_rank_tolerance": 0.34351821496059354,
+        "uncertainty_method": "spatial_cluster_sandwich_v1",
+        "uncertainty_groups": 60,
+        "reference_prediction": 0.05037016363009002,
+        "reference_standard_error": 0.007195747899242059,
+        "coefficient_covariance": [
+          [
+            0.00016283093655321767,
+            0.00914106386333116,
+            -0.0003043775428880469
+          ],
+          [
+            0.00914106386333116,
+            0.5411707804712902,
+            -0.019244814555110987
+          ],
+          [
+            -0.0003043775428880469,
+            -0.019244814555110987,
+            0.0007456023174101104
+          ]
+        ],
+        "residual_rmse": 0.029068000610198555,
+        "unsupported_application_predictions": 0,
+        "predicted_standard_error_quantiles": [
+          0.0011975155691304413,
+          0.0025965496595726427,
+          0.005237881904606343
+        ],
+        "coefficient_standard_errors": [
+          0.01276052258150965,
+          0.7356431067245109,
+          0.027305719499952943
+        ],
+        "reference_leverage": 4.176560250041439e-05,
+        "reference_outside_kernel_bounds": true,
+        "reference_prediction_resolved": true,
+        "reference_prediction_lower_margin": 0.036266311723147766,
+        "unresolved_observed_geometry_predictions": 0,
+        "rejection_components": [],
+        "predicted_quantiles": [
+          0.05811205156142191,
+          0.06062595121411401,
+          0.07215181962053509,
+          0.07696821990347814,
+          0.07802032545000862
+        ],
+        "factor_quantiles": [
+          0.6456030955980132,
+          0.6544280703549676,
+          0.6981135596440896,
+          0.8308350239684811,
+          0.866776551105771
+        ]
+      },
+      {
+        "band": 3,
+        "bin": 0,
+        "available": 1019399,
+        "source_nodata_quality_valid": 1019399,
+        "radiometrically_eligible_before_geometry": 1019399,
+        "eligible": 935891,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "excluded_source_footprint": 0,
+        "rank": 3,
+        "stable_rank": 3,
+        "status": "VALID",
+        "effective_independent_sample_size": null,
+        "effective_sample_size_status": "NOT_ESTIMATED; pixel counts are not independent angular or ecological observations",
+        "excluded_by_fitting_subset": 83508,
+        "diagnostic_coefficient_estimate": [
+          0.04734511036141985,
+          -2.02474181778591,
+          0.08267006479096319
+        ],
+        "singular_values": [
+          994.935009700282,
+          141.34558969212824,
+          2.164727153614286
+        ],
+        "condition_number": 459.6122001052706,
+        "stable_rank_tolerance": 0.34351821496059354,
+        "uncertainty_method": "spatial_cluster_sandwich_v1",
+        "uncertainty_groups": 60,
+        "reference_prediction": 0.057533815321514234,
+        "reference_standard_error": 0.008219397153508806,
+        "coefficient_covariance": [
+          [
+            0.00020445076966290856,
+            0.011543270953026541,
+            -0.00038307631792849385
+          ],
+          [
+            0.011543270953026541,
+            0.689603986655231,
+            -0.024569016381192944
+          ],
+          [
+            -0.00038307631792849385,
+            -0.024569016381192944,
+            0.0009588588392077527
+          ]
+        ],
+        "residual_rmse": 0.032626521416869565,
+        "unsupported_application_predictions": 0,
+        "predicted_standard_error_quantiles": [
+          0.0013105057135404034,
+          0.0029959973962637924,
+          0.0058704721482828294
+        ],
+        "coefficient_standard_errors": [
+          0.014298628244097703,
+          0.8304239800579166,
+          0.03096544589066582
+        ],
+        "reference_leverage": 4.176560250041439e-05,
+        "reference_outside_kernel_bounds": true,
+        "reference_prediction_resolved": true,
+        "reference_prediction_lower_margin": 0.04142358435147992,
+        "unresolved_observed_geometry_predictions": 0,
+        "rejection_components": [],
+        "predicted_quantiles": [
+          0.06644001599004701,
+          0.069432880240928,
+          0.08266291979306242,
+          0.08813875018962013,
+          0.08934783391492429
+        ],
+        "factor_quantiles": [
+          0.6439307233379278,
+          0.6527641383357152,
+          0.6960051189280979,
+          0.8286249270068567,
+          0.8659512563954386
+        ]
+      },
+      {
+        "band": 4,
+        "bin": 0,
+        "available": 1019399,
+        "source_nodata_quality_valid": 1019399,
+        "radiometrically_eligible_before_geometry": 1019399,
+        "eligible": 935891,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "excluded_source_footprint": 0,
+        "rank": 3,
+        "stable_rank": 3,
+        "status": "VALID",
+        "effective_independent_sample_size": null,
+        "effective_sample_size_status": "NOT_ESTIMATED; pixel counts are not independent angular or ecological observations",
+        "excluded_by_fitting_subset": 83508,
+        "diagnostic_coefficient_estimate": [
+          0.014103352934695801,
+          -3.6431974304340202,
+          0.14214224760422317
+        ],
+        "singular_values": [
+          994.935009700282,
+          141.34558969212824,
+          2.164727153614286
+        ],
+        "condition_number": 459.6122001052706,
+        "stable_rank_tolerance": 0.34351821496059354,
+        "uncertainty_method": "spatial_cluster_sandwich_v1",
+        "uncertainty_groups": 60,
+        "reference_prediction": 0.03904553475182834,
+        "reference_standard_error": 0.01255831596384898,
+        "coefficient_covariance": [
+          [
+            0.0005492236703731466,
+            0.029467487541198743,
+            -0.0009579884561009269
+          ],
+          [
+            0.029467487541198743,
+            1.6619224409365438,
+            -0.057593734520482505
+          ],
+          [
+            -0.0009579884561009269,
+            -0.057593734520482505,
+            0.002182555130268383
+          ]
+        ],
+        "residual_rmse": 0.047653778760830455,
+        "unsupported_application_predictions": 0,
+        "predicted_standard_error_quantiles": [
+          0.0023096448656280536,
+          0.004330122780636238,
+          0.01013724455889737
+        ],
+        "coefficient_standard_errors": [
+          0.023435521551122915,
+          1.2891557085691951,
+          0.0467178245455456
+        ],
+        "reference_leverage": 4.176560250041439e-05,
+        "reference_outside_kernel_bounds": true,
+        "reference_prediction_resolved": true,
+        "reference_prediction_lower_margin": 0.014430927111139046,
+        "unresolved_observed_geometry_predictions": 0,
+        "rejection_components": [],
+        "predicted_quantiles": [
+          0.051059271072442146,
+          0.05674219102024432,
+          0.07910575806081971,
+          0.08871995444219068,
+          0.09061398574597948
+        ],
+        "factor_quantiles": [
+          0.4308996500969033,
+          0.4400986790099196,
+          0.49358650633002665,
+          0.6881217318165807,
+          0.7647099915788282
+        ]
+      },
+      {
+        "band": 5,
+        "bin": 0,
+        "available": 1019399,
+        "source_nodata_quality_valid": 1019399,
+        "radiometrically_eligible_before_geometry": 1019399,
+        "eligible": 935891,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "excluded_source_footprint": 0,
+        "rank": 3,
+        "stable_rank": 3,
+        "status": "VALID",
+        "effective_independent_sample_size": null,
+        "effective_sample_size_status": "NOT_ESTIMATED; pixel counts are not independent angular or ecological observations",
+        "excluded_by_fitting_subset": 83508,
+        "diagnostic_coefficient_estimate": [
+          0.007368407571768948,
+          -3.9910183491960463,
+          0.15534936710180988
+        ],
+        "singular_values": [
+          994.935009700282,
+          141.34558969212824,
+          2.164727153614286
+        ],
+        "condition_number": 459.6122001052706,
+        "stable_rank_tolerance": 0.34351821496059354,
+        "uncertainty_method": "spatial_cluster_sandwich_v1",
+        "uncertainty_groups": 60,
+        "reference_prediction": 0.035055243261236574,
+        "reference_standard_error": 0.013652430570551136,
+        "coefficient_covariance": [
+          [
+            0.0006526013423425491,
+            0.03479094825475064,
+            -0.0011296016981924945
+          ],
+          [
+            0.03479094825475064,
+            1.9472339168421058,
+            -0.06730910758761069
+          ],
+          [
+            -0.0011296016981924945,
+            -0.06730910758761069,
+            0.0025439484392331636
+          ]
+        ],
+        "residual_rmse": 0.051402365335768294,
+        "unsupported_application_predictions": 0,
+        "predicted_standard_error_quantiles": [
+          0.002544254704865175,
+          0.004639597250101487,
+          0.01111464643608497
+        ],
+        "coefficient_standard_errors": [
+          0.025546063147627054,
+          1.3954332362539261,
+          0.05043756971973534
+        ],
+        "reference_leverage": 4.176560250041439e-05,
+        "reference_outside_kernel_bounds": true,
+        "reference_prediction_resolved": true,
+        "reference_prediction_lower_margin": 0.00829614960626824,
+        "unresolved_observed_geometry_predictions": 0,
+        "rejection_components": [],
+        "predicted_quantiles": [
+          0.047939384635054864,
+          0.05423593318970021,
+          0.07866550756066923,
+          0.08917506642955961,
+          0.09123493749777815
+        ],
+        "factor_quantiles": [
+          0.3842304737928962,
+          0.39310588334607105,
+          0.4456240650859706,
+          0.6463471945593249,
+          0.7312409937695158
+        ]
+      },
+      {
+        "band": 6,
+        "bin": 0,
+        "available": 1019399,
+        "source_nodata_quality_valid": 1019399,
+        "radiometrically_eligible_before_geometry": 1019399,
+        "eligible": 935891,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "excluded_source_footprint": 0,
+        "rank": 3,
+        "stable_rank": 3,
+        "status": "VALID",
+        "effective_independent_sample_size": null,
+        "effective_sample_size_status": "NOT_ESTIMATED; pixel counts are not independent angular or ecological observations",
+        "excluded_by_fitting_subset": 83508,
+        "diagnostic_coefficient_estimate": [
+          0.06801203172686564,
+          -2.7558343928916686,
+          0.11171467911329293
+        ],
+        "singular_values": [
+          994.935009700282,
+          141.34558969212824,
+          2.164727153614286
+        ],
+        "condition_number": 459.6122001052706,
+        "stable_rank_tolerance": 0.34351821496059354,
+        "uncertainty_method": "spatial_cluster_sandwich_v1",
+        "uncertainty_groups": 60,
+        "reference_prediction": 0.08268551189079247,
+        "reference_standard_error": 0.01020285071351709,
+        "coefficient_covariance": [
+          [
+            0.00030845995144211034,
+            0.017733403549572747,
+            -0.0005974525845746377
+          ],
+          [
+            0.017733403549572747,
+            1.0764776094700428,
+            -0.038783873243006355
+          ],
+          [
+            -0.0005974525845746377,
+            -0.038783873243006355,
+            0.001520544003451868
+          ]
+        ],
+        "residual_rmse": 0.04018976169441282,
+        "unsupported_application_predictions": 0,
+        "predicted_standard_error_quantiles": [
+          0.0015430369752154937,
+          0.003749207905796623,
+          0.0070064376404595195
+        ],
+        "coefficient_standard_errors": [
+          0.017563027969063602,
+          1.0375343895360976,
+          0.03899415345217624
+        ],
+        "reference_leverage": 4.176560250041439e-05,
+        "reference_outside_kernel_bounds": true,
+        "reference_prediction_resolved": true,
+        "reference_prediction_lower_margin": 0.06268763255840946,
+        "unresolved_observed_geometry_predictions": 0,
+        "rejection_components": [],
+        "predicted_quantiles": [
+          0.09461651659798666,
+          0.09845638872875943,
+          0.1162272131709236,
+          0.1236723546564868,
+          0.12529489040112277
+        ],
+        "factor_quantiles": [
+          0.65992724544537,
+          0.6685852478547886,
+          0.7114126686423708,
+          0.8398186543149595,
+          0.8739014588976312
+        ]
+      },
+      {
+        "band": 7,
+        "bin": 0,
+        "available": 1019399,
+        "source_nodata_quality_valid": 1019399,
+        "radiometrically_eligible_before_geometry": 1019399,
+        "eligible": 935891,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "excluded_source_footprint": 0,
+        "rank": 3,
+        "stable_rank": 3,
+        "status": "VALID",
+        "effective_independent_sample_size": null,
+        "effective_sample_size_status": "NOT_ESTIMATED; pixel counts are not independent angular or ecological observations",
+        "excluded_by_fitting_subset": 83508,
+        "diagnostic_coefficient_estimate": [
+          0.12123992471666371,
+          -1.6579502008039126,
+          0.07321373356790008
+        ],
+        "singular_values": [
+          994.935009700282,
+          141.34558969212824,
+          2.164727153614286
+        ],
+        "condition_number": 459.6122001052706,
+        "stable_rank_tolerance": 0.34351821496059354,
+        "uncertainty_method": "spatial_cluster_sandwich_v1",
+        "uncertainty_groups": 60,
+        "reference_prediction": 0.12406315280124873,
+        "reference_standard_error": 0.010295732747891551,
+        "coefficient_covariance": [
+          [
+            0.0003763184247357268,
+            0.020650720904814325,
+            -0.0006696140399069584
+          ],
+          [
+            0.020650720904814325,
+            1.1973973998322973,
+            -0.0415871930244518
+          ],
+          [
+            -0.0006696140399069584,
+            -0.0415871930244518,
+            0.0015806529192676872
+          ]
+        ],
+        "residual_rmse": 0.03863880678933143,
+        "unsupported_application_predictions": 0,
+        "predicted_standard_error_quantiles": [
+          0.001879971678538094,
+          0.0038732778153361186,
+          0.008239107971583504
+        ],
+        "coefficient_standard_errors": [
+          0.019398928442976606,
+          1.0942565511945987,
+          0.03975742596380816
+        ],
+        "reference_leverage": 4.176560250041439e-05,
+        "reference_outside_kernel_bounds": true,
+        "reference_prediction_resolved": true,
+        "reference_prediction_lower_margin": 0.10388325865542422,
+        "unresolved_observed_geometry_predictions": 0,
+        "rejection_components": [],
+        "predicted_quantiles": [
+          0.13266452045067023,
+          0.13694536640649146,
+          0.14940325556208633,
+          0.15376329835027738,
+          0.1548739912702015
+        ],
+        "factor_quantiles": [
+          0.8010586657174831,
+          0.8068450282500392,
+          0.8303912276509449,
+          0.9059317307092785,
+          0.9351645216053088
+        ]
+      },
+      {
+        "band": 8,
+        "bin": 0,
+        "available": 1019399,
+        "source_nodata_quality_valid": 1019399,
+        "radiometrically_eligible_before_geometry": 1019399,
+        "eligible": 935891,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "excluded_source_footprint": 0,
+        "rank": 3,
+        "stable_rank": 3,
+        "status": "VALID",
+        "effective_independent_sample_size": null,
+        "effective_sample_size_status": "NOT_ESTIMATED; pixel counts are not independent angular or ecological observations",
+        "excluded_by_fitting_subset": 83508,
+        "diagnostic_coefficient_estimate": [
+          0.22052818120057935,
+          0.7393065050705208,
+          -0.00923386463525997
+        ],
+        "singular_values": [
+          994.935009700282,
+          141.34558969212824,
+          2.164727153614286
+        ],
+        "condition_number": 459.6122001052706,
+        "stable_rank_tolerance": 0.34351821496059354,
+        "uncertainty_method": "spatial_cluster_sandwich_v1",
+        "uncertainty_groups": 60,
+        "reference_prediction": 0.19585594880818286,
+        "reference_standard_error": 0.01818009556097913,
+        "coefficient_covariance": [
+          [
+            0.0017210596499728286,
+            0.08491196135435113,
+            -0.00258663177487575
+          ],
+          [
+            0.08491196135435113,
+            4.308168352102433,
+            -0.13704666133376153
+          ],
+          [
+            -0.00258663177487575,
+            -0.13704666133376153,
+            0.004733657066815564
+          ]
+        ],
+        "residual_rmse": 0.05768060399895916,
+        "unsupported_application_predictions": 0,
+        "predicted_standard_error_quantiles": [
+          0.0035274823570642247,
+          0.005397135463490148,
+          0.019408860445639338
+        ],
+        "coefficient_standard_errors": [
+          0.04148565595447213,
+          2.0756127654508276,
+          0.06880157750237682
+        ],
+        "reference_leverage": 4.176560250041439e-05,
+        "reference_outside_kernel_bounds": true,
+        "reference_prediction_resolved": true,
+        "reference_prediction_lower_margin": 0.16022271005512784,
+        "unresolved_observed_geometry_predictions": 0,
+        "rejection_components": [],
+        "predicted_quantiles": [
+          0.19551223346772942,
+          0.19680754210048657,
+          0.20224614843640804,
+          0.2110584360226818,
+          0.2130558108044614
+        ],
+        "factor_quantiles": [
+          0.9192706271125163,
+          0.9279702460560963,
+          0.9684038500726532,
+          0.9951648535307771,
+          1.0017580247248834
+        ]
+      },
+      {
+        "band": 9,
+        "bin": 0,
+        "available": 1019399,
+        "source_nodata_quality_valid": 1019399,
+        "radiometrically_eligible_before_geometry": 1019399,
+        "eligible": 935891,
+        "eligibility_units": "fractional physical reflectance",
+        "excluded_nonfinite_or_nodata": 0,
+        "excluded_below_min": 0,
+        "excluded_above_max": 0,
+        "excluded_source_footprint": 0,
+        "rank": 3,
+        "stable_rank": 3,
+        "status": "VALID",
+        "effective_independent_sample_size": null,
+        "effective_sample_size_status": "NOT_ESTIMATED; pixel counts are not independent angular or ecological observations",
+        "excluded_by_fitting_subset": 83508,
+        "diagnostic_coefficient_estimate": [
+          0.2871534264497204,
+          1.82128068230835,
+          -0.044258701708923424
+        ],
+        "singular_values": [
+          994.935009700282,
+          141.34558969212824,
+          2.164727153614286
+        ],
+        "condition_number": 459.6122001052706,
+        "stable_rank_tolerance": 0.34351821496059354,
+        "uncertainty_method": "spatial_cluster_sandwich_v1",
+        "uncertainty_groups": 60,
+        "reference_prediction": 0.24788449908272647,
+        "reference_standard_error": 0.022554000664727986,
+        "coefficient_covariance": [
+          [
+            0.0031074604367610677,
+            0.15072020837169017,
+            -0.004506902909769877
+          ],
+          [
+            0.15072020837169017,
+            7.465832157457795,
+            -0.2314107339903739
+          ],
+          [
+            -0.004506902909769877,
+            -0.2314107339903739,
+            0.0077349408020944
+          ]
+        ],
+        "residual_rmse": 0.0701757629658456,
+        "unsupported_application_predictions": 0,
+        "predicted_standard_error_quantiles": [
+          0.004049413476516658,
+          0.006246809015138799,
+          0.026460482981314728
+        ],
+        "coefficient_standard_errors": [
+          0.055744600068177615,
+          2.7323675004394623,
+          0.0879485122221769
+        ],
+        "reference_leverage": 4.176560250041439e-05,
+        "reference_outside_kernel_bounds": true,
+        "reference_prediction_resolved": true,
+        "reference_prediction_lower_margin": 0.2036782620624703,
+        "unresolved_observed_geometry_predictions": 0,
+        "rejection_components": [],
+        "predicted_quantiles": [
+          0.23874813072120157,
+          0.24112873825074835,
+          0.24734313534944258,
+          0.2628982659101135,
+          0.2675529064626449
+        ],
+        "factor_quantiles": [
+          0.9264877827717992,
+          0.9428913432524517,
+          1.002188715415607,
+          1.0280172362738151,
+          1.0382678110774148
+        ]
+      }
+    ],
+    "reasons": [],
+    "condition_limit": 2896.309326171875
+  },
+  "scientific_validation_status": "EXPERIMENTAL",
+  "fit_input_stage": "uncorrected",
+  "scene_solar_zenith_rad": null,
+  "reference_design": [
+    1.0,
+    -0.04586202988221,
+    -1.0
+  ],
+  "iso": [
+    [
+      0.01645984789418856,
+      0.019587384918407315,
+      0.04100229253677997,
+      0.04734511036141985,
+      0.014103352934695801,
+      0.007368407571768948,
+      0.06801203172686564,
+      0.12123992471666371,
+      0.22052818120057935,
+      0.2871534264497204
+    ]
+  ],
+  "vol": [
+    [
+      -1.5475681960593113,
+      -1.7615534633936285,
+      -1.7817171350496122,
+      -2.02474181778591,
+      -3.6431974304340202,
+      -3.9910183491960463,
+      -2.7558343928916686,
+      -1.6579502008039126,
+      0.7393065050705208,
+      1.82128068230835
+    ]
+  ],
+  "geo": [
+    [
+      0.06168245105657244,
+      0.07023359672652556,
+      0.07234529339598085,
+      0.08267006479096319,
+      0.14214224760422317,
+      0.15534936710180988,
+      0.11171467911329293,
+      0.07321373356790008,
+      -0.00923386463525997,
+      -0.044258701708923424
+    ]
+  ],
+  "ndvi_edges": [
+    -1.0,
+    1.0
+  ],
+  "ndvi_binning_enabled": false,
+  "volume_kernel": "RossThick",
+  "geom_kernel": "LiDenseR",
+  "b_r": 10.0,
+  "h_b": 2.0,
+  "solar_zn_type": "scene"
+}

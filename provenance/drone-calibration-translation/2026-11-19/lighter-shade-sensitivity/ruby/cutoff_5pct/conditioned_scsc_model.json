@@ -1,0 +1,362 @@
+{
+  "fit_provenance": {
+    "calibration": "original conditional unverified hypothesis retained",
+    "candidate_mask_sha256": "ffc442d111278a6f17fc3cb616f7003258f0ddb456554e0bb403e5ffd028fa0c",
+    "experiment": "shade-excluded native refit",
+    "original_training_sha256": "35d0050be0271f3fd96386df4666c70c1eecfc815a5744204caab8d4a069f000",
+    "variant": "cutoff_5pct"
+  },
+  "fits": [
+    {
+      "C": -0.06976495385966955,
+      "C_interval": [
+        -0.14847930194395292,
+        0.037756551918043
+      ],
+      "band": 0,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          9.734042185046675e-06,
+          -5.72998974612347e-06
+        ],
+        [
+          -5.72998974612347e-06,
+          3.7200134264979717e-06
+        ]
+      ],
+      "condition": 12.76162398363511,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ],
+      "intercept": -0.0025958994363538164,
+      "n": 1640221,
+      "negative_illumination_slope": false,
+      "rank": 2,
+      "residual_rmse": 0.022145945988725484,
+      "slope": 0.037209218851852216,
+      "status": "VALID"
+    },
+    {
+      "C": -0.08482250154106773,
+      "C_interval": [
+        -0.1585776484516616,
+        0.013719626233363607
+      ],
+      "band": 1,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          1.2135754616596745e-05,
+          -7.188284238482543e-06
+        ],
+        [
+          -7.188284238482543e-06,
+          4.74394175895366e-06
+        ]
+      ],
+      "condition": 12.76162398363511,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ],
+      "intercept": -0.0037511207145494592,
+      "n": 1640221,
+      "negative_illumination_slope": false,
+      "rank": 2,
+      "residual_rmse": 0.024933983914027468,
+      "slope": 0.044223179538430774,
+      "status": "VALID"
+    },
+    {
+      "C": 0.08388890309109136,
+      "C_interval": [
+        -0.011404780842558577,
+        0.21252502512880958
+      ],
+      "band": 2,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          1.768335431491155e-05,
+          -1.046805549812391e-05
+        ],
+        [
+          -1.046805549812391e-05,
+          6.907082762081453e-06
+        ]
+      ],
+      "condition": 12.76162398363511,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ],
+      "intercept": 0.004456349870024437,
+      "n": 1640221,
+      "negative_illumination_slope": false,
+      "rank": 2,
+      "residual_rmse": 0.03090920028874355,
+      "slope": 0.05312204243731114,
+      "status": "VALID"
+    },
+    {
+      "C": 0.10030315267085987,
+      "C_interval": [
+        0.0018169333793767607,
+        0.23347707441596563
+      ],
+      "band": 3,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          2.292320267347613e-05,
+          -1.3564928552931022e-05
+        ],
+        [
+          -1.3564928552931022e-05,
+          9.045016092801497e-06
+        ]
+      ],
+      "condition": 12.76162398363511,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ],
+      "intercept": 0.00601979711885298,
+      "n": 1640221,
+      "negative_illumination_slope": false,
+      "rank": 2,
+      "residual_rmse": 0.035002138103234604,
+      "slope": 0.06001603098764666,
+      "status": "VALID"
+    },
+    {
+      "C": -0.21921686817901084,
+      "C_interval": [
+        -0.2788570305092154,
+        -0.13976084639311148
+      ],
+      "band": 4,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          4.209522725858211e-05,
+          -2.5374753459000887e-05
+        ],
+        [
+          -2.5374753459000887e-05,
+          1.6824904005228043e-05
+        ]
+      ],
+      "condition": 12.76162398363511,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ],
+      "intercept": -0.017567872674244346,
+      "n": 1640221,
+      "negative_illumination_slope": false,
+      "rank": 2,
+      "residual_rmse": 0.04323137147716745,
+      "slope": 0.08013923755127526,
+      "status": "VALID"
+    },
+    {
+      "C": -0.26721515784116473,
+      "C_interval": [
+        -0.3222184984349397,
+        -0.19447816431378306
+      ],
+      "band": 5,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          4.747579896713605e-05,
+          -2.883920632383065e-05
+        ],
+        [
+          -2.883920632383065e-05,
+          1.9310918871518817e-05
+        ]
+      ],
+      "condition": 12.76162398363511,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ],
+      "intercept": -0.022643605642488157,
+      "n": 1640221,
+      "negative_illumination_slope": false,
+      "rank": 2,
+      "residual_rmse": 0.04560803008413634,
+      "slope": 0.08473922596841506,
+      "status": "VALID"
+    },
+    {
+      "C": 0.11577557068502012,
+      "C_interval": [
+        0.01430966912215171,
+        0.2517403868437305
+      ],
+      "band": 6,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          4.2703584062028994e-05,
+          -2.606939726656977e-05
+        ],
+        [
+          -2.606939726656977e-05,
+          1.8195162519729754e-05
+        ]
+      ],
+      "condition": 12.76162398363511,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ],
+      "intercept": 0.00973548161355238,
+      "n": 1640221,
+      "negative_illumination_slope": false,
+      "rank": 2,
+      "residual_rmse": 0.04640960551469008,
+      "slope": 0.0840892561008298,
+      "status": "VALID"
+    },
+    {
+      "C": 0.4886148074770551,
+      "C_interval": [
+        0.32563534562717117,
+        0.7110449673149659
+      ],
+      "band": 7,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          4.4514861495401256e-05,
+          -2.862927687045205e-05
+        ],
+        [
+          -2.862927687045205e-05,
+          2.2835748623456914e-05
+        ]
+      ],
+      "condition": 12.76162398363511,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ],
+      "intercept": 0.039940875283764235,
+      "n": 1640221,
+      "negative_illumination_slope": false,
+      "rank": 2,
+      "residual_rmse": 0.05360038281985791,
+      "slope": 0.08174307178695116,
+      "status": "VALID"
+    },
+    {
+      "C": 1.6851537274960555,
+      "C_interval": [
+        1.1897030178263257,
+        2.492428942937243
+      ],
+      "band": 8,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          6.112522438850113e-05,
+          -4.818145579216256e-05
+        ],
+        [
+          -4.818145579216256e-05,
+          5.18766612478129e-05
+        ]
+      ],
+      "condition": 12.76162398363511,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ],
+      "intercept": 0.10604407744073834,
+      "n": 1640221,
+      "negative_illumination_slope": false,
+      "rank": 2,
+      "residual_rmse": 0.07636057009416317,
+      "slope": 0.0629284294426406,
+      "status": "VALID"
+    },
+    {
+      "C": 2.3966343726363033,
+      "C_interval": [
+        1.6322461126041663,
+        3.80671696762571
+      ],
+      "band": 9,
+      "clusters": 60,
+      "coefficient_covariance": [
+        [
+          9.13905363057735e-05,
+          -7.958513170908987e-05
+        ],
+        [
+          -7.958513170908987e-05,
+          9.054199694459326e-05
+        ]
+      ],
+      "condition": 12.76162398363511,
+      "fitted_incidence_range": [
+        0.0003203749656677246,
+        0.9999998807907104
+      ],
+      "intercept": 0.1497530656147575,
+      "n": 1640221,
+      "negative_illumination_slope": false,
+      "rank": 2,
+      "residual_rmse": 0.08908641010730743,
+      "slope": 0.062484735813093085,
+      "status": "VALID"
+    }
+  ],
+  "fitting_mask_sha256": "66fb8cfadc01b73b28ae0ee4b472b9bf3799c393be52dea77777240b797bae0e",
+  "geometry_eligible": 1640221,
+  "policy": {
+    "confidence_z": 1.96,
+    "min_denominator": 0.001,
+    "minimum_clusters": 4,
+    "minimum_slope_degrees": 5.0,
+    "rho_max": 2.0,
+    "rho_min": 0.0
+  },
+  "policy_version": "scsc-fieller-spatial-v1",
+  "radiometry": {
+    "convention": "physical = scale * stored + offset",
+    "offset": 0.0,
+    "provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+    "scale": 0.0001999969482421875,
+    "status": "HYPOTHETICAL_UNVERIFIED"
+  },
+  "sampling_grid_shape": [
+    1035,
+    1960
+  ],
+  "schema_version": 1,
+  "scientific_validation_status": "EXPERIMENTAL",
+  "source_identity": "98c0331d11f867acba0e6a126f9c07cf0933cca8373ccfc2eeded0892ec2ac7e",
+  "source_pixels": 1833706,
+  "uncertainty_groups_sha256": "f2c96f4d83e4c57b54cf3f62a929e2b9808e033782edae6c0bb4f395928e8612",
+  "uncertainty_method": "spatial_cluster_sandwich_and_Fieller",
+  "validation_status": "VALID",
+  "wavelengths_nm": [
+    444.0,
+    475.0,
+    531.0,
+    560.0,
+    650.0,
+    668.0,
+    705.0,
+    717.0,
+    740.0,
+    862.0
+  ]
+}

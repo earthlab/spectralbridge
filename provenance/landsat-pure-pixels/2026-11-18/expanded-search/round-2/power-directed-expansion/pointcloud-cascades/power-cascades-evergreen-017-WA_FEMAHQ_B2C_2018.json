@@ -1,0 +1,39 @@
+{
+  "array_sha256": "8287a596bfc2b583020babaa8600f3c677f464a1490513202a1953418ca1a45a",
+  "identity": {
+    "catalogue_sha256": "ebd07ccb1ce6326f67abde83be14f5984febb009b9d742183c43956c33e2c865",
+    "method": "first_return_1m_no_fill_v1",
+    "project": "WA_FEMAHQ_B2C_2018",
+    "reference_cutoff": "2023-07-15T16:00:00Z",
+    "source_items": [
+      "USGS_LPC_WA_FEMAHQ_2018_D18_10TER8066",
+      "USGS_LPC_WA_FEMAHQ_2018_D18_10TER8067",
+      "USGS_LPC_WA_FEMAHQ_2018_D18_10TER8166"
+    ],
+    "terrain_catalogue_sha256": "c06ccc08f6772837dc932bb9d5ec047027a7e0de2aa2f6f1687edab436464397"
+  },
+  "pft_purity_verified": false,
+  "source_intervals": [
+    {
+      "datetime": null,
+      "end_datetime": "2018-12-31T00:00:00.000000Z",
+      "start_datetime": "2018-01-01T00:00:00.000000Z"
+    },
+    {
+      "datetime": null,
+      "end_datetime": "2018-12-31T00:00:00.000000Z",
+      "start_datetime": "2018-01-01T00:00:00.000000Z"
+    },
+    {
+      "datetime": null,
+      "end_datetime": "2018-12-31T00:00:00.000000Z",
+      "start_datetime": "2018-01-01T00:00:00.000000Z"
+    }
+  ],
+  "source_items": [
+    "USGS_LPC_WA_FEMAHQ_2018_D18_10TER8166",
+    "USGS_LPC_WA_FEMAHQ_2018_D18_10TER8067",
+    "USGS_LPC_WA_FEMAHQ_2018_D18_10TER8066"
+  ],
+  "structural_only": true
+}

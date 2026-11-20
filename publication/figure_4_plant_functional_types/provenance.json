@@ -104,10 +104,22 @@
     {
       "repository_relative_path": "provenance/landsat-pure-pixels/2026-11-18/expanded-search/round-2/hls-l30-expanded-references/expansion_provenance.json",
       "sha256": "5f5d16463a4aac9a3a5734c433978ae5b9b35537895893d3553a513567969df5"
+    },
+    {
+      "repository_relative_path": "provenance/landsat-pure-pixels/2026-11-18/expanded-search/round-2/power-directed-expansion/review-batch-2/hls-combined/hls_l30_nominal_95pct_observations.csv",
+      "sha256": "be538919e681885e77ddb2684411f6014e2939b77a243320f8cd5980c87c6329"
+    },
+    {
+      "repository_relative_path": "provenance/landsat-pure-pixels/2026-11-18/expanded-search/round-2/power-directed-expansion/review-batch-2/analysis/manifest.json",
+      "sha256": "20b3e5a5eeb893877b441c76d96ad64fc6834538bf74316f2f708058abd4a107"
+    },
+    {
+      "repository_relative_path": "examples/publication_figures/refresh_figure_4_hls_expansion.py",
+      "sha256": "0b2672c34b63b48c60a4a4610752a72f7f066336f92ba9ee2bf236a22cefae53"
     }
   ],
   "observations": {
-    "HLS L30 NBAR": 496,
+    "HLS L30 NBAR": 1241,
     "NEON AOP \u2192 OLI/OLI-2-like": 3639,
     "Drone \u2192 OLI/OLI-2-like": 243
   },
@@ -120,14 +132,15 @@
     "Single-region classes prevent evaluation of their held-region identification.",
     "Panels A and B share HLS cells but differ in normalization/aggregation: normalized cell distributions versus direct-reflectance patch-level inference."
   ],
-  "prepared_with": "OpenAI Codex; requested and reviewed iteratively by the research team",
+  "prepared_with": "OpenAI Codex; updated at user request; reference labels await independent team review.",
   "source_revision": "7dcdb552b3b68edf5a69aca6a8dea1fb6f1e87b8",
   "source_working_tree": "Contains uncommitted figure and analytical artifacts; source file hashes identify the exact inputs used.",
   "validation": {
     "checks_passed": 7,
-    "isolation": "Copied standalone folder to/tmp; regenerated HLS spectral inputs and validated with imports of spectralbridge,geopandas,rasterio blocked. No network needed.",
+    "isolation": "Standalone folder copied outside repository; updater and checks executed offline with package/GIS imports blocked.",
     "spectral_comparison_tolerance": 1e-12,
-    "figure_review": "All-HLS figure PDF rendered withPoppler and visually inspected. Counts, source cell IDs, per-cell bands and current HLS source hash match PanelB evidence; no C2 rows in plotted inputs."
+    "figure_review": "Expanded1241cell/61patch HLS PDF rendered withPoppler and visually inspected; full table, counts, ribbon/line styles and category order readable;7standalone checks pass.",
+    "refresh_regression_tests_passed": 2
   },
   "plotting_script_origin": "Standalone adaptation of examples/publication_figures/landsat_pft_panel.py; renderer retained with local numeric inputs replacing repository loaders.",
   "source_scene": "Multiple HLS L30 v2 granules, 2023/2024; exact selected source_item_id/hls_item_id retained per cell.",
@@ -136,63 +149,69 @@
     "Drone \u2192 OLI/OLI-2-like": "float32",
     "HLS L30 NBAR": "float64"
   },
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "panel_b_landsat": {
     "product": "HLS L30 v2 NBAR",
     "primary_reference_definition": "nominal 30m HLS footprint mapped cover>=95%; original reference definition restored",
-    "cohort_cells": 496,
-    "spatial_patch_groups": 24,
+    "cohort_cells": 1241,
+    "spatial_patch_groups": 61,
     "new_references": {
-      "cells": 114,
-      "spatial_patches": 5,
-      "selection": "public aerial cover interpretation before new spectra retrieval"
+      "cells": 745,
+      "spatial_patches": 37,
+      "selection": "Two fixed cover/structure-reviewed batches, without selection by spectral or test outcomes"
     },
     "primary_classes": {
       "Deciduous": {
-        "cells": 77,
-        "patches": 5,
-        "supported_testable_pairs": "1/4",
-        "held_patch_recall": "4/5"
+        "cells": 165,
+        "patches": 12,
+        "supported_testable_pairs": "4/4",
+        "held_patch_recall": "11/12"
       },
       "Evergreen": {
-        "cells": 110,
-        "patches": 3,
-        "supported_testable_pairs": "0/4",
-        "held_patch_recall": "3/3"
+        "cells": 364,
+        "patches": 11,
+        "supported_testable_pairs": "4/4",
+        "held_patch_recall": "11/11"
       },
       "Herbaceous": {
-        "cells": 99,
-        "patches": 5,
-        "supported_testable_pairs": "1/4",
-        "held_patch_recall": "5/5"
+        "cells": 288,
+        "patches": 14,
+        "supported_testable_pairs": "4/4",
+        "held_patch_recall": "14/14"
       },
       "Woody shrub": {
-        "cells": 165,
-        "patches": 7,
-        "supported_testable_pairs": "3/4",
-        "held_patch_recall": "6/7"
+        "cells": 339,
+        "patches": 15,
+        "supported_testable_pairs": "4/4",
+        "held_patch_recall": "13/15"
       },
       "Non-vegetated & dead": {
-        "cells": 45,
-        "patches": 4,
-        "supported_testable_pairs": "1/4",
-        "held_patch_recall": "3/4"
+        "cells": 85,
+        "patches": 9,
+        "supported_testable_pairs": "4/4",
+        "held_patch_recall": "9/9"
       }
     },
     "unique_testable_pairs": 10,
-    "supported_pooled_pairs": 3,
-    "five_class_patch_accuracy": "21/24 (87.5%)",
+    "supported_pooled_pairs": 10,
+    "five_class_patch_accuracy": "58/61 (95.1%)",
     "source_area_sensitivity": {
-      "cells": 161,
-      "patches": 13,
-      "supported_pooled_pairs": 0,
-      "five_class_accuracy": null,
-      "limitation": "one non-vegetated patch; held class absent"
+      "cells": 362,
+      "patches": 30,
+      "supported_pooled_pairs": 6,
+      "five_class_accuracy": "28/30 (93.3%)",
+      "limitation": "Conservative unweighted120m source-area sensitivity; not standard HLS purity or a confidence bound"
     },
-    "pairwise_predictive_diagnostic": "mean balanced accuracy97.6%; point estimate only, not a significance test or a replacement for NPC counts",
+    "pairwise_predictive_diagnostic": "mean balanced accuracy99.7%; point estimate, not significance or validation",
     "labels": "single-interpreter provisional; older evergreen lidar",
     "statistical_scope": "exploratory pooled region/season exchangeability; current-family Holm, no control over historical analytical looks",
-    "panel_a": "same expanded496 HLS cells and24groups; normalized cell medians/IQR/counts; no Collection2 data plotted"
+    "panel_a": "same1241HLS cells/61patches; normalized cell medians/IQR/counts; no C2",
+    "within_region": {
+      "testable_pairs": 3,
+      "supported_pairs": 2,
+      "unsupported_pairs": 7,
+      "limitation": "Pooled10/10 is strongly region/season confounded; new-region generalization not established"
+    }
   },
   "source_items": [
     "HLS.L30.T10TER.2023197T184928.v2.0",
@@ -201,29 +220,41 @@
     "HLS.L30.T12TWQ.2024215T180630.v2.0",
     "HLS.L30.T13SCC.2023271T175003.v2.0",
     "HLS.L30.T13SCD.2023271T174939.v2.0",
+    "HLS.L30.T13SCD.2023272T174336.v2.0",
+    "HLS.L30.T13TDE.2023216T174313.v2.0",
     "HLS.L30.T13TDE.2023232T174317.v2.0"
   ],
   "spectral_panels": {
     "current_sensor_key": "HLS L30 NBAR",
-    "primary_cells": 496,
-    "patch_groups": 24,
+    "primary_cells": 1241,
+    "patch_groups": 61,
     "shared_primary_source": "evidence/landsat_hls_primary_reference_observations.csv",
     "same_source_as_panel_b": true,
     "legacy_c2_plotted": false,
     "class_counts": {
-      "Deciduous": 77,
-      "Evergreen": 110,
-      "Herbaceous": 99,
-      "Non-vegetated & dead": 45,
-      "Woody shrub": 165
+      "Deciduous": 165,
+      "Evergreen": 364,
+      "Herbaceous": 288,
+      "Non-vegetated & dead": 85,
+      "Woody shrub": 339
     },
     "summary": "per-cell B1-B5-sum normalization; pointwise cell median and25th/75th percentiles",
     "gaps": "recomputed HLS-drone,HLS-AOP absolute category-median differences",
-    "source_sha256": "b3ef6eec2b30f049ceb0389776360e4a35832d313c5e7967572a4e3ba8f3b231",
+    "source_sha256": "be538919e681885e77ddb2684411f6014e2939b77a243320f8cd5980c87c6329",
     "updater": "update_hls_spectral_inputs.py",
     "updater_sha256": "777ea247bfc484ac67911f0dff7c0e26c7a50498050a70352c1acff291acfc03"
   },
   "display_labels": {
     "HLS L30 NBAR": "Landsat HLS L30 NBAR"
+  },
+  "pure_pixel_expansion_refresh": {
+    "date": "2026-11-20",
+    "code_sha256": "0b2672c34b63b48c60a4a4610752a72f7f066336f92ba9ee2bf236a22cefae53",
+    "source": "provenance/landsat-pure-pixels/2026-11-18/expanded-search/round-2/power-directed-expansion/review-batch-2/hls-combined",
+    "analysis_manifest_sha256": "20b3e5a5eeb893877b441c76d96ad64fc6834538bf74316f2f708058abd4a107",
+    "source_manifest_sha256": "ae05f9e15453f8e79fdc97dda60934613861d30d0fac79ea094f8fddcab98c0c",
+    "previous_publisher_archive": "publication/figure_4_plant_functional_types_2026-11-19_496_cells.zip",
+    "non_hls_table_values_preserved": true,
+    "protocol": "Unchanged existing7band NPC/whole-patch LOPO; separate BRDF audit scores not substituted"
   }
 }

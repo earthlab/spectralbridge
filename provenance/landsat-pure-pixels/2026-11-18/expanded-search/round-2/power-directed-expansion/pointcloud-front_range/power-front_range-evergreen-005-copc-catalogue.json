@@ -1,0 +1,970 @@
+{
+  "features": [
+    {
+      "_msft:etag": "2eb5a9a3-a812-4663-93aa-acded0f2a2b9",
+      "_msft:ts": "2026-10-22T02:13:16.933532Z",
+      "assets": {
+        "data": {
+          "href": "https://usgslidareuwest.blob.core.windows.net/usgs-3dep-copc/usgs-copc/CA_AlamedaCo_2006/copc/CA_AlamedaCo_2006_000142.copc.laz",
+          "roles": [
+            "data"
+          ],
+          "title": "COPC data",
+          "type": "application/vnd.laszip+copc"
+        },
+        "thumbnail": {
+          "href": "https://usgslidareuwest.blob.core.windows.net/usgs-3dep-copc/usgs-copc/CA_AlamedaCo_2006/copc/thumbnails/CA_AlamedaCo_2006_000142-thumbnail.png",
+          "roles": [
+            "thumbnail",
+            "overview"
+          ],
+          "title": "3DEP Lidar COPC",
+          "type": "image/png"
+        }
+      },
+      "bbox": [
+        -105.73935749,
+        40.01823292,
+        -105.71574736,
+        40.03191116
+      ],
+      "collection": "3dep-lidar-copc",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              -105.7217194,
+              40.0168396
+            ],
+            [
+              -105.7182043,
+              40.0168614
+            ],
+            [
+              -105.7158772,
+              40.0184364
+            ],
+            [
+              -105.7148358,
+              40.0309269
+            ],
+            [
+              -105.7195236,
+              40.0308979
+            ],
+            [
+              -105.7218839,
+              40.0324437
+            ],
+            [
+              -105.7283215,
+              40.0316232
+            ],
+            [
+              -105.7306821,
+              40.0331689
+            ],
+            [
+              -105.73537,
+              40.0331392
+            ],
+            [
+              -105.7388691,
+              40.0315564
+            ],
+            [
+              -105.7388017,
+              40.0253148
+            ],
+            [
+              -105.7411285,
+              40.0237395
+            ],
+            [
+              -105.7405005,
+              40.0198422
+            ],
+            [
+              -105.7358134,
+              40.019872
+            ],
+            [
+              -105.7334532,
+              40.0183265
+            ],
+            [
+              -105.7305322,
+              40.0191252
+            ],
+            [
+              -105.7281721,
+              40.0175795
+            ],
+            [
+              -105.7252511,
+              40.0183781
+            ],
+            [
+              -105.7217194,
+              40.0168396
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "CA_AlamedaCo_2006_000142",
+      "links": [
+        {
+          "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/3dep-lidar-copc",
+          "rel": "collection",
+          "type": "application/json"
+        },
+        {
+          "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/3dep-lidar-copc",
+          "rel": "parent",
+          "type": "application/json"
+        },
+        {
+          "href": "https://planetarycomputer.microsoft.com/api/stac/v1/",
+          "rel": "root",
+          "type": "application/json"
+        },
+        {
+          "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/3dep-lidar-copc/items/CA_AlamedaCo_2006_000142",
+          "rel": "self",
+          "type": "application/geo+json"
+        },
+        {
+          "href": "https://planetarycomputer.microsoft.com/api/data/v1/item/map?collection=3dep-lidar-copc&item=CA_AlamedaCo_2006_000142",
+          "rel": "preview",
+          "title": "Map of item",
+          "type": "text/html"
+        }
+      ],
+      "properties": {
+        "3dep:usgs_id": "CA_AlamedaCo_2006",
+        "datetime": null,
+        "end_datetime": "2006-07-02T00:00:00.000000Z",
+        "group_id": "3dep-lidar",
+        "pc:count": 4230556,
+        "pc:encoding": "application/vnd.laszip+copc",
+        "pc:schemas": [
+          {
+            "name": "X",
+            "size": 8,
+            "type": "floating"
+          },
+          {
+            "name": "Y",
+            "size": 8,
+            "type": "floating"
+          },
+          {
+            "name": "Z",
+            "size": 8,
+            "type": "floating"
+          },
+          {
+            "name": "Intensity",
+            "size": 2,
+            "type": "unsigned"
+          },
+          {
+            "name": "ReturnNumber",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "NumberOfReturns",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "ScanDirectionFlag",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "EdgeOfFlightLine",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "Classification",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "ScanAngleRank",
+            "size": 4,
+            "type": "floating"
+          },
+          {
+            "name": "UserData",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "PointSourceId",
+            "size": 2,
+            "type": "unsigned"
+          },
+          {
+            "name": "GpsTime",
+            "size": 8,
+            "type": "floating"
+          },
+          {
+            "name": "ScanChannel",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "ClassFlags",
+            "size": 1,
+            "type": "unsigned"
+          }
+        ],
+        "pc:type": "lidar",
+        "proj:bbox": [
+          436918.6,
+          4430041.68,
+          695.6,
+          438921.11,
+          4431543.61,
+          1639.27
+        ],
+        "proj:geometry": {
+          "coordinates": [
+            [
+              [
+                438410.07936862,
+                4429874.79892799
+              ],
+              [
+                438710.07936854,
+                4429874.79892799
+              ],
+              [
+                438910.07936849,
+                4430048.00400874
+              ],
+              [
+                439010.07936847,
+                4431433.6446548
+              ],
+              [
+                438610.07936857,
+                4431433.6446548
+              ],
+              [
+                438410.07936862,
+                4431606.84973556
+              ],
+              [
+                437860.07936875,
+                4431520.24719518
+              ],
+              [
+                437660.0793688,
+                4431693.45227593
+              ],
+              [
+                437260.0793689,
+                4431693.45227593
+              ],
+              [
+                436960.07936898,
+                4431520.24719518
+              ],
+              [
+                436960.07936898,
+                4430827.42687215
+              ],
+              [
+                436760.07936903,
+                4430654.22179139
+              ],
+              [
+                436810.07936902,
+                4430221.2090895
+              ],
+              [
+                437210.07936892,
+                4430221.2090895
+              ],
+              [
+                437410.07936887,
+                4430048.00400874
+              ],
+              [
+                437660.0793688,
+                4430134.60654912
+              ],
+              [
+                437860.07936875,
+                4429961.40146836
+              ],
+              [
+                438110.07936869,
+                4430048.00400874
+              ],
+              [
+                438410.07936862,
+                4429874.79892799
+              ]
+            ]
+          ],
+          "type": "Polygon"
+        },
+        "proj:projjson": {
+          "$schema": "https://proj.org/schemas/v0.4/projjson.schema.json",
+          "components": [
+            {
+              "base_crs": {
+                "coordinate_system": {
+                  "axis": [
+                    {
+                      "abbreviation": "Lat",
+                      "direction": "north",
+                      "name": "Geodetic latitude",
+                      "unit": "degree"
+                    },
+                    {
+                      "abbreviation": "Lon",
+                      "direction": "east",
+                      "name": "Geodetic longitude",
+                      "unit": "degree"
+                    }
+                  ],
+                  "subtype": "ellipsoidal"
+                },
+                "datum": {
+                  "ellipsoid": {
+                    "inverse_flattening": 298.257222101,
+                    "name": "GRS 1980",
+                    "semi_major_axis": 6378137
+                  },
+                  "name": "North American Datum 1983",
+                  "type": "GeodeticReferenceFrame"
+                },
+                "id": {
+                  "authority": "EPSG",
+                  "code": 4269
+                },
+                "name": "NAD83"
+              },
+              "conversion": {
+                "method": {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 9807
+                  },
+                  "name": "Transverse Mercator"
+                },
+                "name": "UTM zone 13N",
+                "parameters": [
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8801
+                    },
+                    "name": "Latitude of natural origin",
+                    "unit": "degree",
+                    "value": 0.0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8802
+                    },
+                    "name": "Longitude of natural origin",
+                    "unit": "degree",
+                    "value": -105.0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8805
+                    },
+                    "name": "Scale factor at natural origin",
+                    "unit": "unity",
+                    "value": 0.9996
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8806
+                    },
+                    "name": "False easting",
+                    "unit": "metre",
+                    "value": 500000.0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8807
+                    },
+                    "name": "False northing",
+                    "unit": "metre",
+                    "value": 0.0
+                  }
+                ]
+              },
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "E",
+                    "direction": "east",
+                    "name": "Easting",
+                    "unit": "metre"
+                  },
+                  {
+                    "abbreviation": "N",
+                    "direction": "north",
+                    "name": "Northing",
+                    "unit": "metre"
+                  }
+                ],
+                "subtype": "Cartesian"
+              },
+              "id": {
+                "authority": "EPSG",
+                "code": 26913
+              },
+              "name": "NAD83 / UTM zone 13N",
+              "type": "ProjectedCRS"
+            },
+            {
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "H",
+                    "direction": "up",
+                    "name": "Gravity-related height",
+                    "unit": "metre"
+                  }
+                ],
+                "subtype": "vertical"
+              },
+              "datum": {
+                "name": "North American Vertical Datum 1988",
+                "type": "VerticalReferenceFrame"
+              },
+              "id": {
+                "authority": "EPSG",
+                "code": 5703
+              },
+              "name": "NAVD88 height",
+              "type": "VerticalCRS"
+            }
+          ],
+          "name": "NAD83 / UTM zone 13N + NAVD88 height",
+          "type": "CompoundCRS"
+        },
+        "start_datetime": "2006-06-25T00:00:00.000000Z"
+      },
+      "stac_extensions": [
+        "https://stac-extensions.github.io/projection/v1.1.0/schema.json",
+        "https://stac-extensions.github.io/pointcloud/v1.0.0/schema.json",
+        "https://stac-extensions.github.io/file/v2.1.0/schema.json"
+      ],
+      "stac_version": "1.0.0",
+      "type": "Feature"
+    },
+    {
+      "_msft:etag": "1f88d91f-8af6-4fcb-b7f6-8eced870abc3",
+      "_msft:ts": "2026-10-22T02:13:12.395285Z",
+      "assets": {
+        "data": {
+          "href": "https://usgslidareuwest.blob.core.windows.net/usgs-3dep-copc/usgs-copc/CA_AlamedaCo_2006/copc/CA_AlamedaCo_2006_000118.copc.laz",
+          "roles": [
+            "data"
+          ],
+          "title": "COPC data",
+          "type": "application/vnd.laszip+copc"
+        },
+        "thumbnail": {
+          "href": "https://usgslidareuwest.blob.core.windows.net/usgs-3dep-copc/usgs-copc/CA_AlamedaCo_2006/copc/thumbnails/CA_AlamedaCo_2006_000118-thumbnail.png",
+          "roles": [
+            "thumbnail",
+            "overview"
+          ],
+          "title": "3DEP Lidar COPC",
+          "type": "image/png"
+        }
+      },
+      "bbox": [
+        -105.73711252,
+        40.0290722,
+        -105.71349885,
+        40.04274695
+      ],
+      "collection": "3dep-lidar-copc",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              -105.7180485,
+              40.027492
+            ],
+            [
+              -105.713955,
+              40.0282975
+            ],
+            [
+              -105.714598,
+              40.0337554
+            ],
+            [
+              -105.7122702,
+              40.0353302
+            ],
+            [
+              -105.7129293,
+              40.0423485
+            ],
+            [
+              -105.7158516,
+              40.0415502
+            ],
+            [
+              -105.7182122,
+              40.0430961
+            ],
+            [
+              -105.7246508,
+              40.0422758
+            ],
+            [
+              -105.7270117,
+              40.0438215
+            ],
+            [
+              -105.7352168,
+              40.0437697
+            ],
+            [
+              -105.7375275,
+              40.040634
+            ],
+            [
+              -105.7368659,
+              40.0336159
+            ],
+            [
+              -105.7385986,
+              40.0312642
+            ],
+            [
+              -105.735066,
+              40.0297261
+            ],
+            [
+              -105.7321445,
+              40.0305248
+            ],
+            [
+              -105.729784,
+              40.0289792
+            ],
+            [
+              -105.7268625,
+              40.0297778
+            ],
+            [
+              -105.7245021,
+              40.0282321
+            ],
+            [
+              -105.7215806,
+              40.0290306
+            ],
+            [
+              -105.7180485,
+              40.027492
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "CA_AlamedaCo_2006_000118",
+      "links": [
+        {
+          "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/3dep-lidar-copc",
+          "rel": "collection",
+          "type": "application/json"
+        },
+        {
+          "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/3dep-lidar-copc",
+          "rel": "parent",
+          "type": "application/json"
+        },
+        {
+          "href": "https://planetarycomputer.microsoft.com/api/stac/v1/",
+          "rel": "root",
+          "type": "application/json"
+        },
+        {
+          "href": "https://planetarycomputer.microsoft.com/api/stac/v1/collections/3dep-lidar-copc/items/CA_AlamedaCo_2006_000118",
+          "rel": "self",
+          "type": "application/geo+json"
+        },
+        {
+          "href": "https://planetarycomputer.microsoft.com/api/data/v1/item/map?collection=3dep-lidar-copc&item=CA_AlamedaCo_2006_000118",
+          "rel": "preview",
+          "title": "Map of item",
+          "type": "text/html"
+        }
+      ],
+      "properties": {
+        "3dep:usgs_id": "CA_AlamedaCo_2006",
+        "datetime": null,
+        "end_datetime": "2006-07-02T00:00:00.000000Z",
+        "group_id": "3dep-lidar",
+        "pc:count": 4385359,
+        "pc:encoding": "application/vnd.laszip+copc",
+        "pc:schemas": [
+          {
+            "name": "X",
+            "size": 8,
+            "type": "floating"
+          },
+          {
+            "name": "Y",
+            "size": 8,
+            "type": "floating"
+          },
+          {
+            "name": "Z",
+            "size": 8,
+            "type": "floating"
+          },
+          {
+            "name": "Intensity",
+            "size": 2,
+            "type": "unsigned"
+          },
+          {
+            "name": "ReturnNumber",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "NumberOfReturns",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "ScanDirectionFlag",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "EdgeOfFlightLine",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "Classification",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "ScanAngleRank",
+            "size": 4,
+            "type": "floating"
+          },
+          {
+            "name": "UserData",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "PointSourceId",
+            "size": 2,
+            "type": "unsigned"
+          },
+          {
+            "name": "GpsTime",
+            "size": 8,
+            "type": "floating"
+          },
+          {
+            "name": "ScanChannel",
+            "size": 1,
+            "type": "unsigned"
+          },
+          {
+            "name": "ClassFlags",
+            "size": 1,
+            "type": "unsigned"
+          }
+        ],
+        "pc:type": "lidar",
+        "proj:bbox": [
+          437120.1,
+          4431243.17,
+          683.52,
+          439122.63,
+          4432744.76,
+          2236.14
+        ],
+        "proj:geometry": {
+          "coordinates": [
+            [
+              [
+                438732.88965214,
+                4431054.60028725
+              ],
+              [
+                439082.88965205,
+                4431141.20282762
+              ],
+              [
+                439032.88965206,
+                4431747.42061027
+              ],
+              [
+                439232.88965201,
+                4431920.62569103
+              ],
+              [
+                439182.88965203,
+                4432700.04855444
+              ],
+              [
+                438932.88965209,
+                4432613.44601406
+              ],
+              [
+                438732.88965214,
+                4432786.65109481
+              ],
+              [
+                438182.88965228,
+                4432700.04855444
+              ],
+              [
+                437982.88965233,
+                4432873.25363519
+              ],
+              [
+                437282.8896525,
+                4432873.25363519
+              ],
+              [
+                437082.88965255,
+                4432526.84347368
+              ],
+              [
+                437132.88965254,
+                4431747.42061027
+              ],
+              [
+                436982.88965257,
+                4431487.61298914
+              ],
+              [
+                437282.8896525,
+                4431314.40790838
+              ],
+              [
+                437532.88965244,
+                4431401.01044876
+              ],
+              [
+                437732.88965239,
+                4431227.805368
+              ],
+              [
+                437982.88965233,
+                4431314.40790838
+              ],
+              [
+                438182.88965228,
+                4431141.20282762
+              ],
+              [
+                438432.88965221,
+                4431227.805368
+              ],
+              [
+                438732.88965214,
+                4431054.60028725
+              ]
+            ]
+          ],
+          "type": "Polygon"
+        },
+        "proj:projjson": {
+          "$schema": "https://proj.org/schemas/v0.4/projjson.schema.json",
+          "components": [
+            {
+              "base_crs": {
+                "coordinate_system": {
+                  "axis": [
+                    {
+                      "abbreviation": "Lat",
+                      "direction": "north",
+                      "name": "Geodetic latitude",
+                      "unit": "degree"
+                    },
+                    {
+                      "abbreviation": "Lon",
+                      "direction": "east",
+                      "name": "Geodetic longitude",
+                      "unit": "degree"
+                    }
+                  ],
+                  "subtype": "ellipsoidal"
+                },
+                "datum": {
+                  "ellipsoid": {
+                    "inverse_flattening": 298.257222101,
+                    "name": "GRS 1980",
+                    "semi_major_axis": 6378137
+                  },
+                  "name": "North American Datum 1983",
+                  "type": "GeodeticReferenceFrame"
+                },
+                "id": {
+                  "authority": "EPSG",
+                  "code": 4269
+                },
+                "name": "NAD83"
+              },
+              "conversion": {
+                "method": {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 9807
+                  },
+                  "name": "Transverse Mercator"
+                },
+                "name": "UTM zone 13N",
+                "parameters": [
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8801
+                    },
+                    "name": "Latitude of natural origin",
+                    "unit": "degree",
+                    "value": 0.0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8802
+                    },
+                    "name": "Longitude of natural origin",
+                    "unit": "degree",
+                    "value": -105.0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8805
+                    },
+                    "name": "Scale factor at natural origin",
+                    "unit": "unity",
+                    "value": 0.9996
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8806
+                    },
+                    "name": "False easting",
+                    "unit": "metre",
+                    "value": 500000.0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8807
+                    },
+                    "name": "False northing",
+                    "unit": "metre",
+                    "value": 0.0
+                  }
+                ]
+              },
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "E",
+                    "direction": "east",
+                    "name": "Easting",
+                    "unit": "metre"
+                  },
+                  {
+                    "abbreviation": "N",
+                    "direction": "north",
+                    "name": "Northing",
+                    "unit": "metre"
+                  }
+                ],
+                "subtype": "Cartesian"
+              },
+              "id": {
+                "authority": "EPSG",
+                "code": 26913
+              },
+              "name": "NAD83 / UTM zone 13N",
+              "type": "ProjectedCRS"
+            },
+            {
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "H",
+                    "direction": "up",
+                    "name": "Gravity-related height",
+                    "unit": "metre"
+                  }
+                ],
+                "subtype": "vertical"
+              },
+              "datum": {
+                "name": "North American Vertical Datum 1988",
+                "type": "VerticalReferenceFrame"
+              },
+              "id": {
+                "authority": "EPSG",
+                "code": 5703
+              },
+              "name": "NAVD88 height",
+              "type": "VerticalCRS"
+            }
+          ],
+          "name": "NAD83 / UTM zone 13N + NAVD88 height",
+          "type": "CompoundCRS"
+        },
+        "start_datetime": "2006-06-25T00:00:00.000000Z"
+      },
+      "stac_extensions": [
+        "https://stac-extensions.github.io/projection/v1.1.0/schema.json",
+        "https://stac-extensions.github.io/pointcloud/v1.0.0/schema.json",
+        "https://stac-extensions.github.io/file/v2.1.0/schema.json"
+      ],
+      "stac_version": "1.0.0",
+      "type": "Feature"
+    }
+  ],
+  "links": [
+    {
+      "href": "https://planetarycomputer.microsoft.com/api/stac/v1/",
+      "rel": "root",
+      "type": "application/json"
+    },
+    {
+      "href": "https://planetarycomputer.microsoft.com/api/stac/v1/search?collections=3dep-lidar-copc",
+      "rel": "self",
+      "type": "application/geo+json"
+    }
+  ],
+  "numberReturned": 2,
+  "type": "FeatureCollection"
+}

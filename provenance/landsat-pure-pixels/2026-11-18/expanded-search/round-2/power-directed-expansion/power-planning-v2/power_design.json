@@ -1,0 +1,33 @@
+{
+  "bands": 7,
+  "effect_patterns": [
+    "all_bands",
+    "one_band"
+  ],
+  "family_pairs": 10,
+  "interpretation": "conditional scenario planning; no observed effect fitting; equal classes within all three regions",
+  "patches_per_class": [
+    6,
+    12,
+    18,
+    24,
+    36,
+    48,
+    60
+  ],
+  "permutations": 999,
+  "planning_alpha": 0.005,
+  "power_target": 0.8,
+  "region_blocks": 3,
+  "residual_interband_correlation": 0.6,
+  "seed": 20261119,
+  "seed_policy": "independent per n/effect/pattern for restart determinism",
+  "simulations": 100,
+  "small_label_space": "enumerate exactly when assignments<=permutations+1",
+  "standardized_shift_per_affected_band": [
+    0.5,
+    1.0,
+    1.5
+  ],
+  "target_rule": "Wilson95% lower bound >=.8; report all scenarios"
+}

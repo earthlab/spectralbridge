@@ -1,0 +1,40 @@
+{
+  "code_sha256": "99ee0075a6db5daf9898d7767126a16f6bd4f5da2a444db8d32c3718377ef1ee",
+  "policy": {
+    "batch": {
+      "california_shrublands": {
+        "Herbaceous": 8,
+        "Non-vegetated & dead": 8,
+        "Woody shrub": 8
+      },
+      "cascades": {
+        "Evergreen": 24,
+        "Herbaceous": 8,
+        "Non-vegetated & dead": 8
+      },
+      "front_range": {
+        "Evergreen": 8,
+        "Herbaceous": 8,
+        "Non-vegetated & dead": 8
+      },
+      "gunnison_aspen": {
+        "Deciduous": 12,
+        "Herbaceous": 8,
+        "Non-vegetated & dead": 8
+      },
+      "yellowstone": {
+        "Evergreen": 8,
+        "Herbaceous": 8,
+        "Non-vegetated & dead": 8
+      }
+    },
+    "context_m": 240,
+    "herbaceous_locator": "WorldCover grass intersect GAP grassland/meadow, excluding shrub/steppe/woodland/forest/savanna names",
+    "maximum_locator_rank": 100,
+    "old_proposals_excluded": true,
+    "selection": "locator interior and physical spacing only; no spectra or significance",
+    "spacing_m": 1000
+  },
+  "prior_proposals_sha256": "8fbdd2736f321f7ab8e1d0498354dd1283a9f6e78789d3198bf577cb22ebea44",
+  "proposals_sha256": "97a142ee03d8e49b2b846569c165ca0834fdb1419fb19f6b8bc38d1698fec30e"
+}

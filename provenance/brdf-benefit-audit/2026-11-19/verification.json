@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-20",
+  "checks": {
+    "hls_output_hashes": true,
+    "aop_output_hashes": true,
+    "drone_output_hashes": true,
+    "aop-control_output_hashes": true,
+    "statistics_output_hashes": true,
+    "drone_source_hashes": 57,
+    "drone_native_model_ancestry": true,
+    "hls_identities": 61,
+    "aop_archive_identities": 3639,
+    "drone_10pct_identities": 300,
+    "drone_unmasked_identities": 300,
+    "no_identity_leak_and_identical_arm_folds": true,
+    "recognition_recalculated_from_predictions": true,
+    "identifiability_family_size": 10,
+    "separability_family_size": 96,
+    "separation_changes_family_size": 48,
+    "aop_control_held72000_and_20m_groups": true,
+    "aop_source_rows_paired_without_attrition": 85706,
+    "all_hls_inverse_relations": true
+  },
+  "status": "PASS",
+  "code_sha256": "049e128171e2b03777986dd08863eee00bd07fcd1ba8a2be653082a6162310e5",
+  "source_manifests": {
+    "hls": "d7a520b12df0564969385fcf9f6c4913d96dccdd272a2097319ffc5c46cdb845",
+    "aop": "16abb1b25f8cc603d3aeb288e3ab1204bbff5ac21990cd04f46796070f869245",
+    "drone": "b4bfb8fa8000eccfec0282676a15d56a0149f0a3998bbc65eb0349fae38d808d",
+    "aop-control": "023752df0c16c092d8aef58c0fc61a65ad16292eb185c8ab7ff60a5523cc787f",
+    "statistics": "6c837ebe3e181f34b408dc9a229e5e15df238008fd62e17680f914119397d24a"
+  }
+}

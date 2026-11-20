@@ -1,0 +1,162 @@
+{
+  "coefficient_registry": "src/spectralbridge/data/drone_translation_coefficients_v1.json",
+  "selected_input": "camera-position orthomosaic correction; stable_qr_v1; no original-image reconstruction",
+  "sites": [
+    {
+      "header_status": {
+        "brdf status": "VALID",
+        "radiometry provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "radiometry status": "HYPOTHETICAL_UNVERIFIED",
+        "scientific validation status": "EXPERIMENTAL",
+        "wavelength": [
+          444.0,
+          475.0,
+          531.0,
+          560.0,
+          650.0,
+          668.0,
+          705.0,
+          717.0,
+          740.0,
+          862.0
+        ]
+      },
+      "input_units_status": "Experimental correction is not eligible for an approved spectral library",
+      "native_source_preserved": true,
+      "outputs_written": [],
+      "requested_branch": "combined",
+      "selected_run": "archive/local/drone-correction-stability/2026-11-05/stable_qr_v1",
+      "site": "gordon",
+      "source_exists": true,
+      "source_img": "archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/combined/AOP_GORDON_20230814__combined_EXPERIMENTAL.img",
+      "status": "UNSUPPORTED",
+      "translations": [
+        {
+          "coefficient_units": null,
+          "expected_output_name": "AOP_GORDON_20230814__landsat_like_landsat_oli_translated_envi.img",
+          "native_bands": [
+            1,
+            2,
+            4,
+            6,
+            10
+          ],
+          "reason": "Experimental correction is not eligible for an approved spectral library",
+          "status": "UNSUPPORTED",
+          "target": "Landsat_8_OLI"
+        },
+        {
+          "coefficient_units": null,
+          "expected_output_name": "AOP_GORDON_20230814__landsat_like_landsat_oli2_translated_envi.img",
+          "native_bands": [
+            1,
+            2,
+            4,
+            6,
+            10
+          ],
+          "reason": "Experimental correction is not eligible for an approved spectral library",
+          "status": "UNSUPPORTED",
+          "target": "Landsat_9_OLI-2"
+        }
+      ],
+      "uploaded": false,
+      "valid_envi_pair": true
+    },
+    {
+      "header_status": {
+        "brdf status": "VALID",
+        "radiometry provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "radiometry status": "HYPOTHETICAL_UNVERIFIED",
+        "scientific validation status": "EXPERIMENTAL",
+        "wavelength": [
+          444.0,
+          475.0,
+          531.0,
+          560.0,
+          650.0,
+          668.0,
+          705.0,
+          717.0,
+          740.0,
+          862.0
+        ]
+      },
+      "input_units_status": "Experimental correction is not eligible for an approved spectral library",
+      "native_source_preserved": true,
+      "outputs_written": [],
+      "requested_branch": "combined",
+      "selected_run": "archive/local/drone-correction-stability/2026-11-05/stable_qr_v1",
+      "site": "goldhill",
+      "source_exists": true,
+      "source_img": "archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/goldhill/combined/AOP_GOLDHILL_20230814__combined_EXPERIMENTAL.img",
+      "status": "UNSUPPORTED",
+      "translations": [
+        {
+          "coefficient_units": null,
+          "expected_output_name": "AOP_GOLDHILL_20230814__landsat_like_landsat_oli_translated_envi.img",
+          "native_bands": [
+            1,
+            2,
+            4,
+            6,
+            10
+          ],
+          "reason": "Experimental correction is not eligible for an approved spectral library",
+          "status": "UNSUPPORTED",
+          "target": "Landsat_8_OLI"
+        },
+        {
+          "coefficient_units": null,
+          "expected_output_name": "AOP_GOLDHILL_20230814__landsat_like_landsat_oli2_translated_envi.img",
+          "native_bands": [
+            1,
+            2,
+            4,
+            6,
+            10
+          ],
+          "reason": "Experimental correction is not eligible for an approved spectral library",
+          "status": "UNSUPPORTED",
+          "target": "Landsat_9_OLI-2"
+        }
+      ],
+      "uploaded": false,
+      "valid_envi_pair": true
+    },
+    {
+      "header_status": {
+        "brdf status": "INVALID",
+        "radiometry provenance": "P172 isolated MicaSense_Metashape_DN_32768 hypothesis",
+        "radiometry status": "HYPOTHETICAL_UNVERIFIED",
+        "scientific validation status": "EXPERIMENTAL",
+        "wavelength": [
+          444.0,
+          475.0,
+          531.0,
+          560.0,
+          650.0,
+          668.0,
+          705.0,
+          717.0,
+          740.0,
+          862.0
+        ]
+      },
+      "native_source_preserved": true,
+      "outputs_written": [],
+      "reason": "Ruby combined BRDF rejected in final_checks.json; partial fragments are not a corrected source.",
+      "requested_branch": "combined",
+      "selected_run": "archive/local/drone-correction-stability/2026-11-05/stable_qr_v1",
+      "site": "ruby",
+      "source_exists": true,
+      "source_img": "archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/ruby/combined/AOP_Ruby_20230814__combined_EXPERIMENTAL.img",
+      "status": "NO_ACCEPTED_COMBINED_CORRECTION",
+      "uploaded": false,
+      "valid_envi_pair": true
+    }
+  ],
+  "source_report": "DRONE_CORRECTION_STABILITY_REPORT.md",
+  "upload_performed": false,
+  "upload_reason": "No scientifically supported translated products were generated."
+}

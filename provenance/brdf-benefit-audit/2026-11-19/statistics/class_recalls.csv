@@ -1,0 +1,101 @@
+class,recall,identity_weighted_support,sensor,bands,scheme,arm
+Deciduous,0.9166666666666666,12.0,hls,5,unseen_identity,no_brdf
+Evergreen,1.0,11.0,hls,5,unseen_identity,no_brdf
+Herbaceous,0.9285714285714286,14.0,hls,5,unseen_identity,no_brdf
+Non-vegetated & dead,1.0,9.0,hls,5,unseen_identity,no_brdf
+Woody shrub,0.8666666666666667,15.0,hls,5,unseen_identity,no_brdf
+Deciduous,0.9166666666666666,12.0,hls,5,unseen_identity,brdf
+Evergreen,1.0,11.0,hls,5,unseen_identity,brdf
+Herbaceous,1.0,14.0,hls,5,unseen_identity,brdf
+Non-vegetated & dead,1.0,9.0,hls,5,unseen_identity,brdf
+Woody shrub,0.8,15.0,hls,5,unseen_identity,brdf
+Deciduous,0.9166666666666666,12.0,hls,7,unseen_identity,no_brdf
+Evergreen,1.0,11.0,hls,7,unseen_identity,no_brdf
+Herbaceous,1.0,14.0,hls,7,unseen_identity,no_brdf
+Non-vegetated & dead,1.0,9.0,hls,7,unseen_identity,no_brdf
+Woody shrub,0.8666666666666667,15.0,hls,7,unseen_identity,no_brdf
+Deciduous,0.9166666666666666,12.0,hls,7,unseen_identity,brdf
+Evergreen,1.0,11.0,hls,7,unseen_identity,brdf
+Herbaceous,1.0,14.0,hls,7,unseen_identity,brdf
+Non-vegetated & dead,1.0,9.0,hls,7,unseen_identity,brdf
+Woody shrub,0.8666666666666667,15.0,hls,7,unseen_identity,brdf
+Deciduous,0.6436651583710408,442.0,aop_archive,5,unseen_identity,no_brdf
+Evergreen,0.5796038151137197,1363.0,aop_archive,5,unseen_identity,no_brdf
+Herbaceous,0.42836041358936483,677.0,aop_archive,5,unseen_identity,no_brdf
+Non-vegetated & dead,0.9251207729468599,414.0,aop_archive,5,unseen_identity,no_brdf
+Woody shrub,0.31292059219380886,743.0,aop_archive,5,unseen_identity,no_brdf
+Deciduous,0.6289592760180995,442.0,aop_archive,5,unseen_identity,brdf
+Evergreen,0.5715333822450477,1363.0,aop_archive,5,unseen_identity,brdf
+Herbaceous,0.4098966026587888,677.0,aop_archive,5,unseen_identity,brdf
+Non-vegetated & dead,0.928743961352657,414.0,aop_archive,5,unseen_identity,brdf
+Woody shrub,0.310228802153432,743.0,aop_archive,5,unseen_identity,brdf
+Deciduous,0.3246606334841629,442.0,aop_archive,5,held_site,no_brdf
+Evergreen,0.4838591342626559,1363.0,aop_archive,5,held_site,no_brdf
+Herbaceous,0.3862629246676514,677.0,aop_archive,5,held_site,no_brdf
+Non-vegetated & dead,0.9142512077294686,414.0,aop_archive,5,held_site,no_brdf
+Woody shrub,0.23687752355316286,743.0,aop_archive,5,held_site,no_brdf
+Deciduous,0.3088235294117647,442.0,aop_archive,5,held_site,brdf
+Evergreen,0.47652237710931766,1363.0,aop_archive,5,held_site,brdf
+Herbaceous,0.39217134416543575,677.0,aop_archive,5,held_site,brdf
+Non-vegetated & dead,0.9178743961352657,414.0,aop_archive,5,held_site,brdf
+Woody shrub,0.24629878869448182,743.0,aop_archive,5,held_site,brdf
+Deciduous,0.666289592760181,442.0,aop_archive,7,unseen_identity,no_brdf
+Evergreen,0.9247982391782832,1363.0,aop_archive,7,unseen_identity,no_brdf
+Herbaceous,0.43722304283604135,677.0,aop_archive,7,unseen_identity,no_brdf
+Non-vegetated & dead,0.9118357487922706,414.0,aop_archive,7,unseen_identity,no_brdf
+Woody shrub,0.40242261103633914,743.0,aop_archive,7,unseen_identity,no_brdf
+Deciduous,0.6470588235294118,442.0,aop_archive,7,unseen_identity,brdf
+Evergreen,0.9163609684519443,1363.0,aop_archive,7,unseen_identity,brdf
+Herbaceous,0.42688330871491875,677.0,aop_archive,7,unseen_identity,brdf
+Non-vegetated & dead,0.9214975845410628,414.0,aop_archive,7,unseen_identity,brdf
+Woody shrub,0.3882907133243607,743.0,aop_archive,7,unseen_identity,brdf
+Deciduous,0.29411764705882354,442.0,aop_archive,7,held_site,no_brdf
+Evergreen,0.9035216434336023,1363.0,aop_archive,7,held_site,no_brdf
+Herbaceous,0.31979320531757754,677.0,aop_archive,7,held_site,no_brdf
+Non-vegetated & dead,0.8647342995169082,414.0,aop_archive,7,held_site,no_brdf
+Woody shrub,0.39569313593539707,743.0,aop_archive,7,held_site,no_brdf
+Deciduous,0.2861990950226244,442.0,aop_archive,7,held_site,brdf
+Evergreen,0.8895818048422597,1363.0,aop_archive,7,held_site,brdf
+Herbaceous,0.33899556868537667,677.0,aop_archive,7,held_site,brdf
+Non-vegetated & dead,0.8623188405797102,414.0,aop_archive,7,held_site,brdf
+Woody shrub,0.38492597577388965,743.0,aop_archive,7,held_site,brdf
+Deciduous,0.5833333333333334,12.0,drone_10pct,5,unseen_identity,no_brdf
+Evergreen,0.6590909090909091,176.0,drone_10pct,5,unseen_identity,no_brdf
+Herbaceous,0.5652173913043478,46.0,drone_10pct,5,unseen_identity,no_brdf
+Non-vegetated & dead,0.9615384615384616,26.0,drone_10pct,5,unseen_identity,no_brdf
+Woody shrub,0.25,40.0,drone_10pct,5,unseen_identity,no_brdf
+Deciduous,0.5833333333333334,12.0,drone_10pct,5,unseen_identity,brdf
+Evergreen,0.6704545454545454,176.0,drone_10pct,5,unseen_identity,brdf
+Herbaceous,0.43478260869565216,46.0,drone_10pct,5,unseen_identity,brdf
+Non-vegetated & dead,0.9230769230769231,26.0,drone_10pct,5,unseen_identity,brdf
+Woody shrub,0.375,40.0,drone_10pct,5,unseen_identity,brdf
+Deciduous,0.5833333333333334,12.0,drone_10pct,5,held_site,no_brdf
+Evergreen,0.4659090909090909,176.0,drone_10pct,5,held_site,no_brdf
+Herbaceous,0.2826086956521739,46.0,drone_10pct,5,held_site,no_brdf
+Non-vegetated & dead,0.9230769230769231,26.0,drone_10pct,5,held_site,no_brdf
+Woody shrub,0.025,40.0,drone_10pct,5,held_site,no_brdf
+Deciduous,0.5833333333333334,12.0,drone_10pct,5,held_site,brdf
+Evergreen,0.4659090909090909,176.0,drone_10pct,5,held_site,brdf
+Herbaceous,0.2826086956521739,46.0,drone_10pct,5,held_site,brdf
+Non-vegetated & dead,0.5769230769230769,26.0,drone_10pct,5,held_site,brdf
+Woody shrub,0.0,40.0,drone_10pct,5,held_site,brdf
+Deciduous,0.5833333333333334,12.0,drone_unmasked,5,unseen_identity,no_brdf
+Evergreen,0.6420454545454546,176.0,drone_unmasked,5,unseen_identity,no_brdf
+Herbaceous,0.5869565217391305,46.0,drone_unmasked,5,unseen_identity,no_brdf
+Non-vegetated & dead,0.9615384615384616,26.0,drone_unmasked,5,unseen_identity,no_brdf
+Woody shrub,0.275,40.0,drone_unmasked,5,unseen_identity,no_brdf
+Deciduous,0.5833333333333334,12.0,drone_unmasked,5,unseen_identity,brdf
+Evergreen,0.5625,176.0,drone_unmasked,5,unseen_identity,brdf
+Herbaceous,0.4782608695652174,46.0,drone_unmasked,5,unseen_identity,brdf
+Non-vegetated & dead,0.9230769230769231,26.0,drone_unmasked,5,unseen_identity,brdf
+Woody shrub,0.375,40.0,drone_unmasked,5,unseen_identity,brdf
+Deciduous,0.5833333333333334,12.0,drone_unmasked,5,held_site,no_brdf
+Evergreen,0.3977272727272727,176.0,drone_unmasked,5,held_site,no_brdf
+Herbaceous,0.2391304347826087,46.0,drone_unmasked,5,held_site,no_brdf
+Non-vegetated & dead,0.9615384615384616,26.0,drone_unmasked,5,held_site,no_brdf
+Woody shrub,0.025,40.0,drone_unmasked,5,held_site,no_brdf
+Deciduous,0.5833333333333334,12.0,drone_unmasked,5,held_site,brdf
+Evergreen,0.42613636363636365,176.0,drone_unmasked,5,held_site,brdf
+Herbaceous,0.2391304347826087,46.0,drone_unmasked,5,held_site,brdf
+Non-vegetated & dead,0.4230769230769231,26.0,drone_unmasked,5,held_site,brdf
+Woody shrub,0.025,40.0,drone_unmasked,5,held_site,brdf

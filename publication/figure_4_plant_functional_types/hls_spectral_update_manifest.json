@@ -1,24 +1,24 @@
 {
   "sensor": "HLS L30 NBAR",
   "source_file": "evidence/landsat_hls_primary_reference_observations.csv",
-  "source_sha256": "b3ef6eec2b30f049ceb0389776360e4a35832d313c5e7967572a4e3ba8f3b231",
+  "source_sha256": "be538919e681885e77ddb2684411f6014e2939b77a243320f8cd5980c87c6329",
   "update_script_sha256": "777ea247bfc484ac67911f0dff7c0e26c7a50498050a70352c1acff291acfc03",
-  "cells": 496,
-  "patch_groups": 24,
+  "cells": 1241,
+  "patch_groups": 61,
   "class_counts": {
-    "Deciduous": 77,
-    "Evergreen": 110,
-    "Herbaceous": 99,
-    "Non-vegetated & dead": 45,
-    "Woody shrub": 165
+    "Deciduous": 165,
+    "Evergreen": 364,
+    "Herbaceous": 288,
+    "Non-vegetated & dead": 85,
+    "Woody shrub": 339
   },
   "normalization": "each footprint divided by its own B1-B5 sum",
   "ribbon": "25th-75th footprint percentiles; same color/alpha as before",
   "panels_share_primary_hls_cohort": true,
   "legacy_c2_plotted": false,
   "output_sha256": {
-    "data/spectral_observations_by_footprint.csv": "3f08a2ed5442c0aed1a9087c6f0094546f07ad918d7ed05bbc2fff8bdaf23649",
-    "data/spectral_medians_and_interquartile_ranges.csv": "43f8fa1bcc0a27593983c6452f122f0d436c07c19c72aae3e29bb89791b6f40b",
-    "data/pft_separability_and_identifiability.csv": "435dadeff2ba79c5b20f26c2e271af09467f418231c70641883ef913ab08679c"
+    "data/spectral_observations_by_footprint.csv": "53d3e36848ee25e0e42083663ed5a92f144f0e9a591d697f12f2c8e53e1b4def",
+    "data/spectral_medians_and_interquartile_ranges.csv": "a3666c04bb9846d9425f668c397bb557b3c383bc095c256f5e65f0a0fd481021",
+    "data/pft_separability_and_identifiability.csv": "8da0fbb62b8f04f56cf254e009850caafbca186b1776ee820ee221d99abaf11f"
   }
 }

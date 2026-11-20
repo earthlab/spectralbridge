@@ -1,0 +1,22 @@
+{
+  "identity": {
+    "source_sha256": "cd3a8afd2697f09d1f4749f92df8a5e2cc71ee12490d38de12f21f90b2a75978",
+    "code_sha256": "bb609f1405ea3e4c9611ff5cb8993edafa1c6700eb05938b40500c4e29bd913b",
+    "projection_code_sha256": "6210796fa19b01a989901d153dba0ee0e4f69c179d26f90f08c04ac0514a1424"
+  },
+  "outputs": {
+    "repeat_view_consistency.csv": "7a58125f83d8673204b83133f5de2d7549fc1ecd70d60fbd25b8f74365f9c0ae",
+    "polygon_spectra.csv": "5618e5a5605b9ea9005a97724a266d15ac64dafcffa7f93e6fbda5ceeea45088",
+    "flight_support_audit.csv": "da51f13bac24d69f20b914515d6069dced40dc712b044f22838518cebb12b7ba",
+    "plant_flight_spectra.csv": "4514b2fc8801fce4153ea29751c8c00098a4e83a67a9a6f877489aa7e45174c9"
+  },
+  "elapsed_seconds": 3.545379791990854,
+  "flights": 122,
+  "polygon_year_rows": 4807,
+  "unique_plants": 3639,
+  "overlap_polygon_days": 4090,
+  "source_pixel_rows": 85706,
+  "units": "NEON historical10000 count convention decoded by0.0001; archive-level legacy metadata limits remain, no absolute accuracy claim",
+  "attribution": "Archived correction package (BRDF plus topography), not BRDF-only",
+  "pixel_cache_created": false
+}

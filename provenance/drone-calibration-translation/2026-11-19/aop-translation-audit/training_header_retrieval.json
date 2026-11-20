@@ -1,0 +1,1735 @@
+{
+  "complete": true,
+  "credentials_recorded": false,
+  "records": [
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance_landsat_etm+_envi.hdr",
+      "header_sha256": "02261780cac5b3b7e57dfc6e85a1d0daba6163b1cbb5d3e92af9655ee0697ac7",
+      "locations": [
+        {
+          "bytes": 1034,
+          "checksum": "4ba7174015fce4548d63ada57186d17f",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_1/NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance/NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "02261780cac5b3b7e57dfc6e85a1d0daba6163b1cbb5d3e92af9655ee0697ac7"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_7_ETM+",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance_landsat_oli2_envi.hdr",
+      "header_sha256": "128fcfcc935b58080fdb8658781a495ad806a0cd07d2a05fb07a4c4666d90025",
+      "locations": [
+        {
+          "bytes": 1059,
+          "checksum": "cb51f50bbc2969fc194bab3eae638a8c",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_1/NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance/NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "128fcfcc935b58080fdb8658781a495ad806a0cd07d2a05fb07a4c4666d90025"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_9_OLI-2",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance_landsat_oli_envi.hdr",
+      "header_sha256": "128fcfcc935b58080fdb8658781a495ad806a0cd07d2a05fb07a4c4666d90025",
+      "locations": [
+        {
+          "bytes": 1059,
+          "checksum": "cb51f50bbc2969fc194bab3eae638a8c",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_1/NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance/NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance_landsat_oli_envi.hdr",
+          "sha256": "128fcfcc935b58080fdb8658781a495ad806a0cd07d2a05fb07a4c4666d90025"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_8_OLI",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance_landsat_tm_envi.hdr",
+      "header_sha256": "02261780cac5b3b7e57dfc6e85a1d0daba6163b1cbb5d3e92af9655ee0697ac7",
+      "locations": [
+        {
+          "bytes": 1034,
+          "checksum": "4ba7174015fce4548d63ada57186d17f",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_1/NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance/NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance_landsat_tm_envi.hdr",
+          "sha256": "02261780cac5b3b7e57dfc6e85a1d0daba6163b1cbb5d3e92af9655ee0697ac7"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_5_TM",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+      "header_sha256": "7404ff72b9fe87a80e6fbc2a41328347bc39a786b3ffa2df5bead9e8e797e50a",
+      "locations": [
+        {
+          "bytes": 877,
+          "checksum": "4986e8db3cb46b7a71fd3bc5593d58f1",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_1/NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance/NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "7404ff72b9fe87a80e6fbc2a41328347bc39a786b3ffa2df5bead9e8e797e50a"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_OLI_and_OLI-2",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+      "header_sha256": "15182f1dab3952c5fe8534e7210f51e8eb03699cbad5788504488436d1e8cd54",
+      "locations": [
+        {
+          "bytes": 868,
+          "checksum": "909ccd43d29d30e45e6a8c7c9dbf0ef1",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_1/NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance/NEON_D12_YELL_DP1_L025-1_20230719_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "15182f1dab3952c5fe8534e7210f51e8eb03699cbad5788504488436d1e8cd54"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_TM_and_ETM+",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance_landsat_etm+_envi.hdr",
+      "header_sha256": "e1a93162843e683789013318d3248e3329df846405bb3e8fff7051c636824232",
+      "locations": [
+        {
+          "bytes": 1035,
+          "checksum": "0a7783589586b186c86b1bb19c2e2184",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_1/NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance/NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "e1a93162843e683789013318d3248e3329df846405bb3e8fff7051c636824232"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_7_ETM+",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance_landsat_oli2_envi.hdr",
+      "header_sha256": "56a5116e8555c96d058f926014cd2116ca3fd660a82cf5e8262ac409b8c4ed69",
+      "locations": [
+        {
+          "bytes": 1060,
+          "checksum": "f521f9ca69936065a4f1ab70c3ecab4e",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_1/NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance/NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "56a5116e8555c96d058f926014cd2116ca3fd660a82cf5e8262ac409b8c4ed69"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_9_OLI-2",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance_landsat_oli_envi.hdr",
+      "header_sha256": "56a5116e8555c96d058f926014cd2116ca3fd660a82cf5e8262ac409b8c4ed69",
+      "locations": [
+        {
+          "bytes": 1060,
+          "checksum": "f521f9ca69936065a4f1ab70c3ecab4e",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_1/NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance/NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance_landsat_oli_envi.hdr",
+          "sha256": "56a5116e8555c96d058f926014cd2116ca3fd660a82cf5e8262ac409b8c4ed69"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_8_OLI",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance_landsat_tm_envi.hdr",
+      "header_sha256": "e1a93162843e683789013318d3248e3329df846405bb3e8fff7051c636824232",
+      "locations": [
+        {
+          "bytes": 1035,
+          "checksum": "0a7783589586b186c86b1bb19c2e2184",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_1/NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance/NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance_landsat_tm_envi.hdr",
+          "sha256": "e1a93162843e683789013318d3248e3329df846405bb3e8fff7051c636824232"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_5_TM",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+      "header_sha256": "7d819de4169ebadcd0c99c7a0e426be8a1b8c667965365b1fb342b3c4b42e527",
+      "locations": [
+        {
+          "bytes": 878,
+          "checksum": "fee29a2c997894f24cf50eee8c513ba6",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_1/NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance/NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "7d819de4169ebadcd0c99c7a0e426be8a1b8c667965365b1fb342b3c4b42e527"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_OLI_and_OLI-2",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+      "header_sha256": "552bf54cf0f60f20ff3b61813ac4b0eafa09a2e009572d8b7232a40cd2a5b663",
+      "locations": [
+        {
+          "bytes": 869,
+          "checksum": "4baad754fbb2abb07ef98033cc176ce1",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_1/NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance/NEON_D12_YELL_DP1_L029-1_20230715_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "552bf54cf0f60f20ff3b61813ac4b0eafa09a2e009572d8b7232a40cd2a5b663"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_TM_and_ETM+",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance_landsat_etm+_envi.hdr",
+      "header_sha256": "f25ee3fc76bdc217b29c29a5d4a9c388b74dd20e8988bb791f0eacc813097f96",
+      "locations": [
+        {
+          "bytes": 1036,
+          "checksum": "a1a0470ce3487db6fe57b989015e81b7",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_2/NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance/NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "f25ee3fc76bdc217b29c29a5d4a9c388b74dd20e8988bb791f0eacc813097f96"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_7_ETM+",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance_landsat_oli2_envi.hdr",
+      "header_sha256": "ea6b21574ae0a7104323ba56399138bf491c9e427847946e502b27ab04d0918f",
+      "locations": [
+        {
+          "bytes": 1061,
+          "checksum": "29a707a8e086bc59f490af556bf29e32",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_2/NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance/NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "ea6b21574ae0a7104323ba56399138bf491c9e427847946e502b27ab04d0918f"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_9_OLI-2",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance_landsat_oli_envi.hdr",
+      "header_sha256": "ea6b21574ae0a7104323ba56399138bf491c9e427847946e502b27ab04d0918f",
+      "locations": [
+        {
+          "bytes": 1061,
+          "checksum": "29a707a8e086bc59f490af556bf29e32",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_2/NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance/NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance_landsat_oli_envi.hdr",
+          "sha256": "ea6b21574ae0a7104323ba56399138bf491c9e427847946e502b27ab04d0918f"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_8_OLI",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance_landsat_tm_envi.hdr",
+      "header_sha256": "f25ee3fc76bdc217b29c29a5d4a9c388b74dd20e8988bb791f0eacc813097f96",
+      "locations": [
+        {
+          "bytes": 1036,
+          "checksum": "a1a0470ce3487db6fe57b989015e81b7",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_2/NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance/NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance_landsat_tm_envi.hdr",
+          "sha256": "f25ee3fc76bdc217b29c29a5d4a9c388b74dd20e8988bb791f0eacc813097f96"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_5_TM",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+      "header_sha256": "5e8e0868d3a33cfdbafed02bc792bcebfedf549a58f0e4dad97ca392d9239756",
+      "locations": [
+        {
+          "bytes": 879,
+          "checksum": "aba7a795b873c0fc746b413474bec4d4",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_2/NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance/NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "5e8e0868d3a33cfdbafed02bc792bcebfedf549a58f0e4dad97ca392d9239756"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_OLI_and_OLI-2",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+      "header_sha256": "a729d01748a3627ac00f9eb1dee5a4bfd675caa8c2180b4a8a3e620d13590bb5",
+      "locations": [
+        {
+          "bytes": 870,
+          "checksum": "78bda449ab46dd34f65d4d563a4ff3f5",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_2/NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance/NEON_D12_YELL_DP1_L040-1_20230715_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "a729d01748a3627ac00f9eb1dee5a4bfd675caa8c2180b4a8a3e620d13590bb5"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_TM_and_ETM+",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance_landsat_etm+_envi.hdr",
+      "header_sha256": "4c976885fc65c6006c73fad00c1380bf1b1695acf1d7b832eca5f5cfcd27d60e",
+      "locations": [
+        {
+          "bytes": 1036,
+          "checksum": "8cd43ced0ecc5125530222f459a507ee",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_2/NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance/NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "4c976885fc65c6006c73fad00c1380bf1b1695acf1d7b832eca5f5cfcd27d60e"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_7_ETM+",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance_landsat_oli2_envi.hdr",
+      "header_sha256": "5ad3f4650694d2a6d7c722bb35b195e7122b6e3e74a143ad584b518ac0950b9e",
+      "locations": [
+        {
+          "bytes": 1061,
+          "checksum": "012df8ade1eef5d43543a91105d80b81",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_2/NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance/NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "5ad3f4650694d2a6d7c722bb35b195e7122b6e3e74a143ad584b518ac0950b9e"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_9_OLI-2",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance_landsat_oli_envi.hdr",
+      "header_sha256": "5ad3f4650694d2a6d7c722bb35b195e7122b6e3e74a143ad584b518ac0950b9e",
+      "locations": [
+        {
+          "bytes": 1061,
+          "checksum": "012df8ade1eef5d43543a91105d80b81",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_2/NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance/NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance_landsat_oli_envi.hdr",
+          "sha256": "5ad3f4650694d2a6d7c722bb35b195e7122b6e3e74a143ad584b518ac0950b9e"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_8_OLI",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance_landsat_tm_envi.hdr",
+      "header_sha256": "4c976885fc65c6006c73fad00c1380bf1b1695acf1d7b832eca5f5cfcd27d60e",
+      "locations": [
+        {
+          "bytes": 1036,
+          "checksum": "8cd43ced0ecc5125530222f459a507ee",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_2/NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance/NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance_landsat_tm_envi.hdr",
+          "sha256": "4c976885fc65c6006c73fad00c1380bf1b1695acf1d7b832eca5f5cfcd27d60e"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_5_TM",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+      "header_sha256": "b86f73a3e9dd86aa6899b2f714f6b11fd74e068d72c75e2d92fe40e246ecaeed",
+      "locations": [
+        {
+          "bytes": 879,
+          "checksum": "5aafc3c79f4ae97a0bbde83f14587228",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_2/NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance/NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "b86f73a3e9dd86aa6899b2f714f6b11fd74e068d72c75e2d92fe40e246ecaeed"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_OLI_and_OLI-2",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance",
+      "header": "NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+      "header_sha256": "dd128694270d0556b33a0cb3f97e99d8f1b46de53e7182895b83a4607f39ff29",
+      "locations": [
+        {
+          "bytes": 870,
+          "checksum": "cc157ada2d9700fce502b7c5fac87cef",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/YELL_full_2/NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance/NEON_D12_YELL_DP1_L046-1_20230703_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "dd128694270d0556b33a0cb3f97e99d8f1b46de53e7182895b83a4607f39ff29"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_TM_and_ETM+",
+      "site": "YELL",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D13_NIWO_DP1_20200801_162711_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200801_162711_reflectance_landsat_etm+_envi.hdr",
+      "header_sha256": "f5533ce76d9b29d95c562abae9b9af3ebdd8e780877306e80f5929dc6839b763",
+      "locations": [
+        {
+          "bytes": 1038,
+          "checksum": "fc96077881229a3e1f49fa50c40e83cb",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_1/NEON_D13_NIWO_DP1_20200801_162711_reflectance/NEON_D13_NIWO_DP1_20200801_162711_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "f5533ce76d9b29d95c562abae9b9af3ebdd8e780877306e80f5929dc6839b763"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_7_ETM+",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D13_NIWO_DP1_20200801_162711_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200801_162711_reflectance_landsat_oli2_envi.hdr",
+      "header_sha256": "1cef9e541145042eb10401678de1c047e676d019122514613b4a8ffbc1304551",
+      "locations": [
+        {
+          "bytes": 1063,
+          "checksum": "ff3656ae58f62147c3e2008f5aeb6968",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_1/NEON_D13_NIWO_DP1_20200801_162711_reflectance/NEON_D13_NIWO_DP1_20200801_162711_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "1cef9e541145042eb10401678de1c047e676d019122514613b4a8ffbc1304551"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_9_OLI-2",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D13_NIWO_DP1_20200801_162711_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200801_162711_reflectance_landsat_oli_envi.hdr",
+      "header_sha256": "1cef9e541145042eb10401678de1c047e676d019122514613b4a8ffbc1304551",
+      "locations": [
+        {
+          "bytes": 1063,
+          "checksum": "ff3656ae58f62147c3e2008f5aeb6968",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_1/NEON_D13_NIWO_DP1_20200801_162711_reflectance/NEON_D13_NIWO_DP1_20200801_162711_reflectance_landsat_oli_envi.hdr",
+          "sha256": "1cef9e541145042eb10401678de1c047e676d019122514613b4a8ffbc1304551"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_8_OLI",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D13_NIWO_DP1_20200801_162711_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200801_162711_reflectance_landsat_tm_envi.hdr",
+      "header_sha256": "f5533ce76d9b29d95c562abae9b9af3ebdd8e780877306e80f5929dc6839b763",
+      "locations": [
+        {
+          "bytes": 1038,
+          "checksum": "fc96077881229a3e1f49fa50c40e83cb",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_1/NEON_D13_NIWO_DP1_20200801_162711_reflectance/NEON_D13_NIWO_DP1_20200801_162711_reflectance_landsat_tm_envi.hdr",
+          "sha256": "f5533ce76d9b29d95c562abae9b9af3ebdd8e780877306e80f5929dc6839b763"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_5_TM",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D13_NIWO_DP1_20200801_162711_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200801_162711_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+      "header_sha256": "0c0f9ee1b01505d5b4352ac16fc6fadffd581c225b2f273b508af0b57c8f6bb9",
+      "locations": [
+        {
+          "bytes": 881,
+          "checksum": "f266b80412e39d612d2640f605b5aced",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_1/NEON_D13_NIWO_DP1_20200801_162711_reflectance/NEON_D13_NIWO_DP1_20200801_162711_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "0c0f9ee1b01505d5b4352ac16fc6fadffd581c225b2f273b508af0b57c8f6bb9"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_OLI_and_OLI-2",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D13_NIWO_DP1_20200801_162711_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200801_162711_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+      "header_sha256": "c77f8c8b1a751a06a09ebbba5344041a7433e97108ac9a90376fb7d5d37dfa75",
+      "locations": [
+        {
+          "bytes": 872,
+          "checksum": "9f7d7284bc55221c13df044f8b9235af",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_1/NEON_D13_NIWO_DP1_20200801_162711_reflectance/NEON_D13_NIWO_DP1_20200801_162711_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "c77f8c8b1a751a06a09ebbba5344041a7433e97108ac9a90376fb7d5d37dfa75"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_TM_and_ETM+",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D13_NIWO_DP1_20200801_163340_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200801_163340_reflectance_landsat_etm+_envi.hdr",
+      "header_sha256": "6699fc0f760ad4af120f64472eeb9b7e3d22550f5c15c188ecb67dbd3a2f6398",
+      "locations": [
+        {
+          "bytes": 1038,
+          "checksum": "5f26617df67b36e07c0a7735c183e469",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_1/NEON_D13_NIWO_DP1_20200801_163340_reflectance/NEON_D13_NIWO_DP1_20200801_163340_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "6699fc0f760ad4af120f64472eeb9b7e3d22550f5c15c188ecb67dbd3a2f6398"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_7_ETM+",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D13_NIWO_DP1_20200801_163340_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200801_163340_reflectance_landsat_oli2_envi.hdr",
+      "header_sha256": "d645b16f6b1500afb3260fbfa13d31e1748af219d69a25f5aec7e286f67a9d07",
+      "locations": [
+        {
+          "bytes": 1063,
+          "checksum": "c55efdcea7526e6b169f700e636535b1",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_1/NEON_D13_NIWO_DP1_20200801_163340_reflectance/NEON_D13_NIWO_DP1_20200801_163340_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "d645b16f6b1500afb3260fbfa13d31e1748af219d69a25f5aec7e286f67a9d07"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_9_OLI-2",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D13_NIWO_DP1_20200801_163340_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200801_163340_reflectance_landsat_oli_envi.hdr",
+      "header_sha256": "d645b16f6b1500afb3260fbfa13d31e1748af219d69a25f5aec7e286f67a9d07",
+      "locations": [
+        {
+          "bytes": 1063,
+          "checksum": "c55efdcea7526e6b169f700e636535b1",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_1/NEON_D13_NIWO_DP1_20200801_163340_reflectance/NEON_D13_NIWO_DP1_20200801_163340_reflectance_landsat_oli_envi.hdr",
+          "sha256": "d645b16f6b1500afb3260fbfa13d31e1748af219d69a25f5aec7e286f67a9d07"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_8_OLI",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D13_NIWO_DP1_20200801_163340_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200801_163340_reflectance_landsat_tm_envi.hdr",
+      "header_sha256": "6699fc0f760ad4af120f64472eeb9b7e3d22550f5c15c188ecb67dbd3a2f6398",
+      "locations": [
+        {
+          "bytes": 1038,
+          "checksum": "5f26617df67b36e07c0a7735c183e469",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_1/NEON_D13_NIWO_DP1_20200801_163340_reflectance/NEON_D13_NIWO_DP1_20200801_163340_reflectance_landsat_tm_envi.hdr",
+          "sha256": "6699fc0f760ad4af120f64472eeb9b7e3d22550f5c15c188ecb67dbd3a2f6398"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_5_TM",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D13_NIWO_DP1_20200801_163340_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200801_163340_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+      "header_sha256": "56c92bc1d33762f980787df00abcae5197fac09d39e72ea0533bb1d2368403d3",
+      "locations": [
+        {
+          "bytes": 881,
+          "checksum": "1ccc1080533640bf60a1adba074da663",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_1/NEON_D13_NIWO_DP1_20200801_163340_reflectance/NEON_D13_NIWO_DP1_20200801_163340_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "56c92bc1d33762f980787df00abcae5197fac09d39e72ea0533bb1d2368403d3"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_OLI_and_OLI-2",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D13_NIWO_DP1_20200801_163340_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200801_163340_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+      "header_sha256": "d2662aa534aad311c1394598bb46ab25d3ac19ea513c47f834c30462be78116c",
+      "locations": [
+        {
+          "bytes": 872,
+          "checksum": "fc0180907b625b28bba1004db3eeef08",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_1/NEON_D13_NIWO_DP1_20200801_163340_reflectance/NEON_D13_NIWO_DP1_20200801_163340_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "d2662aa534aad311c1394598bb46ab25d3ac19ea513c47f834c30462be78116c"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_TM_and_ETM+",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 2,
+      "flightline": "NEON_D13_NIWO_DP1_20200807_161351_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200807_161351_reflectance_landsat_etm+_envi.hdr",
+      "header_sha256": "095bccd83cb1db38dd9dedd862c1f6c1dc51704a125d7d2c8d0453e0ee14b080",
+      "locations": [
+        {
+          "bytes": 1038,
+          "checksum": "cdcb5de4a224b42f6a5c1e091ad95e86",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/Full_01/NEON_D13_NIWO_DP1_20200807_161351_reflectance/NEON_D13_NIWO_DP1_20200807_161351_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "095bccd83cb1db38dd9dedd862c1f6c1dc51704a125d7d2c8d0453e0ee14b080"
+        },
+        {
+          "bytes": 1038,
+          "checksum": "cdcb5de4a224b42f6a5c1e091ad95e86",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_2/NEON_D13_NIWO_DP1_20200807_161351_reflectance/NEON_D13_NIWO_DP1_20200807_161351_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "095bccd83cb1db38dd9dedd862c1f6c1dc51704a125d7d2c8d0453e0ee14b080"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_7_ETM+",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 2,
+      "flightline": "NEON_D13_NIWO_DP1_20200807_161351_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200807_161351_reflectance_landsat_oli2_envi.hdr",
+      "header_sha256": "9c95e10e0e6877a5aaaeb230a3bae3794b2450c8ffa0b69b677b0023304b4be4",
+      "locations": [
+        {
+          "bytes": 1063,
+          "checksum": "814024c9e8943db601620ebd4a5e24ee",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/Full_01/NEON_D13_NIWO_DP1_20200807_161351_reflectance/NEON_D13_NIWO_DP1_20200807_161351_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "9c95e10e0e6877a5aaaeb230a3bae3794b2450c8ffa0b69b677b0023304b4be4"
+        },
+        {
+          "bytes": 1063,
+          "checksum": "814024c9e8943db601620ebd4a5e24ee",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_2/NEON_D13_NIWO_DP1_20200807_161351_reflectance/NEON_D13_NIWO_DP1_20200807_161351_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "9c95e10e0e6877a5aaaeb230a3bae3794b2450c8ffa0b69b677b0023304b4be4"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_9_OLI-2",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 2,
+      "flightline": "NEON_D13_NIWO_DP1_20200807_161351_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200807_161351_reflectance_landsat_oli_envi.hdr",
+      "header_sha256": "9c95e10e0e6877a5aaaeb230a3bae3794b2450c8ffa0b69b677b0023304b4be4",
+      "locations": [
+        {
+          "bytes": 1063,
+          "checksum": "814024c9e8943db601620ebd4a5e24ee",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/Full_01/NEON_D13_NIWO_DP1_20200807_161351_reflectance/NEON_D13_NIWO_DP1_20200807_161351_reflectance_landsat_oli_envi.hdr",
+          "sha256": "9c95e10e0e6877a5aaaeb230a3bae3794b2450c8ffa0b69b677b0023304b4be4"
+        },
+        {
+          "bytes": 1063,
+          "checksum": "814024c9e8943db601620ebd4a5e24ee",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_2/NEON_D13_NIWO_DP1_20200807_161351_reflectance/NEON_D13_NIWO_DP1_20200807_161351_reflectance_landsat_oli_envi.hdr",
+          "sha256": "9c95e10e0e6877a5aaaeb230a3bae3794b2450c8ffa0b69b677b0023304b4be4"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_8_OLI",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 2,
+      "flightline": "NEON_D13_NIWO_DP1_20200807_161351_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200807_161351_reflectance_landsat_tm_envi.hdr",
+      "header_sha256": "095bccd83cb1db38dd9dedd862c1f6c1dc51704a125d7d2c8d0453e0ee14b080",
+      "locations": [
+        {
+          "bytes": 1038,
+          "checksum": "cdcb5de4a224b42f6a5c1e091ad95e86",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/Full_01/NEON_D13_NIWO_DP1_20200807_161351_reflectance/NEON_D13_NIWO_DP1_20200807_161351_reflectance_landsat_tm_envi.hdr",
+          "sha256": "095bccd83cb1db38dd9dedd862c1f6c1dc51704a125d7d2c8d0453e0ee14b080"
+        },
+        {
+          "bytes": 1038,
+          "checksum": "cdcb5de4a224b42f6a5c1e091ad95e86",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_2/NEON_D13_NIWO_DP1_20200807_161351_reflectance/NEON_D13_NIWO_DP1_20200807_161351_reflectance_landsat_tm_envi.hdr",
+          "sha256": "095bccd83cb1db38dd9dedd862c1f6c1dc51704a125d7d2c8d0453e0ee14b080"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_5_TM",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 2,
+      "flightline": "NEON_D13_NIWO_DP1_20200807_161351_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200807_161351_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+      "header_sha256": "8f0d824be857b8ee85f668ffd13e9fd675dc9600570132d5b365781e57aea988",
+      "locations": [
+        {
+          "bytes": 881,
+          "checksum": "1bc05d2ada03abfc590f7d2f98c7803c",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/Full_01/NEON_D13_NIWO_DP1_20200807_161351_reflectance/NEON_D13_NIWO_DP1_20200807_161351_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "8f0d824be857b8ee85f668ffd13e9fd675dc9600570132d5b365781e57aea988"
+        },
+        {
+          "bytes": 881,
+          "checksum": "1bc05d2ada03abfc590f7d2f98c7803c",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_2/NEON_D13_NIWO_DP1_20200807_161351_reflectance/NEON_D13_NIWO_DP1_20200807_161351_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "8f0d824be857b8ee85f668ffd13e9fd675dc9600570132d5b365781e57aea988"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_OLI_and_OLI-2",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 2,
+      "flightline": "NEON_D13_NIWO_DP1_20200807_161351_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200807_161351_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+      "header_sha256": "082795744a0570514690c85c1b62766c1b93bde297d889d8a348728ace0e73d9",
+      "locations": [
+        {
+          "bytes": 872,
+          "checksum": "7d0e93018af660a4e30e1f2f15d34f37",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/Full_01/NEON_D13_NIWO_DP1_20200807_161351_reflectance/NEON_D13_NIWO_DP1_20200807_161351_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "082795744a0570514690c85c1b62766c1b93bde297d889d8a348728ace0e73d9"
+        },
+        {
+          "bytes": 872,
+          "checksum": "7d0e93018af660a4e30e1f2f15d34f37",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_2/NEON_D13_NIWO_DP1_20200807_161351_reflectance/NEON_D13_NIWO_DP1_20200807_161351_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "082795744a0570514690c85c1b62766c1b93bde297d889d8a348728ace0e73d9"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_TM_and_ETM+",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 2,
+      "flightline": "NEON_D13_NIWO_DP1_20200807_162134_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200807_162134_reflectance_landsat_etm+_envi.hdr",
+      "header_sha256": "5750b54e11900119ec0f5f82bdbcd1e4130b54d74ed79504fdeef5c9386c350a",
+      "locations": [
+        {
+          "bytes": 1037,
+          "checksum": "7f31aacc292591e51e28ab5af9150c7d",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/Full_01/NEON_D13_NIWO_DP1_20200807_162134_reflectance/NEON_D13_NIWO_DP1_20200807_162134_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "5750b54e11900119ec0f5f82bdbcd1e4130b54d74ed79504fdeef5c9386c350a"
+        },
+        {
+          "bytes": 1037,
+          "checksum": "7f31aacc292591e51e28ab5af9150c7d",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_2/NEON_D13_NIWO_DP1_20200807_162134_reflectance/NEON_D13_NIWO_DP1_20200807_162134_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "5750b54e11900119ec0f5f82bdbcd1e4130b54d74ed79504fdeef5c9386c350a"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_7_ETM+",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 2,
+      "flightline": "NEON_D13_NIWO_DP1_20200807_162134_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200807_162134_reflectance_landsat_oli2_envi.hdr",
+      "header_sha256": "0932bcb28f242806e4effa975250562eaee37e5a05c151a8e0c232185a56f12c",
+      "locations": [
+        {
+          "bytes": 1062,
+          "checksum": "7a605374ef516779ecfa6cda56a31895",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/Full_01/NEON_D13_NIWO_DP1_20200807_162134_reflectance/NEON_D13_NIWO_DP1_20200807_162134_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "0932bcb28f242806e4effa975250562eaee37e5a05c151a8e0c232185a56f12c"
+        },
+        {
+          "bytes": 1062,
+          "checksum": "7a605374ef516779ecfa6cda56a31895",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_2/NEON_D13_NIWO_DP1_20200807_162134_reflectance/NEON_D13_NIWO_DP1_20200807_162134_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "0932bcb28f242806e4effa975250562eaee37e5a05c151a8e0c232185a56f12c"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_9_OLI-2",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 2,
+      "flightline": "NEON_D13_NIWO_DP1_20200807_162134_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200807_162134_reflectance_landsat_oli_envi.hdr",
+      "header_sha256": "0932bcb28f242806e4effa975250562eaee37e5a05c151a8e0c232185a56f12c",
+      "locations": [
+        {
+          "bytes": 1062,
+          "checksum": "7a605374ef516779ecfa6cda56a31895",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/Full_01/NEON_D13_NIWO_DP1_20200807_162134_reflectance/NEON_D13_NIWO_DP1_20200807_162134_reflectance_landsat_oli_envi.hdr",
+          "sha256": "0932bcb28f242806e4effa975250562eaee37e5a05c151a8e0c232185a56f12c"
+        },
+        {
+          "bytes": 1062,
+          "checksum": "7a605374ef516779ecfa6cda56a31895",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_2/NEON_D13_NIWO_DP1_20200807_162134_reflectance/NEON_D13_NIWO_DP1_20200807_162134_reflectance_landsat_oli_envi.hdr",
+          "sha256": "0932bcb28f242806e4effa975250562eaee37e5a05c151a8e0c232185a56f12c"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_8_OLI",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 2,
+      "flightline": "NEON_D13_NIWO_DP1_20200807_162134_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200807_162134_reflectance_landsat_tm_envi.hdr",
+      "header_sha256": "5750b54e11900119ec0f5f82bdbcd1e4130b54d74ed79504fdeef5c9386c350a",
+      "locations": [
+        {
+          "bytes": 1037,
+          "checksum": "7f31aacc292591e51e28ab5af9150c7d",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/Full_01/NEON_D13_NIWO_DP1_20200807_162134_reflectance/NEON_D13_NIWO_DP1_20200807_162134_reflectance_landsat_tm_envi.hdr",
+          "sha256": "5750b54e11900119ec0f5f82bdbcd1e4130b54d74ed79504fdeef5c9386c350a"
+        },
+        {
+          "bytes": 1037,
+          "checksum": "7f31aacc292591e51e28ab5af9150c7d",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_2/NEON_D13_NIWO_DP1_20200807_162134_reflectance/NEON_D13_NIWO_DP1_20200807_162134_reflectance_landsat_tm_envi.hdr",
+          "sha256": "5750b54e11900119ec0f5f82bdbcd1e4130b54d74ed79504fdeef5c9386c350a"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_5_TM",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 2,
+      "flightline": "NEON_D13_NIWO_DP1_20200807_162134_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200807_162134_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+      "header_sha256": "44bd2325436bff38e82222a416e3ac8a33381972f5ec13f5c6589afcd0205453",
+      "locations": [
+        {
+          "bytes": 880,
+          "checksum": "870031d9509d58043b2a3627fef0567b",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/Full_01/NEON_D13_NIWO_DP1_20200807_162134_reflectance/NEON_D13_NIWO_DP1_20200807_162134_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "44bd2325436bff38e82222a416e3ac8a33381972f5ec13f5c6589afcd0205453"
+        },
+        {
+          "bytes": 880,
+          "checksum": "870031d9509d58043b2a3627fef0567b",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_2/NEON_D13_NIWO_DP1_20200807_162134_reflectance/NEON_D13_NIWO_DP1_20200807_162134_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "44bd2325436bff38e82222a416e3ac8a33381972f5ec13f5c6589afcd0205453"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_OLI_and_OLI-2",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 2,
+      "flightline": "NEON_D13_NIWO_DP1_20200807_162134_reflectance",
+      "header": "NEON_D13_NIWO_DP1_20200807_162134_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+      "header_sha256": "7115411e61fe28ae5dd7c5e4f2e9067134d8c21c680efb63c42b7871b4589402",
+      "locations": [
+        {
+          "bytes": 871,
+          "checksum": "6bac44dd1d5dfef05f4ed2ddd097fd4b",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/Full_01/NEON_D13_NIWO_DP1_20200807_162134_reflectance/NEON_D13_NIWO_DP1_20200807_162134_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "7115411e61fe28ae5dd7c5e4f2e9067134d8c21c680efb63c42b7871b4589402"
+        },
+        {
+          "bytes": 871,
+          "checksum": "6bac44dd1d5dfef05f4ed2ddd097fd4b",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/NIWO_full_2/NEON_D13_NIWO_DP1_20200807_162134_reflectance/NEON_D13_NIWO_DP1_20200807_162134_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "7115411e61fe28ae5dd7c5e4f2e9067134d8c21c680efb63c42b7871b4589402"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_TM_and_ETM+",
+      "site": "NIWO",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance_landsat_etm+_envi.hdr",
+      "header_sha256": "1d9c338ae3826e59dc2598d8552df21d0e71754f6f3a5d1bc421e83710f4899f",
+      "locations": [
+        {
+          "bytes": 1036,
+          "checksum": "3ca5e782efac7823280f42298b816a51",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_1/NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "1d9c338ae3826e59dc2598d8552df21d0e71754f6f3a5d1bc421e83710f4899f"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_7_ETM+",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance_landsat_oli2_envi.hdr",
+      "header_sha256": "4c24c7704de1ccfa612d6e7384b21d728ae74a848be3cf8dad1fe518d27e994a",
+      "locations": [
+        {
+          "bytes": 1061,
+          "checksum": "8a4a0333efb97a252a8bf4d017aaed3c",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_1/NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "4c24c7704de1ccfa612d6e7384b21d728ae74a848be3cf8dad1fe518d27e994a"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_9_OLI-2",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance_landsat_oli_envi.hdr",
+      "header_sha256": "4c24c7704de1ccfa612d6e7384b21d728ae74a848be3cf8dad1fe518d27e994a",
+      "locations": [
+        {
+          "bytes": 1061,
+          "checksum": "8a4a0333efb97a252a8bf4d017aaed3c",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_1/NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance_landsat_oli_envi.hdr",
+          "sha256": "4c24c7704de1ccfa612d6e7384b21d728ae74a848be3cf8dad1fe518d27e994a"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_8_OLI",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance_landsat_tm_envi.hdr",
+      "header_sha256": "1d9c338ae3826e59dc2598d8552df21d0e71754f6f3a5d1bc421e83710f4899f",
+      "locations": [
+        {
+          "bytes": 1036,
+          "checksum": "3ca5e782efac7823280f42298b816a51",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_1/NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance_landsat_tm_envi.hdr",
+          "sha256": "1d9c338ae3826e59dc2598d8552df21d0e71754f6f3a5d1bc421e83710f4899f"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_5_TM",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+      "header_sha256": "6d67c4f6c9430f67d664241bf79c67d2795630bcd43844e4e98306782b848b08",
+      "locations": [
+        {
+          "bytes": 879,
+          "checksum": "11d61a32160178d3b365042646d972ff",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_1/NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "6d67c4f6c9430f67d664241bf79c67d2795630bcd43844e4e98306782b848b08"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_OLI_and_OLI-2",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+      "header_sha256": "ea2b99af3f4df059b04560d7f424c151ade94f35209d4e897d3f49865feb123f",
+      "locations": [
+        {
+          "bytes": 870,
+          "checksum": "d8b962e178d77e02a4a97e5913bbc8ec",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_1/NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L030-1_20230624_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "ea2b99af3f4df059b04560d7f424c151ade94f35209d4e897d3f49865feb123f"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_TM_and_ETM+",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance_landsat_etm+_envi.hdr",
+      "header_sha256": "de95a2c3617cf05803b01dbe8d4e9d33c744f76553563e0bc3d8d5be0efbf61b",
+      "locations": [
+        {
+          "bytes": 1036,
+          "checksum": "918be4a0ba811a7bcfbe91710e0428ad",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_1/NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "de95a2c3617cf05803b01dbe8d4e9d33c744f76553563e0bc3d8d5be0efbf61b"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_7_ETM+",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance_landsat_oli2_envi.hdr",
+      "header_sha256": "8b94e23738b3a49b8c14cac23fa79f26592d9aa8ae952ef342bc285f4bbe97aa",
+      "locations": [
+        {
+          "bytes": 1061,
+          "checksum": "56053e348f7feffc0a6717317ab3183e",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_1/NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "8b94e23738b3a49b8c14cac23fa79f26592d9aa8ae952ef342bc285f4bbe97aa"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_9_OLI-2",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance_landsat_oli_envi.hdr",
+      "header_sha256": "8b94e23738b3a49b8c14cac23fa79f26592d9aa8ae952ef342bc285f4bbe97aa",
+      "locations": [
+        {
+          "bytes": 1061,
+          "checksum": "56053e348f7feffc0a6717317ab3183e",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_1/NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance_landsat_oli_envi.hdr",
+          "sha256": "8b94e23738b3a49b8c14cac23fa79f26592d9aa8ae952ef342bc285f4bbe97aa"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_8_OLI",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance_landsat_tm_envi.hdr",
+      "header_sha256": "de95a2c3617cf05803b01dbe8d4e9d33c744f76553563e0bc3d8d5be0efbf61b",
+      "locations": [
+        {
+          "bytes": 1036,
+          "checksum": "918be4a0ba811a7bcfbe91710e0428ad",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_1/NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance_landsat_tm_envi.hdr",
+          "sha256": "de95a2c3617cf05803b01dbe8d4e9d33c744f76553563e0bc3d8d5be0efbf61b"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_5_TM",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+      "header_sha256": "04c00e41ef5bb1e466dedb2ac9b3bc9e8e1fe392f4043594e44cfe0efe2461b2",
+      "locations": [
+        {
+          "bytes": 879,
+          "checksum": "805bd4effed14121820fe70196cf2057",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_1/NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "04c00e41ef5bb1e466dedb2ac9b3bc9e8e1fe392f4043594e44cfe0efe2461b2"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_OLI_and_OLI-2",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+      "header_sha256": "61fc6a650c5b3d675bac730040163b9981d740548101993317f0272710a245c5",
+      "locations": [
+        {
+          "bytes": 870,
+          "checksum": "0d75a504ec77eb4c1c3c9dd70deb9eba",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_1/NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L034-1_20230624_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "61fc6a650c5b3d675bac730040163b9981d740548101993317f0272710a245c5"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_TM_and_ETM+",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance_landsat_etm+_envi.hdr",
+      "header_sha256": "587c2a8fbc4486d6bb28ecaa45a1b32a395d6a3168da8b921387a59505bed54c",
+      "locations": [
+        {
+          "bytes": 1036,
+          "checksum": "393eb5c503905609289d7af98c16202f",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_2/NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "587c2a8fbc4486d6bb28ecaa45a1b32a395d6a3168da8b921387a59505bed54c"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_7_ETM+",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance_landsat_oli2_envi.hdr",
+      "header_sha256": "3692f81703756e49d12b266d2c9f02f0eb9c83df01784180ebbdb7e759cfe8be",
+      "locations": [
+        {
+          "bytes": 1061,
+          "checksum": "77cc2fb18777e21792867bf43efe64ce",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_2/NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "3692f81703756e49d12b266d2c9f02f0eb9c83df01784180ebbdb7e759cfe8be"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_9_OLI-2",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance_landsat_oli_envi.hdr",
+      "header_sha256": "3692f81703756e49d12b266d2c9f02f0eb9c83df01784180ebbdb7e759cfe8be",
+      "locations": [
+        {
+          "bytes": 1061,
+          "checksum": "77cc2fb18777e21792867bf43efe64ce",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_2/NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance_landsat_oli_envi.hdr",
+          "sha256": "3692f81703756e49d12b266d2c9f02f0eb9c83df01784180ebbdb7e759cfe8be"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_8_OLI",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance_landsat_tm_envi.hdr",
+      "header_sha256": "587c2a8fbc4486d6bb28ecaa45a1b32a395d6a3168da8b921387a59505bed54c",
+      "locations": [
+        {
+          "bytes": 1036,
+          "checksum": "393eb5c503905609289d7af98c16202f",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_2/NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance_landsat_tm_envi.hdr",
+          "sha256": "587c2a8fbc4486d6bb28ecaa45a1b32a395d6a3168da8b921387a59505bed54c"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_5_TM",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+      "header_sha256": "79afce971be59bd7a386009ae6597ea9c331466dd67b1bbdbdd5442b293dfc84",
+      "locations": [
+        {
+          "bytes": 879,
+          "checksum": "cccea1822e5bfa61539324b9c6777e72",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_2/NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "79afce971be59bd7a386009ae6597ea9c331466dd67b1bbdbdd5442b293dfc84"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_OLI_and_OLI-2",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+      "header_sha256": "06ea430ab4451f5f18a4c7eea15d28a060a18e1374b02924dc9feb03cfd989fc",
+      "locations": [
+        {
+          "bytes": 870,
+          "checksum": "85dcfd16d2518b6230e65bb149a4ec48",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_2/NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance/NEON_D16_WREF_DP1_L050-1_20230624_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "06ea430ab4451f5f18a4c7eea15d28a060a18e1374b02924dc9feb03cfd989fc"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_TM_and_ETM+",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance_landsat_etm+_envi.hdr",
+      "header_sha256": "69272773870b3ea0b6fe2a3f51470ae51d391c7812050259ab6882a0855ff9ba",
+      "locations": [
+        {
+          "bytes": 1036,
+          "checksum": "9b5591f10a7580861f53a54c3f76446a",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_2/NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance/NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance_landsat_etm+_envi.hdr",
+          "sha256": "69272773870b3ea0b6fe2a3f51470ae51d391c7812050259ab6882a0855ff9ba"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_7_ETM+",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance_landsat_oli2_envi.hdr",
+      "header_sha256": "87eebb78e463b49bb4eee4371948e7856211d49955045bd83d447db49627a5fd",
+      "locations": [
+        {
+          "bytes": 1061,
+          "checksum": "02fed82e3ceea47cd6db838572999c22",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_2/NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance/NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance_landsat_oli2_envi.hdr",
+          "sha256": "87eebb78e463b49bb4eee4371948e7856211d49955045bd83d447db49627a5fd"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_9_OLI-2",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance_landsat_oli_envi.hdr",
+      "header_sha256": "87eebb78e463b49bb4eee4371948e7856211d49955045bd83d447db49627a5fd",
+      "locations": [
+        {
+          "bytes": 1061,
+          "checksum": "02fed82e3ceea47cd6db838572999c22",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_2/NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance/NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance_landsat_oli_envi.hdr",
+          "sha256": "87eebb78e463b49bb4eee4371948e7856211d49955045bd83d447db49627a5fd"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_8_OLI",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance_landsat_tm_envi.hdr",
+      "header_sha256": "69272773870b3ea0b6fe2a3f51470ae51d391c7812050259ab6882a0855ff9ba",
+      "locations": [
+        {
+          "bytes": 1036,
+          "checksum": "9b5591f10a7580861f53a54c3f76446a",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_2/NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance/NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance_landsat_tm_envi.hdr",
+          "sha256": "69272773870b3ea0b6fe2a3f51470ae51d391c7812050259ab6882a0855ff9ba"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "Landsat_5_TM",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+      "header_sha256": "703e59e57ecf9069b06be1ad0e98fa47edeb40846863a9be86bc970492823fa8",
+      "locations": [
+        {
+          "bytes": 879,
+          "checksum": "66343c793dd20c8c1c525fc6e19499c3",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_2/NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance/NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance_micasense_to_match_oli_oli2_envi.hdr",
+          "sha256": "703e59e57ecf9069b06be1ad0e98fa47edeb40846863a9be86bc970492823fa8"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_OLI_and_OLI-2",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    },
+    {
+      "duplicate_count": 1,
+      "flightline": "NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance",
+      "header": "NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+      "header_sha256": "9583488d798004814fe5c3ca42d6d6985bdc248ffc9d7b5911e40386ac687c3e",
+      "locations": [
+        {
+          "bytes": 870,
+          "checksum": "2368b68136dde8372b7291b0e70c6dbb",
+          "path": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction/WREF_full_2/NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance/NEON_D16_WREF_DP1_L052-1_20230625_directional_reflectance_micasense_to_match_tm_etm+_envi.hdr",
+          "sha256": "9583488d798004814fe5c3ca42d6d6985bdc248ffc9d7b5911e40386ac687c3e"
+        }
+      ],
+      "matched_training_dimensions": true,
+      "physical_multiplier": null,
+      "physical_offset": null,
+      "provenance": null,
+      "radiometry_status": null,
+      "reflectance_scale_factor": 10000,
+      "sensor": "MicaSense_to-match_TM_and_ETM+",
+      "site": "WREF",
+      "status": "READ_VERIFIED"
+    }
+  ],
+  "remote_root": "/iplant/home/shared/earthlab/macrosystems/Aug_2026_Full_Extraction"
+}

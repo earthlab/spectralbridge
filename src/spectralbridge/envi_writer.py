@@ -184,9 +184,25 @@ def build_envi_header_text(header_dict: Dict) -> str:
         lines.append(f"reflectance scale factor = {scale}")
 
     for key in ("radiometry status", "radiometry provenance", "physical reflectance multiplier",
-                "physical reflectance offset", "brdf status", "brdf model schema", "brdf kernel math version", "brdf validation policy", "radiometry contract", "radiometry encoding", "scientific validation status", "topographic validation policy", "topographic model digest"):
+                "physical reflectance offset", "brdf status", "brdf model schema", "brdf kernel math version", "brdf validation policy", "radiometry contract", "translation metadata", "radiometry encoding", "scientific validation status", "topographic validation policy", "topographic model digest"):
         if key in header_dict:
             value = _format_envi_list(header_dict[key]) if isinstance(header_dict[key], (list, tuple)) else header_dict[key]
+            lines.append(f"{key} = {value}")
+
+    # Explicit translation fields are additive; leave other producer contracts alone.
+    for key in (
+        "translation source sensor", "translation target sensor",
+        "translation coefficient sha256", "translation coefficient version",
+        "translation source image", "translation stored units",
+        "translation native source bands", "translation slopes", "translation intercepts",
+        "translation correction order", "translation shade mask policy",
+        "translation acquisition date", "translation site", "translation mask sha256",
+        "translation topo sha256", "translation brdf sha256",
+    ):
+        if key in header_dict:
+            value = header_dict[key]
+            if isinstance(value, (list, tuple)):
+                value = _format_envi_list(value)
             lines.append(f"{key} = {value}")
 
     if "data ignore value" in header_dict:

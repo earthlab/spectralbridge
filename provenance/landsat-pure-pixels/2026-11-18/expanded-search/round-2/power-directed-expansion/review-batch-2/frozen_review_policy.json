@@ -1,0 +1,613 @@
+{
+  "boundary_uncertainty_m": 0.6,
+  "cases": [
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 180,
+      "context_patch_id": "power-yellowstone-herbaceous-001",
+      "dark_unknown_max_ceiling": 50,
+      "image_sha256": "38656b9b643f26c1a08afb2a6c6dd3bbf141be6660c3fda18abe5de944867f5e",
+      "interpretation": "Low continuous meadow growth form; bare holes explicit unknown polygons; channel/pond avoided. Single provisional interpretation.",
+      "metadata_sha256": "f4e05345ad7ef939d15abebcc9f8b77fbdc55d59368a4b00ff2f46118ad524d1",
+      "patch": [
+        [
+          -30,
+          20
+        ],
+        [
+          110,
+          20
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -30,
+          110
+        ]
+      ],
+      "target": "Herbaceous",
+      "unknown_polygons": []
+    },
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 180,
+      "context_patch_id": "power-yellowstone-herbaceous-002",
+      "dark_unknown_max_ceiling": 50,
+      "image_sha256": "50928c6c580c9a54f1a72b3d577c3ba1572cd5b667cc4009b52b955c04e8e3a8",
+      "interpretation": "Low continuous meadow growth form; bare holes explicit unknown polygons; channel/pond avoided. Single provisional interpretation.",
+      "metadata_sha256": "a3cb35efaa89b7bfa277bb99a16aed76428b922bb38235ded80282994c67f65d",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "target": "Herbaceous",
+      "unknown_polygons": [
+        [
+          [
+            -112,
+            27
+          ],
+          [
+            -101,
+            27
+          ],
+          [
+            -101,
+            41
+          ],
+          [
+            -112,
+            41
+          ]
+        ],
+        [
+          [
+            -38,
+            65
+          ],
+          [
+            -28,
+            65
+          ],
+          [
+            -28,
+            78
+          ],
+          [
+            -38,
+            78
+          ]
+        ],
+        [
+          [
+            4,
+            -4
+          ],
+          [
+            17,
+            -4
+          ],
+          [
+            17,
+            11
+          ],
+          [
+            4,
+            11
+          ]
+        ],
+        [
+          [
+            65,
+            -20
+          ],
+          [
+            79,
+            -20
+          ],
+          [
+            79,
+            -3
+          ],
+          [
+            65,
+            -3
+          ]
+        ]
+      ]
+    },
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 180,
+      "context_patch_id": "power-yellowstone-herbaceous-003",
+      "dark_unknown_max_ceiling": 50,
+      "image_sha256": "a83e57873ea77b143860d26bfa636d4ce43795df3cf1f07d8729eca47b4bcd00",
+      "interpretation": "Low continuous meadow growth form; bare holes explicit unknown polygons; channel/pond avoided. Single provisional interpretation.",
+      "metadata_sha256": "c82dcb11135170e3e2c255fd36c2c318248648e04cfd9598b48656d2ff5dc8c5",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          75
+        ],
+        [
+          -110,
+          75
+        ]
+      ],
+      "target": "Herbaceous",
+      "unknown_polygons": []
+    },
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 180,
+      "context_patch_id": "power-yellowstone-herbaceous-004",
+      "dark_unknown_max_ceiling": 50,
+      "image_sha256": "1cb87c1a58f985ccbe2fae5a08c40c6762bac7a98129e49d4779103050db5cfc",
+      "interpretation": "Low continuous meadow growth form; bare holes explicit unknown polygons; channel/pond avoided. Single provisional interpretation.",
+      "metadata_sha256": "ea8490c0b26994bc8c9db7bb4be889ea51570fb24ed7d523df5acecceb9467ae",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "target": "Herbaceous",
+      "unknown_polygons": []
+    },
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 180,
+      "context_patch_id": "power-yellowstone-herbaceous-006",
+      "dark_unknown_max_ceiling": 50,
+      "image_sha256": "26d9ad4c98372f24ac1d78ce4ae1b2ed60392b043d904342b757eb868ae1a42c",
+      "interpretation": "Low continuous meadow growth form; bare holes explicit unknown polygons; channel/pond avoided. Single provisional interpretation.",
+      "metadata_sha256": "ee884f4f18436b41dd67ce1be219c180efdbc17f8a8f032e50a83d5443162f40",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "target": "Herbaceous",
+      "unknown_polygons": [
+        [
+          [
+            -80,
+            25
+          ],
+          [
+            -63,
+            25
+          ],
+          [
+            -63,
+            41
+          ],
+          [
+            -80,
+            41
+          ]
+        ],
+        [
+          [
+            -42,
+            8
+          ],
+          [
+            -25,
+            8
+          ],
+          [
+            -25,
+            25
+          ],
+          [
+            -42,
+            25
+          ]
+        ],
+        [
+          [
+            -62,
+            -37
+          ],
+          [
+            -48,
+            -37
+          ],
+          [
+            -48,
+            -23
+          ],
+          [
+            -62,
+            -23
+          ]
+        ]
+      ]
+    },
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 180,
+      "context_patch_id": "power-yellowstone-herbaceous-008",
+      "dark_unknown_max_ceiling": 50,
+      "image_sha256": "128f18d6f37f6036c48a09ac7e97f41d69f6f1738ae271dbdec7eb49da74804a",
+      "interpretation": "Low continuous meadow growth form; bare holes explicit unknown polygons; channel/pond avoided. Single provisional interpretation.",
+      "metadata_sha256": "0c8080a8074757de8171aa26834d72c4700d8b76266c14d8235d649b691f4d82",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "target": "Herbaceous",
+      "unknown_polygons": [
+        [
+          [
+            -18,
+            70
+          ],
+          [
+            -1,
+            70
+          ],
+          [
+            -1,
+            86
+          ],
+          [
+            -18,
+            86
+          ]
+        ],
+        [
+          [
+            -32,
+            31
+          ],
+          [
+            -15,
+            31
+          ],
+          [
+            -15,
+            44
+          ],
+          [
+            -32,
+            44
+          ]
+        ],
+        [
+          [
+            38,
+            16
+          ],
+          [
+            57,
+            16
+          ],
+          [
+            57,
+            37
+          ],
+          [
+            38,
+            37
+          ]
+        ],
+        [
+          [
+            65,
+            23
+          ],
+          [
+            84,
+            23
+          ],
+          [
+            84,
+            39
+          ],
+          [
+            65,
+            39
+          ]
+        ]
+      ]
+    },
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 120,
+      "context_patch_id": "power-california_shrublands-woody-001",
+      "dark_unknown_max_ceiling": 45,
+      "image_sha256": "0be4400de42e2669bb93ac459b2b339d66ebf4f47f27b94ca227c16862cf6f3e",
+      "interpretation": "Dense low chaparral-form crowns in selected area; pale soil and dark gaps remain unknown using parent photo mask. Growth form not independently height-validated.",
+      "metadata_sha256": "4414599782b8dc4d7fe91a02af258ff1fea02964fce72b27cd3ebe1cded16064",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "target": "Woody shrub"
+    },
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 120,
+      "context_patch_id": "power-california_shrublands-woody-002",
+      "dark_unknown_max_ceiling": 45,
+      "image_sha256": "c8ce8bd2699dcbfb2676081f31bd9a4c6e846306d64e0b0d8d4fa4827fd4bb5a",
+      "interpretation": "Dense low chaparral-form crowns in selected area; pale soil and dark gaps remain unknown using parent photo mask. Growth form not independently height-validated.",
+      "metadata_sha256": "5d365e725fe8a6a035b8a27996ca8588fe082ace6caf2e743b16506c605d3ec6",
+      "patch": [
+        [
+          20,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          20,
+          110
+        ]
+      ],
+      "target": "Woody shrub"
+    },
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 120,
+      "context_patch_id": "power-california_shrublands-woody-003",
+      "dark_unknown_max_ceiling": 45,
+      "image_sha256": "a525962eaa23ba532271f8ed21a9ec29a70ad2d0338ec71177d093d11f5525a1",
+      "interpretation": "Dense low chaparral-form crowns in selected area; pale soil and dark gaps remain unknown using parent photo mask. Growth form not independently height-validated.",
+      "metadata_sha256": "85ff0f8c83e8ab0cfc801be10c07e6a00c298e73426bbacca9c0297a34eb311f",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "target": "Woody shrub"
+    },
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 120,
+      "context_patch_id": "power-california_shrublands-woody-004",
+      "dark_unknown_max_ceiling": 45,
+      "image_sha256": "d2baad1f8b1dd2f48c0458b910f336835fa39b89df2f6d9df54936869f401572",
+      "interpretation": "Dense low chaparral-form crowns in selected area; pale soil and dark gaps remain unknown using parent photo mask. Growth form not independently height-validated.",
+      "metadata_sha256": "5b91e4c01a686084f59f9be1cb6b42145d6fdcd6189c9e288e0f1f4dd9290130",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "target": "Woody shrub"
+    },
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 120,
+      "context_patch_id": "power-california_shrublands-woody-005",
+      "dark_unknown_max_ceiling": 45,
+      "image_sha256": "1971b4022a37f2c2862eba04b2dbfadc9b129d5af01aba8a1120952c424b27bd",
+      "interpretation": "Dense low chaparral-form crowns in selected area; pale soil and dark gaps remain unknown using parent photo mask. Growth form not independently height-validated.",
+      "metadata_sha256": "f0ab167858e3ab06e2f7e8b9fb0ae43cbeb282d600ada2cbf45def9d315d3773",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          -50,
+          -110
+        ],
+        [
+          -50,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "target": "Woody shrub"
+    },
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 120,
+      "context_patch_id": "power-california_shrublands-woody-006",
+      "dark_unknown_max_ceiling": 45,
+      "image_sha256": "7219b1613b541858ff6d75af6354c4156530d59a6a392ef868fcee84ac70181e",
+      "interpretation": "Dense low chaparral-form crowns in selected area; pale soil and dark gaps remain unknown using parent photo mask. Growth form not independently height-validated.",
+      "metadata_sha256": "c0204cb91f8e08f7688757816e56c1d44c269a9b98351360945190587d679b46",
+      "patch": [
+        [
+          -110,
+          -110
+        ],
+        [
+          110,
+          -110
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "target": "Woody shrub"
+    },
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 120,
+      "context_patch_id": "power-california_shrublands-woody-007",
+      "dark_unknown_max_ceiling": 45,
+      "image_sha256": "e36ebb9eb9ce50af7694adb033b62eabb8258ed66e504b200f95390a49218793",
+      "interpretation": "Dense low chaparral-form crowns in selected area; pale soil and dark gaps remain unknown using parent photo mask. Growth form not independently height-validated.",
+      "metadata_sha256": "011ddda62c7168a9a6358408e47b396d1ca3813b8efe52b8bb5a732b5d14eecd",
+      "patch": [
+        [
+          -70,
+          -110
+        ],
+        [
+          35,
+          -110
+        ],
+        [
+          35,
+          110
+        ],
+        [
+          -70,
+          110
+        ]
+      ],
+      "target": "Woody shrub"
+    },
+    {
+      "aerial_year": 2024,
+      "bright_unknown_floor": 120,
+      "context_patch_id": "power-california_shrublands-woody-008",
+      "dark_unknown_max_ceiling": 45,
+      "image_sha256": "80901e8b1cecec8437f8c467050daa14bffde1875d79a9807b58a6bab6c29164",
+      "interpretation": "Dense low chaparral-form crowns in selected area; pale soil and dark gaps remain unknown using parent photo mask. Growth form not independently height-validated.",
+      "metadata_sha256": "34bfd4727ed8ba5ea5fae5b675d71156fcd1ce67a27c52c79eca036b897a3c4e",
+      "patch": [
+        [
+          -110,
+          25
+        ],
+        [
+          110,
+          25
+        ],
+        [
+          110,
+          110
+        ],
+        [
+          -110,
+          110
+        ]
+      ],
+      "target": "Woody shrub"
+    }
+  ],
+  "date": "2026-11-19",
+  "deferred": "Other 116-batch contexts remain unaccepted pending review; no implicit labels.",
+  "independently_verified": false,
+  "interpreter": "single Codex aerial interpretation",
+  "nominal_cover_threshold": 0.95,
+  "parent_manifest_sha256": "863a090a2fcd687ee61b63ecb6ba5f784ab4503715e511b8159d930c6bbb480b",
+  "parent_observations_sha256": "a69e23a8fee13fd6ff566b3bfc6d2c6cd3986c3ec4ecf717a6437eacd5a1c2bb",
+  "selection": "Frozen cover/photo/structure review before new HLS spectra; no selection by statistics",
+  "structural_threshold_m": 5
+}

@@ -1,0 +1,21 @@
+scope,a,b,n_patch_a,n_patch_b,regions,p_npc,status,p_max,p_integrated,permutations,effect,observed_max,observed_integrated,permutation_method,label_space_size,random_seed,best_case_two_sided_p_lower_bound,p_npc_holm
+pooled_patches_region_confounded,Deciduous,Evergreen,4,7,2,0.0030303030303030303,exploratory_provisional_references,0.0030303030303030303,0.0030303030303030303,330.0,1.5343816512778816,3.0138699431100897,5.992832495435517,exact,330.0,,0.0030303030303030303,0.01818181818181818
+pooled_patches_region_confounded,Deciduous,Herbaceous,4,8,4,0.00202020202020202,exploratory_provisional_references,0.00202020202020202,0.00202020202020202,495.0,1.3351087509801982,2.957459366906284,4.753374338517081,exact,495.0,,0.00202020202020202,0.014141414141414142
+pooled_patches_region_confounded,Deciduous,Woody shrub,4,9,2,0.005594405594405594,exploratory_provisional_references,0.005594405594405594,0.002797202797202797,715.0,1.276184226047105,2.7423422025737914,4.510097110554779,exact,715.0,,0.0013986013986013986,0.027972027972027972
+pooled_patches_region_confounded,Deciduous,Non-vegetated & dead,4,2,2,0.06666666666666667,exploratory_provisional_references,0.06666666666666667,0.06666666666666667,15.0,1.708017861807145,2.205473267405664,3.889766688336334,exact,15.0,,0.06666666666666667,0.07272727272727272
+pooled_patches_region_confounded,Evergreen,Herbaceous,7,8,3,0.0001554001554001554,exploratory_provisional_references,0.0001554001554001554,0.0001554001554001554,6435.0,1.7418474667350854,3.554422068831474,11.327055030186688,exact,6435.0,,0.0001554001554001554,0.0013986013986013986
+pooled_patches_region_confounded,Evergreen,Woody shrub,7,9,2,0.00017482517482517483,exploratory_provisional_references,8.741258741258741e-05,0.00017482517482517483,11440.0,1.609816758642248,3.5601594018606044,10.204070610846392,exact,11440.0,,8.741258741258741e-05,0.0013986013986013986
+pooled_patches_region_confounded,Evergreen,Non-vegetated & dead,7,2,3,0.027777777777777776,exploratory_provisional_references,0.027777777777777776,0.027777777777777776,36.0,2.0931095629547953,2.8104475918590697,6.815056332828823,exact,36.0,,0.027777777777777776,0.07272727272727272
+pooled_patches_region_confounded,Herbaceous,Woody shrub,8,9,4,8.227067050596462e-05,exploratory_provisional_references,0.00012340600575894693,4.113533525298231e-05,24310.0,1.493118772418989,3.4459716161081633,9.442180243270537,exact,24310.0,,4.113533525298231e-05,0.0008227067050596462
+pooled_patches_region_confounded,Herbaceous,Non-vegetated & dead,8,2,4,0.022222222222222223,exploratory_provisional_references,0.022222222222222223,0.022222222222222223,45.0,1.8383873669896504,2.659155669695744,5.4074689777714235,exact,45.0,,0.022222222222222223,0.07272727272727272
+pooled_patches_region_confounded,Woody shrub,Non-vegetated & dead,9,2,3,0.01818181818181818,exploratory_provisional_references,0.01818181818181818,0.01818181818181818,55.0,2.087997751341451,3.06296994459608,7.134111179356836,exact,55.0,,0.01818181818181818,0.07272727272727272
+within_region_mixed_support,Deciduous,Evergreen,0,0,0,,insufficient_matched_patch_support,,,,,,,,,,,
+within_region_mixed_support,Deciduous,Herbaceous,0,0,0,,insufficient_matched_patch_support,,,,,,,,,,,
+within_region_mixed_support,Deciduous,Woody shrub,0,0,0,,insufficient_matched_patch_support,,,,,,,,,,,
+within_region_mixed_support,Deciduous,Non-vegetated & dead,4,1,1,,insufficient_matched_patch_support,,,,,,,,,,,
+within_region_mixed_support,Evergreen,Herbaceous,7,1,1,,insufficient_matched_patch_support,,,,,,,,,,,
+within_region_mixed_support,Evergreen,Woody shrub,0,0,0,,insufficient_matched_patch_support,,,,,,,,,,,
+within_region_mixed_support,Evergreen,Non-vegetated & dead,0,0,0,,insufficient_matched_patch_support,,,,,,,,,,,
+within_region_mixed_support,Herbaceous,Woody shrub,0,0,0,,insufficient_matched_patch_support,,,,,,,,,,,
+within_region_mixed_support,Herbaceous,Non-vegetated & dead,6,1,1,,insufficient_matched_patch_support,,,,,,,,,,,
+within_region_mixed_support,Woody shrub,Non-vegetated & dead,0,0,0,,insufficient_matched_patch_support,,,,,,,,,,,

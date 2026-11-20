@@ -1,0 +1,25 @@
+{
+  "brightness": "arithmetic mean of three native visible bands / scene positive-visible-mean p95",
+  "classification": "brightness proxy only; dark vegetation/soil may be excluded and shade may be missed",
+  "corrections_refitted": false,
+  "encoding": {
+    "0": "retain_candidate",
+    "1": "exclude_candidate",
+    "255": "source_nodata"
+  },
+  "invalid": "any native band nonfinite or source NoData; excluded from normalization and denominator",
+  "normalization": "deterministic systematic spatial sample; same scalar for three visible bands",
+  "source_stage": "pre-correction camera-position experiment input",
+  "status": "CANDIDATE_FOR_VISUAL_REVIEW_NOT_VALIDATED_SHADE",
+  "threshold_fractions": [
+    0.1,
+    0.2,
+    0.3
+  ],
+  "translation_performed": false,
+  "visible_wavelengths_nm": [
+    475,
+    560,
+    668
+  ]
+}

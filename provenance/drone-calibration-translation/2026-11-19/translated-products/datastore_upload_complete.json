@@ -1,0 +1,209 @@
+{
+  "status": "COMPLETE",
+  "completed_utc": "2026-11-19T23:27:08.705804+00:00",
+  "destination": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1",
+  "previous_calibration_collection": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_brightness_baseline_20261113_v1/2026-11-13",
+  "scientific_validation_status": "EXPERIMENTAL",
+  "output_scale_factor": 1000,
+  "total_bytes": 610994295,
+  "files": [
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/ruby/ruby_20230814_micasense_translated_to_oli_envi.img",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/ruby/ruby_20230814_micasense_translated_to_oli_envi.img",
+      "bytes": 40572000,
+      "sha256": "4b6728ecd40f418e366a46926e7b43ac8757149a85f33c84a16b62ef9619aff3",
+      "server_checksum": "0cbeb5e0d9b2ed496ab05cd8f6d2793f",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/ruby/ruby_20230814_micasense_translated_to_oli_envi.hdr",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/ruby/ruby_20230814_micasense_translated_to_oli_envi.hdr",
+      "bytes": 13888,
+      "sha256": "b6da66c463ec66e3256a3a82b022175110893fde7e3aa2e8a8b527be909c7ddf",
+      "server_checksum": "05c87567df1967d82579711c004ed441",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/ruby/ruby_20230814_micasense_translated_to_oli_envi__translation.json",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/ruby/ruby_20230814_micasense_translated_to_oli_envi__translation.json",
+      "bytes": 25383,
+      "sha256": "1077823d473db592471ef7ea2d221b11cafee776853471d9373e220c32f02c62",
+      "server_checksum": "2f8a8b857cdc5d478dfae7d6f227bbd2",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/ruby/ruby_20230814_micasense_translated_to_oli2_envi.img",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/ruby/ruby_20230814_micasense_translated_to_oli2_envi.img",
+      "bytes": 40572000,
+      "sha256": "3569e0c53b359733e26690f57f504736dfee65e6e18eff7d7bafd8964368721d",
+      "server_checksum": "69a4895eb9100e8a566a3b4116685eb7",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/ruby/ruby_20230814_micasense_translated_to_oli2_envi.hdr",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/ruby/ruby_20230814_micasense_translated_to_oli2_envi.hdr",
+      "bytes": 13926,
+      "sha256": "d959050a736762081af9c2c8e5c04b4ecd8aa96fc3ddf7bd022f0fb79f3b008d",
+      "server_checksum": "9f283e06c0aad5c1ed6220d09c1460eb",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/ruby/ruby_20230814_micasense_translated_to_oli2_envi__translation.json",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/ruby/ruby_20230814_micasense_translated_to_oli2_envi__translation.json",
+      "bytes": 25443,
+      "sha256": "cb90e7184bf2aadb2c48e606cfe0bedbad5a2f286e390de3996ec8af37c50c9c",
+      "server_checksum": "c8506bbbc659f19a65ed1a509b4e7620",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/gordon/gordon_20230814_micasense_translated_to_oli_envi.img",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/gordon/gordon_20230814_micasense_translated_to_oli_envi.img",
+      "bytes": 123108480,
+      "sha256": "a83eb089c0b2080acca176d6f1f23f517c30e709173bdd0902a3a1342cdcb5b0",
+      "server_checksum": "83e42ec7512157b0df28e224325099bf",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/gordon/gordon_20230814_micasense_translated_to_oli_envi.hdr",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/gordon/gordon_20230814_micasense_translated_to_oli_envi.hdr",
+      "bytes": 13930,
+      "sha256": "6bb6aa174610254cd686dc39cae59c359f9c10424612affef5babc410bd1d0cc",
+      "server_checksum": "b65b72a69771460eb025cdcb93219096",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/gordon/gordon_20230814_micasense_translated_to_oli_envi__translation.json",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/gordon/gordon_20230814_micasense_translated_to_oli_envi__translation.json",
+      "bytes": 25419,
+      "sha256": "52c832cb4e4954494323702415171f1f8164ae3b4b9cd2cbe906595663589bb2",
+      "server_checksum": "68a37ac1d36b837ba4eb3c120a1618d4",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/gordon/gordon_20230814_micasense_translated_to_oli2_envi.img",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/gordon/gordon_20230814_micasense_translated_to_oli2_envi.img",
+      "bytes": 123108480,
+      "sha256": "8df9e7eb625cdd5197a41e08cab750b93baa5eefb91243607e01afdc6f996d3b",
+      "server_checksum": "af80d6b6fe87ba01709c50c0fe9804d2",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/gordon/gordon_20230814_micasense_translated_to_oli2_envi.hdr",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/gordon/gordon_20230814_micasense_translated_to_oli2_envi.hdr",
+      "bytes": 13968,
+      "sha256": "085d6b0ed0b453c026914b1b49a8d9f094deb8247fd63b61c14a7538bacaa776",
+      "server_checksum": "405d9271b866140fba133a11db5cdfee",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/gordon/gordon_20230814_micasense_translated_to_oli2_envi__translation.json",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/gordon/gordon_20230814_micasense_translated_to_oli2_envi__translation.json",
+      "bytes": 25486,
+      "sha256": "0de25b5f0f360dd97fe8c3dd1b664a3d9ea7041c7d02bcbd110a0f56a37257b8",
+      "server_checksum": "ce607b733fe8b7704b3ab7071369da04",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/goldhill/goldhill_20230814_micasense_translated_to_oli_envi.img",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/goldhill/goldhill_20230814_micasense_translated_to_oli_envi.img",
+      "bytes": 141665400,
+      "sha256": "d4320804d363ba9e1936a5ff3d4f023627e3ee1f1be60be9a884f926b2390629",
+      "server_checksum": "993976b4b1a9207288240b52ef7ed6f6",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/goldhill/goldhill_20230814_micasense_translated_to_oli_envi.hdr",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/goldhill/goldhill_20230814_micasense_translated_to_oli_envi.hdr",
+      "bytes": 13944,
+      "sha256": "2620a5d1f20dbad6b8bda9a9caffc807e36601ec475120073d2f200065ab20d4",
+      "server_checksum": "6f84052cf1012c3fcf7cb9d1d871143b",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/goldhill/goldhill_20230814_micasense_translated_to_oli_envi__translation.json",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/goldhill/goldhill_20230814_micasense_translated_to_oli_envi__translation.json",
+      "bytes": 25455,
+      "sha256": "91b1452e398d5f4ba9160f2090e4e7424cb74ebf115f1014c960308525c86a67",
+      "server_checksum": "813a4724fda770e47cb321b601345ff5",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/goldhill/goldhill_20230814_micasense_translated_to_oli2_envi.img",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/goldhill/goldhill_20230814_micasense_translated_to_oli2_envi.img",
+      "bytes": 141665400,
+      "sha256": "c0579ce55ecab4b41ba8accd2fb12146f00cdbc472ca59248da3187104e0cf01",
+      "server_checksum": "1a65bfa3fd823fad0c3c3ec1d201ca42",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/goldhill/goldhill_20230814_micasense_translated_to_oli2_envi.hdr",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/goldhill/goldhill_20230814_micasense_translated_to_oli2_envi.hdr",
+      "bytes": 13982,
+      "sha256": "8c2033cf58ac3f9ff3ede2a121b34c06728bf794ffcbc594178dc4cbb94662a9",
+      "server_checksum": "aa3458d42767caefd2737e4f9c70436e",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/translated-products/goldhill/goldhill_20230814_micasense_translated_to_oli2_envi__translation.json",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/goldhill/goldhill_20230814_micasense_translated_to_oli2_envi__translation.json",
+      "bytes": 25514,
+      "sha256": "beca3fc979d9797cc87cd83f8ebc3dc6706e6425b11c12bb8a366a504f751b08",
+      "server_checksum": "38b25fcb4069e499c2e48b3530a44194",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-calibration-translation/2026-11-19/translated-products/README.md",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/README.md",
+      "bytes": 5659,
+      "sha256": "8c0c8978f65cf5b08b4b08198fd639019e4defd412f34f5747c8e6291538a52a",
+      "server_checksum": "31dc6d22849b388ef9d611ded3c0aacd",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-calibration-translation/2026-11-19/translated-products/verification.json",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/verification.json",
+      "bytes": 13326,
+      "sha256": "773c55c09dc77ef368956798356030c4dc0193665ab463fc72566477e6190720",
+      "server_checksum": "cf13356a6f5fa9c0b5a43d241e64cd86",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-calibration-translation/2026-11-19/aop-translation-audit/aop_derived_micasense_to_landsat_fractional_reflectance_registry.json",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/provenance/fractional_reflectance_translation_registry.json",
+      "bytes": 38854,
+      "sha256": "48bdc4d874cb6dd9df84abb1d69ac8a356d710daadebcb485ed9a93f1fdfd0b0",
+      "server_checksum": "331c4c1d360553ebe1e70f29a8829dea",
+      "readback": "PASS",
+      "status": "uploaded"
+    },
+    {
+      "local": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/examples/run_shade_masked_drone_translations.py",
+      "remote": "/iplant/home/shared/earthlab/macrosystems/field-data/output/spectralbridge_processed/gordon_goldhill_ruby_micasense_landsat_translations_20261119_v1/provenance/run_shade_masked_drone_translations.py",
+      "bytes": 8358,
+      "sha256": "23b5fc29e2859ae20f1eafe3c608e047c8fa2d5a7a6cc5dff2995894b53863ee",
+      "server_checksum": "1161f92dd279232e80d2212c64a9ff7f",
+      "readback": "PASS",
+      "status": "uploaded"
+    }
+  ]
+}

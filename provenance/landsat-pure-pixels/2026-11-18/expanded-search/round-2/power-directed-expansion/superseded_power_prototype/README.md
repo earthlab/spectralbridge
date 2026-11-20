@@ -1,0 +1,1 @@
+Superseded planning prototype. Version2 uses independent scenario seeds for restart-safe results and exact enumeration when the small matched-design label space fits the budget. Do not use prototype power targets.

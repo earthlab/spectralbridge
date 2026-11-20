@@ -1,0 +1,102 @@
+{
+  "comparison": "Common-pixel differences include model refitting; not mask-only removal",
+  "output_scale_factor": 1000,
+  "products": [
+    {
+      "brdf_status": "INVALID",
+      "full_grid_translation": "PASS",
+      "output_hdr": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/ruby/ruby_20230814_unmasked_null_micasense_translated_to_oli_envi.hdr",
+      "output_img": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/ruby/ruby_20230814_unmasked_null_micasense_translated_to_oli_envi.img",
+      "provenance_json": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/ruby/ruby_20230814_unmasked_null_micasense_translated_to_oli_envi__translation.json",
+      "restart": "PASS",
+      "sha256": {
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/ruby/ruby_20230814_unmasked_null_micasense_translated_to_oli_envi.hdr": "756d5da72c3c5cb21a10878f3bc57474b6ccb7baf102ca3f0b02006b68ff5f4b",
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/ruby/ruby_20230814_unmasked_null_micasense_translated_to_oli_envi.img": "525f6a6c5c1fe5be977f655ca3d5a0b941a5a58b630fbb72a859acbf4d3baf93",
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/ruby/ruby_20230814_unmasked_null_micasense_translated_to_oli_envi__translation.json": "3b5b5f8f0e0f71078d319a66df66490d4ae430bc7cac01a27dc9d97143aece6e"
+      },
+      "site": "ruby",
+      "target": "Landsat_8_OLI"
+    },
+    {
+      "brdf_status": "INVALID",
+      "full_grid_translation": "PASS",
+      "output_hdr": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/ruby/ruby_20230814_unmasked_null_micasense_translated_to_oli2_envi.hdr",
+      "output_img": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/ruby/ruby_20230814_unmasked_null_micasense_translated_to_oli2_envi.img",
+      "provenance_json": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/ruby/ruby_20230814_unmasked_null_micasense_translated_to_oli2_envi__translation.json",
+      "restart": "PASS",
+      "sha256": {
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/ruby/ruby_20230814_unmasked_null_micasense_translated_to_oli2_envi.hdr": "f47a528072a9dba3758583bdab68609237125db4b2510ab4b4e9c97f0826fc2e",
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/ruby/ruby_20230814_unmasked_null_micasense_translated_to_oli2_envi.img": "ccbe3e9493bb854e535dddf727e6542c4ef04c55a4fdc0dafc7298c07d403245",
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/ruby/ruby_20230814_unmasked_null_micasense_translated_to_oli2_envi__translation.json": "2e08294a7e12280f436d72db977815e3691924e8db794e8b7b96c6339256c6f9"
+      },
+      "site": "ruby",
+      "target": "Landsat_9_OLI-2"
+    },
+    {
+      "brdf_status": "VALID",
+      "full_grid_translation": "PASS",
+      "output_hdr": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_micasense_translated_to_oli_envi.hdr",
+      "output_img": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_micasense_translated_to_oli_envi.img",
+      "provenance_json": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_micasense_translated_to_oli_envi__translation.json",
+      "restart": "PASS",
+      "sha256": {
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_micasense_translated_to_oli_envi.hdr": "3428f5c2f62d205bf2db8dd73b3def9c0a8592ce966401290f63e82de8c7282c",
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_micasense_translated_to_oli_envi.img": "7beb7e5126cabd1e34399c389fe6045019cd3ea1e5f10199ba7e3e037cd2839b",
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_micasense_translated_to_oli_envi__translation.json": "86fd0636683338e2859f6db70b58ba30f70eb76615d8c4b64b491442fdfe00b1"
+      },
+      "site": "gordon",
+      "target": "Landsat_8_OLI"
+    },
+    {
+      "brdf_status": "VALID",
+      "full_grid_translation": "PASS",
+      "output_hdr": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_micasense_translated_to_oli2_envi.hdr",
+      "output_img": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_micasense_translated_to_oli2_envi.img",
+      "provenance_json": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_micasense_translated_to_oli2_envi__translation.json",
+      "restart": "PASS",
+      "sha256": {
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_micasense_translated_to_oli2_envi.hdr": "5acc78c2d288e8783c4e58f6c794c71ee5baa1242bb3a4d2de0749949f1ed4de",
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_micasense_translated_to_oli2_envi.img": "0987b9160143c73a9d56c0cd255456a7d15f100ef1df9a4cfc8b53230111226c",
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_micasense_translated_to_oli2_envi__translation.json": "e67248af6ea6d411631cf0c4f81b548c78be568a3f7d2513f77049fe221a8c02"
+      },
+      "site": "gordon",
+      "target": "Landsat_9_OLI-2"
+    },
+    {
+      "brdf_status": "VALID",
+      "full_grid_translation": "PASS",
+      "output_hdr": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/goldhill/goldhill_20230814_unmasked_null_micasense_translated_to_oli_envi.hdr",
+      "output_img": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/goldhill/goldhill_20230814_unmasked_null_micasense_translated_to_oli_envi.img",
+      "provenance_json": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/goldhill/goldhill_20230814_unmasked_null_micasense_translated_to_oli_envi__translation.json",
+      "restart": "PASS",
+      "sha256": {
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/goldhill/goldhill_20230814_unmasked_null_micasense_translated_to_oli_envi.hdr": "d227c45232169a764ff0380bb257be2c08c7849ab1266c0505b324f5f25a9089",
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/goldhill/goldhill_20230814_unmasked_null_micasense_translated_to_oli_envi.img": "acf5277dabc0a3bb25e0ef4bcc601cc37d408448e16e8ccabb7dc0843bfba924",
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/goldhill/goldhill_20230814_unmasked_null_micasense_translated_to_oli_envi__translation.json": "d1c69052bbcd78ed2db633ec10af9d7b230b268e0716cd154790c0b2e6e2d423"
+      },
+      "site": "goldhill",
+      "target": "Landsat_8_OLI"
+    },
+    {
+      "brdf_status": "VALID",
+      "full_grid_translation": "PASS",
+      "output_hdr": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/goldhill/goldhill_20230814_unmasked_null_micasense_translated_to_oli2_envi.hdr",
+      "output_img": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/goldhill/goldhill_20230814_unmasked_null_micasense_translated_to_oli2_envi.img",
+      "provenance_json": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/goldhill/goldhill_20230814_unmasked_null_micasense_translated_to_oli2_envi__translation.json",
+      "restart": "PASS",
+      "sha256": {
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/goldhill/goldhill_20230814_unmasked_null_micasense_translated_to_oli2_envi.hdr": "fc384be7527b7328099314c6b066b97df89b9a56bb7c81b1c7f526109cac89dc",
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/goldhill/goldhill_20230814_unmasked_null_micasense_translated_to_oli2_envi.img": "e6ad040987db95bc44e01a448bfd2b79037fd928fbcbebd1dcd0ef4f5e58f972",
+        "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/goldhill/goldhill_20230814_unmasked_null_micasense_translated_to_oli2_envi__translation.json": "4ca6a4df7aebcf34ab55f2aaa592b93f454a6785ab360e8cd042f12999af01b1"
+      },
+      "site": "goldhill",
+      "target": "Landsat_9_OLI-2"
+    }
+  ],
+  "scientific_status": "EXPERIMENTAL",
+  "shade_mask": "NONE",
+  "independent_native_samples": 1920,
+  "independent_native_algebra": "PASS",
+  "masked_reference_hashes_unchanged": true,
+  "gdal_metadata": "PASS"
+}

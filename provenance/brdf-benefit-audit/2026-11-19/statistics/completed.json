@@ -1,0 +1,34 @@
+{
+  "identity": {
+    "code": "dcfdb02d7814861026aecd59062f3938b7ffb5e3235279254d021d7b53d3e853",
+    "effect_helper": "0dbda218c92ec1bfdac617bf572515fc60d3fd81b7bfcdfa0bd3201782d0c958",
+    "scientific_helpers": {
+      "library_analysis.py": "1de4bbf468d02b400c9b0cf0b2eb88ca3056814c139d808978c798b1326b8261",
+      "pft_method_audit.py": "458018dbfff411710ef2eea62a2698f8bcc86121bca0905fbf5bd0c2e88fc3df",
+      "plant_pft_statistics.py": "4f8adf8d8c08045850fa2882531acf22e4cbfc4df50989e18edf69e835abc27d"
+    },
+    "software": {
+      "numpy": "2.5.2",
+      "pandas": "3.0.5",
+      "scipy": "1.18.0",
+      "scikit-learn": "1.9.1"
+    },
+    "sources": {
+      "hls": "7104e0fd9e92535a1f9fb9649104fff7317dc31df0f27f5264318c11b7beaefd",
+      "aop_archive": "5618e5a5605b9ea9005a97724a266d15ac64dafcffa7f93e6fbda5ceeea45088",
+      "drone_10pct": "916a69a3af8c0cdde0713197c4d13d076b01783735062893ce88624cb32f9b86",
+      "drone_unmasked": "cc74d46acc84c1b6a7416efb9eb783913127c0adc6a772569d4fd76d5fa048c7"
+    }
+  },
+  "elapsed_seconds": 146.96313566699973,
+  "outputs": {
+    "fold_memberships.csv": "4d971c21cf2bf8b996f14232de4f0903b4823a6e228562277068032926ac0252",
+    "predictions.csv": "309e3bb423b06963c42a4d6548ccecf55d644b81c6ddc21308a37437b96b797b",
+    "separability.csv": "1402e8383cefdcb5d004b4febc97dc9b1cf51c7e140745b54672e56f28c51e2e",
+    "separation_changes.csv": "c73505ffd9fc662fc643b57ec75453eb872ec043cf6c256a3c7219a3cd844683",
+    "identifiability.csv": "2e2c58399fa9291ce7783c7246e720b20913464e68c588b41e7f83bc534acbb7",
+    "class_recalls.csv": "7da97cbf9024d3949d29e92273b55f77fcaeba817cb86236bc8d9a6ee6d0fc4f"
+  },
+  "inference": "Conditional paired identity bootstrap/permutation, whole-site exact sensitivity; models fixed during inference; small domain counts; finite class/site confounding retained",
+  "multiplicity": "Separate Holm families: all supported accuracy contrasts; all supported arm-specific NPC tests; all supported separation-change contrasts. Primary plus sensitivities included."
+}

@@ -1,0 +1,32 @@
+{
+  "array_sha256": "2161edaa43d8f8222ef008d0fffd2da0edd377f74f30bf4ff2d0525723f7268f",
+  "identity": {
+    "catalogue_sha256": "84af19c6c06c5d11eb3b56c48a95f28d629d1ae823c49adf20ce33f4f84cf68a",
+    "method": "first_return_1m_no_fill_v1",
+    "project": "CA_AlamedaCo_2006",
+    "reference_cutoff": "2023-08-21T16:00:00Z",
+    "source_items": [
+      "CA_AlamedaCo_2006_000118",
+      "CA_AlamedaCo_2006_000142"
+    ],
+    "terrain_catalogue_sha256": "cd8a5b36f7cba69db427d4d97e267c6eecb2c32f0adf8448c9f6d1d335b37bba"
+  },
+  "pft_purity_verified": false,
+  "source_intervals": [
+    {
+      "datetime": null,
+      "end_datetime": "2006-07-02T00:00:00.000000Z",
+      "start_datetime": "2006-06-25T00:00:00.000000Z"
+    },
+    {
+      "datetime": null,
+      "end_datetime": "2006-07-02T00:00:00.000000Z",
+      "start_datetime": "2006-06-25T00:00:00.000000Z"
+    }
+  ],
+  "source_items": [
+    "CA_AlamedaCo_2006_000142",
+    "CA_AlamedaCo_2006_000118"
+  ],
+  "structural_only": true
+}

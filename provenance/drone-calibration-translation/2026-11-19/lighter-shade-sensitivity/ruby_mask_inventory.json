@@ -1,0 +1,72 @@
+{
+  "mask_sha256": {
+    "AOP_Ruby_20230814__shade_candidate_relative_visible_05pct.tif": "ffc442d111278a6f17fc3cb616f7003258f0ddb456554e0bb403e5ffd028fa0c",
+    "AOP_Ruby_20230814__shade_candidate_relative_visible_09pct.tif": "5ce377cb560b1fbdc6d94655771a0cced9342104a1f27f6084092c7bdf663020",
+    "AOP_Ruby_20230814__shade_candidate_relative_visible_7p5pct.tif": "043a2b1df596fa855ea844e383ece0d66c03a915a4cd06c8afb7be10097d62e0",
+    "AOP_Ruby_20230814__shade_candidate_relative_visible_9p5pct.tif": "894704c72fab3c39c72ab961be1b3a752b72ac00ee7ac3749f4be5c1a7a9d1cd",
+    "AOP_Ruby_20230814__shade_candidate_relative_visible_9p75pct.tif": "6638720235d4d23f4bc4f03ba51d9c99e34a9b747fb933a230594c956e2d90a2",
+    "AOP_Ruby_20230814__shade_candidate_relative_visible_9p9pct.tif": "796776696ea8e0167ae81958c7eb26b18fbffaf9e4b01e15a21a52e81bf31d2d"
+  },
+  "records": [
+    {
+      "excluded_fraction": 0.08014459194811865,
+      "excluded_pixels": 159766,
+      "normalization_p95": 609.8732498168939,
+      "site": "ruby",
+      "source_sha256": "237feb103e085476ad33982caf035f13f1f2fc1071f7487458942d5ecbba4071",
+      "threshold": 0.05,
+      "valid_pixels": 1993472,
+      "variant": "cutoff_5pct"
+    },
+    {
+      "excluded_fraction": 0.1430945606459484,
+      "excluded_pixels": 285255,
+      "normalization_p95": 609.8732498168939,
+      "site": "ruby",
+      "source_sha256": "237feb103e085476ad33982caf035f13f1f2fc1071f7487458942d5ecbba4071",
+      "threshold": 0.075,
+      "valid_pixels": 1993472,
+      "variant": "cutoff_7p5pct"
+    },
+    {
+      "excluded_fraction": 0.17014786262360343,
+      "excluded_pixels": 339185,
+      "normalization_p95": 609.8732498168939,
+      "site": "ruby",
+      "source_sha256": "237feb103e085476ad33982caf035f13f1f2fc1071f7487458942d5ecbba4071",
+      "threshold": 0.09,
+      "valid_pixels": 1993472,
+      "variant": "cutoff_9pct"
+    },
+    {
+      "excluded_fraction": 0.1781519880891229,
+      "excluded_pixels": 355141,
+      "normalization_p95": 609.8732498168939,
+      "site": "ruby",
+      "source_sha256": "237feb103e085476ad33982caf035f13f1f2fc1071f7487458942d5ecbba4071",
+      "threshold": 0.095,
+      "valid_pixels": 1993472,
+      "variant": "cutoff_9p5pct"
+    },
+    {
+      "excluded_fraction": 0.1820873330550918,
+      "excluded_pixels": 362986,
+      "normalization_p95": 609.8732498168939,
+      "site": "ruby",
+      "source_sha256": "237feb103e085476ad33982caf035f13f1f2fc1071f7487458942d5ecbba4071",
+      "threshold": 0.0975,
+      "valid_pixels": 1993472,
+      "variant": "cutoff_9p75pct"
+    },
+    {
+      "excluded_fraction": 0.18444954330936175,
+      "excluded_pixels": 367695,
+      "normalization_p95": 609.8732498168939,
+      "site": "ruby",
+      "source_sha256": "237feb103e085476ad33982caf035f13f1f2fc1071f7487458942d5ecbba4071",
+      "threshold": 0.099,
+      "valid_pixels": 1993472,
+      "variant": "cutoff_9p9pct"
+    }
+  ]
+}

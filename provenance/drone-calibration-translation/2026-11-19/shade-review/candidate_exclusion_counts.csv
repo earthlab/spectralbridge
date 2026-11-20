@@ -1,0 +1,10 @@
+site,variant,threshold,normalization_p95_native_units,sampling_stride,valid_source_pixels,excluded_candidate_pixels,excluded_fraction,mask,candidate_only
+gordon,Conservative,0.1,517.3873875935864,6,5898401,933923,0.15833494535213866,archive/local/drone-calibration-translation/2026-11-19/shade-mask-candidates/AOP_GORDON_20230814__shade_candidate_relative_visible_10pct.tif,True
+gordon,Moderate,0.2,517.3873875935864,6,5898401,1759652,0.29832695335566367,archive/local/drone-calibration-translation/2026-11-19/shade-mask-candidates/AOP_GORDON_20230814__shade_candidate_relative_visible_20pct.tif,True
+gordon,Stronger,0.3,517.3873875935864,6,5898401,2631036,0.44605919468683125,archive/local/drone-calibration-translation/2026-11-19/shade-mask-candidates/AOP_GORDON_20230814__shade_candidate_relative_visible_30pct.tif,True
+goldhill,Conservative,0.1,459.2420811971024,6,6683944,501984,0.0751029631606728,archive/local/drone-calibration-translation/2026-11-19/shade-mask-candidates/AOP_GOLDHILL_20230814__shade_candidate_relative_visible_10pct.tif,True
+goldhill,Moderate,0.2,459.2420811971024,6,6683944,1022228,0.152937846277587,archive/local/drone-calibration-translation/2026-11-19/shade-mask-candidates/AOP_GOLDHILL_20230814__shade_candidate_relative_visible_20pct.tif,True
+goldhill,Stronger,0.3,459.2420811971024,6,6683944,1510636,0.22600967333059643,archive/local/drone-calibration-translation/2026-11-19/shade-mask-candidates/AOP_GOLDHILL_20230814__shade_candidate_relative_visible_30pct.tif,True
+ruby,Conservative,0.1,609.8732498168939,4,1993472,370713,0.1859634848144343,archive/local/drone-calibration-translation/2026-11-19/shade-mask-candidates/AOP_Ruby_20230814__shade_candidate_relative_visible_10pct.tif,True
+ruby,Moderate,0.2,609.8732498168939,4,1993472,643407,0.32275697877873377,archive/local/drone-calibration-translation/2026-11-19/shade-mask-candidates/AOP_Ruby_20230814__shade_candidate_relative_visible_20pct.tif,True
+ruby,Stronger,0.3,609.8732498168939,4,1993472,974073,0.48863139286631563,archive/local/drone-calibration-translation/2026-11-19/shade-mask-candidates/AOP_Ruby_20230814__shade_candidate_relative_visible_30pct.tif,True

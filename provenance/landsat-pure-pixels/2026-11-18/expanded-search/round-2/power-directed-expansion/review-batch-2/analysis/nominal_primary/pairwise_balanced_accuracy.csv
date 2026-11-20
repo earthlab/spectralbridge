@@ -1,0 +1,11 @@
+a,b,balanced_accuracy,recall_a,recall_b,n_a,n_b,status
+Deciduous,Evergreen,1.0,1.0,1.0,12,11,held_patch_point_estimate
+Deciduous,Herbaceous,1.0,1.0,1.0,12,14,held_patch_point_estimate
+Deciduous,Woody shrub,1.0,1.0,1.0,12,15,held_patch_point_estimate
+Deciduous,Non-vegetated & dead,1.0,1.0,1.0,12,9,held_patch_point_estimate
+Evergreen,Herbaceous,1.0,1.0,1.0,11,14,held_patch_point_estimate
+Evergreen,Woody shrub,0.9666666666666667,1.0,0.9333333333333333,11,15,held_patch_point_estimate
+Evergreen,Non-vegetated & dead,1.0,1.0,1.0,11,9,held_patch_point_estimate
+Herbaceous,Woody shrub,1.0,1.0,1.0,14,15,held_patch_point_estimate
+Herbaceous,Non-vegetated & dead,1.0,1.0,1.0,14,9,held_patch_point_estimate
+Woody shrub,Non-vegetated & dead,1.0,1.0,1.0,15,9,held_patch_point_estimate

@@ -1,0 +1,25 @@
+{
+  "report": "output/pdf/drone_shade_mask_pft_comparison_report.pdf",
+  "sha256": "46255029199b139858bef34d115e5955f9c16c60db816d8e9bd2f6db61fe0dce",
+  "pages": 4,
+  "source_folder": "provenance/drone-calibration-translation/2026-11-19/pft-mask-comparison",
+  "sources": {
+    "manifest.json": "aa7579ff8ea6ad088505cf7b409f10dfb85b70ea8da592a2d59ca9cd3a8806c6",
+    "fold_memberships.csv": "8d2d074f7b7571a34c5eefea11542f3cbafc02829eeae061c76d5a40f0b6e3c1",
+    "held_out_predictions.csv": "bc28dfdbafb91896cd9213e8d64049e0e17d4b51a580df951088ec794dc64735",
+    "separability.csv": "8b74a2f9a1623a659b2dd8b4e0c50e520749707d608b18798605e4c2d46c6e2b",
+    "separability_change.csv": "416c4eebb64b035c2789501dc030f10690eed9699fcae5a50561b163e85741f8",
+    "identifiability_change.csv": "a91cf9e6b0f4a6fe9d2b6fa5986c6cff95983530c26271ad036aad9c61dbb9fa",
+    "polygon_spectra.csv": "89cabf283bf65c6315ec55fd2f6242e832d236c8afd9a45b828100f2d77d4298",
+    "class_summary.csv": "465e395859d98fe33f69fddf8d5835ab113aff1b889df08fecf5e1ed6cd4fa1a",
+    "separability_progress.csv": "8ee9193ce0518063821989b063ba9d7497c4b345b232f4f1616ace32ed4e325e",
+    "polygon_coverage.csv": "a64dc4ed7df33f2fedf190d120db37da221a2722814769b1280f16a96d67606e",
+    "summary_manifest.json": "f3dd7a481a0f97d8bd6479cbc6122cbb076d1dc0a230687da46ba001e156db68",
+    "README.md": "9f77ad713a1a49da36aa7ee36b179fa583511a910714989b5c18235a09ecda30",
+    "mask_pft_comparison.png": "27a3c849a5156e75a4f97cd686ba167038690e2ba311ba05f18535e4269ffe32",
+    "mask_pft_comparison.pdf": "2abac62249f6c08558a92665f0d9b1f3f9c9f9091957dc3c8e5a496485206df0",
+    "site_specific_accuracy.csv": "84d7c5d9bbeaa111df5523c9092a7e4d71897ab4d29c99d17ee76c65a5e6ae16",
+    "analysis_policy.json": "1e0e1dffe5dca27662067efd8bb397f00c1dc80aa0aa42cdd5263d1a76220043"
+  },
+  "builder_sha256": "1a784f7c1cfa416a1a5e9f51b1bb6009f0d4a4f69d85682ab1937bd987587c70"
+}

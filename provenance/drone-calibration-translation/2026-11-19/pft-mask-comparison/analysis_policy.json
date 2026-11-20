@@ -1,0 +1,30 @@
+{
+  "primary": "Landsat_9_OLI-2/shared_pixels/held_out_site",
+  "arms": [
+    "null",
+    "mask10"
+  ],
+  "samples": [
+    "shared_pixels",
+    "retained_pixels"
+  ],
+  "targets": [
+    "Landsat_9_OLI-2",
+    "Landsat_8_OLI"
+  ],
+  "unit": "one five-band physical-reflectance median per labelled polygon",
+  "normalization": "none; same physical-units protocol as prior calibration-library tests",
+  "minimum_pixels": 1,
+  "paired_cohort": "identical polygon IDs with complete five-band spectra in both arms",
+  "shared_pixels": "same exact all-five-bands-finite pixel intersection before each polygon median",
+  "retained_pixels": "each arm all-five-bands-finite pixels; common polygon IDs only",
+  "separability": "existing site-blocked whole-polygon label NPC,9999 draws,Holm across10 per arm and across full80 contrast family",
+  "change_in_separation": "paired whole-polygon arm-swap standardized RMS site-adjusted effect;9999 draws; Holm across40 pair contrasts",
+  "identifiability": "training-only StandardScaler + balanced logistic C=1,5 stratified polygon folds and3 leave-site-out folds,unchanged splits between arms",
+  "change_in_identifiability": "paired correctness swaps with equal true-class weights,9999 draws; Holm across8 target/population/scheme contrasts",
+  "direction": "mask10 minus null; negative indicates lower information in mask10",
+  "limitations": "Observational exploratory sensitivity, not randomized masking; same-site polygons may remain correlated; only3calibration sites; refit+coverage effects; conditional unverified radiometry; Ruby null failed BRDF QA; no external physical validation",
+  "seed": 20261119,
+  "permutations": 9999,
+  "site_level_sensitivity": "Exact paired arm swaps by site (up to8assignments), reported with Holm; polygon swaps are conditional exploratory sensitivity, not independent site evidence"
+}

@@ -1,0 +1,83 @@
+{
+  "chosen_mask": null,
+  "code_sha256": "bdedcb6e68731d3b44c5ede1a3fbcaa4922518a5c8d37074ed8d8bba58c740b1",
+  "mask_sha256": {
+    "AOP_GOLDHILL_20230814__shade_candidate_relative_visible_10pct.tif": "467607d9cc0b45a8cbbcb9de58a5bcb18862b5c3d54782d4b884858ce0ab15c9",
+    "AOP_GOLDHILL_20230814__shade_candidate_relative_visible_20pct.tif": "544a12a5d140864c70ddf2811c17d6d016370e5b8efc33df99f1d2cbf000873a",
+    "AOP_GOLDHILL_20230814__shade_candidate_relative_visible_30pct.tif": "818b603711f5aa48e3186178cad04b22259eaf239cc8dd8155d66d6e4d054116",
+    "AOP_GORDON_20230814__shade_candidate_relative_visible_10pct.tif": "b12f4059ec8cbfdfcc078e25110e08d3ebf6583c7d17de3d9af8c0ff8221c050",
+    "AOP_GORDON_20230814__shade_candidate_relative_visible_20pct.tif": "fdc2bdebc5cb1ec6ca3376dd9056cd67d31ae8d8d203d20bce999b9952aa2f30",
+    "AOP_GORDON_20230814__shade_candidate_relative_visible_30pct.tif": "9c5d627ed26b3c8f17d249f369d182fb67c61fd546303c3a07f17edac69ea282",
+    "AOP_Ruby_20230814__shade_candidate_relative_visible_10pct.tif": "364e2aa0de03e51c835c187c442c7730d6a0790361b0f3e84dc0afe7a4342c3f",
+    "AOP_Ruby_20230814__shade_candidate_relative_visible_20pct.tif": "db554be0a53e0f9067215fcba8422a999d0e09a3435ea55efeee41aabb1b23e9",
+    "AOP_Ruby_20230814__shade_candidate_relative_visible_30pct.tif": "66a40a561a9103bd4157e447134558180eb99e9bd25572c7141057a366d303d4"
+  },
+  "policy": {
+    "brightness": "arithmetic mean of three native visible bands / scene positive-visible-mean p95",
+    "classification": "brightness proxy only; dark vegetation/soil may be excluded and shade may be missed",
+    "corrections_refitted": false,
+    "encoding": {
+      "0": "retain_candidate",
+      "1": "exclude_candidate",
+      "255": "source_nodata"
+    },
+    "invalid": "any native band nonfinite or source NoData; excluded from normalization and denominator",
+    "normalization": "deterministic systematic spatial sample; same scalar for three visible bands",
+    "source_stage": "pre-correction camera-position experiment input",
+    "status": "CANDIDATE_FOR_VISUAL_REVIEW_NOT_VALIDATED_SHADE",
+    "threshold_fractions": [
+      0.1,
+      0.2,
+      0.3
+    ],
+    "translation_performed": false,
+    "visible_wavelengths_nm": [
+      475,
+      560,
+      668
+    ]
+  },
+  "sources": [
+    {
+      "header_sha256": "042530303f3e8b20eefcda66aa089ab30e8c2df1161bd2922a0805f1808ece9b",
+      "site": "gordon",
+      "source": "archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/AOP_GORDON_20230814__experimental_candidate.img",
+      "source_bytes": 246216960,
+      "source_mtime_ns": 1793898478978045166,
+      "source_sha256": "b1c0bcc3b67bdc59e4073dda622c538d642bb038b3f15238e6589b9c0de13bca",
+      "visible_native_band_indices_1based": [
+        2,
+        4,
+        6
+      ]
+    },
+    {
+      "header_sha256": "7a47526f62d9b97f1068a766fda2c96a2d24209187f46f630d50449b74b26614",
+      "site": "goldhill",
+      "source": "archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/goldhill/AOP_GOLDHILL_20230814__experimental_candidate.img",
+      "source_bytes": 283330800,
+      "source_mtime_ns": 1793898526819372761,
+      "source_sha256": "06b54ce17fe9cd409240d44273e32e400d8b1e7dcbd80ea63682c061778f7f66",
+      "visible_native_band_indices_1based": [
+        2,
+        4,
+        6
+      ]
+    },
+    {
+      "header_sha256": "a794f2112570368cf21ead7276b962a64e34b7573fba046c80b89ca403054a4e",
+      "site": "ruby",
+      "source": "archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/ruby/AOP_Ruby_20230814__experimental_candidate.img",
+      "source_bytes": 81144000,
+      "source_mtime_ns": 1793898577599882888,
+      "source_sha256": "237feb103e085476ad33982caf035f13f1f2fc1071f7487458942d5ecbba4071",
+      "visible_native_band_indices_1based": [
+        2,
+        4,
+        6
+      ]
+    }
+  ],
+  "translated_products_created": false,
+  "uploaded": false
+}

@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-19",
+  "study": "Retrospective task-specific BRDF benefit/cost benchmark; prior project results are known, not a preregistered trial",
+  "primary_endpoints": [
+    "identity-balanced held-site recognition where all classes remain supported",
+    "unseen-identity recognition",
+    "site-blocked PFT separation effect changes",
+    "same-target angular/repeat-view consistency",
+    "source/QA retention and correction magnitudes"
+  ],
+  "contrasts": {
+    "drone_primary": "10percent mask: combined SCS+C+BRDF versus same topographic-only model on exact shared field-polygon pixels; isolates incremental BRDF conditional on topo/mask",
+    "drone_sensitivity": "baseline unmasked combined diagnostic versus same topographic-only fit, preserving failed Ruby QA; raw and BRDF-only arms reported with their availability/QA, not chosen by score",
+    "aop_archive": "Same-row raw versus archived BRDF+topography combined; retrospective pipeline contrast, not BRDF-only attribution; Gaussian OLI-like projection before polygon medians",
+    "aop_control": "Bounded R10C real-angle window, current BRDF-only algorithm,20m spatial-group holdout; angular diagnostics, no PFT or absolute calibration claim",
+    "landsat": "Same current HLS cells and grid: HLS NBAR versus reconstructed pre-NBAR by inversion of official global-coefficient c-factor using actual SAA/SZA/VAA/VZA and NBAR_SOLAR_ZENITH metadata; not original C2 reconstruction"
+  },
+  "main_features": "five common OLI-like channels B1-B5; seven-band AOP/Landsat sensitivity",
+  "repeated_units": "AOP GlobalID histories never cross folds; drone GlobalID; Landsat spatial patch, not cell",
+  "classifier": "training-only StandardScaler + balanced logistic C1 fixed, five grouped identity folds where supported and leave-site/domain out; no tuning on outcomes",
+  "statistics": "9999 paired whole-identity swaps, exact whole-domain swaps and1999 true-class-stratified identity bootstrap intervals; site dependence limits inference; NPC complete-curve labels within sites, Holm over declared run family",
+  "comparisons": "All feasible prespecified arm/sensor/feature/evaluation contrasts archived; primary/family membership fixed before comparing results; unsupported folds explicit NA, not zero",
+  "practical_interpretation": "Report percentage-point gains/conditional95percent intervals, correction magnitude, QA loss and recorded runtime.2pp and5pp may be shown as illustrative decision thresholds, not universal standards. Human labour not measured.",
+  "precision": "HLS inverse inherits original NBAR integer quantization; reconstructed directional error bounded by half a1e-4stored step/cfactor only for unclipped samples, not independent accuracy validation",
+  "exclusions": "Only declared source NoData, finite common support and source QA. No removal by effect direction, PFT score or model residual; finite negative values are not automatically invalid.",
+  "conditioning": "No new purity labels, sensor response defaults, BRDF/topographic coefficients or production guards changed. Drone radiometry conditional; HLS PFT labels unvalidated, regional confounding retained.",
+  "seed": 20261119,
+  "permutations": 9999,
+  "bootstrap_replicates": 1999,
+  "execution": "Read supplied library in place; stream contiguous flightlines in8192-row batches, immediately reduce to compact polygons/paired-view statistics; no ordinary pixel-scale cache. Separate stage checkpoints keyed to input/code hashes."
+}

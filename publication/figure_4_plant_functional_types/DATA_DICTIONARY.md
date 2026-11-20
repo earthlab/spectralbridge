@@ -72,7 +72,7 @@ Exactly 15 rows: one per sensor/PFT. Tests are not recalculated by the renderer.
 Counts are formatted as supported/total, recall fractions as whole percentages,
 and p-values to two decimals. Full numeric precision remains in CSVs. Current
 daggered HLS rows summarize four pooled NPC contrasts and class recall on held-
-out patch medians. They share ten unique contrasts, three meeting Holm p<=.05.
+out patch medians. They share ten unique contrasts, all ten meeting Holm p<=.05.
 Historical matched_n/adjusted_p fields remain supported for archived tables, but
 are blank in the current Landsat rows. Drone double-dagger rows denote the separate exploratory
 calibration-library protocol. See the caption for permutations, blocking, Holm
@@ -103,12 +103,13 @@ column names are retained to avoid silently changing analytical provenance.
 Source paths and hashes are in `provenance.json`; changes to analytical methods
 require an updated caption and new source provenance, not only edited displays.
 
-- `landsat_exploratory_patch_separability.csv`: exact NPC results for pooled patch
+- `landsat_exploratory_patch_separability.csv`: NPC results (exact up to100,000 assignments, otherwise observed+99,999
+  reproducible random assignments) for pooled patch
   permutations and within-region mixed support; use the pooled scope for B.
 - `landsat_exploratory_held_out_predictions.csv`: patch and secondary pixel
   predictions, explicit patch/region holdouts and training-class support flags.
 - `landsat_exploratory_patch_median_spectra.csv`: direct-reflectance seven-band input
-  medians for 24 spatial groups in the expanded nominal HLS cohort.
+  medians for 61 spatial groups in the expanded nominal HLS cohort.
 - `landsat_exploratory_identifiability_summary.csv`: class recall by scheme/unit.
 - `landsat_exploratory_sensitivity_overview.csv`: primary and sensitivity results.
 
@@ -130,7 +131,7 @@ future or sensitivity inputs and never converts unavailable recall into 0%.
 `landsat_hls_figure_table_summary.csv` is the current main-table numeric source.
 `landsat_hls_pairwise_balanced_accuracy.csv` and its predictions retain a separate
 binary predictive-discrimination diagnostic; they do not replace NPC counts.
-`landsat_hls_expanded_source_support_sensitivity_*` is the new 161-cell sensitivity.
+`landsat_hls_expanded_source_support_sensitivity_*` is the current362-cell/30-patch sensitivity.
 Older nominal/strict-only/C2 files are retained history; their cohort names/counts
 must not be confused with the current main table.
 
@@ -140,9 +141,21 @@ HLS rows additionally carry `source_product` (HLS L30 v2 NBAR), `source_item_id`
 (actual selected HLS granule), `patch_group_id`, `reference_basis` and
 `brdf_normalized`. These are blank where not supplied for other sensors.
 `site` is the reference region for HLS cells. Current HLS category counts in A
-are 77/110/99/165/45 (plot order); all 496 cells match the exact source behind B.
+are 165/364/288/339/85 (plot order); all1,241 cells match the exact source behind B.
 A normalizes each cell before median/quantiles; B uses direct-reflectance patch
 medians. The historical C2 files under evidence are not renderer inputs.
 
 Display label: `Landsat HLS L30 NBAR`; internal sensor key: `HLS L30 NBAR`.
 This is a display-only clarification, with no data or statistical changes.
+
+The current pooled NPC summary is10/10 supported; within-region2/3 are supported
+and7 planned pairs have no mixed-region support. Labels remain provisional.
+`landsat_hls_current_analysis_design.json` and
+`landsat_hls_current_computation_provenance.json` describe the current protocol.
+Older `landsat_hls_strict_reference_observations.csv` and
+`landsat_exploratory_sensitivity_overview.csv` are historical; the current
+cohort overview is`landsat_hls_cohort_comparison.csv`.
+
+`landsat_hls_reference_manifest.json` records the earlier HLS rebuild. Current
+reference expansion provenance is `landsat_hls_expansion_provenance.json`;
+current analytical inputs are bound by `landsat_hls_analysis_manifest.json`.

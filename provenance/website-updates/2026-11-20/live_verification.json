@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-20",
+  "commit": "0e6038cc03cbe2b5c8663fff0fff16ce50882465",
+  "workflow_url": "https://github.com/earthlab/spectralbridge/actions/runs/44782387216",
+  "checks": {
+    "validation/landsat-pilot/": {
+      "status": 200,
+      "updated_content": true,
+      "remote_font_dependency": false
+    },
+    "validation/drone-findings/": {
+      "status": 200,
+      "updated_content": true,
+      "remote_font_dependency": false
+    },
+    "downloads/landsat-pure-pixel-review-guide.pdf": {
+      "status": 200,
+      "bytes": 4975561,
+      "sha256": "8f76596160224fd156d0927fc2bf45e011f15abc12d90fdb68a83e4682714898",
+      "matches_approved_source": true
+    },
+    "downloads/landsat-pure-pixel-complete-atlas.pdf": {
+      "status": 200,
+      "bytes": 26590084,
+      "sha256": "5c50b019ce733910fd887144938fbadf0ac650e4ac74641e892142416c8b07c4",
+      "matches_approved_source": true
+    },
+    "downloads/brdf-benefit-report.pdf": {
+      "status": 200,
+      "bytes": 688759,
+      "sha256": "0e1a2760b97f1ea7e50112c21156a4499f9f121e16d7cfdf412cc453d2e53c31",
+      "matches_approved_source": true
+    },
+    "downloads/drone-shade-mask-comparison.pdf": {
+      "status": 200,
+      "bytes": 200965,
+      "sha256": "46255029199b139858bef34d115e5955f9c16c60db816d8e9bd2f6db61fe0dce",
+      "matches_approved_source": true
+    },
+    "downloads/figure-4-reproduction.zip": {
+      "status": 200,
+      "bytes": 1492766,
+      "sha256": "9b6d7e388d5e57a793c2116f838cf07405b653dfe62c04bb8692f4ca12d5134b",
+      "matches_approved_source": true
+    },
+    "downloads/figure-4.pdf": {
+      "status": 200,
+      "bytes": 64616,
+      "sha256": "87b04b3bce33048d12b123c586e5aab130760992b3e1cb78050f32e641d51fe4",
+      "matches_approved_source": true
+    }
+  }
+}

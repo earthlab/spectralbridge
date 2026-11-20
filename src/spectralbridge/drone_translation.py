@@ -159,7 +159,9 @@ def _load_coefficient_rows(path: Path) -> tuple[pd.DataFrame, dict[str, Any]]:
         try:
             metadata = json.loads(path.read_text(encoding="utf-8"))
         except json.JSONDecodeError as exc:
-            raise ValueError(f"Translation coefficient JSON is invalid: {path}") from exc
+            raise ValueError(
+                f"Translation coefficient JSON is invalid: {path}"
+            ) from exc
         if isinstance(metadata.get("records"), list):
             metadata = load_drone_translation_coefficients(path)
             rows = [
@@ -183,9 +185,7 @@ def _load_coefficient_rows(path: Path) -> tuple[pd.DataFrame, dict[str, Any]]:
                     "x_min": row["x_min"],
                     "x_max": row["x_max"],
                     "x_mean": row["x_mean"],
-                    "fitted_correction_percent": row[
-                        "fitted_correction_percent"
-                    ],
+                    "fitted_correction_percent": row["fitted_correction_percent"],
                     "flightline_slope_iqr": row["flightline_slope_iqr"],
                     "site_slope_range": row["site_slope_range"],
                     "worst_loso_r2": row["worst_loso_r2"],
@@ -207,7 +207,9 @@ def _load_coefficient_rows(path: Path) -> tuple[pd.DataFrame, dict[str, Any]]:
             )
         frame = pd.DataFrame(rows)
     else:
-        raise ValueError("Translation coefficients must be a .parquet or .json artifact")
+        raise ValueError(
+            "Translation coefficients must be a .parquet or .json artifact"
+        )
     return frame, metadata
 
 
@@ -297,7 +299,9 @@ def load_drone_translation_plans(
 
     frame, metadata = _load_coefficient_rows(path)
     _validate_required_columns(frame)
-    selected = frame.loc[frame["analysis_level"].astype(str) == requested_weighting].copy()
+    selected = frame.loc[
+        frame["analysis_level"].astype(str) == requested_weighting
+    ].copy()
     if selected.empty:
         raise ValueError(
             f"Coefficient artifact has no rows for weighting {requested_weighting!r}"
@@ -310,7 +314,9 @@ def load_drone_translation_plans(
 
     requested_targets = set(target_sensors or ())
     if requested_targets:
-        selected = selected.loc[selected["target_sensor"].isin(requested_targets)].copy()
+        selected = selected.loc[
+            selected["target_sensor"].isin(requested_targets)
+        ].copy()
         missing_targets = requested_targets - set(selected["target_sensor"].astype(str))
         if missing_targets:
             raise ValueError(
@@ -333,9 +339,8 @@ def load_drone_translation_plans(
                 "Unsupported translation_pair in coefficient artifact: "
                 f"{row.translation_pair}"
             )
-        if (
-            pair.source_sensor != str(row.source_sensor)
-            or pair.target_sensor != str(row.target_sensor)
+        if pair.source_sensor != str(row.source_sensor) or pair.target_sensor != str(
+            row.target_sensor
         ):
             raise ValueError(
                 "Coefficient pair orientation does not match registry definition "
@@ -351,7 +356,9 @@ def load_drone_translation_plans(
         target_sensor = str(target_sensor)
         pair = registry_pairs.get(pair_key)
         if pair is None:
-            raise ValueError(f"Unsupported translation_pair in coefficient artifact: {pair_key}")
+            raise ValueError(
+                f"Unsupported translation_pair in coefficient artifact: {pair_key}"
+            )
         if pair.source_sensor != source_sensor or pair.target_sensor != target_sensor:
             raise ValueError(
                 f"Coefficient pair orientation does not match registry definition for {pair_key}"
@@ -363,10 +370,14 @@ def load_drone_translation_plans(
             )
         run_ids = set(group["analysis_run_id"].astype(str))
         if len(run_ids) != 1:
-            raise ValueError(f"Coefficient rows mix analysis_run_id values for {pair_key}")
+            raise ValueError(
+                f"Coefficient rows mix analysis_run_id values for {pair_key}"
+            )
         weighting_descriptions = set(group["weighting"].astype(str))
         if len(weighting_descriptions) != 1:
-            raise ValueError(f"Coefficient rows mix weighting descriptions for {pair_key}")
+            raise ValueError(
+                f"Coefficient rows mix weighting descriptions for {pair_key}"
+            )
 
         expected_pairs = tuple(pair.band_pairs)
         found_pairs = [
@@ -447,22 +458,17 @@ def load_drone_translation_plans(
                     site_slope_range=_optional_number(
                         getattr(row, "site_slope_range", None)
                     ),
-                    worst_loso_r2=_optional_number(
-                        getattr(row, "worst_loso_r2", None)
-                    ),
+                    worst_loso_r2=_optional_number(getattr(row, "worst_loso_r2", None)),
                     worst_loso_rmse=_optional_number(
                         getattr(row, "worst_loso_rmse", None)
                     ),
                     worst_loso_site=(
                         str(value)
-                        if (value := getattr(row, "worst_loso_site", None))
-                        is not None
+                        if (value := getattr(row, "worst_loso_site", None)) is not None
                         and not pd.isna(value)
                         else None
                     ),
-                    attention_flags=tuple(
-                        getattr(row, "attention_flags", None) or ()
-                    ),
+                    attention_flags=tuple(getattr(row, "attention_flags", None) or ()),
                     coefficient_status=coefficient_status,
                     coefficient_warnings=tuple(
                         getattr(row, "coefficient_warnings", None) or ()
@@ -479,7 +485,12 @@ def load_drone_translation_plans(
             )
         plans.append(
             DroneTranslationPlan(
-                reflectance_units=("physical_reflectance_v1" if "reflectance_units" in group and set(group["reflectance_units"]) == {"physical_reflectance_v1"} else None),
+                reflectance_units=(
+                    "physical_reflectance_v1"
+                    if "reflectance_units" in group
+                    and set(group["reflectance_units"]) == {"physical_reflectance_v1"}
+                    else None
+                ),
                 analysis_run_id=next(iter(run_ids)),
                 analysis_level=requested_weighting,
                 weighting_description=next(iter(weighting_descriptions)),
@@ -488,7 +499,8 @@ def load_drone_translation_plans(
                 translation_pair=pair_key,
                 coefficient_path=str(path),
                 coefficient_sha256=coefficient_sha256,
-                evidence_boundary=evidence_by_pair.get(pair_key) or pair.evidence_boundary,
+                evidence_boundary=evidence_by_pair.get(pair_key)
+                or pair.evidence_boundary,
                 candidate_status=metadata.get("candidate_status"),
                 bands=tuple(bands),
                 coefficient_set_version=metadata.get("coefficient_set_version"),
@@ -503,13 +515,22 @@ def translated_output_stem(
     flight_dir: str | Path,
     flight_stem: str,
     target_sensor: str,
+    *,
+    naming_style: str = "legacy",
 ) -> Path:
-    """Return a precise, sensor-specific Landsat-like translated ENVI stem."""
+    """Return a target-specific stem; opt into concise MicaSense delivery names."""
 
     try:
         slug = _TARGET_SLUGS[target_sensor]
     except KeyError as exc:
-        raise ValueError(f"Unsupported translated target sensor: {target_sensor}") from exc
+        raise ValueError(
+            f"Unsupported translated target sensor: {target_sensor}"
+        ) from exc
+    if naming_style == "micasense":
+        target = slug.removeprefix("landsat_")
+        return Path(flight_dir) / f"{flight_stem}_micasense_translated_to_{target}_envi"
+    if naming_style != "legacy":
+        raise ValueError("naming_style must be legacy or micasense")
     return Path(flight_dir) / f"{flight_stem}__landsat_like_{slug}_translated_envi"
 
 
@@ -565,7 +586,11 @@ def ensure_matched_source_product(
     signature = hashlib.sha256(
         json.dumps(signature_payload, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
-    if not overwrite and is_valid_envi_pair(output_img, output_hdr) and provenance_path.is_file():
+    if (
+        not overwrite
+        and is_valid_envi_pair(output_img, output_hdr)
+        and provenance_path.is_file()
+    ):
         try:
             previous = json.loads(provenance_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
@@ -581,9 +606,13 @@ def ensure_matched_source_product(
 
     header = hdr_to_dict(corrected_hdr)
     wavelengths = np.asarray(header.get("wavelength"), dtype=np.float64).reshape(-1)
-    fwhm = np.asarray(header.get("fwhm", np.zeros(wavelengths.size)), dtype=np.float64).reshape(-1)
+    fwhm = np.asarray(
+        header.get("fwhm", np.zeros(wavelengths.size)), dtype=np.float64
+    ).reshape(-1)
     if wavelengths.size != int(header["bands"]):
-        raise ValueError("Corrected drone ENVI wavelength count does not match band count")
+        raise ValueError(
+            "Corrected drone ENVI wavelength count does not match band count"
+        )
     if fwhm.size != wavelengths.size:
         fwhm = np.zeros(wavelengths.size, dtype=np.float64)
     zero_based = np.asarray(native_indices, dtype=np.int64) - 1
@@ -649,6 +678,7 @@ def _translation_signature(
     plan: DroneTranslationPlan,
     source_img: Path,
     source_hdr: Path,
+    application_policy: dict[str, Any] | None = None,
 ) -> str:
     payload = {
         "schema_version": 1,
@@ -656,6 +686,8 @@ def _translation_signature(
         "plan": asdict(plan),
         "source": _source_fingerprint(source_img, source_hdr),
     }
+    if application_policy:
+        payload["application_policy"] = application_policy
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
     return hashlib.sha256(encoded).hexdigest()
 
@@ -699,21 +731,111 @@ def apply_drone_translation(
     plan: DroneTranslationPlan,
     overwrite: bool = False,
     chunk_lines: int = 256,
+    experimental_input: bool = False,
+    experimental_input_provenance: str | None = None,
+    output_scale_factor: float = 1.0,
+    translation_metadata: dict[str, Any] | None = None,
+    experimental_failed_brdf_qa: bool = False,
 ) -> dict[str, Any]:
-    """Apply one validated affine plan to a corrected native MicaSense ENVI."""
+    """Apply a physical-unit affine plan, optionally storing fraction × scale.
+
+    Experimental input requires an explicit rationale and declared affine units;
+    its uncertainty is inherited, never promoted to approved library status.
+    Default processing retains the approved-library input guard.
+    """
 
     from .radiometry import library_radiometry, Radiometry
-    calibration = library_radiometry(corrected_img)
+
+    if not math.isfinite(output_scale_factor) or output_scale_factor <= 0:
+        raise ValueError("output_scale_factor must be finite and positive")
+    header = hdr_to_dict(Path(corrected_hdr))
+    if experimental_failed_brdf_qa and (
+        not experimental_input or not (translation_metadata or {}).get("failed_brdf_qa")
+    ):
+        raise ValueError(
+            "Failed-BRDF null requires experimental input and recorded failed_brdf_qa"
+        )
+    if experimental_input:
+        from .corrections import BRDF_KERNEL_MATH_VERSION, BRDF_VALIDATION_POLICY
+
+        if (
+            not experimental_input_provenance
+            or not experimental_input_provenance.strip()
+        ):
+            raise ValueError("Experimental translation requires explicit provenance")
+        if (
+            str(header.get("scientific validation status", "")).upper()
+            != "EXPERIMENTAL"
+        ):
+            raise ValueError("Experimental opt-in requires an EXPERIMENTAL input")
+        if (
+            header.get("brdf status")
+            not in ({"VALID", "INVALID"} if experimental_failed_brdf_qa else {"VALID"})
+            or header.get("brdf kernel math version") != BRDF_KERNEL_MATH_VERSION
+            or header.get("brdf validation policy") != BRDF_VALIDATION_POLICY
+            or int(header.get("brdf model schema", 2)) != 2
+        ):
+            raise ValueError(
+                "Experimental translation requires supported BRDF mathematics and validation"
+            )
+        calibration = Radiometry.from_header(header)
+        if (
+            calibration.status not in {"VALID", "HYPOTHETICAL_UNVERIFIED"}
+            or not calibration.provenance.strip()
+            or calibration.convention != "physical = scale * stored + offset"
+            or (calibration.encoding or {}).get("scale_direction", "multiplier")
+            != "multiplier"
+            or (calibration.encoding or {}).get("kind")
+            in {"raw_dn", "range_normalized_dn"}
+        ):
+            raise ValueError(
+                "Experimental translation requires a declared physical affine hypothesis"
+            )
+        for name, parameter in (
+            ("scale", calibration.scale),
+            ("offset", calibration.offset),
+        ):
+            if parameter is None:
+                raise ValueError(
+                    "Experimental translation requires finite affine parameters"
+                )
+            array = np.asarray(parameter, dtype=float)
+            if (
+                array.ndim > 1
+                or array.size not in {1, int(header["bands"])}
+                or not np.isfinite(array).all()
+                or (name == "scale" and not np.all(array > 0))
+            ):
+                raise ValueError(
+                    "Experimental translation requires finite positive scale and compatible affine parameters"
+                )
+    else:
+        calibration = library_radiometry(corrected_img)
     if plan.reflectance_units != "physical_reflectance_v1":
-        raise ValueError("Translation UNSUPPORTED: coefficient training units are unverified; historical count-scale coefficients require independent review")
+        raise ValueError(
+            "Translation UNSUPPORTED: coefficient training units are unverified; historical count-scale coefficients require independent review"
+        )
     corrected_img = Path(corrected_img)
     corrected_hdr = Path(corrected_hdr)
     output_stem = Path(output_stem)
     output_img = output_stem.with_suffix(".img")
     output_hdr = output_stem.with_suffix(".hdr")
     provenance_path = output_stem.with_name(output_stem.name + "__translation.json")
-    signature = _translation_signature(plan, corrected_img, corrected_hdr)
-    if not overwrite and is_valid_envi_pair(output_img, output_hdr) and provenance_path.is_file():
+    policy = None
+    if experimental_input or output_scale_factor != 1.0 or translation_metadata:
+        policy = dict(
+            experimental_input=experimental_input,
+            experimental_input_provenance=experimental_input_provenance,
+            output_scale_factor=output_scale_factor,
+            translation_metadata=translation_metadata,
+            experimental_failed_brdf_qa=experimental_failed_brdf_qa,
+        )
+    signature = _translation_signature(plan, corrected_img, corrected_hdr, policy)
+    if (
+        not overwrite
+        and is_valid_envi_pair(output_img, output_hdr)
+        and provenance_path.is_file()
+    ):
         try:
             previous = json.loads(provenance_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
@@ -730,7 +852,9 @@ def apply_drone_translation(
     header = hdr_to_dict(corrected_hdr)
     wavelengths = np.asarray(header.get("wavelength"), dtype=np.float64).reshape(-1)
     if wavelengths.size != int(header["bands"]):
-        raise ValueError("Corrected drone ENVI wavelength count does not match band count")
+        raise ValueError(
+            "Corrected drone ENVI wavelength count does not match band count"
+        )
     source = memmap_bsq(corrected_img, header)
     nodata_raw = header.get("data ignore value", -9999.0)
     if isinstance(nodata_raw, list):
@@ -789,8 +913,78 @@ def apply_drone_translation(
         }
     )
     output_stem.parent.mkdir(parents=True, exist_ok=True)
-    output_header.update(Radiometry(1., 0., "VALID", "Affine translation in verified physical-reflectance units").header())
-    output_header["reflectance scale factor"] = 1.
+    output_radiometry = Radiometry(
+        1.0 / output_scale_factor,
+        0.0,
+        calibration.status,
+        (
+            "Experimental affine translation; inherited input: "
+            + calibration.provenance
+            + "; application rationale: "
+            + experimental_input_provenance
+        )
+        if experimental_input
+        else "Affine translation in verified physical-reflectance units",
+    )
+    output_header.update(output_radiometry.header())
+    output_header["reflectance scale factor"] = output_scale_factor
+    if experimental_input:
+        output_header["scientific validation status"] = "EXPERIMENTAL"
+        output_header["description"] += "; EXPERIMENTAL: inherited input uncertainty"
+
+    embedded_metadata = {
+        "schema_version": 1,
+        "product_type": "MicaSense translated to Landsat-like reflectance",
+        "is_actual_landsat_observation": False,
+        "source_corrected_image": str(corrected_img),
+        "source_header_sha256": _sha256(corrected_hdr),
+        "target_sensor": plan.target_sensor,
+        "equation_in_fractional_reflectance": TRANSLATION_EQUATION,
+        "output_stored_units": "fractional reflectance multiplied by output_scale_factor",
+        "output_scale_factor": output_scale_factor,
+        "input_radiometry": calibration.record(),
+        "output_radiometry": output_radiometry.record(),
+        "experimental_input": experimental_input,
+        "experimental_failed_brdf_qa": experimental_failed_brdf_qa,
+        "experimental_input_provenance": experimental_input_provenance,
+        "coefficient_path": plan.coefficient_path,
+        "coefficient_sha256": plan.coefficient_sha256,
+        "coefficient_set_version": plan.coefficient_set_version,
+        "evidence_boundary": plan.evidence_boundary,
+        "bands": [asdict(band) for band in plan.bands],
+        "run_metadata": translation_metadata or {},
+    }
+    # Plain fields remain accessible to GDAL readers that skip prefixed JSON.
+    output_header.update(
+        {
+            "translation source sensor": "MicaSense",
+            "translation target sensor": plan.target_sensor,
+            "translation coefficient sha256": plan.coefficient_sha256,
+            "translation coefficient version": plan.coefficient_set_version
+            or "external_unversioned",
+            "translation source image": str(corrected_img),
+            "translation stored units": "fractional reflectance times reflectance scale factor",
+            "translation native source bands": [
+                b.native_source_band_index for b in plan.bands
+            ],
+            "translation slopes": [b.slope for b in plan.bands],
+            "translation intercepts": [b.intercept for b in plan.bands],
+        }
+    )
+    details = translation_metadata or {}
+    for key in ("correction_order", "shade_mask_policy", "acquisition_date", "site"):
+        if key in details:
+            output_header["translation " + key.replace("_", " ")] = details[key]
+    identity = details.get("source_application_identity", {})
+    for key in ("mask_sha256", "topo_sha256", "brdf_sha256"):
+        if key in identity:
+            output_header["translation " + key.replace("_", " ")] = identity[key]
+    # A prefixed JSON string survives our ENVI parser without ambiguous brace lists.
+    output_header["translation metadata"] = "json:" + json.dumps(
+        embedded_metadata,
+        separators=(",", ":"),
+        allow_nan=False,
+    )
     writer = EnviWriter(output_stem, output_header)
     range_bounds: dict[str, list[float]] = {}
     value_summaries: list[dict[str, Any]] = []
@@ -814,7 +1008,18 @@ def apply_drone_translation(
                     valid &= ~np.isnan(values)
                 else:
                     valid &= ~np.isclose(values, nodata, atol=1e-6)
-                values = calibration.to_physical(values, band_index=band.native_source_band_index - 1)
+                if experimental_input:
+                    # Explicit conditional computation; do not relabel the hypothesis VALID.
+                    values = calibration._affine(
+                        values,
+                        calibration.scale,
+                        calibration.offset,
+                        band_index=band.native_source_band_index - 1,
+                    )
+                else:
+                    values = calibration.to_physical(
+                        values, band_index=band.native_source_band_index - 1
+                    )
                 key = str(band.target_band_index)
                 if np.any(valid):
                     valid_values = values[valid]
@@ -823,14 +1028,13 @@ def apply_drone_translation(
                     if key not in range_bounds:
                         range_bounds[key] = [observed_min, observed_max]
                     else:
-                        range_bounds[key][0] = min(
-                            range_bounds[key][0], observed_min
-                        )
-                        range_bounds[key][1] = max(
-                            range_bounds[key][1], observed_max
-                        )
+                        range_bounds[key][0] = min(range_bounds[key][0], observed_min)
+                        range_bounds[key][1] = max(range_bounds[key][1], observed_max)
                 target = np.float32(band.slope) * values + np.float32(band.intercept)
-                translated[..., output_index] = np.where(valid, target, np.float32(nodata))
+                target = target * np.float32(output_scale_factor)
+                translated[..., output_index] = np.where(
+                    valid, target, np.float32(nodata)
+                )
             writer.write_chunk(translated, row_start, 0)
     finally:
         writer.close()
@@ -857,7 +1061,9 @@ def apply_drone_translation(
     if not is_valid_envi_pair(output_img, output_hdr):
         output_img.unlink(missing_ok=True)
         output_hdr.unlink(missing_ok=True)
-        raise RuntimeError(f"Translation failed to create a valid ENVI pair: {output_img}")
+        raise RuntimeError(
+            f"Translation failed to create a valid ENVI pair: {output_img}"
+        )
 
     translated_cube = memmap_bsq(output_img, hdr_to_dict(output_hdr))
     for index, band in enumerate(plan.bands):
@@ -912,8 +1118,7 @@ def apply_drone_translation(
         "target_sensor": plan.target_sensor,
         "candidate_status": plan.candidate_status,
         "coefficient_statuses": {
-            str(band.target_band_index): band.coefficient_status
-            for band in plan.bands
+            str(band.target_band_index): band.coefficient_status for band in plan.bands
         },
         "caution_target_bands": caution_bands,
         "evidence_boundary": plan.evidence_boundary,
@@ -921,12 +1126,25 @@ def apply_drone_translation(
         "training_range_checks": range_checks,
         "value_scale_checks": value_scale_checks,
         "translated_value_summaries": value_summaries,
+        "embedded_translation_metadata": embedded_metadata,
+        "summary_units": "stored values; divide by output_scale_factor for reflectance",
+        "output_scale_factor": output_scale_factor,
+        "input_radiometry": calibration.record(),
+        "output_radiometry": output_radiometry.record(),
+        "experimental_input": experimental_input,
+        "experimental_input_provenance": experimental_input_provenance,
+        "scientific_validation_status": "EXPERIMENTAL"
+        if experimental_input
+        else header.get("scientific validation status", "NOT_DECLARED"),
         "output_img": str(output_img),
         "output_hdr": str(output_hdr),
         "provenance_json": str(provenance_path),
         "warnings": [
             warning
             for warning in (
+                "EXPERIMENTAL: inherited input radiometry/correction uncertainty; not approved for spectral-library ingestion."
+                if experimental_input
+                else None,
                 plan.evidence_boundary,
                 (
                     f"Coefficient candidate status is {plan.candidate_status}."
@@ -970,9 +1188,7 @@ def coefficient_rows_for_parquet(plan: DroneTranslationPlan) -> list[dict[str, A
             "translation_intercept": band.intercept,
             "translation_r2": band.r2,
             "translation_rmse": band.rmse,
-            "translation_fitted_correction_percent": (
-                band.fitted_correction_percent
-            ),
+            "translation_fitted_correction_percent": (band.fitted_correction_percent),
             "translation_flightline_slope_iqr": band.flightline_slope_iqr,
             "translation_site_slope_range": band.site_slope_range,
             "translation_worst_loso_r2": band.worst_loso_r2,
@@ -1004,6 +1220,7 @@ def enrich_translated_spectral_library(
     """Attach constant translation/provenance fields without loading pixel rows."""
 
     from .radiometry import require_physical_table
+
     require_physical_table(parquet_path)
     parquet_path = Path(parquet_path)
     if not parquet_path.is_file():
@@ -1083,7 +1300,7 @@ def enrich_translated_spectral_library(
     source_literal = literal(parquet_path.as_posix())
     target_literal = literal(temp_path.as_posix())
     select_constants = ", ".join(
-        f"{literal(value)} AS \"{name}\"" for name, value in constants.items()
+        f'{literal(value)} AS "{name}"' for name, value in constants.items()
     )
     con = duckdb.connect()
     try:

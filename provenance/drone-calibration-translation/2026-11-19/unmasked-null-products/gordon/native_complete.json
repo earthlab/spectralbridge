@@ -1,0 +1,17 @@
+{
+  "identity": {
+    "code_sha256": "9387846ec4b129b7d23f7aa7846e32ba09dcf1470def1c8a534915ee9359d749",
+    "inputs": {
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/AOP_GORDON_20230814__experimental_candidate.hdr": "042530303f3e8b20eefcda66aa089ab30e8c2df1161bd2922a0805f1808ece9b",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/AOP_GORDON_20230814__experimental_candidate.img": "b1c0bcc3b67bdc59e4073dda622c538d642bb038b3f15238e6589b9c0de13bca",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-correction-stability/2026-11-05/stable_qr_v1/gordon/center_design.npy": "b3c7981774cebf380ebe14a0cd9d6a4883198c4f05d3d845cacc526091353837",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-calibration-translation/2026-11-19/shade-excluded-refit-v2/gordon/baseline/combined/combined_brdf_model.json": "8ffbc0b9a5edfa41ed1fe50cd2e4f21b9f16580dfbd4852155618ad01421f1f3",
+      "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/provenance/drone-calibration-translation/2026-11-19/shade-excluded-refit-v2/gordon/baseline/conditioned_scsc_model.json": "fbf211aa22678c9a2791c479d53c25304fbbddac204bff074ef41965a1dd25df"
+    },
+    "policy": "unmasked-diagnostic-positive-ratio-v1"
+  },
+  "outputs": {
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_corrected_micasense_envi.hdr": "130b1c58654c9fc234e639bd36a0b66b9216a434e1e2a39ebfb3b660347fab05",
+    "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/unmasked-null-products/gordon/gordon_20230814_unmasked_null_corrected_micasense_envi.img": "4126af31d55e31632b0a56b53ec7201370490cdd43c946f4ec436560a3101fa8"
+  }
+}

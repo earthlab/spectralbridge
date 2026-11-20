@@ -1,0 +1,119 @@
+{
+  "all_pass": true,
+  "checks": [
+    {
+      "affine_units_equivalent": true,
+      "band": 1,
+      "slope_unchanged": true,
+      "target": "Landsat_8_OLI"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 2,
+      "slope_unchanged": true,
+      "target": "Landsat_8_OLI"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 3,
+      "slope_unchanged": true,
+      "target": "Landsat_8_OLI"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 4,
+      "slope_unchanged": true,
+      "target": "Landsat_8_OLI"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 5,
+      "slope_unchanged": true,
+      "target": "Landsat_8_OLI"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 1,
+      "slope_unchanged": true,
+      "target": "Landsat_9_OLI-2"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 2,
+      "slope_unchanged": true,
+      "target": "Landsat_9_OLI-2"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 3,
+      "slope_unchanged": true,
+      "target": "Landsat_9_OLI-2"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 4,
+      "slope_unchanged": true,
+      "target": "Landsat_9_OLI-2"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 5,
+      "slope_unchanged": true,
+      "target": "Landsat_9_OLI-2"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 1,
+      "slope_unchanged": true,
+      "target": "Landsat_5_TM"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 2,
+      "slope_unchanged": true,
+      "target": "Landsat_5_TM"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 3,
+      "slope_unchanged": true,
+      "target": "Landsat_5_TM"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 4,
+      "slope_unchanged": true,
+      "target": "Landsat_5_TM"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 1,
+      "slope_unchanged": true,
+      "target": "Landsat_7_ETM+"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 2,
+      "slope_unchanged": true,
+      "target": "Landsat_7_ETM+"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 3,
+      "slope_unchanged": true,
+      "target": "Landsat_7_ETM+"
+    },
+    {
+      "affine_units_equivalent": true,
+      "band": 4,
+      "slope_unchanged": true,
+      "target": "Landsat_7_ETM+"
+    }
+  ],
+  "code_sha256": "6e3c6f51424845b0028dda953dc52fe3aefeb01fad42d43a59271d29953cd61d",
+  "coefficient_rows": 18,
+  "empirical_drone_calibration_claimed": false,
+  "packaged_registry_unchanged": true,
+  "plans": 4,
+  "registry_sha256": "48bdc4d874cb6dd9df84abb1d69ac8a356d710daadebcb485ed9a93f1fdfd0b0"
+}

@@ -1,0 +1,25 @@
+{
+  "array_sha256": "8da7d13b98ce61930c8dea6481209bab72837e3a0089c0ef99bf5939a962e70b",
+  "identity": {
+    "catalogue_sha256": "e77ec934c1c95695c521c81b2f2f32624c2891a35d98b3fc0a143563954ac473",
+    "method": "first_return_1m_no_fill_v1",
+    "project": "USGS_LPC_CO_SoPlatteRiver_Lot2a_2013_LAS_2015",
+    "reference_cutoff": "2023-08-21T16:00:00Z",
+    "source_items": [
+      "USGS_LPC_CO_SoPlatteRiver_Lot2a_2013_13TDE463444_LAS_2015"
+    ],
+    "terrain_catalogue_sha256": "cd8a5b36f7cba69db427d4d97e267c6eecb2c32f0adf8448c9f6d1d335b37bba"
+  },
+  "pft_purity_verified": false,
+  "source_intervals": [
+    {
+      "datetime": null,
+      "end_datetime": "2014-05-31T00:00:00.000000Z",
+      "start_datetime": "2013-10-25T00:00:00.000000Z"
+    }
+  ],
+  "source_items": [
+    "USGS_LPC_CO_SoPlatteRiver_Lot2a_2013_13TDE463444_LAS_2015"
+  ],
+  "structural_only": true
+}

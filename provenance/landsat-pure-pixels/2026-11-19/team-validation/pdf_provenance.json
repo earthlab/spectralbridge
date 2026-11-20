@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-19",
+  "source_manifest_sha256": "9619fea76f40eff7ddaed02daa5569bee7a4689314889cf317de214b4e72ad27",
+  "visual_summary_sha256": "941297947c131243543b6b1034d1b4518c092b221aabb774019af2bc95e33ceb",
+  "review_csv_sha256": "de80643249ce3970ed18ff6a3d6b1e99bd5a82eda7562dcb1962ea2ec5a94f54",
+  "builder_sha256": "b1f90a0dfeb2357602bfd6a50aeb3d90e78a8c4ad99d2f8f21ab21b5fedf82b5",
+  "labels_changed": false,
+  "outputs": {
+    "output/pdf/landsat_pure_pixel_team_review_guide.pdf": {
+      "sha256": "8f76596160224fd156d0927fc2bf45e011f15abc12d90fdb68a83e4682714898",
+      "pages": 22
+    },
+    "output/pdf/landsat_pure_pixel_complete_atlas.pdf": {
+      "sha256": "5c50b019ce733910fd887144938fbadf0ac650e4ac74641e892142416c8b07c4",
+      "pages": 126
+    }
+  }
+}

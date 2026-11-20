@@ -1,0 +1,20 @@
+{
+  "accessed": "2026-11-20",
+  "references": [
+    {
+      "title": "Roy et al.2016: A general method to normalize Landsat reflectance data to nadir BRDF adjusted reflectance",
+      "url": "https://doi.org/10.1016/j.rse.2016.01.023",
+      "use": "Original global fixed-coefficient c-factor method; application-specific directional effects, not a PFT gain guarantee"
+    },
+    {
+      "title": "Ju et al.2025: The Harmonized Landsat and Sentinel-2 version2.0 surface reflectance dataset",
+      "url": "https://doi.org/10.1016/j.rse.2025.114723",
+      "use": "Published HLS v2 RTLS approach; inversion with supplied solar/view angles is supported, not an invented counterfactual"
+    },
+    {
+      "title": "NASA HLS BRDF Normalization",
+      "url": "https://hls.gsfc.nasa.gov/brdf-adjustment/",
+      "use": "v2 nadir view and slightly adjusted solar zenith convention, distinct from fixed45-degree scene reference"
+    }
+  ]
+}

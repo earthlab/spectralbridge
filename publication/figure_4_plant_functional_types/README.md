@@ -27,7 +27,7 @@ Serif font used here. The script uses a headless backend, so no display is neede
 Outputs, written into this folder by default:
 
 - `figure_4_plant_functional_types.pdf`: vector publication figure with embedded fonts.
-- `figure_4_plant_functional_types.png`: 300-dpi preview, 4,800 × 2,850 pixels.
+- `figure_4_plant_functional_types.png`: 300-dpi preview, 4,800 × 3,150 pixels.
 
 The script finds inputs relative to itself, so it also runs from another working
 directory. To keep a new rendering separate:
@@ -112,7 +112,7 @@ New table numbers must come from your statistical analysis: **the plotting scrip
 does not fit classifiers, permute labels, or infer support from curve differences**.
 
 The Landsat table uses the expanded nominal 95% HLS footprint-cover cohort:
-496 cells in 24 spatial patches. All ten NPC pairs are testable; each category
+1,241 cells in 61 spatial patches. All ten NPC pairs are testable; each category
 reports supported comparisons out of four. `held_out_patch_recall` is a single
 class recall with correct/total counts. The extra 120 m source-area screen is a
 separate sensitivity. Both panels use the same expanded HLS L30 NBAR reference cohort. A summarizes
@@ -138,9 +138,10 @@ inputs, caption and dictionary together.
 
 - Shading is the **interquartile range**, not variance in squared units, standard
   deviation or a confidence interval. Lines are medians.
-- Both real-Landsat panels use the same 496 HLS L30 NBAR cells in 24 patches.
-  Labels remain provisional, especially older-lidar evergreen support. Three pooled
-  pairs meet current-family Holm; held-patch prediction is 21/24. Reference
+- Both real-Landsat panels use the same 1,241 HLS L30 NBAR cells in 61 patches.
+  Labels remain provisional, especially older-lidar evergreen support. All ten pooled
+  pairs meet current-family Holm; held-patch prediction is 58/61. Only two of
+  three region-conditioned pairs pass; seven have no mixed-region support. Reference
   definition materially affects results. No Collection 2 spectra remain plotted.
 - AOP is the retained synthetic OLI-like table. Drone uses five native MicaSense
   band proxies; no drone SWIR or OLI-2-specific convolution is manufactured.
@@ -175,18 +176,22 @@ data license to this README/provenance, and preserve the version and checksums.
 
 ## Current Panel B source: expanded HLS L30 v2
 
-The table uses **496 nominal-95%-cover HLS cells in 24 spatial patch groups**.
-The extra full-source-area screen remains a sensitivity (161 cells/13 patches).
-Four new shrub patches and one rock patch were reviewed before reading their
-spectra; all new photo-cover passes were retained through unchanged HLS QA.
+The table uses **1,241 nominal-95%-cover HLS cells in 61 spatial patch groups**.
+The extra full-source-area screen remains a sensitivity (362 cells/30 patches).
+Two fixed cover/structure-reviewed batches added745 cells/37patches; all new
+cover passes were retained through unchanged HLS QA, without spectral-outcome selection.
 Current numeric inputs are `data/pft_separability_and_identifiability.csv` and
 `evidence/landsat_hls_figure_table_summary.csv`. The generic
 `landsat_exploratory_*` evidence now contains this expanded HLS analysis.
 Previous C2/normalized/strict-only files are retained as explicit historical or
 sensitivity evidence, not current main-table inputs.
 
-All ten NPC pairs are testable; three pass Holm and class counts are 1/4,0/4,
-1/4,3/4,1/4. Held-patch recall counts are 4/5,3/3,5/5,6/7,3/4 in plot order.
+All ten pooled NPC pairs are testable and pass Holm, giving4/4 per class.
+Held-patch recall counts are11/12,11/11,14/14,13/15,9/9 in plot order.
+Enumeration is exact up to100,000 assignments; larger spaces use the observed
+assignment plus99,999 reproducible random assignments under the same NPC/Holm
+protocol. Pooled regional confounding is explicit; current-family adjustment
+does not account for historical sequential analytical looks.
 The caption distinguishes pooled significance, predictive recall, the separate
 pairwise BA diagnostic, sensitivity selection and provisional reference labels.
 
@@ -220,3 +225,13 @@ C2 prototype and does not reproduce the current HLS handoff.
 
 The legend and table display the full label **Landsat HLS L30 NBAR**. The
 internal CSV sensor key remains `HLS L30 NBAR` to keep input identities stable.
+
+## 20 November 2026 expanded-reference revision
+
+Both panels now use1,241HLS cells/61patches; category counts are165/364/288/339/85.
+The previous496-cell publisherZIP is preserved as the sibling
+`figure_4_plant_functional_types_2026-11-19_496_cells.zip`. AOP/drone values,
+line/ribbon styling and category order are unchanged. This refresh uses the
+existing seven-band NPC/whole-patch LOPO protocol, not the separate BRDF-audit
+classifier or its five-band/five-fold scores. Source and computation manifests
+are included under`evidence/landsat_hls_current_*`.

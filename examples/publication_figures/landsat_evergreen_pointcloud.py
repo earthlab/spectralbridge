@@ -18,7 +18,7 @@ from pyproj import Transformer
 from rasterio.enums import Resampling
 from rasterio.transform import from_origin
 from rasterio.vrt import WarpedVRT
-from shapely.geometry import box, mapping
+from shapely.geometry import box, mapping, shape
 
 from landsat_regional_candidates import open_asset
 from landsat_spatial_expansion import CACHE, OUTPUT, sha
@@ -61,17 +61,17 @@ def cell_scores(grid):
     return result
 
 
-def run():
+def run(region="cascades", before_reference=False):
     import laspy
     from laspy.copc import Bounds
 
     DEST.mkdir(exist_ok=True)
     patches = pd.read_csv(OUTPUT / "patch_proposals.csv")
     patches = patches.loc[
-        patches.region.eq("cascades") & patches.target_hypothesis.eq("Evergreen")
+        patches.region.eq(region) & patches.target_hypothesis.eq("Evergreen")
     ]
     terrain = json.loads(
-        (OUTPUT / "public-lidar/cascades-dtm-catalogue.json").read_text()
+        (OUTPUT / f"public-lidar/{region}-dtm-catalogue.json").read_text()
     )["features"]
     reports = []
     for _, patch in patches.iterrows():
@@ -99,6 +99,22 @@ def run():
                 )
             write_json_atomic(catalogue, data)
         items = json.loads(catalogue.read_text())["features"]
+        if before_reference:
+            reference = json.loads((CACHE / f"{key}.json").read_text())["naip_datetime"]
+            cutoff = pd.Timestamp(reference)
+            items = [
+                item
+                for item in items
+                if (
+                    item["properties"].get("end_datetime")
+                    or item["properties"].get("datetime")
+                )
+                and pd.Timestamp(
+                    item["properties"].get("end_datetime")
+                    or item["properties"].get("datetime")
+                )
+                <= cutoff
+            ]
         # Keep acquisition projects separate; never combine years to fill gaps.
         for project in sorted(
             {
@@ -118,6 +134,14 @@ def run():
                 project=project,
                 method="first_return_1m_no_fill_v1",
             )
+            if before_reference:
+                identity.update(
+                    reference_cutoff=reference,
+                    terrain_catalogue_sha256=sha(
+                        OUTPUT / f"public-lidar/{region}-dtm-catalogue.json"
+                    ),
+                    source_items=sorted(item["id"] for item in selected),
+                )
             saved = json.loads(meta.read_text()) if meta.exists() else {}
             if (
                 saved.get("identity") == identity
@@ -168,6 +192,12 @@ def run():
                             t
                             for t in terrain
                             if t["properties"]["3dep:usgs_id"] == project
+                            and (
+                                not before_reference
+                                or shape(t["geometry"]).intersects(
+                                    shape(item["geometry"])
+                                )
+                            )
                         ],
                         key=lambda t: t["id"],
                     ):

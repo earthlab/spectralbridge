@@ -1,0 +1,19 @@
+{
+  "all1241unique_review_ids": true,
+  "all1241unique_physical_cells": true,
+  "source_thresholds_reproduced": true,
+  "nominal_95pct": true,
+  "all_bands_finite": true,
+  "grid_match": true,
+  "photo_date_match": true,
+  "core_qa_clear": true,
+  "context_150m_clear": true,
+  "eligible_observation": true,
+  "finite_seven_band_values": true,
+  "fmask_centre_contract": true,
+  "same_year_photo_hls": true,
+  "date_gap_at_most45": true,
+  "season_offset_at_most21": true,
+  "diagnostic_shifts_include_original": true,
+  "review_fields_blank": true
+}

@@ -1,0 +1,54 @@
+{
+  "baseline_numeric_verified": false,
+  "code_sha256": "6cb8d3788214c1ef5e8efd267739a8efa650335d08924dbd2ac8f9d9b083f07c",
+  "identity": {
+    "mask_sha256": "796776696ea8e0167ae81958c7eb26b18fbffaf9e4b01e15a21a52e81bf31d2d",
+    "policy": {
+      "all_variants_reported": true,
+      "equations": "frozen November5 stable_qr_v1",
+      "exact_optimum_claimed": false,
+      "fit_subset": "original training subset (field polygons +2m buffer excluded) intersect retained mask",
+      "independently_calibrated": false,
+      "interpretation": "conditional experimental model support; no production acceptance or translation",
+      "original_images_reprocessed": false,
+      "prior_experiment": "shade-excluded-refit-v2; baseline numerically reproduced at each site",
+      "reference": "original45deg solar/nadir; exact original serialized reference vector",
+      "rho_limits": "original0..2",
+      "selection": "All six Ruby variants; least tested full-ten-band passing threshold checked at Gordon/Goldhill. Report all trials, no guarantee of monotonic response or independent validation.",
+      "shade_excluded_from": "fitting and modeled application/validation spatial domain",
+      "thresholds": [
+        0.05,
+        0.075,
+        0.09,
+        0.095,
+        0.0975,
+        0.099
+      ],
+      "uncertainty": "original20m spatial groups unchanged",
+      "variants": [
+        "cutoff_5pct",
+        "cutoff_7p5pct",
+        "cutoff_9pct",
+        "cutoff_9p5pct",
+        "cutoff_9p75pct",
+        "cutoff_9p9pct"
+      ]
+    },
+    "sources": {
+      "candidate_stored.npy": "1d2bcfef3a8377951c6a74b986e928963e8bc159a9a2f32936dfd72fd4284d78",
+      "center_design.npy": "5fa5daa5b410ee458ba1159dd5798c23927868afb71ff2194084c67a6f28c764",
+      "frozen_corrections_sha256": "44b2d7e53c4bc77c4d93c3e1f95b252d321d4d9868d55cdaad465e2ada7346b8",
+      "frozen_topographic_sha256": "618ea9b51119dfe348768cb88e776cb47deba966750032b632991c320b6daa94",
+      "geometry.npy": "c288126c78da48c8ada5dac421ae71409146f52868ee8cdf23c0500639c75f57",
+      "solar_sha256": "af1c7490849f23f00be5fa6b9a8f05d415f948b0bd071e15902acd478cb93b3d",
+      "spatial_groups.npy": "d92ea226fe66397e3cfcab47616cc9fb5c439290e48565aa273d18c1a1257249",
+      "training_mask.npy": "35d0050be0271f3fd96386df4666c70c1eecfc815a5744204caab8d4a069f000"
+    }
+  },
+  "outputs": {
+    "brdf_only/brdf_only_brdf_model.json": "0f3d04d65cb695329fc45b36f72ca1cdbd1c83121e5e08db0fd82ad862ae8852",
+    "combined/combined_brdf_model.json": "20f2981e38f3c50ff054405c1d8d6dd6112f9d11bae3054b13efc21f9bc03670",
+    "conditioned_scsc_model.json": "fa04615757573c531192675ac8c371ff4e17f10e026c2b17c9f295b91f1c45b0",
+    "summary.json": "70537fbae5ad3e8e823d9f1eecd5977c6c0ddd53b88e62706c740ff2a8172543"
+  }
+}

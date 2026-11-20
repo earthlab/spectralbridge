@@ -1,0 +1,41 @@
+target,population,arm,category,n_polygons,tested_pairs,supported_within10,supported_all80,unseen_polygon_recall,held_out_site_recall
+Landsat_8_OLI,retained_pixels,mask10,Deciduous,12,4,1,0,0.5833333333333334,0.5833333333333334
+Landsat_8_OLI,retained_pixels,mask10,Evergreen,176,4,3,3,0.6647727272727273,0.4659090909090909
+Landsat_8_OLI,retained_pixels,mask10,Herbaceous,46,4,2,2,0.4782608695652174,0.2826086956521739
+Landsat_8_OLI,retained_pixels,mask10,Woody shrub,40,4,3,2,0.35,0.0
+Landsat_8_OLI,retained_pixels,mask10,Non-vegetated & dead,26,4,3,3,0.9230769230769231,0.5769230769230769
+Landsat_8_OLI,retained_pixels,unmasked,Deciduous,12,4,3,0,0.5,0.5833333333333334
+Landsat_8_OLI,retained_pixels,unmasked,Evergreen,176,4,4,3,0.5909090909090909,0.42613636363636365
+Landsat_8_OLI,retained_pixels,unmasked,Herbaceous,46,4,2,2,0.4782608695652174,0.2391304347826087
+Landsat_8_OLI,retained_pixels,unmasked,Woody shrub,40,4,3,2,0.45,0.025
+Landsat_8_OLI,retained_pixels,unmasked,Non-vegetated & dead,26,4,4,3,0.9230769230769231,0.4230769230769231
+Landsat_8_OLI,shared_pixels,mask10,Deciduous,12,4,1,0,0.5833333333333334,0.5833333333333334
+Landsat_8_OLI,shared_pixels,mask10,Evergreen,176,4,3,3,0.6647727272727273,0.4602272727272727
+Landsat_8_OLI,shared_pixels,mask10,Herbaceous,46,4,2,2,0.4782608695652174,0.2826086956521739
+Landsat_8_OLI,shared_pixels,mask10,Woody shrub,40,4,3,2,0.375,0.0
+Landsat_8_OLI,shared_pixels,mask10,Non-vegetated & dead,26,4,3,3,0.9230769230769231,0.5769230769230769
+Landsat_8_OLI,shared_pixels,unmasked,Deciduous,12,4,3,0,0.5833333333333334,0.5833333333333334
+Landsat_8_OLI,shared_pixels,unmasked,Evergreen,176,4,4,3,0.6420454545454546,0.4375
+Landsat_8_OLI,shared_pixels,unmasked,Herbaceous,46,4,2,2,0.5,0.2608695652173913
+Landsat_8_OLI,shared_pixels,unmasked,Woody shrub,40,4,3,2,0.425,0.0
+Landsat_8_OLI,shared_pixels,unmasked,Non-vegetated & dead,26,4,4,3,0.9230769230769231,0.5384615384615384
+Landsat_9_OLI-2,retained_pixels,mask10,Deciduous,12,4,1,0,0.5833333333333334,0.5833333333333334
+Landsat_9_OLI-2,retained_pixels,mask10,Evergreen,176,4,3,3,0.6647727272727273,0.4659090909090909
+Landsat_9_OLI-2,retained_pixels,mask10,Herbaceous,46,4,2,2,0.4782608695652174,0.2826086956521739
+Landsat_9_OLI-2,retained_pixels,mask10,Woody shrub,40,4,3,2,0.35,0.0
+Landsat_9_OLI-2,retained_pixels,mask10,Non-vegetated & dead,26,4,3,3,0.9230769230769231,0.5769230769230769
+Landsat_9_OLI-2,retained_pixels,unmasked,Deciduous,12,4,3,0,0.5,0.5833333333333334
+Landsat_9_OLI-2,retained_pixels,unmasked,Evergreen,176,4,4,3,0.5909090909090909,0.42613636363636365
+Landsat_9_OLI-2,retained_pixels,unmasked,Herbaceous,46,4,2,2,0.4782608695652174,0.2391304347826087
+Landsat_9_OLI-2,retained_pixels,unmasked,Woody shrub,40,4,3,2,0.45,0.025
+Landsat_9_OLI-2,retained_pixels,unmasked,Non-vegetated & dead,26,4,4,3,0.9230769230769231,0.4230769230769231
+Landsat_9_OLI-2,shared_pixels,mask10,Deciduous,12,4,1,0,0.5833333333333334,0.5833333333333334
+Landsat_9_OLI-2,shared_pixels,mask10,Evergreen,176,4,3,3,0.6647727272727273,0.4602272727272727
+Landsat_9_OLI-2,shared_pixels,mask10,Herbaceous,46,4,2,2,0.4782608695652174,0.2826086956521739
+Landsat_9_OLI-2,shared_pixels,mask10,Woody shrub,40,4,3,2,0.375,0.0
+Landsat_9_OLI-2,shared_pixels,mask10,Non-vegetated & dead,26,4,3,3,0.9230769230769231,0.5769230769230769
+Landsat_9_OLI-2,shared_pixels,unmasked,Deciduous,12,4,3,0,0.5833333333333334,0.5833333333333334
+Landsat_9_OLI-2,shared_pixels,unmasked,Evergreen,176,4,4,3,0.6420454545454546,0.4375
+Landsat_9_OLI-2,shared_pixels,unmasked,Herbaceous,46,4,2,2,0.5,0.2608695652173913
+Landsat_9_OLI-2,shared_pixels,unmasked,Woody shrub,40,4,3,2,0.425,0.0
+Landsat_9_OLI-2,shared_pixels,unmasked,Non-vegetated & dead,26,4,4,3,0.9230769230769231,0.5384615384615384

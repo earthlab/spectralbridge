@@ -1,0 +1,22 @@
+{
+  "coefficient_registry": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/src/spectralbridge/data/drone_translation_coefficients_v1.json",
+  "corrected_input": "/Users/tuff/Library/CloudStorage/OneDrive-UCB-O365/Documents/github/spectralbridge/archive/local/drone-calibration-translation/2026-11-19/conservative-refitted-products/gordon/AOP_GORDON_20230814__conservative_refitted_topo_brdf_EXPERIMENTAL.img",
+  "site": "gordon",
+  "translations": [
+    {
+      "coefficient_sha256": "44d164ae50de17fee98f139a546f28efb06c8966649c98247e0178f5d12e1024",
+      "coefficient_units": null,
+      "reason": "Experimental correction is not eligible for an approved spectral library",
+      "status": "UNSUPPORTED",
+      "target": "Landsat_8_OLI"
+    },
+    {
+      "coefficient_sha256": "44d164ae50de17fee98f139a546f28efb06c8966649c98247e0178f5d12e1024",
+      "coefficient_units": null,
+      "reason": "Experimental correction is not eligible for an approved spectral library",
+      "status": "UNSUPPORTED",
+      "target": "Landsat_9_OLI-2"
+    }
+  ],
+  "uploaded": false
+}

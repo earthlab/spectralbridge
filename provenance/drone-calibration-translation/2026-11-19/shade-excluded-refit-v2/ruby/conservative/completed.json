@@ -1,0 +1,47 @@
+{
+  "baseline_numeric_verified": false,
+  "code_sha256": "27f7fa60025c7899d2487a0864f523dbd0c1979d043d7b26ad6282a6c380fa7d",
+  "identity": {
+    "mask_sha256": "364e2aa0de03e51c835c187c442c7730d6a0790361b0f3e84dc0afe7a4342c3f",
+    "policy": {
+      "all_variants_reported": true,
+      "equations": "frozen November5 stable_qr_v1",
+      "fit_subset": "original training subset (field polygons +2m buffer excluded) intersect retained mask",
+      "independently_calibrated": false,
+      "interpretation": "conditional experimental model support; no production acceptance or translation",
+      "original_images_reprocessed": false,
+      "reference": "original45deg solar/nadir; exact original serialized reference vector",
+      "rho_limits": "original0..2",
+      "shade_excluded_from": "fitting and modeled application/validation spatial domain",
+      "thresholds": [
+        null,
+        0.1,
+        0.2,
+        0.3
+      ],
+      "uncertainty": "original20m spatial groups unchanged",
+      "variants": [
+        "baseline",
+        "conservative",
+        "moderate",
+        "stronger"
+      ]
+    },
+    "sources": {
+      "candidate_stored.npy": "1d2bcfef3a8377951c6a74b986e928963e8bc159a9a2f32936dfd72fd4284d78",
+      "center_design.npy": "5fa5daa5b410ee458ba1159dd5798c23927868afb71ff2194084c67a6f28c764",
+      "frozen_corrections_sha256": "44b2d7e53c4bc77c4d93c3e1f95b252d321d4d9868d55cdaad465e2ada7346b8",
+      "frozen_topographic_sha256": "618ea9b51119dfe348768cb88e776cb47deba966750032b632991c320b6daa94",
+      "geometry.npy": "c288126c78da48c8ada5dac421ae71409146f52868ee8cdf23c0500639c75f57",
+      "solar_sha256": "af1c7490849f23f00be5fa6b9a8f05d415f948b0bd071e15902acd478cb93b3d",
+      "spatial_groups.npy": "d92ea226fe66397e3cfcab47616cc9fb5c439290e48565aa273d18c1a1257249",
+      "training_mask.npy": "35d0050be0271f3fd96386df4666c70c1eecfc815a5744204caab8d4a069f000"
+    }
+  },
+  "outputs": {
+    "brdf_only/brdf_only_brdf_model.json": "2e9dfe00a253171514310836cadcf44d8f3c56d297866c1fc9ffa3e760293ced",
+    "combined/combined_brdf_model.json": "7e14bdf2cba5b8cefe4937f5db47a9d071610d37de23bacb3f4cb3895ea84113",
+    "conditioned_scsc_model.json": "2efb999a834009b90cf940bea3407f80dbdb5c1f393858a3d6a4b5f58e2b914e",
+    "summary.json": "47ac96c5528f19d166c0fae4045d33e3b201dfb41f81da1540abdbedc2ad4fcc"
+  }
+}

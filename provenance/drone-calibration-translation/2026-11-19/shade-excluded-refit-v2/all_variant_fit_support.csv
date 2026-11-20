@@ -1,0 +1,25 @@
+site,variant,branch,retained_training_pixels,retained_spatial_pixels,topographic_status,topographic_valid_bands,aggregate_brdf_status,valid_bands,full_band_pass,unavailable_bands,failed_bands,full_correction_fit_support,production_approved
+ruby,baseline,brdf_only,1815518,1993472,VALID,10,INVALID,6,False,[],"[1, 2, 5, 6]",False,False
+ruby,baseline,combined,1815518,1993472,VALID,10,INVALID,8,False,[],"[5, 6]",False,False
+ruby,conservative,brdf_only,1486146,1622759,VALID,10,INVALID,9,False,[],[6],False,False
+ruby,conservative,combined,1486146,1622759,VALID,10,VALID,10,True,[],[],True,False
+ruby,moderate,brdf_only,1237445,1350065,PARTIAL,8,VALID,10,True,[],[],True,False
+ruby,moderate,combined,1237445,1350065,PARTIAL,8,VALID,8,False,"[9, 10]","[9, 10]",False,False
+ruby,stronger,brdf_only,935891,1019399,VALID,10,VALID,10,True,[],[],True,False
+ruby,stronger,combined,935891,1019399,VALID,10,VALID,8,False,"[9, 10]","[9, 10]",False,False
+gordon,baseline,brdf_only,5733669,5898343,VALID,10,VALID,10,True,[],[],True,False
+gordon,baseline,combined,5733669,5898343,VALID,10,VALID,10,True,[],[],True,False
+gordon,conservative,brdf_only,4809326,4964448,VALID,10,VALID,10,True,[],[],True,False
+gordon,conservative,combined,4809326,4964448,VALID,10,VALID,10,True,[],[],True,False
+gordon,moderate,brdf_only,4002716,4138730,PARTIAL,9,VALID,10,True,[],[],True,False
+gordon,moderate,combined,4002716,4138730,PARTIAL,9,VALID,9,False,[10],[10],False,False
+gordon,stronger,brdf_only,3159682,3267351,PARTIAL,8,VALID,10,True,[],[],True,False
+gordon,stronger,combined,3159682,3267351,PARTIAL,8,VALID,8,False,"[9, 10]","[9, 10]",False,False
+goldhill,baseline,brdf_only,6145543,6683905,VALID,10,VALID,10,True,[],[],True,False
+goldhill,baseline,combined,6145543,6683905,VALID,10,VALID,10,True,[],[],True,False
+goldhill,conservative,brdf_only,5658987,6181929,VALID,10,VALID,10,True,[],[],True,False
+goldhill,conservative,combined,5658987,6181929,VALID,10,VALID,10,True,[],[],True,False
+goldhill,moderate,brdf_only,5183468,5661694,VALID,10,VALID,10,True,[],[],True,False
+goldhill,moderate,combined,5183468,5661694,VALID,10,VALID,10,True,[],[],True,False
+goldhill,stronger,brdf_only,4753647,5173290,VALID,10,VALID,10,True,[],[],True,False
+goldhill,stronger,combined,4753647,5173290,VALID,10,VALID,10,True,[],[],True,False

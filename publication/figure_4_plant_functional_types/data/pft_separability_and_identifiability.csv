@@ -1,9 +1,9 @@
 sensor,category,separability_status,supported_tests,total_tests,matched_n,adjusted_p,identifiability_status,unseen_polygon_recall,held_out_site_recall,held_out_patch_recall,held_out_patch_correct,held_out_patch_total,supported_test_patches,planned_pairs,evidence_product
-HLS L30 NBAR,Deciduous,supported_test_counts,1.0,4.0,,,provisional_patch_recall,,,0.8,4.0,5.0,5.0,4.0,HLS L30 v2 NBAR expanded nominal95% footprint cohort
-HLS L30 NBAR,Evergreen,supported_test_counts,0.0,4.0,,,provisional_patch_recall,,,1.0,3.0,3.0,3.0,4.0,HLS L30 v2 NBAR expanded nominal95% footprint cohort
-HLS L30 NBAR,Herbaceous,supported_test_counts,1.0,4.0,,,provisional_patch_recall,,,1.0,5.0,5.0,5.0,4.0,HLS L30 v2 NBAR expanded nominal95% footprint cohort
-HLS L30 NBAR,Woody shrub,supported_test_counts,3.0,4.0,,,provisional_patch_recall,,,0.8571428571428571,6.0,7.0,7.0,4.0,HLS L30 v2 NBAR expanded nominal95% footprint cohort
-HLS L30 NBAR,Non-vegetated & dead,supported_test_counts,1.0,4.0,,,provisional_patch_recall,,,0.75,3.0,4.0,4.0,4.0,HLS L30 v2 NBAR expanded nominal95% footprint cohort
+HLS L30 NBAR,Deciduous,supported_test_counts,4.0,4.0,,,provisional_patch_recall,,,0.9166666666666666,11.0,12.0,12.0,4.0,HLS L30 v2 NBAR expanded1241cell/61patch nominal95% cohort
+HLS L30 NBAR,Evergreen,supported_test_counts,4.0,4.0,,,provisional_patch_recall,,,1.0,11.0,11.0,11.0,4.0,HLS L30 v2 NBAR expanded1241cell/61patch nominal95% cohort
+HLS L30 NBAR,Herbaceous,supported_test_counts,4.0,4.0,,,provisional_patch_recall,,,1.0,14.0,14.0,14.0,4.0,HLS L30 v2 NBAR expanded1241cell/61patch nominal95% cohort
+HLS L30 NBAR,Woody shrub,supported_test_counts,4.0,4.0,,,provisional_patch_recall,,,0.8666666666666667,13.0,15.0,15.0,4.0,HLS L30 v2 NBAR expanded1241cell/61patch nominal95% cohort
+HLS L30 NBAR,Non-vegetated & dead,supported_test_counts,4.0,4.0,,,provisional_patch_recall,,,1.0,9.0,9.0,9.0,4.0,HLS L30 v2 NBAR expanded1241cell/61patch nominal95% cohort
 NEON AOP → OLI/OLI-2-like,Deciduous,supported_test_counts,16.0,16.0,,,available,0.6400066810566348,0.4011150057347439,,,,,,
 NEON AOP → OLI/OLI-2-like,Evergreen,supported_test_counts,16.0,16.0,,,available,0.9164134827795896,0.8420980110527564,,,,,,
 NEON AOP → OLI/OLI-2-like,Herbaceous,supported_test_counts,16.0,16.0,,,available,0.4698976838042621,0.4254014281769045,,,,,,

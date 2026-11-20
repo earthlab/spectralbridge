@@ -1,0 +1,49 @@
+{
+  "fit_settings": {
+    "kernel_config": {
+      "b_r": 10.0,
+      "geom_kernel": "LiDenseR",
+      "h_b": 2.0,
+      "solar_zn_type": "scene",
+      "volume_kernel": "RossThick"
+    },
+    "ndvi_config": {
+      "enabled": false,
+      "n_bins": 25,
+      "ndvi_max": 1.0,
+      "ndvi_min": 0.05,
+      "perc_max": 95.0,
+      "perc_min": 10.0
+    },
+    "reference_design": [
+      1.0,
+      -0.04586202988221,
+      -1.0
+    ],
+    "reference_geometry": {
+      "relative_azimuth_deg": 0.0,
+      "solar_zenith_deg": 45.0,
+      "view_zenith_deg": 0.0
+    },
+    "rho_max": 2.0,
+    "rho_min": 0.0
+  },
+  "original_domain_sha256": "fc12db7a16d42c2d13fc1ed0fbc80bd5a025994dcef4bf60c413bfab24d23c90",
+  "original_hypothesis_adapter_sha256": "ba0489d8cfa3ec128113f7e8f8dd394c50445fb53b81bc9d6f16fef7d80a9477",
+  "original_sources": {
+    "candidate_stored.npy": "1d2bcfef3a8377951c6a74b986e928963e8bc159a9a2f32936dfd72fd4284d78",
+    "center_design.npy": "5fa5daa5b410ee458ba1159dd5798c23927868afb71ff2194084c67a6f28c764",
+    "frozen_corrections_sha256": "44b2d7e53c4bc77c4d93c3e1f95b252d321d4d9868d55cdaad465e2ada7346b8",
+    "frozen_topographic_sha256": "618ea9b51119dfe348768cb88e776cb47deba966750032b632991c320b6daa94",
+    "geometry.npy": "c288126c78da48c8ada5dac421ae71409146f52868ee8cdf23c0500639c75f57",
+    "solar_sha256": "af1c7490849f23f00be5fa6b9a8f05d415f948b0bd071e15902acd478cb93b3d",
+    "spatial_groups.npy": "d92ea226fe66397e3cfcab47616cc9fb5c439290e48565aa273d18c1a1257249",
+    "training_mask.npy": "35d0050be0271f3fd96386df4666c70c1eecfc815a5744204caab8d4a069f000"
+  },
+  "prepared_sha256": "9b677b34e28294eef824487c7e01eb0d91adce5c3cdf59a487a51d6c7d64ed73",
+  "research_adapter_sha256": "af16b9043b1d553a19055acd7c9b566ee15e1e2436961a907cbe45d1dac6a6c7",
+  "terrain_ancillary_sha256": {
+    "aspect": "83c1e7696adbbcc24afd9024d1a382807f97b066f37f238f74637e24c694fbed",
+    "slope": "b6b9273a49625b53370598596fff980b15c3d47968abcd206660685a6603b82f"
+  }
+}
