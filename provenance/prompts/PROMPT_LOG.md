@@ -55843,3 +55843,41 @@ Model: Not recorded
 ```text
 continue
 ```
+
+## 2026-11-20 - Audit CyVerse drone campaign readiness
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+is the drone pipeline ready to run except for the new brightness corrections that we'll add to a json? otherwise, that we pull the data from the data store, including the new camera locations, and then process them with the drone pipeline all the way through translation and qa and then push the resulting processed files back the data store with all the right file names and such? I think we're going to get the brighness corrections back soon and I want to be ready to to run all the drone data. remember that this is in cyverse, not locally, so we can test here but what I will ultimatly need is a notebook to run in my vm. we have versions of this but I don't they have some of the new stuff that we've been working on. 
+```
+
+## 2026-11-20 - Clarify incoming calibration coefficients
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+<send_user_message_question_reply>
+[{"questionItemId":"[\"request_user_input_async\",\"call_57d873278b464e48aeadeb3d4d80430a\",0]","question":"What will the incoming brightness JSON describe? This determines where it belongs in the pipeline.","answer":"Per-band drone reflectance calibration (gain/offset)"}]
+</send_user_message_question_reply>
+```
+
+## 2026-11-20 - Implement VM drone campaign and remaining Linux CI fix
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+let's get it ready then. also, we still got a fail on one of our CI checks. [https://github.com/earthlab/spectralbridge/actions/runs/44796101668](https://github.com/earthlab/spectralbridge/actions/runs/44796101668)
+```
+
+## 2026-11-20 - Continue final VM workflow verification
+Branch: main
+AI system: OpenAI Codex
+Model: Not recorded
+
+```text
+continue
+```

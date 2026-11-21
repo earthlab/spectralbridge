@@ -186,3 +186,24 @@ def test_source_download_reuses_receipt_and_rejects_partial(tmp_path):
     with pytest.raises(ValueError, match="Incomplete transfer"):
         workflow.download_sources(package, tmp_path / "partial", backend)
     assert not (tmp_path / "partial/source.h5").exists()
+
+
+def test_retained_value_recipe_preserves_declared_alpha_mask(tmp_path):
+    directory, values = sources(tmp_path)
+    image = directory / 'aligned_orthomosaic.tif'
+    values[:10, 0, 0] = 12345  # finite transparent numbers must remain excluded
+    values[10] = 255
+    values[10, 0, 0] = 0
+    with rasterio.open(image, 'r+') as out:
+        out.write(values)
+    image.with_suffix('.tif.aux.xml').write_text(
+        '<PAMDataset><PAMRasterBand band="11"><ColorInterp>Alpha</ColorInterp></PAMRasterBand></PAMDataset>')
+    with h5py.File(directory / 'original.h5', 'r+') as h:
+        h['NIWO/Reflectance/Reflectance_Data'][0, 0, :] = 12345
+    reference, options = workflow.prepare_reference(directory, 'original.h5', tmp_path / 'prepared', use_legacy_view=False)
+    with rasterio.open(reference) as out:
+        np.testing.assert_array_equal(out.read(), values[:10])
+        assert out.dataset_mask()[0, 0] == 0
+        assert out.dataset_mask()[1, 1] == 255
+    assert 'tiff_sensor_zenith_deg' not in options
+    assert not list(reference.parent.glob('*.msk'))  # Mask is internal and moves atomically with TIFF.

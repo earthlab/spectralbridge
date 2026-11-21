@@ -49,6 +49,13 @@ def parse_listing(text, parent):
 class JsonGocmdBackend(GocmdRemoteBackend):
     """Read GoCommands' explicit JSON, independently of the default table UI."""
 
+    def download_file(self, remote_path, local_path):
+        # Keep long VM transfers visible instead of buffering progress until exit.
+        self.ensure_available()
+        local_path = Path(local_path)
+        local_path.parent.mkdir(parents=True, exist_ok=True)
+        subprocess.run(self._command("get", "--progress", remote_path, local_path), check=True)
+
     def list_directory(self, remote_path):
         result = self._run("ls", "--output_json", remote_path, operation="JSON inventory")
         return parse_listing(result.stdout, remote_path)
@@ -59,7 +66,11 @@ def download_sources(package, directory, backend):
     directory.mkdir(parents=True, exist_ok=True)
     entries = {e.name: e for e in backend.list_directory(package.remote_package_path)
                if not e.is_collection}
-    for name in [package.h5_name, "aligned_orthomosaic.tif", "aligned_slope.tif", "aligned_aspect.tif"]:
+    required = [package.h5_name, "aligned_orthomosaic.tif", "aligned_slope.tif", "aligned_aspect.tif"]
+    # Supported TIFF/H5 sidecars are part of the source contract, not repairs.
+    sidecars = [name + suffix for name in required for suffix in (".msk", ".aux.xml", ".radiometry.json")
+                if name + suffix in entries]
+    for name in [*required, *sidecars]:
         entry = entries.get(name)
         if entry is None or not entry.size_bytes:
             raise ValueError(f"Missing source/size: {package.package_name}/{name}")
@@ -71,6 +82,7 @@ def download_sources(package, directory, backend):
                 continue
         temporary = target.with_name(name + ".part")
         temporary.unlink(missing_ok=True)
+        print(f"[cloud] downloading {entry.name} ({entry.size_bytes:,} bytes)", flush=True)
         backend.download_file(entry.path, temporary)
         if temporary.stat().st_size != entry.size_bytes:
             raise ValueError(f"Incomplete transfer: {entry.path}")
@@ -83,7 +95,7 @@ def download_sources(package, directory, backend):
     return directory
 
 
-def prepare_reference(source_dir, h5_name, destination, bands=tuple(range(1, 11))):
+def prepare_reference(source_dir, h5_name, destination, bands=tuple(range(1, 11)), *, use_legacy_view=True):
     """Explicit ten-band recipe with bounded exact comparisons and strict grids."""
     import h5py
     import numpy as np
@@ -125,7 +137,7 @@ def prepare_reference(source_dir, h5_name, destination, bands=tuple(range(1, 11)
                     "policy": "eight_float64_coordinate_ulps; no resampling or value changes",
                 }
         view = {}
-        for field in ["Zenith", "Azimuth"]:
+        for field in (["Zenith", "Azimuth"] if use_legacy_view else []):
             ds = group[f"Metadata/to-sensor_{field}_Angle"]
             first = None
             for row in range(0, ds.shape[0], 128):
@@ -142,15 +154,29 @@ def prepare_reference(source_dir, h5_name, destination, bands=tuple(range(1, 11)
         profile = src.profile.copy()
         profile.update(driver="GTiff", count=10)
         try:
-            with rasterio.open(temporary, "w", **profile) as dst:
-                dst.update_tags(**src.tags())
+            with (rasterio.Env(GDAL_TIFF_INTERNAL_MASK=True),
+                  rasterio.open(temporary, "w", **profile) as dst):
+                # The derived ten-band layout has its own explicit radiometry
+                # supplied by the runner; do not inherit an eleven-band layout tag.
+                dst.update_tags(**{key: value for key, value in src.tags().items()
+                                   if key.lower() != "spectralbridge_source_encoding"})
                 for row in range(0, src.height, 128):
                     window = Window(0, row, src.width, min(128, src.height - row))
                     a = src.read(list(bands), window=window)
                     b = np.moveaxis(data[row:row + int(window.height), :, :], 2, 0)
                     if not np.array_equal(a, b, equal_nan=True):
                         raise ValueError("Retained TIFF values differ from source H5")
+                    masks = src.read_masks(list(bands), window=window) > 0
+                    represented = np.isfinite(a)
+                    if src.nodata is not None:
+                        represented &= a != src.nodata
+                    valid = np.any(masks & represented, axis=0)
+                    if np.any(represented & ~masks & valid[None]):
+                        raise ValueError("Independent per-band masks cannot be represented losslessly in the retained-value TIFF recipe")
+                    for alpha in [i for i, role in enumerate(src.colorinterp, 1) if role.name == "alpha"]:
+                        valid &= src.read(alpha, window=window) > 0
                     dst.write(a, window=window)
+                    dst.write_mask(valid.astype(np.uint8) * 255, window=window)
                 for index, band in enumerate(bands, 1):
                     if src.descriptions[band - 1]:
                         dst.set_band_description(index, src.descriptions[band - 1])
@@ -169,13 +195,17 @@ def prepare_reference(source_dir, h5_name, destination, bands=tuple(range(1, 11)
     write_json(destination / "source_recipe.json", {
         "recipe": "explicit-ten-band-source-grid-v1", "selected_bands": list(bands),
         "omitted_bands_unclassified": omitted, "view": view, "cautions": CAUTIONS,
+        "view_policy": "legacy_scalar" if use_legacy_view else "external_camera_geometry_required",
+        "validity_policy": "source GDAL masks, declared alpha and finite retained values; raw values unchanged",
         "ancillary_grid_validation": ancillary_grids,
         "sources": {p.name: sha256(p) for p in source_dir.iterdir()
-                    if p.is_file() and p.suffix in {".h5", ".tif"}},
+                    if p.is_file() and (p.suffix in {".h5", ".tif"} or p.name.endswith((".msk", ".aux.xml", ".radiometry.json")))},
         "reference_sha256": sha256(output),
     })
-    return output, dict(tiff_sensor_zenith_deg=view["zenith"], tiff_sensor_azimuth_deg=view["azimuth"],
-                        tiff_wavelengths_nm=waves, tiff_fwhm_nm=widths)
+    options = dict(tiff_wavelengths_nm=waves, tiff_fwhm_nm=widths)
+    if use_legacy_view:
+        options.update(tiff_sensor_zenith_deg=view["zenith"], tiff_sensor_azimuth_deg=view["azimuth"])
+    return output, options
 
 
 def select_inventory(inventory, test_package=None):

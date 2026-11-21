@@ -6,7 +6,7 @@ The reference is generated without importing scientific dependencies. Each defin
 
 Workflow guides explain **how to accomplish a task**; these entries explain **how to call a particular object**. See the [scientific API maturity guide](scientific-analysis.md) before interpreting research outputs.
 
-This revision documents **84 public functions/classes** and **453 advanced functions/classes**. Names that merely look public are not a stability guarantee. Private helpers and CLI/compatibility plumbing are listed separately in the inventory.
+This revision documents **84 public functions/classes** and **460 advanced functions/classes**. Names that merely look public are not a stability guarantee. Private helpers and CLI/compatibility plumbing are listed separately in the inventory.
 
 ## Package exports
 
@@ -101,6 +101,13 @@ Use these existing package-level names in scripts. Aliases lead to their canonic
 
 | Object | Purpose | Audience |
 | --- | --- | --- |
+| [`compose_brightness_calibration`](generated/drone_campaign_inputs.md#spectralbridge.drone_campaign_inputs.compose_brightness_calibration) | Compose reviewed per-band calibration with source decoding, exactly once. | advanced |
+| [`file_sha256`](generated/drone_campaign_inputs.md#spectralbridge.drone_campaign_inputs.file_sha256) | Documentation gap: see source and audit before direct use. | advanced |
+| [`campaign_input_identity`](generated/drone_campaign_inputs.md#spectralbridge.drone_campaign_inputs.campaign_input_identity) | Validate explicit policies and fingerprint their backing files for restarts. | advanced |
+| [`apply_campaign_inputs`](generated/drone_campaign_inputs.md#spectralbridge.drone_campaign_inputs.apply_campaign_inputs) | Persist declared per-pixel views/exclusions on a derived H5, without pixel repairs. | advanced |
+| [`bind_campaign_cube`](generated/drone_campaign_inputs.md#spectralbridge.drone_campaign_inputs.bind_campaign_cube) | Attach persisted exclusion policy to the existing cube's chunk validity. | advanced |
+| [`brightness_record`](generated/drone_campaign_inputs.md#spectralbridge.drone_campaign_inputs.brightness_record) | Load one compact calibration declaration; never modify the provider file. | advanced |
+| [`apply_working_brightness`](generated/drone_campaign_inputs.md#spectralbridge.drone_campaign_inputs.apply_working_brightness) | Bind actual source bytes and compose calibration on a derived copy only. | advanced |
 | [`calibrated_integer_to_fraction`](generated/drone_original.md#spectralbridge.drone_original.calibrated_integer_to_fraction) | Convert already vendor-calibrated DN, preserving negative and >1 values. | advanced |
 | [`ross_li_design`](generated/drone_original.md#spectralbridge.drone_original.ross_li_design) | Shared production RossThick/LiDenseR kernels; inputs are degrees. | advanced |
 | [`reference_design`](generated/drone_original.md#spectralbridge.drone_original.reference_design) | Unchanged 45 degree solar zenith / nadir package reference. | advanced |

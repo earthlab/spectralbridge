@@ -579,6 +579,7 @@ def required_drone_outputs(
     *,
     extraction_mode: str,
     translation_targets: Sequence[str] = (),
+    translation_naming_style: str = "legacy",
     include_report: bool = False,
 ) -> tuple[DroneOutputRequirement, ...]:
     """Describe the per-flight artifacts required by the requested workflow.
@@ -648,7 +649,7 @@ def required_drone_outputs(
                 )
             )
             matched_sources.add(source_sensor)
-        target_stem = translated_output_stem(path_map["flight_dir"], stem, target)
+        target_stem = translated_output_stem(path_map["flight_dir"], stem, target, naming_style=translation_naming_style)
         requirements.extend(
             (
                 DroneOutputRequirement(
@@ -2091,6 +2092,9 @@ def _prepare_drone_source_working_h5(
     working_path: str | Path,
     radiometry: dict[str, Any] | None = None,
     overwrite: bool = False,
+    brightness_calibration: dict[str, Any] | str | Path | None = None,
+    camera_geometry: dict[str, Any] | None = None,
+    processing_mask: dict[str, Any] | None = None,
     tiff_wavelengths_nm: Sequence[float] | np.ndarray | None = None,
     tiff_fwhm_nm: Sequence[float] | np.ndarray | None = None,
     tiff_solar_zenith_deg: float | None = None,
@@ -2103,6 +2107,22 @@ def _prepare_drone_source_working_h5(
     repair_solar_geometry: bool = False,
     require_solar_geometry: bool = False,
 ) -> tuple[Path, bool]:
+    from spectralbridge.drone_campaign_inputs import (
+        campaign_input_identity, apply_campaign_inputs, apply_working_brightness, brightness_record,
+    )
+    campaign_identity = campaign_input_identity(camera_geometry, processing_mask)
+    brightness = brightness_record(brightness_calibration) if brightness_calibration is not None else None
+    extra_configuration = {}
+    if campaign_identity:
+        extra_configuration['campaign_inputs'] = campaign_identity
+    if brightness is not None:
+        extra_configuration['brightness_calibration'] = brightness
+
+    def enrich(prepared):
+        if brightness is not None:
+            apply_working_brightness(prepared, source_path, flight_id=derive_drone_flight_stem(source_path), calibration=brightness)
+        apply_campaign_inputs(prepared, camera_geometry=camera_geometry, processing_mask=processing_mask)
+
     source_path = Path(source_path)
     working_path = Path(working_path)
     stage_record = working_path.with_suffix(".stage.json")
@@ -2121,6 +2141,7 @@ def _prepare_drone_source_working_h5(
             inputs=[source_path],
             configuration={
                 "algorithm_version": 3,
+                **extra_configuration,
                 "source_encoding_contract_version": 1,
                 "source_type": "h5",
                 "radiometry": radiometry,
@@ -2173,6 +2194,7 @@ def _prepare_drone_source_working_h5(
             acquisition_datetime_source=acquisition_datetime_source,
             allow_repair=repair_solar_geometry,
         )
+        enrich(prepared)
         _write_drone_stage_record(
             stage_record,
             signature=signature,
@@ -2199,6 +2221,7 @@ def _prepare_drone_source_working_h5(
         inputs=inputs,
         configuration={
             "algorithm_version": 5,
+            **extra_configuration,
             "source_encoding_contract_version": 1,
             "source_encoding_registry_identity": source_registry_identity(),
             "wavelengths_nm": (
@@ -2251,6 +2274,7 @@ def _prepare_drone_source_working_h5(
         require_solar_geometry=require_solar_geometry,
         overwrite=overwrite or working_path.exists(),
     )
+    enrich(prepared_path)
     _write_drone_stage_record(
         stage_record,
         signature=signature,
@@ -2369,6 +2393,10 @@ def validate_drone_h5_metadata(h5_path: str | Path) -> dict[str, Any]:
     """Validate minimally required drone H5 metadata and return a structured summary."""
 
     cube = NeonCube(h5_path=h5_path)
+    return _validate_drone_cube_metadata(cube, h5_path)
+
+
+def _validate_drone_cube_metadata(cube, h5_path):
     wavelengths = np.asarray(cube.wavelengths, dtype=np.float32).reshape(-1)
     if wavelengths.size == 0:
         raise ValueError(f"Drone H5 has no wavelength metadata: {h5_path}")
@@ -2449,6 +2477,12 @@ def _drone_envi_header(cube: NeonCube) -> dict[str, Any]:
     from rasterio.crs import CRS
 
     header = cube.build_envi_header()
+    if getattr(cube, "campaign_inputs", None):
+        header["drone campaign inputs"] = "json:" + json.dumps(cube.campaign_inputs, sort_keys=True)
+        geometry = cube.campaign_inputs["inputs"].get("camera_geometry")
+        if geometry:
+            header["camera assignment policy"] = geometry["assignment_policy"]
+            header["camera contributor interpretation"] = cube.campaign_inputs["actual_mosaic_contributors"]
     header["coordinate system string"] = CRS.from_string(cube.projection_wkt).to_wkt()
     if header.get("map info"):
         info = _prepare_map_info(header["map info"]) if isinstance(header["map info"], str) else list(header["map info"])
@@ -2812,15 +2846,22 @@ def apply_drone_corrections(
         for name, value in (("topographic_model", topographic_model), ("fitting_mask", brdf_fitting_mask), ("fitting_provenance", brdf_fitting_provenance), ("uncertainty_groups", brdf_uncertainty_groups)):
             if value is not None:
                 fit_kwargs[name] = value
+        model_dir = corrected_stem.parent
+        if getattr(cube, 'campaign_inputs', None) or (cube.radiometry.encoding or {}).get('brightness_calibration_id'):
+            # Changed reviewed inputs get a fresh fit identity. Preserve prior
+            # coefficients instead of weakening the stale/historical-model gate.
+            model_dir = model_dir / 'correction_models' / stage_signature[:16]
+            model_dir.mkdir(parents=True, exist_ok=True)
         coeff_path = _call_with_supported_kwargs(
             fit_and_save_brdf_model,
             cube,
-            corrected_stem.parent,
+            model_dir,
             **fit_kwargs,
         )
 
     if coeff_path is not None:
         model = json.loads(Path(coeff_path).read_text())
+        audit["brdf_model_path"] = str(coeff_path)
         audit["brdf_status"] = model.get("validation", {}).get("status", "UNSUPPORTED")
         if audit["brdf_status"] == "VALID" and model.get("kernel_math_version") != BRDF_KERNEL_MATH_VERSION:
             raise DroneCorrectionUnavailableError("BRDF UNSUPPORTED: incompatible kernel mathematics; use a fresh output directory.", audit)
@@ -2846,9 +2887,13 @@ def apply_drone_corrections(
         header.setdefault("data ignore value", float(getattr(cube, "no_data")))
     writer = EnviWriter(corrected_stem, header)
     # Drone scenes are already fully loaded into memory via ``NeonCube``.
-    # Use a single full-scene chunk here so the correction is fit/applied
-    # consistently across the footprint instead of tile-by-tile.
-    chunk_y = min(128, cube.lines) if topographic_model is not None else cube.lines
+    # Fit across the selected footprint once. Campaign application uses bounded
+    # strips with that same model; legacy callers retain their full-scene chunk.
+    campaign_mode = bool(getattr(cube, 'campaign_inputs', None))
+    if campaign_mode and topo_ready and topographic_c is None and topographic_model is None:
+        from spectralbridge.corrections import fit_scs_c_coefficients
+        topographic_c = fit_scs_c_coefficients(cube)
+    chunk_y = min(128, cube.lines) if topographic_model is not None or campaign_mode else cube.lines
     chunk_x = cube.columns
     reporter = TileProgressReporter(
         stage_name="Drone correction",
@@ -3523,6 +3568,7 @@ def _reconcile_drone_completion(
             paths,
             extraction_mode=extraction_mode,
             translation_targets=targets,
+            translation_naming_style=str(audit.get("translation_naming_style", "legacy")),
             include_report=report_valid is not None,
         )
         missing = _invalid_drone_outputs(contract)
@@ -3568,6 +3614,7 @@ def _reconcile_drone_completion(
         )
     }
     summary = results["qa_summary"]
+    summary["brightness_adjustment_applied"] = any(audit.get("flags", {}).get("brightness_applied", False) for audit in summary["files"])
     summary["status_counts"] = status_counts
     summary["success_count"] = len(results["processed"])
     summary["success_extracted_count"] = status_counts[_DRONE_STATUS_SUCCESS_EXTRACTED]
@@ -3644,6 +3691,12 @@ def run_drone_pipeline(
     raise_on_incomplete: bool = True,
     solar_qa_timezone: str | None = None,
     radiometry: dict[str, Any] | None = None,
+    brightness_calibration: dict[str, Any] | str | Path | None = None,
+    camera_geometry: dict[str, Any] | None = None,
+    processing_mask: dict[str, Any] | None = None,
+    translation_target_sensors: Sequence[str] | None = None,
+    translation_naming_style: str = "legacy",
+    translation_output_scale_factor: float = 1.0,
 ) -> dict[str, Any]:
     """Run the drone pipeline from local HDF5 or reflectance TIFF sources.
 
@@ -3709,6 +3762,18 @@ def run_drone_pipeline(
         Optional independent NEON product for common-support comparison QA.
     raise_on_incomplete : bool, default=True
         Raise DronePipelineIncompleteError when flights fail or are scientifically blocked; its results attribute retains structured status.
+    brightness_calibration : dict or path, optional
+        Reviewed per-flight gain/offset JSON bound to source SHA-256 and wavelengths. Composes source decoding once; original source bytes are unchanged.
+    camera_geometry : dict, optional
+        Explicit camera CSV, same-grid surface, assignment policy, height datum and provenance. Nearest-camera scenarios require acknowledgement and remain labelled as assumptions.
+    processing_mask : dict, optional
+        Same-grid categorical exclusion mask with explicit keep value/codes and provenance; applies to fitting and application without changing source pixels.
+    translation_target_sensors : sequence of str, optional
+        Explicit complete target subset from the reviewed translation registry.
+    translation_naming_style : str, default='legacy'
+        Existing legacy or opt-in MicaSense delivery naming helper.
+    translation_output_scale_factor : float, default=1.0
+        Positive storage multiplier for translated fractional reflectance; physical units remain explicit in headers.
     solar_qa_timezone : str | None, default=None
         Optional timezone override for solar-geometry QA; None follows the existing metadata/timezone resolution.
 
@@ -3810,7 +3875,7 @@ def run_drone_pipeline(
             "scientific_qa_status": "pending",
             "spectral_branch": "affine_cross_sensor_translation",
             "brightness_offset": 0.0,
-            "brightness_adjustment_requested": bool(apply_brightness_adjustment),
+            "brightness_adjustment_requested": bool(apply_brightness_adjustment or brightness_calibration is not None),
             "brightness_adjustment_applied": False,
             "cloud_mask_applied": False,
             "ndvi_brdf_bins_enabled": bool(use_ndvi_brdf_bins),
@@ -3830,6 +3895,9 @@ def run_drone_pipeline(
             ),
             "translation_weighting": translation_weighting,
             "translation_strict": bool(translation_strict),
+            "translation_target_sensors": list(translation_target_sensors) if translation_target_sensors is not None else None,
+            "translation_naming_style": translation_naming_style,
+            "translation_output_scale_factor": float(translation_output_scale_factor),
             "landsat_qa_requested": bool(landsat_qa),
             "landsat_product": (
                 str(landsat_product) if landsat_product is not None else None
@@ -3845,6 +3913,12 @@ def run_drone_pipeline(
     }
 
     input_sources = _discover_drone_input_sources(input_h5_dir)
+    if any(value is not None for value in (brightness_calibration, camera_geometry, processing_mask)) and len(input_sources) != 1:
+        raise ValueError("Per-flight calibration/camera/mask contracts require exactly one authoritative input per call")
+    if translation_naming_style not in {"legacy", "micasense"}:
+        raise ValueError("translation_naming_style must be legacy or micasense")
+    if not np.isfinite(translation_output_scale_factor) or translation_output_scale_factor <= 0:
+        raise ValueError("translation_output_scale_factor must be finite and positive")
     run_input_paths: list[Path] = [source.source_path for source in input_sources]
     run_input_paths.extend(
         path
@@ -3857,10 +3931,17 @@ def run_drone_pipeline(
         )
         if path is not None and path.is_file()
     )
+    from spectralbridge.drone_campaign_inputs import campaign_input_identity, brightness_record
+    campaign_run_configuration = {}
+    if brightness_calibration is not None:
+        campaign_run_configuration['brightness_calibration'] = brightness_record(brightness_calibration)
+    if camera_geometry is not None or processing_mask is not None:
+        campaign_run_configuration['campaign_inputs'] = campaign_input_identity(camera_geometry, processing_mask)
     run_id, run_payload = _drone_stage_signature(
         "drone_pipeline",
         inputs=run_input_paths,
         configuration={
+            **campaign_run_configuration,
             "apply_topo": bool(apply_topo),
             "apply_brdf": bool(apply_brdf),
             **({"brdf_validation_policy": BRDF_VALIDATION_POLICY} if apply_brdf else {}),
@@ -3870,6 +3951,9 @@ def run_drone_pipeline(
             "translation_requested": bool(apply_translation),
             "translation_weighting": translation_weighting,
             "translation_strict": bool(translation_strict),
+            "translation_target_sensors": list(translation_target_sensors) if translation_target_sensors is not None else None,
+            "translation_naming_style": translation_naming_style,
+            "translation_output_scale_factor": float(translation_output_scale_factor),
             "landsat_qa": bool(landsat_qa),
             "landsat_search_days": int(landsat_search_days),
             "require_solar_geometry": bool(require_solar_geometry),
@@ -4022,7 +4106,7 @@ def run_drone_pipeline(
                 "topo_ready": False,
                 "brdf_ready": False,
                 "correction_failed": False,
-                "brightness_requested": bool(apply_brightness_adjustment),
+                "brightness_requested": bool(apply_brightness_adjustment or brightness_calibration is not None),
                 "brightness_applied": False,
                 "cloud_applied": False,
                 "translation_requested": bool(apply_translation),
@@ -4092,6 +4176,9 @@ def run_drone_pipeline(
                 working_path=prepared_h5_path,
                 overwrite=overwrite,
                 radiometry=radiometry,
+                **({"brightness_calibration": brightness_calibration} if brightness_calibration is not None else {}),
+                **({"camera_geometry": camera_geometry} if camera_geometry is not None else {}),
+                **({"processing_mask": processing_mask} if processing_mask is not None else {}),
                 tiff_wavelengths_nm=tiff_wavelengths_nm,
                 tiff_fwhm_nm=tiff_fwhm_nm,
                 tiff_solar_zenith_deg=tiff_solar_zenith_deg,
@@ -4164,7 +4251,21 @@ def run_drone_pipeline(
                 )
 
             cube = NeonCube(h5_path=prepared_h5_path)
-            meta = validate_drone_h5_metadata(prepared_h5_path)
+            from spectralbridge.drone_campaign_inputs import bind_campaign_cube
+            campaign_audit = bind_campaign_cube(cube) if (camera_geometry is not None or processing_mask is not None) else None
+            if campaign_audit is not None:
+                file_audit["campaign_inputs"] = campaign_audit
+                file_audit["flags"]["camera_geometry_applied"] = camera_geometry is not None
+                file_audit["flags"]["processing_mask_applied"] = processing_mask is not None
+                if campaign_audit["actual_mosaic_contributors"] == "UNKNOWN" and camera_geometry is not None:
+                    file_audit.setdefault("qa_warnings", []).append("Camera positions use a declared assignment scenario; actual mosaic contributors are unknown.")
+            if brightness_calibration is not None:
+                file_audit["brightness_calibration_applied"] = True
+                file_audit["flags"]["brightness_applied"] = True
+            meta = (_validate_drone_cube_metadata(cube, prepared_h5_path)
+                    if campaign_audit is not None or brightness_calibration is not None
+                    else validate_drone_h5_metadata(prepared_h5_path))
+            file_audit["translation_naming_style"] = translation_naming_style
             file_audit["radiometry"] = cube.radiometry.record()
             band_map = resolve_band_map(meta["wavelengths"], DRONE_TARGET_BANDS)
             file_audit["resolved_band_map"] = band_map
@@ -4229,10 +4330,11 @@ def run_drone_pipeline(
                     "brdf_fallback_due_to_nodata": bool(
                         correction_audit.get("brdf_fallback_due_to_nodata", False)
                     ),
-                    "brightness_applied": False,
+                    "brightness_applied": brightness_calibration is not None,
                     "cloud_applied": False,
                 }
             )
+            file_audit["brdf_model_path"] = correction_audit.get("brdf_model_path")
             file_audit["brdf_status"] = correction_audit.get("brdf_status", "UNSUPPORTED")
             file_audit["correction_status_source"] = str(
                 correction_audit.get("correction_status_source", "live_run")
@@ -4287,6 +4389,7 @@ def run_drone_pipeline(
                     weighting=str(translation_weighting),
                     source_wavelengths_nm=meta["wavelengths"],
                     strict=translation_strict,
+                    **({"target_sensors": translation_target_sensors} if translation_target_sensors is not None else {}),
                 )
                 file_audit["expected_translation_sensors"] = [
                     plan.target_sensor for plan in plans
@@ -4313,7 +4416,8 @@ def run_drone_pipeline(
                             matched_source
                         )
                     translated_stem = translated_output_stem(
-                        path_map["flight_dir"], flight_stem, plan.target_sensor
+                        path_map["flight_dir"], flight_stem, plan.target_sensor,
+                        **({"naming_style": translation_naming_style} if translation_naming_style != "legacy" else {})
                     )
                     translation_result = apply_drone_translation(
                         corrected_img,
@@ -4321,6 +4425,8 @@ def run_drone_pipeline(
                         output_stem=translated_stem,
                         plan=plan,
                         overwrite=dependent_overwrite,
+                        **({"output_scale_factor": translation_output_scale_factor} if translation_output_scale_factor != 1.0 else {}),
+                        **({"translation_metadata": {"campaign_inputs": campaign_audit}} if campaign_audit is not None else {}),
                     )
                     translation_runs.append((plan, translation_result))
                     results["translation_outputs"].append(

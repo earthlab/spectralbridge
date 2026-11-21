@@ -16662,6 +16662,286 @@
       "area": "drone",
       "constants": [],
       "declared_exports": [],
+      "docstring": "Explicit drone campaign inputs at the existing radiometry/geometry boundaries.\n\nCamera assignments are operational declarations, never inferred mosaic contributors.\nOnly derived working H5 files are edited. Geometry/masks are written by bounded rows.",
+      "export_expressions": [],
+      "imports": {
+        "Affine": "affine.Affine",
+        "CRS": "pyproj.CRS",
+        "ExitStack": "contextlib.ExitStack",
+        "Path": "pathlib.Path",
+        "Radiometry": "spectralbridge.radiometry.Radiometry",
+        "Transformer": "pyproj.Transformer",
+        "_drone_grid_transforms_match": "spectralbridge.pipelines.drone._drone_grid_transforms_match",
+        "_find_drone_reflectance_dataset": "spectralbridge.pipelines.drone._find_drone_reflectance_dataset",
+        "_prepare_map_info": "spectralbridge.io.neon._prepare_map_info",
+        "_shift_map_info_for_window": "spectralbridge.io.neon._shift_map_info_for_window",
+        "annotations": "__future__.annotations",
+        "cKDTree": "scipy.spatial.cKDTree",
+        "dataset_radiometry": "spectralbridge.radiometry.dataset_radiometry",
+        "read_metashape_camera_locations": "spectralbridge.drone_view_geometry.read_metashape_camera_locations"
+      },
+      "module": "spectralbridge.drone_campaign_inputs",
+      "objects": [
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Compose reviewed per-band calibration with source decoding, exactly once.\n\nGain/offset operate in fractional reflectance, not stored TIFF/DN units.\nThis returns an existing Radiometry record; it does not change source pixels\nor claim that the public pipeline's historical brightness flag applies it.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 20,
+          "methods": [],
+          "name": "compose_brightness_calibration",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "record"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "flight_id"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "source_sha256"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "wavelengths_nm"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "source_radiometry"
+            }
+          ],
+          "path": "spectralbridge.drone_campaign_inputs.compose_brightness_calibration",
+          "signature": "compose_brightness_calibration(record, *, flight_id, source_sha256, wavelengths_nm, source_radiometry)",
+          "summary": "Compose reviewed per-band calibration with source decoding, exactly once.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "",
+          "examples": [
+            "examples/audit_aop_drone_translation.py",
+            "examples/audit_translation_scale_chain.py",
+            "examples/brdf_benefit_drone.py",
+            "examples/build_physical_aop_translation_registry.py",
+            "examples/compare_drone_mask_pft_information.py",
+            "examples/drone_apply_conservative_refits.py",
+            "examples/drone_conservative_shade_translation_trial.py",
+            "examples/drone_lighter_shade_sensitivity.py",
+            "examples/drone_shade_excluded_refit.py",
+            "examples/drone_shade_mask_preview.py",
+            "examples/drone_shade_refit_summary.py",
+            "examples/run_shade_masked_drone_translations.py",
+            "examples/run_unmasked_drone_translation_null.py",
+            "examples/summarize_drone_mask_pft_information.py",
+            "examples/verify_drone_refitted_products.py",
+            "examples/verify_unmasked_drone_translation_null.py"
+          ],
+          "exports": [],
+          "kind": "function",
+          "line": 80,
+          "methods": [],
+          "name": "file_sha256",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "path"
+            }
+          ],
+          "path": "spectralbridge.drone_campaign_inputs.file_sha256",
+          "signature": "file_sha256(path)",
+          "summary": "",
+          "summary_basis": "not documented"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Validate explicit policies and fingerprint their backing files for restarts.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 94,
+          "methods": [],
+          "name": "campaign_input_identity",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": "None",
+              "kind": "positional-or-keyword",
+              "name": "camera_geometry"
+            },
+            {
+              "annotation": null,
+              "default": "None",
+              "kind": "positional-or-keyword",
+              "name": "processing_mask"
+            }
+          ],
+          "path": "spectralbridge.drone_campaign_inputs.campaign_input_identity",
+          "signature": "campaign_input_identity(camera_geometry=None, processing_mask=None)",
+          "summary": "Validate explicit policies and fingerprint their backing files for restarts.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Persist declared per-pixel views/exclusions on a derived H5, without pixel repairs.\n\nSurface and camera heights must share the caller-declared vertical datum.\nA reviewed index addresses original CSV row numbers. The optional nearest\nscenario uses positions only and is labelled as an assumption in every audit.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 133,
+          "methods": [],
+          "name": "apply_campaign_inputs",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "working_h5"
+            },
+            {
+              "annotation": null,
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "camera_geometry"
+            },
+            {
+              "annotation": null,
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "processing_mask"
+            }
+          ],
+          "path": "spectralbridge.drone_campaign_inputs.apply_campaign_inputs",
+          "signature": "apply_campaign_inputs(working_h5, *, camera_geometry=None, processing_mask=None)",
+          "summary": "Persist declared per-pixel views/exclusions on a derived H5, without pixel repairs.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Attach persisted exclusion policy to the existing cube's chunk validity.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 261,
+          "methods": [],
+          "name": "bind_campaign_cube",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "cube"
+            }
+          ],
+          "path": "spectralbridge.drone_campaign_inputs.bind_campaign_cube",
+          "signature": "bind_campaign_cube(cube)",
+          "summary": "Attach persisted exclusion policy to the existing cube's chunk validity.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Load one compact calibration declaration; never modify the provider file.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 278,
+          "methods": [],
+          "name": "brightness_record",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "value"
+            }
+          ],
+          "path": "spectralbridge.drone_campaign_inputs.brightness_record",
+          "signature": "brightness_record(value)",
+          "summary": "Load one compact calibration declaration; never modify the provider file.",
+          "summary_basis": "source docstring"
+        },
+        {
+          "attributes": [],
+          "audience": "advanced",
+          "classification_reason": "Direct module API; no package-level stability guarantee",
+          "docs_references": [],
+          "docstring": "Bind actual source bytes and compose calibration on a derived copy only.",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 283,
+          "methods": [],
+          "name": "apply_working_brightness",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "working_h5"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "source_path"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "flight_id"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "keyword-only",
+              "name": "calibration"
+            }
+          ],
+          "path": "spectralbridge.drone_campaign_inputs.apply_working_brightness",
+          "signature": "apply_working_brightness(working_h5, source_path, *, flight_id, calibration)",
+          "summary": "Bind actual source bytes and compose calibration on a derived copy only.",
+          "summary_basis": "source docstring"
+        }
+      ],
+      "path": "src/spectralbridge/drone_campaign_inputs.py",
+      "sha256": "bf4bdcfc68c58a3545ec2619f976af7b92b30ef8703f09f226dc4189aeffa163"
+    },
+    {
+      "area": "drone",
+      "constants": [],
+      "declared_exports": [],
       "docstring": "Opt-in original-photo research helpers; never called by production pipelines.\n\nVendor-calibrated values are distinct from raw sensor DN. Target-aware fits are\nexperimental diagnostics and do not constitute independent physical validation.",
       "export_expressions": [],
       "imports": {
@@ -37153,11 +37433,16 @@
         "acquire_landsat_observation": "spectralbridge.landsat_validation.acquire_landsat_observation",
         "annotations": "__future__.annotations",
         "apply_brdf_correct": "spectralbridge.corrections.apply_brdf_correct",
+        "apply_campaign_inputs": "spectralbridge.drone_campaign_inputs.apply_campaign_inputs",
         "apply_drone_translation": "spectralbridge.drone_translation.apply_drone_translation",
         "apply_topo_correct": "spectralbridge.corrections.apply_topo_correct",
+        "apply_working_brightness": "spectralbridge.drone_campaign_inputs.apply_working_brightness",
+        "bind_campaign_cube": "spectralbridge.drone_campaign_inputs.bind_campaign_cube",
         "box": "shapely.geometry.box",
+        "brightness_record": "spectralbridge.drone_campaign_inputs.brightness_record",
         "build_drone_qa_summary": "spectralbridge.utils.qa_summary.build_drone_qa_summary",
         "build_parquet_from_envi": "spectralbridge.parquet_export.build_parquet_from_envi",
+        "campaign_input_identity": "spectralbridge.drone_campaign_inputs.campaign_input_identity",
         "compare_landsat_common_support": "spectralbridge.landsat_validation.compare_landsat_common_support",
         "dataclass": "dataclasses.dataclass",
         "dataset_radiometry": "spectralbridge.radiometry.dataset_radiometry",
@@ -37169,6 +37454,7 @@
         "extract_polygon_parquet_from_envi": "spectralbridge.polygons.extract_polygon_parquet_from_envi",
         "finalize_scientific_header": "spectralbridge.envi_writer.finalize_scientific_header",
         "fit_and_save_brdf_model": "spectralbridge.corrections.fit_and_save_brdf_model",
+        "fit_scs_c_coefficients": "spectralbridge.corrections.fit_scs_c_coefficients",
         "get_package_data_path": "spectralbridge.utils.paths.get_package_data_path",
         "hdr_to_dict": "spectralbridge.envi.hdr_to_dict",
         "is_valid_envi_pair": "spectralbridge.utils_checks.is_valid_envi_pair",
@@ -37888,6 +38174,12 @@
               "name": "translation_targets"
             },
             {
+              "annotation": "str",
+              "default": "'legacy'",
+              "kind": "keyword-only",
+              "name": "translation_naming_style"
+            },
+            {
               "annotation": "bool",
               "default": "False",
               "kind": "keyword-only",
@@ -37895,7 +38187,7 @@
             }
           ],
           "path": "spectralbridge.pipelines.drone.required_drone_outputs",
-          "signature": "required_drone_outputs(path_map: dict[str, Path], *, extraction_mode: str, translation_targets: Sequence[str]=(), include_report: bool=False) -> tuple[DroneOutputRequirement, ...]",
+          "signature": "required_drone_outputs(path_map: dict[str, Path], *, extraction_mode: str, translation_targets: Sequence[str]=(), translation_naming_style: str='legacy', include_report: bool=False) -> tuple[DroneOutputRequirement, ...]",
           "summary": "Describe the per-flight artifacts required by the requested workflow.",
           "summary_basis": "source docstring"
         },
@@ -37908,7 +38200,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 710,
+          "line": 711,
           "methods": [],
           "name": "_invalid_drone_outputs",
           "parameters": [
@@ -37933,7 +38225,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 754,
+          "line": 755,
           "methods": [],
           "name": "_drone_path_matches_keywords",
           "parameters": [
@@ -37964,7 +38256,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 759,
+          "line": 760,
           "methods": [],
           "name": "_is_drone_ancillary_tiff",
           "parameters": [
@@ -37989,7 +38281,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 767,
+          "line": 768,
           "methods": [],
           "name": "_discover_drone_input_sources",
           "parameters": [
@@ -38014,7 +38306,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 825,
+          "line": 826,
           "methods": [],
           "name": "_find_drone_tiff_ancillary",
           "parameters": [
@@ -38045,7 +38337,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 833,
+          "line": 834,
           "methods": [],
           "name": "_normalise_tiff_spectral_vector",
           "parameters": [
@@ -38088,7 +38380,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 856,
+          "line": 857,
           "methods": [],
           "name": "_read_drone_tiff_raster",
           "parameters": [
@@ -38113,7 +38405,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 872,
+          "line": 873,
           "methods": [],
           "name": "_drone_grid_transforms_match",
           "parameters": [
@@ -38150,7 +38442,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 890,
+          "line": 891,
           "methods": [],
           "name": "_validate_drone_tiff_ancillary_alignment",
           "parameters": [
@@ -38199,7 +38491,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 923,
+          "line": 924,
           "methods": [],
           "name": "_build_drone_tiff_map_info",
           "parameters": [
@@ -38230,7 +38522,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 971,
+          "line": 972,
           "methods": [],
           "name": "_coerce_acquisition_datetime",
           "parameters": [
@@ -38255,7 +38547,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 982,
+          "line": 983,
           "methods": [],
           "name": "_resolve_acquisition_datetime_timezone",
           "parameters": [
@@ -38286,7 +38578,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1005,
+          "line": 1006,
           "methods": [],
           "name": "_datetime_to_utc_naive",
           "parameters": [
@@ -38311,7 +38603,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1011,
+          "line": 1012,
           "methods": [],
           "name": "_drone_pixel_lon_lat",
           "parameters": [
@@ -38348,7 +38640,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1045,
+          "line": 1046,
           "methods": [],
           "name": "_compute_solar_geometry_arrays",
           "parameters": [
@@ -38385,7 +38677,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1101,
+          "line": 1102,
           "methods": [],
           "name": "_solar_geometry_stats",
           "parameters": [
@@ -38416,7 +38708,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1117,
+          "line": 1118,
           "methods": [],
           "name": "_write_solar_geometry_attrs",
           "parameters": [
@@ -38465,7 +38757,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1136,
+          "line": 1137,
           "methods": [],
           "name": "_drone_h5_metadata_group",
           "parameters": [
@@ -38490,7 +38782,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1142,
+          "line": 1143,
           "methods": [],
           "name": "_find_drone_solar_dataset",
           "parameters": [
@@ -38521,7 +38813,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1162,
+          "line": 1163,
           "methods": [],
           "name": "_summarize_h5_angle",
           "parameters": [
@@ -38546,7 +38838,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1191,
+          "line": 1192,
           "methods": [],
           "name": "_ensure_drone_working_h5_solar_aliases",
           "parameters": [
@@ -38573,7 +38865,7 @@
             "spectralbridge.pipelines.drone.summarize_drone_h5_solar_geometry"
           ],
           "kind": "function",
-          "line": 1220,
+          "line": 1221,
           "methods": [],
           "name": "summarize_drone_h5_solar_geometry",
           "parameters": [
@@ -38598,7 +38890,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1288,
+          "line": 1289,
           "methods": [],
           "name": "_circular_angle_difference",
           "parameters": [
@@ -38629,7 +38921,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1294,
+          "line": 1295,
           "methods": [],
           "name": "_circular_mean_h5_angle",
           "parameters": [
@@ -38654,7 +38946,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1319,
+          "line": 1320,
           "methods": [],
           "name": "_drone_h5_scene_center",
           "parameters": [
@@ -38679,7 +38971,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1345,
+          "line": 1346,
           "methods": [],
           "name": "_h5_angle_metadata",
           "parameters": [
@@ -38706,7 +38998,7 @@
             "spectralbridge.pipelines.drone.diagnose_drone_h5_solar_geometry"
           ],
           "kind": "function",
-          "line": 1356,
+          "line": 1357,
           "methods": [],
           "name": "diagnose_drone_h5_solar_geometry",
           "parameters": [
@@ -38755,7 +39047,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1500,
+          "line": 1501,
           "methods": [],
           "name": "_expected_h5_scene_center_solar",
           "parameters": [
@@ -38786,7 +39078,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1520,
+          "line": 1521,
           "methods": [],
           "name": "_write_repaired_h5_solar_geometry",
           "parameters": [
@@ -38817,7 +39109,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1619,
+          "line": 1620,
           "methods": [],
           "name": "_validate_and_repair_drone_working_h5_solar_geometry",
           "parameters": [
@@ -38872,7 +39164,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1775,
+          "line": 1776,
           "methods": [],
           "name": "_declared_drone_radiometry",
           "parameters": [
@@ -38897,7 +39189,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 1784,
+          "line": 1785,
           "methods": [],
           "name": "_read_drone_reflectance_tiff",
           "parameters": [
@@ -38930,7 +39222,7 @@
             "spectralbridge.pipelines.drone.convert_drone_tiff_to_h5"
           ],
           "kind": "function",
-          "line": 1821,
+          "line": 1822,
           "methods": [],
           "name": "convert_drone_tiff_to_h5",
           "parameters": [
@@ -39057,7 +39349,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2074,
+          "line": 2075,
           "methods": [],
           "name": "_resolve_drone_h5_source_encoding",
           "parameters": [
@@ -39088,7 +39380,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2087,
+          "line": 2088,
           "methods": [],
           "name": "_prepare_drone_source_working_h5",
           "parameters": [
@@ -39121,6 +39413,24 @@
               "default": "False",
               "kind": "keyword-only",
               "name": "overwrite"
+            },
+            {
+              "annotation": "dict[str, Any] | str | Path | None",
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "brightness_calibration"
+            },
+            {
+              "annotation": "dict[str, Any] | None",
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "camera_geometry"
+            },
+            {
+              "annotation": "dict[str, Any] | None",
+              "default": "None",
+              "kind": "keyword-only",
+              "name": "processing_mask"
             },
             {
               "annotation": "Sequence[float] | np.ndarray | None",
@@ -39190,7 +39500,7 @@
             }
           ],
           "path": "spectralbridge.pipelines.drone._prepare_drone_source_working_h5",
-          "signature": "_prepare_drone_source_working_h5(source_path: str | Path, *, source_type: str, working_path: str | Path, radiometry: dict[str, Any] | None=None, overwrite: bool=False, tiff_wavelengths_nm: Sequence[float] | np.ndarray | None=None, tiff_fwhm_nm: Sequence[float] | np.ndarray | None=None, tiff_solar_zenith_deg: float | None=None, tiff_solar_azimuth_deg: float | None=None, tiff_sensor_zenith_deg: float | None=None, tiff_sensor_azimuth_deg: float | None=None, acquisition_datetime: datetime | str | None=None, acquisition_timezone: str | None=None, acquisition_datetime_source: str | None=None, repair_solar_geometry: bool=False, require_solar_geometry: bool=False) -> tuple[Path, bool]",
+          "signature": "_prepare_drone_source_working_h5(source_path: str | Path, *, source_type: str, working_path: str | Path, radiometry: dict[str, Any] | None=None, overwrite: bool=False, brightness_calibration: dict[str, Any] | str | Path | None=None, camera_geometry: dict[str, Any] | None=None, processing_mask: dict[str, Any] | None=None, tiff_wavelengths_nm: Sequence[float] | np.ndarray | None=None, tiff_fwhm_nm: Sequence[float] | np.ndarray | None=None, tiff_solar_zenith_deg: float | None=None, tiff_solar_azimuth_deg: float | None=None, tiff_sensor_zenith_deg: float | None=None, tiff_sensor_azimuth_deg: float | None=None, acquisition_datetime: datetime | str | None=None, acquisition_timezone: str | None=None, acquisition_datetime_source: str | None=None, repair_solar_geometry: bool=False, require_solar_geometry: bool=False) -> tuple[Path, bool]",
           "summary": "",
           "summary_basis": "not documented"
         },
@@ -39203,7 +39513,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2264,
+          "line": 2288,
           "methods": [],
           "name": "_find_drone_reflectance_dataset",
           "parameters": [
@@ -39228,7 +39538,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2314,
+          "line": 2338,
           "methods": [],
           "name": "_dataset_has_recognised_nodata",
           "parameters": [
@@ -39253,7 +39563,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2318,
+          "line": 2342,
           "methods": [],
           "name": "_prepare_drone_h5_working_copy",
           "parameters": [
@@ -39292,7 +39602,7 @@
             "spectralbridge.pipelines.drone.resolve_band_map"
           ],
           "kind": "function",
-          "line": 2349,
+          "line": 2373,
           "methods": [],
           "name": "resolve_band_map",
           "parameters": [
@@ -39325,7 +39635,7 @@
             "spectralbridge.pipelines.drone.validate_drone_h5_metadata"
           ],
           "kind": "function",
-          "line": 2368,
+          "line": 2392,
           "methods": [],
           "name": "validate_drone_h5_metadata",
           "parameters": [
@@ -39346,11 +39656,42 @@
           "audience": "internal",
           "classification_reason": "Private/compatibility/CLI module or implementation utility",
           "docs_references": [],
+          "docstring": "",
+          "examples": [],
+          "exports": [],
+          "kind": "function",
+          "line": 2399,
+          "methods": [],
+          "name": "_validate_drone_cube_metadata",
+          "parameters": [
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "cube"
+            },
+            {
+              "annotation": null,
+              "default": null,
+              "kind": "positional-or-keyword",
+              "name": "h5_path"
+            }
+          ],
+          "path": "spectralbridge.pipelines.drone._validate_drone_cube_metadata",
+          "signature": "_validate_drone_cube_metadata(cube, h5_path)",
+          "summary": "",
+          "summary_basis": "not documented"
+        },
+        {
+          "attributes": [],
+          "audience": "internal",
+          "classification_reason": "Private/compatibility/CLI module or implementation utility",
+          "docs_references": [],
           "docstring": "Block ambiguous upstream conversions; never guess a compensating flip.",
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2403,
+          "line": 2431,
           "methods": [],
           "name": "_validate_drone_h5_spatial_metadata",
           "parameters": [
@@ -39375,7 +39716,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2442,
+          "line": 2470,
           "methods": [],
           "name": "_drone_envi_header",
           "parameters": [
@@ -39402,7 +39743,7 @@
             "spectralbridge.pipelines.drone.export_h5_to_envi"
           ],
           "kind": "function",
-          "line": 2465,
+          "line": 2499,
           "methods": [],
           "name": "export_h5_to_envi",
           "parameters": [
@@ -39453,7 +39794,7 @@
             "spectralbridge.pipelines.drone.build_drone_config"
           ],
           "kind": "function",
-          "line": 2547,
+          "line": 2581,
           "methods": [],
           "name": "build_drone_config",
           "parameters": [
@@ -39538,7 +39879,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2582,
+          "line": 2616,
           "methods": [],
           "name": "_has_required_ancillary",
           "parameters": [
@@ -39569,7 +39910,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2593,
+          "line": 2627,
           "methods": [],
           "name": "_chunk_has_any_valid_reflectance",
           "parameters": [
@@ -39600,7 +39941,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2604,
+          "line": 2638,
           "methods": [],
           "name": "_load_existing_drone_correction_flags",
           "parameters": [
@@ -39625,7 +39966,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2638,
+          "line": 2672,
           "methods": [],
           "name": "_call_with_supported_kwargs",
           "parameters": [
@@ -39662,7 +40003,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2664,
+          "line": 2698,
           "methods": [],
           "name": "apply_drone_corrections",
           "parameters": [
@@ -39753,7 +40094,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2973,
+          "line": 3018,
           "methods": [],
           "name": "_write_json",
           "parameters": [
@@ -39784,7 +40125,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2979,
+          "line": 3024,
           "methods": [],
           "name": "_remove_file_if_exists",
           "parameters": [
@@ -39809,7 +40150,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2987,
+          "line": 3032,
           "methods": [],
           "name": "_cleanup_envi_pair",
           "parameters": [
@@ -39840,7 +40181,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 2992,
+          "line": 3037,
           "methods": [],
           "name": "_write_drone_audit_json",
           "parameters": [
@@ -39865,7 +40206,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3004,
+          "line": 3049,
           "methods": [],
           "name": "_normalise_bounds",
           "parameters": [
@@ -39890,7 +40231,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3011,
+          "line": 3056,
           "methods": [],
           "name": "_normalise_transform",
           "parameters": [
@@ -39915,7 +40256,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3020,
+          "line": 3065,
           "methods": [],
           "name": "_crs_to_string",
           "parameters": [
@@ -39942,7 +40283,7 @@
             "spectralbridge.pipelines.drone.collect_drone_spatial_diagnostics"
           ],
           "kind": "function",
-          "line": 3031,
+          "line": 3076,
           "methods": [],
           "name": "collect_drone_spatial_diagnostics",
           "parameters": [
@@ -39975,7 +40316,7 @@
             "spectralbridge.pipelines.drone.save_drone_overlay_debug_plot"
           ],
           "kind": "function",
-          "line": 3096,
+          "line": 3141,
           "methods": [],
           "name": "save_drone_overlay_debug_plot",
           "parameters": [
@@ -40018,7 +40359,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3155,
+          "line": 3200,
           "methods": [],
           "name": "_build_polygon_pixel_index_for_raster",
           "parameters": [
@@ -40073,7 +40414,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3253,
+          "line": 3298,
           "methods": [],
           "name": "_merge_drone_polygon_outputs",
           "parameters": [
@@ -40110,7 +40451,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3282,
+          "line": 3327,
           "methods": [],
           "name": "_enrich_drone_polygon_parquet_with_index",
           "parameters": [
@@ -40147,7 +40488,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3352,
+          "line": 3397,
           "methods": [],
           "name": "_export_csv_copy_from_parquet",
           "parameters": [
@@ -40184,7 +40525,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3387,
+          "line": 3432,
           "methods": [],
           "name": "_try_export_csv_copy_from_parquet",
           "parameters": [
@@ -40227,7 +40568,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3415,
+          "line": 3460,
           "methods": [],
           "name": "_drone_status_color",
           "parameters": [
@@ -40252,7 +40593,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3427,
+          "line": 3472,
           "methods": [],
           "name": "_supports_ansi",
           "parameters": [
@@ -40277,7 +40618,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3431,
+          "line": 3476,
           "methods": [],
           "name": "_colorize_drone_message",
           "parameters": [
@@ -40308,7 +40649,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3440,
+          "line": 3485,
           "methods": [],
           "name": "_drone_emit",
           "parameters": [
@@ -40339,7 +40680,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3451,
+          "line": 3496,
           "methods": [],
           "name": "_format_elapsed",
           "parameters": [
@@ -40364,7 +40705,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3461,
+          "line": 3506,
           "methods": [],
           "name": "_format_eta",
           "parameters": [
@@ -40395,7 +40736,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3468,
+          "line": 3513,
           "methods": [],
           "name": "_classify_drone_exception",
           "parameters": [
@@ -40420,7 +40761,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3475,
+          "line": 3520,
           "methods": [],
           "name": "_scientific_qa_status",
           "parameters": [
@@ -40445,7 +40786,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3492,
+          "line": 3537,
           "methods": [],
           "name": "_has_drone_qa_inputs",
           "parameters": [
@@ -40470,7 +40811,7 @@
           "examples": [],
           "exports": [],
           "kind": "function",
-          "line": 3498,
+          "line": 3543,
           "methods": [],
           "name": "_reconcile_drone_completion",
           "parameters": [
@@ -40527,7 +40868,7 @@
           "audience": "public",
           "classification_reason": "Explicit package/subpackage export",
           "docs_references": [],
-          "docstring": "Run the drone pipeline from local HDF5 or reflectance TIFF sources.\n\nParameters\n----------\ninput_h5_dir : str | Path\n    Existing local supported HDF5/TIFF file or directory; discovery recurses through source packages.\npolygon_path : str | Path | None, default=None\n    Existing polygon vector dataset for extraction; coordinates are handled by the established polygon workflow.\noutput_dir : str | Path, default='.'\n    Directory for generated products; bulk outputs must be outside the read-only input tree.\napply_topo : bool, default=True\n    Request topographic correction with verified physical radiometry and required terrain/solar geometry. Applied status is not independent physical validation.\napply_brdf : bool, default=True\n    Request BRDF correction with verified radiometry and supported angular rank, conditioning and predictions. Unsupported requests are scientifically blocked; False explicitly records NOT_REQUESTED.\nuse_ndvi_brdf_bins : bool, default=False\n    Opt into the existing NDVI-stratified BRDF fitting behavior rather than the default fit.\napply_brightness_adjustment : bool, default=False\n    Opt into the established brightness adjustment; does not change the packaged coefficients.\nradiometry : dict[str, Any] | None, default=None\n    Authoritative affine record or verified typed source encoding. Embedded declarations, checksum-bound sidecars and exact known source fingerprints are recognized automatically; value ranges and identity TIFF scale tags are insufficient. Source H5 records remain immutable; provide different flight calibrations in separate calls.\noverwrite : bool, default=False\n    Replace existing requested products; False preserves reusable products or rejects a conflicting destination.\ntiff_wavelengths_nm : Sequence[float] | np.ndarray | None, default=None\n    Explicit per-band center wavelengths in nanometers for TIFF inputs lacking embedded spectral metadata; must match band order/count.\ntiff_fwhm_nm : Sequence[float] | np.ndarray | None, default=None\n    Per-band full widths at half maximum in nanometers, aligned with TIFF bands; None uses supported metadata.\ntiff_solar_zenith_deg : float | None, default=None\n    Explicit TIFF solar zenith in degrees when valid embedded metadata are unavailable.\ntiff_solar_azimuth_deg : float | None, default=None\n    Explicit TIFF solar azimuth in degrees when valid embedded metadata are unavailable.\ntiff_sensor_zenith_deg : float | None, default=None\n    Explicit TIFF view zenith in degrees when valid embedded metadata are unavailable.\ntiff_sensor_azimuth_deg : float | None, default=None\n    Explicit TIFF view azimuth in degrees when valid embedded metadata are unavailable.\ndrone_manifest_path : str | Path | None, default=None\n    Existing flight manifest providing acquisition identity/time; None uses supported discovery or embedded metadata.\ndrone_manifest_timezone : str | None, default='UTC'\n    Timezone used to interpret manifest acquisition times; the default is UTC.\nrequire_solar_geometry : bool, default=True\n    Require scientifically usable solar geometry before correction rather than silently proceeding without it.\nextraction_mode : str | None, default=None\n    'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.\nparquet_chunk_size : int, default=2048\n    Positive pixel/window processing budget for bounded extraction; the default and interpretation follow the selected producer.\nmerge_extractions : bool, default=False\n    Explicit opt-in to legacy campaign-wide pixel-table merging; normal bulk consumers use separate completed flights.\napply_translation : bool, default=False\n    Create separate Landsat-like application products using the reviewed coefficient registry; does not overwrite corrected native MicaSense.\ntranslation_coefficients : str | Path | None, default=None\n    Optional reviewed registry JSON path; None uses the packaged static coefficient set.\ntranslation_weighting : str | None, default=None\n    Optional reviewed weighting selection; normal production uses the predetermined site-balanced weighting.\ntranslation_strict : bool, default=False\n    Treat unsupported/flagged translation conditions as blocking rather than returning the configured non-strict status.\nlandsat_qa : bool, default=False\n    Enable actual Landsat comparison QA for translated products; requires apply_translation=True and appropriate data/dependencies.\nlandsat_product : str | Path | None, default=None\n    Optional existing actual Landsat product for independent comparison; None permits the documented search path.\nlandsat_search_days : int, default=16\n    Nonnegative acquisition-date search radius in days for actual Landsat comparison.\ncomparison_neon_product : str | Path | None, default=None\n    Optional independent NEON product for common-support comparison QA.\nraise_on_incomplete : bool, default=True\n    Raise DronePipelineIncompleteError when flights fail or are scientifically blocked; its results attribute retains structured status.\nsolar_qa_timezone : str | None, default=None\n    Optional timezone override for solar-geometry QA; None follows the existing metadata/timezone resolution.\n\nReturns\n-------\ndict[str, Any]\n    Per-flight processed/reused/failed/blocked outcomes and QA/output paths; incomplete runs normally raise with this payload attached.\n\nRaises\n------\nDroneCorrectionUnavailableError\n    If scientifically required correction inputs cannot be validated.\nDronePipelineIncompleteError\n    If any requested flight is incomplete and raise_on_incomplete is True; inspect the attached results.\nValueError\n    If the supplied options, dimensions, support or provenance violate the input contract.\n\nNotes\n-----\n``extraction_mode=\"full\"`` writes a full-pixel Parquet table from the\ncorrected drone ENVI product. ``\"polygon\"`` uses ``polygon_path`` and the\nexisting polygon extraction path. The default preserves historical\nbehavior: polygon mode when polygons are supplied, otherwise QA-only.\nPer-flight extraction products remain separate by default;\n``merge_extractions=True`` opts into legacy campaign-wide pixel-table\nmaterialization. Bulk analysis does not require that merge.\nTranslation is opt-in and consumes a versioned packaged registry by default,\nor an explicitly supplied reviewed bulk artifact. The predetermined\nproduction weighting is site-balanced. It creates separate Landsat-like\nproducts; corrected native MicaSense is never overwritten.\nBy default an incomplete run raises :class:`DronePipelineIncompleteError`\nwith the structured result available as ``exc.results``.\n\nSee Also\n--------\nspectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.\n\nExamples\n--------\nRequires an existing supported source tree with usable spectral/spatial/solar metadata. Choose a separate output directory.\n\n>>> from spectralbridge import run_drone_pipeline\n>>> result = run_drone_pipeline(input_h5_dir=source_dir, output_dir=output_dir)  # doctest: +SKIP",
+          "docstring": "Run the drone pipeline from local HDF5 or reflectance TIFF sources.\n\nParameters\n----------\ninput_h5_dir : str | Path\n    Existing local supported HDF5/TIFF file or directory; discovery recurses through source packages.\npolygon_path : str | Path | None, default=None\n    Existing polygon vector dataset for extraction; coordinates are handled by the established polygon workflow.\noutput_dir : str | Path, default='.'\n    Directory for generated products; bulk outputs must be outside the read-only input tree.\napply_topo : bool, default=True\n    Request topographic correction with verified physical radiometry and required terrain/solar geometry. Applied status is not independent physical validation.\napply_brdf : bool, default=True\n    Request BRDF correction with verified radiometry and supported angular rank, conditioning and predictions. Unsupported requests are scientifically blocked; False explicitly records NOT_REQUESTED.\nuse_ndvi_brdf_bins : bool, default=False\n    Opt into the existing NDVI-stratified BRDF fitting behavior rather than the default fit.\napply_brightness_adjustment : bool, default=False\n    Opt into the established brightness adjustment; does not change the packaged coefficients.\nradiometry : dict[str, Any] | None, default=None\n    Authoritative affine record or verified typed source encoding. Embedded declarations, checksum-bound sidecars and exact known source fingerprints are recognized automatically; value ranges and identity TIFF scale tags are insufficient. Source H5 records remain immutable; provide different flight calibrations in separate calls.\noverwrite : bool, default=False\n    Replace existing requested products; False preserves reusable products or rejects a conflicting destination.\ntiff_wavelengths_nm : Sequence[float] | np.ndarray | None, default=None\n    Explicit per-band center wavelengths in nanometers for TIFF inputs lacking embedded spectral metadata; must match band order/count.\ntiff_fwhm_nm : Sequence[float] | np.ndarray | None, default=None\n    Per-band full widths at half maximum in nanometers, aligned with TIFF bands; None uses supported metadata.\ntiff_solar_zenith_deg : float | None, default=None\n    Explicit TIFF solar zenith in degrees when valid embedded metadata are unavailable.\ntiff_solar_azimuth_deg : float | None, default=None\n    Explicit TIFF solar azimuth in degrees when valid embedded metadata are unavailable.\ntiff_sensor_zenith_deg : float | None, default=None\n    Explicit TIFF view zenith in degrees when valid embedded metadata are unavailable.\ntiff_sensor_azimuth_deg : float | None, default=None\n    Explicit TIFF view azimuth in degrees when valid embedded metadata are unavailable.\ndrone_manifest_path : str | Path | None, default=None\n    Existing flight manifest providing acquisition identity/time; None uses supported discovery or embedded metadata.\ndrone_manifest_timezone : str | None, default='UTC'\n    Timezone used to interpret manifest acquisition times; the default is UTC.\nrequire_solar_geometry : bool, default=True\n    Require scientifically usable solar geometry before correction rather than silently proceeding without it.\nextraction_mode : str | None, default=None\n    'full' writes pixel Parquet, 'polygon' requires polygons; None preserves the entry point's documented default extraction behavior.\nparquet_chunk_size : int, default=2048\n    Positive pixel/window processing budget for bounded extraction; the default and interpretation follow the selected producer.\nmerge_extractions : bool, default=False\n    Explicit opt-in to legacy campaign-wide pixel-table merging; normal bulk consumers use separate completed flights.\napply_translation : bool, default=False\n    Create separate Landsat-like application products using the reviewed coefficient registry; does not overwrite corrected native MicaSense.\ntranslation_coefficients : str | Path | None, default=None\n    Optional reviewed registry JSON path; None uses the packaged static coefficient set.\ntranslation_weighting : str | None, default=None\n    Optional reviewed weighting selection; normal production uses the predetermined site-balanced weighting.\ntranslation_strict : bool, default=False\n    Treat unsupported/flagged translation conditions as blocking rather than returning the configured non-strict status.\nlandsat_qa : bool, default=False\n    Enable actual Landsat comparison QA for translated products; requires apply_translation=True and appropriate data/dependencies.\nlandsat_product : str | Path | None, default=None\n    Optional existing actual Landsat product for independent comparison; None permits the documented search path.\nlandsat_search_days : int, default=16\n    Nonnegative acquisition-date search radius in days for actual Landsat comparison.\ncomparison_neon_product : str | Path | None, default=None\n    Optional independent NEON product for common-support comparison QA.\nraise_on_incomplete : bool, default=True\n    Raise DronePipelineIncompleteError when flights fail or are scientifically blocked; its results attribute retains structured status.\nbrightness_calibration : dict or path, optional\n    Reviewed per-flight gain/offset JSON bound to source SHA-256 and wavelengths. Composes source decoding once; original source bytes are unchanged.\ncamera_geometry : dict, optional\n    Explicit camera CSV, same-grid surface, assignment policy, height datum and provenance. Nearest-camera scenarios require acknowledgement and remain labelled as assumptions.\nprocessing_mask : dict, optional\n    Same-grid categorical exclusion mask with explicit keep value/codes and provenance; applies to fitting and application without changing source pixels.\ntranslation_target_sensors : sequence of str, optional\n    Explicit complete target subset from the reviewed translation registry.\ntranslation_naming_style : str, default='legacy'\n    Existing legacy or opt-in MicaSense delivery naming helper.\ntranslation_output_scale_factor : float, default=1.0\n    Positive storage multiplier for translated fractional reflectance; physical units remain explicit in headers.\nsolar_qa_timezone : str | None, default=None\n    Optional timezone override for solar-geometry QA; None follows the existing metadata/timezone resolution.\n\nReturns\n-------\ndict[str, Any]\n    Per-flight processed/reused/failed/blocked outcomes and QA/output paths; incomplete runs normally raise with this payload attached.\n\nRaises\n------\nDroneCorrectionUnavailableError\n    If scientifically required correction inputs cannot be validated.\nDronePipelineIncompleteError\n    If any requested flight is incomplete and raise_on_incomplete is True; inspect the attached results.\nValueError\n    If the supplied options, dimensions, support or provenance violate the input contract.\n\nNotes\n-----\n``extraction_mode=\"full\"`` writes a full-pixel Parquet table from the\ncorrected drone ENVI product. ``\"polygon\"`` uses ``polygon_path`` and the\nexisting polygon extraction path. The default preserves historical\nbehavior: polygon mode when polygons are supplied, otherwise QA-only.\nPer-flight extraction products remain separate by default;\n``merge_extractions=True`` opts into legacy campaign-wide pixel-table\nmaterialization. Bulk analysis does not require that merge.\nTranslation is opt-in and consumes a versioned packaged registry by default,\nor an explicitly supplied reviewed bulk artifact. The predetermined\nproduction weighting is site-balanced. It creates separate Landsat-like\nproducts; corrected native MicaSense is never overwritten.\nBy default an incomplete run raises :class:`DronePipelineIncompleteError`\nwith the structured result available as ``exc.results``.\n\nSee Also\n--------\nspectralbridge.pipelines.pipeline.process_one_flightline : Related source-derived API contract.\n\nExamples\n--------\nRequires an existing supported source tree with usable spectral/spatial/solar metadata. Choose a separate output directory.\n\n>>> from spectralbridge import run_drone_pipeline\n>>> result = run_drone_pipeline(input_h5_dir=source_dir, output_dir=output_dir)  # doctest: +SKIP",
           "examples": [
             "examples/release_candidate_smoke.py",
             "examples/run_drone_pipeline.py"
@@ -40538,7 +40879,7 @@
             "spectralbridge.pipelines.drone.run_drone_pipeline"
           ],
           "kind": "function",
-          "line": 3615,
+          "line": 3662,
           "methods": [],
           "name": "run_drone_pipeline",
           "parameters": [
@@ -40727,16 +41068,52 @@
               "default": "None",
               "kind": "positional-or-keyword",
               "name": "radiometry"
+            },
+            {
+              "annotation": "dict[str, Any] | str | Path | None",
+              "default": "None",
+              "kind": "positional-or-keyword",
+              "name": "brightness_calibration"
+            },
+            {
+              "annotation": "dict[str, Any] | None",
+              "default": "None",
+              "kind": "positional-or-keyword",
+              "name": "camera_geometry"
+            },
+            {
+              "annotation": "dict[str, Any] | None",
+              "default": "None",
+              "kind": "positional-or-keyword",
+              "name": "processing_mask"
+            },
+            {
+              "annotation": "Sequence[str] | None",
+              "default": "None",
+              "kind": "positional-or-keyword",
+              "name": "translation_target_sensors"
+            },
+            {
+              "annotation": "str",
+              "default": "'legacy'",
+              "kind": "positional-or-keyword",
+              "name": "translation_naming_style"
+            },
+            {
+              "annotation": "float",
+              "default": "1.0",
+              "kind": "positional-or-keyword",
+              "name": "translation_output_scale_factor"
             }
           ],
           "path": "spectralbridge.pipelines.drone.run_drone_pipeline",
-          "signature": "run_drone_pipeline(input_h5_dir: str | Path, polygon_path: str | Path | None=None, output_dir: str | Path='.', apply_topo: bool=True, apply_brdf: bool=True, use_ndvi_brdf_bins: bool=False, apply_brightness_adjustment: bool=False, overwrite: bool=False, tiff_wavelengths_nm: Sequence[float] | np.ndarray | None=None, tiff_fwhm_nm: Sequence[float] | np.ndarray | None=None, tiff_solar_zenith_deg: float | None=None, tiff_solar_azimuth_deg: float | None=None, tiff_sensor_zenith_deg: float | None=None, tiff_sensor_azimuth_deg: float | None=None, drone_manifest_path: str | Path | None=None, drone_manifest_timezone: str | None='UTC', require_solar_geometry: bool=True, extraction_mode: str | None=None, parquet_chunk_size: int=2048, merge_extractions: bool=False, apply_translation: bool=False, translation_coefficients: str | Path | None=None, translation_weighting: str | None=None, translation_strict: bool=False, landsat_qa: bool=False, landsat_product: str | Path | None=None, landsat_search_days: int=16, comparison_neon_product: str | Path | None=None, raise_on_incomplete: bool=True, solar_qa_timezone: str | None=None, radiometry: dict[str, Any] | None=None) -> dict[str, Any]",
+          "signature": "run_drone_pipeline(input_h5_dir: str | Path, polygon_path: str | Path | None=None, output_dir: str | Path='.', apply_topo: bool=True, apply_brdf: bool=True, use_ndvi_brdf_bins: bool=False, apply_brightness_adjustment: bool=False, overwrite: bool=False, tiff_wavelengths_nm: Sequence[float] | np.ndarray | None=None, tiff_fwhm_nm: Sequence[float] | np.ndarray | None=None, tiff_solar_zenith_deg: float | None=None, tiff_solar_azimuth_deg: float | None=None, tiff_sensor_zenith_deg: float | None=None, tiff_sensor_azimuth_deg: float | None=None, drone_manifest_path: str | Path | None=None, drone_manifest_timezone: str | None='UTC', require_solar_geometry: bool=True, extraction_mode: str | None=None, parquet_chunk_size: int=2048, merge_extractions: bool=False, apply_translation: bool=False, translation_coefficients: str | Path | None=None, translation_weighting: str | None=None, translation_strict: bool=False, landsat_qa: bool=False, landsat_product: str | Path | None=None, landsat_search_days: int=16, comparison_neon_product: str | Path | None=None, raise_on_incomplete: bool=True, solar_qa_timezone: str | None=None, radiometry: dict[str, Any] | None=None, brightness_calibration: dict[str, Any] | str | Path | None=None, camera_geometry: dict[str, Any] | None=None, processing_mask: dict[str, Any] | None=None, translation_target_sensors: Sequence[str] | None=None, translation_naming_style: str='legacy', translation_output_scale_factor: float=1.0) -> dict[str, Any]",
           "summary": "Run the drone pipeline from local HDF5 or reflectance TIFF sources.",
           "summary_basis": "source docstring"
         }
       ],
       "path": "src/spectralbridge/pipelines/drone.py",
-      "sha256": "f6e3e50fc93e1ca6accc0351e82619ba0057d2277f8a79c085f388f8b8ca6ee8"
+      "sha256": "164959f517021877cfde9aa31fb5a07f43f26e05378b907492bd12cd7578c392"
     },
     {
       "area": "pipelines",

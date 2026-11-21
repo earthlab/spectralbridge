@@ -27,8 +27,11 @@ def test_fixed_type_range_preserves_nonzero_minima_and_source_validity(
     dest = tmp_path / "derived.tif"
     data = np.full((11, source_size, source_size), 174, np.uint16)
     data[10] = 65535
-    data[:10, 0, 0] = 65535
-    data[10, 0, 0] = 0
+    # Cover the entire first target pixel. A single invalid 5cm source pixel
+    # does not imply an invalid 10cm nearest-neighbor footprint on every GDAL.
+    invalid_size = round(0.1 / source_resolution)
+    data[:10, :invalid_size, :invalid_size] = 65535
+    data[10, :invalid_size, :invalid_size] = 0
     data[:10, -1, -1] = 0  # legitimate observed zero
     transform = from_origin(500000, 4400000, source_resolution, source_resolution)
     with rasterio.open(

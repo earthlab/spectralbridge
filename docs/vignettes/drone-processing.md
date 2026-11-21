@@ -613,3 +613,62 @@ pairs, verify 842 nm only where appropriate, and read Parquet reflectance-unit
 metadata. A plausible-looking histogram alone cannot verify calibration. The small
 checksum-protected Ruby fixture in `tests/data/drone_radiometry/` checks the production
 TIFF → H5 → ENVI → polygon Parquet path without accessing a full project or network.
+
+## Full CyVerse VM campaign (November 2026)
+
+Use [drone_cyverse_production.ipynb](https://github.com/earthlab/spectralbridge/blob/main/examples/drone_cyverse_production.ipynb)
+from the matching checkout inside the VM. It inventories the manifest, stages one
+package at a time, binds reviewed source/calibration/camera contracts, runs the
+public drone producer through translation, extraction and QA, and uploads only a
+complete population. Start with a one-flight pilot. The separate
+[readiness notebook](https://github.com/earthlab/spectralbridge/blob/main/examples/drone_cyverse_readiness.ipynb)
+helps inventory camera tables and prepare declarations. Historical notebooks and
+original sources remain preserved.
+
+`run_drone_pipeline` accepts these additive, per-flight options:
+
+- `brightness_calibration`: reviewed JSON path or record with source SHA-256,
+  flight ID, wavelength order, calibration identity/provenance and per-band gain
+  and offset. The equation is `calibrated = gain * decoded + offset`; offsets
+  are fractional reflectance. Source decoding composes once on a working copy.
+  The legacy `apply_brightness_adjustment` flag alone is not a JSON hook.
+- `camera_geometry`: camera CSV, same-grid surface and explicit assignment policy,
+  height-datum provenance and maximum view zenith. `reviewed_index` uses a raster
+  of original zero-based camera rows (`-1` unknown). An explicitly acknowledged
+  `nearest_camera_scenario` uses positions only and keeps an UNKNOWN-contributors
+  warning. CRS overrides require independent evidence. Invalid geometry is
+  excluded, never replaced with nadir angles.
+- `processing_mask`: same-grid mask with explicit keep value, allowed codes and
+  provenance. It affects fitting and application, retaining original pixels and
+  source validity separately. No shade threshold is selected automatically.
+- `translation_target_sensors`, `translation_naming_style` and
+  `translation_output_scale_factor`: select a reviewed registry subset, existing
+  naming helper and storage multiplier. Legacy naming and fractional storage
+  remain the public defaults; the VM notebook explicitly selects OLI/OLI2,
+  `micasense` names and fractional reflectance multiplied by1000.
+
+The camera geometry and mask are written in bounded rows to derived H5 metadata;
+new-mode correction application uses bounded strips. The existing producer still
+loads one flight's reflectance cube in memory, so VM RAM must accommodate it plus
+correction and QA arrays. Changed coefficients/camera/masks invalidate downstream
+stages; changed fit identities preserve prior model JSON in separate model
+folders. The VM runner gives changed declarations/implementation fresh output
+roots, preserving old calibrated products. Normal bulk analysis is not invoked
+and no pixel-scale bulk cache is introduced.
+
+The notebook stages original camera files from explicitly associated original-year
+collections, separately from 10cm/10k raster derivatives. It checks the original
+H5 SHA-256 and exact retained TIFF/H5 values; the execution calibration records
+that unchanged-value source derivation. Provider files are preserved. Actual
+camera contributors, vertical/pose conventions, clock/timezone, Goldhill CRS
+interpretation and all-year coverage still require per-flight evidence. The
+existing approved correction/model gates remain in force; frozen experimental
+adapters and the three-site10% mask are not silently promoted to production.
+
+Uploads use dedicated identity-named collections under `spectralbridge_processed`.
+Every payload file receives transfer checksum verification and a full remote
+SHA-256 readback, one temporary object at a time on persistent VM storage. Only
+then is `completion/campaign_complete.json` uploaded and itself read back. Changed
+payloads receive different destinations, so an old completion marker cannot
+certify partially replaced data. Pilot scope, caution statuses and failed flights
+remain explicit; byte verification does not establish scientific accuracy.

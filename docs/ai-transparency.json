@@ -1,11 +1,11 @@
 {
   "ai_systems": {
     "Cursor Agent": 40,
-    "OpenAI Codex": 404
+    "OpenAI Codex": 408
   },
   "branches": {
     "$(git branch --show-current 2>/dev/null || echo unknown)": 1,
-    "main": 432,
+    "main": 436,
     "unknown": 7,
     "work": 4
   },
@@ -17,10 +17,10 @@
     "tool_mentions": {
       "Browser / Playwright": 11,
       "Docker / containers": 4,
-      "Git / GitHub": 45,
+      "Git / GitHub": 46,
       "Lean / Lake": 1,
       "MkDocs": 15,
-      "Notebooks / Jupyter": 64,
+      "Notebooks / Jupyter": 65,
       "Python": 48,
       "Ruff": 18,
       "pytest": 33
@@ -36,11 +36,11 @@
       "Visual inspection": 52
     },
     "workflow_mentions": {
-      "Audit / investigation": 101,
+      "Audit / investigation": 102,
       "Documentation / reporting": 110,
-      "Implementation / refactoring": 109,
+      "Implementation / refactoring": 110,
       "Reproducibility / provenance": 67,
-      "Scientific analysis / figures": 180
+      "Scientific analysis / figures": 181
     }
   },
   "method": {
@@ -177,23 +177,23 @@
     "GPT-5": 36,
     "GPT-5 family (exact deployment identifier not exposed)": 7,
     "GPT-6": 26,
-    "Not recorded": 375
+    "Not recorded": 379
   },
   "primary_intents": {
     "Audit or investigation": 42,
-    "Execution or verification": 76,
-    "Implementation or modification": 204,
-    "Other or mixed": 122
+    "Execution or verification": 77,
+    "Implementation or modification": 205,
+    "Other or mixed": 124
   },
   "primary_topics": {
-    "Data and metadata handling": 44,
+    "Data and metadata handling": 45,
     "Documentation and website": 27,
     "Drone and UAS workflow": 26,
-    "Other": 74,
+    "Other": 75,
     "Publication, packaging, release, and governance": 33,
     "QA and visualization": 75,
-    "Scientific pipeline and corrections": 106,
-    "Testing and CI": 59
+    "Scientific pipeline and corrections": 107,
+    "Testing and CI": 60
   },
   "prompts_by_month": {
     "2026-03": 9,
@@ -203,24 +203,24 @@
     "2026-08": 87,
     "2026-09": 49,
     "2026-10": 86,
-    "2026-11": 97
+    "2026-11": 101
   },
   "schema_version": 2,
   "source": {
     "data_through": "2026-11-20",
     "path": "PROMPT_LOG.md",
-    "sha256": "18d1aa7de26f2945c691ae169784f8a0f2362b4f4018b230412ad7aef079e56a"
+    "sha256": "cfc2b5e819d6d4e8d8b7a42e20bc1f8eea57329d046a2e2f8e6c7d9e6fa58550"
   },
   "summary": {
     "entries_with_recorded_model": 69,
     "first_prompt_date": "2026-03-21",
     "last_prompt_date": "2026-11-20",
     "maximum_prompt_words": 9193,
-    "mean_prompt_words": 436.1,
+    "mean_prompt_words": 432.6,
     "median_prompt_words": 31.5,
     "minimum_prompt_words": 1,
-    "model_metadata_coverage_pct": 15.5,
-    "prompt_count": 444,
-    "total_prompt_words": 193615
+    "model_metadata_coverage_pct": 15.4,
+    "prompt_count": 448,
+    "total_prompt_words": 193817
   }
 }
